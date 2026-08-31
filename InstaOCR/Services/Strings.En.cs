@@ -1,0 +1,130 @@
+using System;
+using System.Collections.Generic;
+
+namespace InstaOCR.Services;
+
+/// <summary>
+/// The interface strings, one table per language. English is the canonical set: every key exists
+/// here, and <see cref="Loc.Get(string)"/> falls back to this table for anything a translation is
+/// missing.
+/// </summary>
+internal static partial class Strings
+{
+    internal static readonly Dictionary<string, string> En = new(StringComparer.Ordinal)
+    {
+        // Engine status, shown next to the title
+        ["Engine_NoLanguagePack"] = "Windows OCR · no language pack",
+        ["Engine_OneLanguage"] = "Windows OCR · 1 language",
+        ["Engine_ManyLanguages"] = "Windows OCR · {0} languages",
+        ["Engine_OnDevice"] = "{0} · on-device",
+
+        // Image pane
+        ["Preview_Placeholder"] = "Drop an image here, or use File, Capture or Clipboard below",
+        ["Btn_CopyImage"] = "Copy",
+        ["Tip_CopyImage"] = "Copy the image to the clipboard",
+        ["Btn_SaveImage"] = "Save",
+        ["Tip_SaveImage"] = "Save the image as…",
+        ["Btn_FitToWindow"] = "Fit",
+        ["Tip_FitToWindow"] = "Zoom to fit the window",
+        ["Tip_ActualSize"] = "Actual pixel size",
+
+        // Text pane
+        ["Voice_Placeholder"] = "Voice",
+        ["Tip_Voice"] = "Voice used for reading aloud",
+        ["Tip_Speak"] = "Read the text aloud",
+        ["Tip_StopSpeak"] = "Stop reading",
+        ["Tip_CopyText"] = "Copy the text (Ctrl+Shift+C)",
+        ["Btn_RemoveLineBreaks"] = "Unwrap",
+        ["Tip_RemoveLineBreaks"] = "Merge hard line breaks back into paragraphs",
+        ["Btn_RemoveSpaces"] = "No spaces",
+        ["Tip_RemoveSpaces"] = "Remove every space, for Chinese, Japanese and Korean",
+        ["Result_Placeholder"] = "The recognized text appears here, and can be edited.",
+
+        // Action bar
+        ["Btn_OpenFile"] = "File",
+        ["Tip_OpenFile"] = "Open an image file (Ctrl+O)",
+        ["Btn_Capture"] = "Capture",
+        ["Tip_Capture"] = "Select a screen region and recognize it ({0}). Press Ctrl+Shift+R for the whole screen.",
+        ["Hotkey_Unavailable"] = "no shortcut — another app has taken both",
+        ["Btn_Paste"] = "Clipboard",
+        ["Tip_Paste"] = "Load an image or text from the clipboard (Ctrl+V)",
+        ["Btn_History"] = "History",
+        ["Tip_History"] = "Recent results",
+        ["History_Empty"] = "Nothing recognized yet.",
+        ["History_EmptyPreview"] = "(empty)",
+        ["Tip_Settings"] = "Options",
+        ["Settings_Header"] = "Options",
+        ["Setting_UiLanguage"] = "App language",
+        ["Lang_SystemDefault"] = "System default",
+        ["Setting_RepairNumbers"] = "Fix l and I inside numbers",
+        ["Setting_RepairNumbers_Desc"] = "Recognizers routinely read v1.6.5 as vl.6.5. When this is on, an l or I becomes a 1 only where a separator and a digit sit beside it, so html5 and IPv6 are left alone. When it is off, the engine's own reading is kept exactly as it came back.",
+        ["Common_On"] = "On",
+        ["Common_Off"] = "Off",
+        ["Lang_Placeholder"] = "Language",
+        ["Tip_OcrLanguage"] = "Recognition language, from the language packs Windows has installed",
+        ["Btn_Translate"] = "Translate",
+        ["Tip_Translate"] = "Translate on this device — nothing is sent over the network",
+        ["Btn_Barcode"] = "Codes",
+        ["Tip_Barcode"] = "Read QR codes and barcodes in the image",
+        ["Btn_Recognize"] = "Recognize",
+        ["Tip_Recognize"] = "Recognize the text in the image (F5)",
+
+        // Recognition-language choices the app adds itself
+        ["Option_AutoAi"] = "Automatic (Windows AI)",
+        ["Option_AutoMulti"] = "Automatic (multi-language · slower)",
+
+        // Status messages
+        ["Status_Loaded"] = "Loaded {0}.",
+        ["Status_OpenFailed"] = "Could not open the image: {0}",
+        ["Status_ClipboardText"] = "Loaded text from the clipboard.",
+        ["Status_ClipboardEmpty"] = "The clipboard holds no image and no text.",
+        ["Status_ClipboardFailed"] = "Could not read the clipboard: {0}",
+        ["Status_DropFailed"] = "Could not use what was dropped: {0}",
+        ["Status_ImageCopied"] = "Image copied to the clipboard.",
+        ["Status_ImageCopyFailed"] = "Could not copy the image: {0}",
+        ["Status_ImageSaved"] = "Image saved as {0}.",
+        ["Status_ImageSaveFailed"] = "Could not save the image: {0}",
+        ["Status_Recognizing"] = "Recognizing…",
+        ["Status_NoText"] = "{0} found no text in this image.",
+        ["Status_Done"] = "Done ({0}).",
+        ["Status_DoneConfidence"] = "Done ({0}) · average confidence {1}%.",
+        ["Status_RecognizeFailed"] = "Recognition failed: {0}",
+        ["Status_Scanning"] = "Looking for QR codes and barcodes…",
+        ["Status_NoBarcode"] = "No QR code or barcode found in this image.",
+        ["Status_BarcodeOne"] = "Found one {0} code.",
+        ["Status_BarcodeMany"] = "Found {0} codes.",
+        ["Status_ScanFailed"] = "The scan failed: {0}",
+        ["Status_NothingToTranslate"] = "There is no text to translate.",
+        ["Status_Translating"] = "Translating into {0} on this device…",
+        ["Status_Translated"] = "Translated into {0}, on this device, with no network access.",
+        ["Status_TranslateFailed"] = "Translation failed: {0}",
+        ["Status_NothingToCopy"] = "There is no text to copy.",
+        ["Status_TextCopied"] = "Text copied to the clipboard.",
+        ["Status_CopyFailed"] = "Could not copy the text: {0}",
+        ["Status_NothingToSpeak"] = "There is no text to read aloud.",
+        ["Status_SpeakFailed"] = "Could not read the text aloud: {0}",
+        ["Status_HistoryLoaded"] = "Showing the result from {0}.",
+        ["Status_NeedImage"] = "Load an image first.",
+        ["Status_CaptureFailed"] = "The screen capture failed: {0}",
+        ["Status_LanguagePackMissing"] = "Windows has no OCR language pack installed, so there is nothing to recognize with. Add the language you need under Time & language, then Language & region.",
+        ["Btn_OpenLanguageSettings"] = "Open language settings",
+
+        // Where an image came from — used in the history list and in status text
+        ["Source_Clipboard"] = "the clipboard image",
+        ["Source_Dropped"] = "the dropped image",
+        ["Source_FullScreen"] = "Full screen",
+        ["Source_Region"] = "Screen region",
+        ["Source_Codes"] = "{0} (codes)",
+
+        ["FileType_Image"] = "{0} image",
+
+        // Region-capture overlay
+        ["Region_Hint"] = "Drag to select an area　·　Esc or right-click to cancel",
+
+        // Failures raised from the services
+        ["Err_NoLanguagePack"] = "Windows has no OCR language pack installed for this language. Add one under Time & language, then Language & region.",
+        ["Err_TextTooLong"] = "The text is too long for the on-device model. Translate a smaller piece of it.",
+        ["Err_ModelDeclined"] = "The on-device model declined to translate this text.",
+        ["Err_TranslationFailed"] = "On-device translation did not produce a result.",
+    };
+}
