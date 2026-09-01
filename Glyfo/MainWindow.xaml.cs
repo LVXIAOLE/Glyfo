@@ -324,6 +324,11 @@ public sealed partial class MainWindow : Window
             _suppressUiLanguageChange = false;
         }
 
+        // Every other control in the flyout carries its own label; without this one the picker was
+        // a bare box reading "English" under a heading that says only "Options", which tells nobody
+        // what it selects. Set here rather than in the markup because it has to change with the
+        // language it is choosing.
+        UiLanguageComboBox.Header = Loc.Get("Setting_UiLanguage");
         SetTip(UiLanguageComboBox, Loc.Get("Setting_UiLanguage"));
     }
 

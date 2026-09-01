@@ -100,7 +100,7 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
         {
             foreach (var language in WinOcrEngine.AvailableRecognizerLanguages)
             {
-                installed[language.LanguageTag] = new OcrLanguage(language.LanguageTag, language.DisplayName);
+                installed[language.LanguageTag] = new OcrLanguage(language.LanguageTag, language.NativeName);
             }
         }
         catch (Exception)
@@ -155,8 +155,13 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
     {
         try
         {
+            // NativeName, not DisplayName: DisplayName renders every entry in whatever language
+            // Windows itself is set to, so someone running a Chinese Windows and switching the
+            // interface to English got a recognition list reading "英文 (美國)". A language is
+            // named in itself here, the way Windows' own language pickers do it, which also means
+            // the list reads the same whatever the interface language is.
             return WinOcrEngine.AvailableRecognizerLanguages
-                .Select(language => new OcrLanguage(language.LanguageTag, language.DisplayName))
+                .Select(language => new OcrLanguage(language.LanguageTag, language.NativeName))
                 .OrderBy(language => language.DisplayName, StringComparer.CurrentCulture)
                 .ToList();
         }
