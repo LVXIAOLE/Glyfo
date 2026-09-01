@@ -15,11 +15,14 @@
     or the upload is rejected, and Name is permanent from the moment the first submission is
     accepted — the Store keys the product's identity off it forever. The display name above it
     is the part that can still be changed later.
+
+    Version has to climb with every upload — Partner Center refuses a package whose version already
+    exists in the submission, so 1.0.0.0 is spent even though it never reached anyone.
   -->
   <Identity
     Name="LVLE.Glyfo"
     Publisher="CN=B8B25EFA-5CE4-4BE4-A5CC-360E7B53648F"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <Properties>
     <DisplayName>Glyfo</DisplayName>

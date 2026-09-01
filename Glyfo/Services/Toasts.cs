@@ -90,8 +90,7 @@ internal static class Toasts
             .AddArgument(ActionKey, ActionOpen)
             .AddText(Loc.Get("Toast_StartupTitle"))
             .AddText(Loc.Get("Toast_StartupBody", hotkey))
-            .AddButton(new AppNotificationButton(Loc.Get("Toast_DontRemind"))
-                .AddArgument(ActionKey, ActionMuteStartup)));
+            .AddButton(Button("Toast_DontRemind", ActionMuteStartup)));
 
     /// <summary>Explains where the window went, and how to get out of the app for real.</summary>
     public static void ShowMinimizedToTray(string hotkey) => Show(
@@ -100,8 +99,7 @@ internal static class Toasts
             .AddArgument(ActionKey, ActionOpen)
             .AddText(Loc.Get("Toast_MinimizedTitle"))
             .AddText(Loc.Get("Toast_MinimizedBody", hotkey))
-            .AddButton(new AppNotificationButton(Loc.Get("Toast_ExitApp"))
-                .AddArgument(ActionKey, ActionExit)));
+            .AddButton(Button("Toast_ExitApp", ActionExit)));
 
     /// <summary>The result of a capture taken while the window was hidden.</summary>
     public static void ShowRecognized(string text) => Show(
@@ -111,8 +109,7 @@ internal static class Toasts
             .AddText(Loc.Get("Toast_ResultTitle"))
             .AddText(Preview(text))
             .AddText(Loc.Get("Toast_ResultCopied"))
-            .AddButton(new AppNotificationButton(Loc.Get("Toast_OpenWindow"))
-                .AddArgument(ActionKey, ActionOpen)));
+            .AddButton(Button("Toast_OpenWindow", ActionOpen)));
 
     public static void ShowNoText() => Show(
         TagResult,
@@ -120,8 +117,7 @@ internal static class Toasts
             .AddArgument(ActionKey, ActionOpen)
             .AddText(Loc.Get("Toast_NoTextTitle"))
             .AddText(Loc.Get("Toast_NoTextBody"))
-            .AddButton(new AppNotificationButton(Loc.Get("Toast_OpenWindow"))
-                .AddArgument(ActionKey, ActionOpen)));
+            .AddButton(Button("Toast_OpenWindow", ActionOpen)));
 
     public static void ShowFailed(string message) => Show(
         TagResult,
@@ -129,8 +125,7 @@ internal static class Toasts
             .AddArgument(ActionKey, ActionOpen)
             .AddText(Loc.Get("Toast_FailedTitle"))
             .AddText(Preview(message))
-            .AddButton(new AppNotificationButton(Loc.Get("Toast_OpenWindow"))
-                .AddArgument(ActionKey, ActionOpen)));
+            .AddButton(Button("Toast_OpenWindow", ActionOpen)));
 
     /// <summary>
     /// Raised at startup when another app already owns both capture shortcuts. Without this the
@@ -142,6 +137,27 @@ internal static class Toasts
             .AddArgument(ActionKey, ActionOpen)
             .AddText(Loc.Get("Toast_HotkeyUnavailableTitle"))
             .AddText(Loc.Get("Toast_HotkeyUnavailableBody")));
+
+    /// <summary>A toast button carrying one of the <c>Action*</c> values.</summary>
+    /// <remarks>
+    /// The label is escaped on the way in, and that is the whole reason this exists.
+    /// <see cref="AppNotificationBuilder"/> escapes the strings it writes as element text — the
+    /// bodies come out with <c>&amp;amp;</c> and <c>&amp;lt;</c> already in place — but it writes a
+    /// button label into an attribute, between single quotes, and escapes nothing there. An
+    /// apostrophe closes the attribute early, so <c>BuildNotification</c> throws 0xC00CE509
+    /// ("missing required white space") and the toast is lost. "Don't remind me" was enough: the
+    /// startup toast never appeared in English at all, and French, Italian and half a dozen other
+    /// tables have the same character in the same place.
+    /// </remarks>
+    private static AppNotificationButton Button(string key, string action) =>
+        new AppNotificationButton(Escape(Loc.Get(key))).AddArgument(ActionKey, action);
+
+    private static string Escape(string text) => text
+        .Replace("&", "&amp;")
+        .Replace("<", "&lt;")
+        .Replace(">", "&gt;")
+        .Replace("\"", "&quot;")
+        .Replace("'", "&apos;");
 
     private static void Show(string tag, AppNotificationBuilder builder)
     {
