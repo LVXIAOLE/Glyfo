@@ -41,7 +41,53 @@ public static class Loc
             ["de"] = Strings.De,
             ["es"] = Strings.Es,
             ["ru"] = Strings.Ru,
+            ["pt"] = Strings.Pt,
+            ["it"] = Strings.It,
+            ["nl"] = Strings.Nl,
+            ["pl"] = Strings.Pl,
+            ["tr"] = Strings.Tr,
+            ["uk"] = Strings.Uk,
+            ["cs"] = Strings.Cs,
+            ["ro"] = Strings.Ro,
+            ["hu"] = Strings.Hu,
+            ["el"] = Strings.El,
+            ["sv"] = Strings.Sv,
+            ["da"] = Strings.Da,
+            ["nb"] = Strings.Nb,
+            ["fi"] = Strings.Fi,
+            ["id"] = Strings.Id,
+            ["ms"] = Strings.Ms,
+            ["fil"] = Strings.Fil,
+            ["vi"] = Strings.Vi,
+            ["th"] = Strings.Th,
+            ["hi"] = Strings.Hi,
+            ["bn"] = Strings.Bn,
+            ["ar"] = Strings.Ar,
+            ["he"] = Strings.He,
+            ["fa"] = Strings.Fa,
         };
+
+    /// <summary>
+    /// Windows tags whose primary subtag is not the one we file the table under.
+    /// </summary>
+    /// <remarks>
+    /// "no" is the macrolanguage Norwegian, which Windows still hands out; "nn" is Nynorsk, close
+    /// enough to Bokmål to be better than English. "tl" is Tagalog, which Filipino is built on.
+    /// "in" and "iw" are the obsolete ISO codes for Indonesian and Hebrew — old, but still turn up
+    /// in language lists carried across upgrades.
+    /// </remarks>
+    private static readonly Dictionary<string, string> Aliases = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["no"] = "nb",
+        ["nn"] = "nb",
+        ["tl"] = "fil",
+        ["in"] = "id",
+        ["iw"] = "he",
+    };
+
+    /// <summary>Tags written right to left. The window's FlowDirection follows this.</summary>
+    private static readonly HashSet<string> RightToLeftTags =
+        new(StringComparer.OrdinalIgnoreCase) { "ar", "he", "fa" };
 
     private static Dictionary<string, string> _current = Strings.En;
 
@@ -49,17 +95,45 @@ public static class Loc
     public static event EventHandler? Changed;
 
     /// <summary>The offered languages, each labelled in itself. Excludes the "follow system" entry.</summary>
+    /// <remarks>
+    /// Ordered the way Windows orders its own language list: alphabetically by endonym within the
+    /// Latin script, then the other scripts. Sorting these by English name would scatter them.
+    /// </remarks>
     public static IReadOnlyList<UiLanguage> Languages { get; } = new[]
     {
+        new UiLanguage("id", "Bahasa Indonesia"),
+        new UiLanguage("ms", "Bahasa Melayu"),
+        new UiLanguage("cs", "Čeština"),
+        new UiLanguage("da", "Dansk"),
+        new UiLanguage("de", "Deutsch"),
         new UiLanguage("en", "English"),
+        new UiLanguage("es", "Español"),
+        new UiLanguage("fil", "Filipino"),
+        new UiLanguage("fr", "Français"),
+        new UiLanguage("it", "Italiano"),
+        new UiLanguage("hu", "Magyar"),
+        new UiLanguage("nl", "Nederlands"),
+        new UiLanguage("nb", "Norsk bokmål"),
+        new UiLanguage("pl", "Polski"),
+        new UiLanguage("pt", "Português"),
+        new UiLanguage("ro", "Română"),
+        new UiLanguage("fi", "Suomi"),
+        new UiLanguage("sv", "Svenska"),
+        new UiLanguage("vi", "Tiếng Việt"),
+        new UiLanguage("tr", "Türkçe"),
+        new UiLanguage("el", "Ελληνικά"),
+        new UiLanguage("ru", "Русский"),
+        new UiLanguage("uk", "Українська"),
+        new UiLanguage("he", "עברית"),
+        new UiLanguage("ar", "العربية"),
+        new UiLanguage("fa", "فارسی"),
+        new UiLanguage("hi", "हिन्दी"),
+        new UiLanguage("bn", "বাংলা"),
+        new UiLanguage("th", "ไทย"),
+        new UiLanguage("ko", "한국어"),
+        new UiLanguage("ja", "日本語"),
         new UiLanguage("zh-Hans", "简体中文"),
         new UiLanguage("zh-Hant", "繁體中文"),
-        new UiLanguage("ja", "日本語"),
-        new UiLanguage("ko", "한국어"),
-        new UiLanguage("fr", "Français"),
-        new UiLanguage("de", "Deutsch"),
-        new UiLanguage("es", "Español"),
-        new UiLanguage("ru", "Русский"),
     };
 
     /// <summary>What the user picked: a tag from <see cref="Languages"/>, or "" to follow the system.</summary>
@@ -67,6 +141,15 @@ public static class Loc
 
     /// <summary>The language actually in use. Never empty.</summary>
     public static string CurrentTag { get; private set; } = FallbackTag;
+
+    /// <summary>
+    /// Whether the language in use runs right to left, so windows can mirror their layout.
+    /// </summary>
+    /// <remarks>
+    /// Translating the strings without mirroring the layout would leave Arabic, Hebrew and Persian
+    /// readers with the toolbar on the wrong side of every panel — worse than not translating.
+    /// </remarks>
+    public static bool IsRightToLeft => RightToLeftTags.Contains(CurrentTag);
 
     /// <summary>
     /// Resolves the startup language: the stored preference, else the first of the user's own
@@ -193,6 +276,11 @@ public static class Loc
         }
 
         var primary = tag.Split('-')[0];
-        return Tables.ContainsKey(primary) ? primary : null;
+        if (Tables.ContainsKey(primary))
+        {
+            return primary;
+        }
+
+        return Aliases.TryGetValue(primary, out var alias) ? alias : null;
     }
 }

@@ -23,17 +23,46 @@ public sealed class TranslationService : IDisposable
 
     private TranslationService(LanguageModel model) => _model = model;
 
+    /// <summary>
+    /// The languages offered as translation targets, in the same order the interface languages are
+    /// listed. <c>PromptName</c> is the English name the model is asked for; naming the target in
+    /// its own script inside an English instruction gets noticeably less reliable output.
+    /// </summary>
     public static IReadOnlyList<TranslationLanguage> Targets { get; } = new[]
     {
+        new TranslationLanguage("id", "Bahasa Indonesia", "Indonesian"),
+        new TranslationLanguage("ms", "Bahasa Melayu", "Malay"),
+        new TranslationLanguage("cs", "Čeština", "Czech"),
+        new TranslationLanguage("da", "Dansk", "Danish"),
+        new TranslationLanguage("de", "Deutsch", "German"),
+        new TranslationLanguage("en", "English", "English"),
+        new TranslationLanguage("es", "Español", "Spanish"),
+        new TranslationLanguage("fil", "Filipino", "Filipino"),
+        new TranslationLanguage("fr", "Français", "French"),
+        new TranslationLanguage("it", "Italiano", "Italian"),
+        new TranslationLanguage("hu", "Magyar", "Hungarian"),
+        new TranslationLanguage("nl", "Nederlands", "Dutch"),
+        new TranslationLanguage("nb", "Norsk bokmål", "Norwegian Bokmål"),
+        new TranslationLanguage("pl", "Polski", "Polish"),
+        new TranslationLanguage("pt", "Português", "Portuguese"),
+        new TranslationLanguage("ro", "Română", "Romanian"),
+        new TranslationLanguage("fi", "Suomi", "Finnish"),
+        new TranslationLanguage("sv", "Svenska", "Swedish"),
+        new TranslationLanguage("vi", "Tiếng Việt", "Vietnamese"),
+        new TranslationLanguage("tr", "Türkçe", "Turkish"),
+        new TranslationLanguage("el", "Ελληνικά", "Greek"),
+        new TranslationLanguage("ru", "Русский", "Russian"),
+        new TranslationLanguage("uk", "Українська", "Ukrainian"),
+        new TranslationLanguage("he", "עברית", "Hebrew"),
+        new TranslationLanguage("ar", "العربية", "Arabic"),
+        new TranslationLanguage("fa", "فارسی", "Persian"),
+        new TranslationLanguage("hi", "हिन्दी", "Hindi"),
+        new TranslationLanguage("bn", "বাংলা", "Bengali"),
+        new TranslationLanguage("th", "ไทย", "Thai"),
+        new TranslationLanguage("ko", "한국어", "Korean"),
+        new TranslationLanguage("ja", "日本語", "Japanese"),
         new TranslationLanguage("zh-Hans", "中文（简体）", "Simplified Chinese"),
         new TranslationLanguage("zh-Hant", "中文（繁體）", "Traditional Chinese"),
-        new TranslationLanguage("en", "English", "English"),
-        new TranslationLanguage("ja", "日本語", "Japanese"),
-        new TranslationLanguage("ko", "한국어", "Korean"),
-        new TranslationLanguage("fr", "Français", "French"),
-        new TranslationLanguage("de", "Deutsch", "German"),
-        new TranslationLanguage("es", "Español", "Spanish"),
-        new TranslationLanguage("ru", "Русский", "Russian"),
     };
 
     /// <summary>Returns null whenever local translation is not possible; the caller hides the button.</summary>

@@ -241,7 +241,7 @@
                     </StackPanel>
                     <Button.Flyout>
                         <Flyout Placement="Top">
-                            <Grid Width="420" Height="340">
+                            <Grid x:Name="HistoryFlyoutRoot" Width="420" Height="340">
                                 <ListView x:Name="HistoryListView"
                                           SelectionChanged="HistorySelectionChanged">
                                     <ListView.ItemTemplate>
@@ -270,7 +270,7 @@
                     <SymbolIcon Symbol="Setting" />
                     <Button.Flyout>
                         <Flyout Placement="Top">
-                            <StackPanel Width="320" Spacing="4">
+                            <StackPanel x:Name="SettingsFlyoutRoot" Width="320" Spacing="4">
                                 <TextBlock x:Name="SettingsHeaderText"
                                            Style="{StaticResource BodyStrongTextBlockStyle}"
                                            Margin="0,0,0,4" />

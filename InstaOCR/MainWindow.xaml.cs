@@ -156,6 +156,7 @@ public sealed partial class MainWindow : Window
     /// </remarks>
     private void ApplyLanguage()
     {
+        ApplyFlowDirection();
         BuildUiLanguagePicker();
 
         PreviewPlaceholderText.Text = Loc.Get("Preview_Placeholder");
@@ -207,6 +208,30 @@ public sealed partial class MainWindow : Window
 
         // The engine builds its own option names, so it has to be asked again in the new language.
         RefreshLanguageOptions();
+    }
+
+    /// <summary>
+    /// Mirrors the layout for Arabic, Hebrew and Persian.
+    /// </summary>
+    /// <remarks>
+    /// The flyouts are set separately because their content lives in a popup rather than under
+    /// <c>RootGrid</c>, so it never inherits the change. The title bar is deliberately left running
+    /// left to right: the caption buttons stay on the window's right whatever the content does, and
+    /// mirroring that row would slide the app name underneath them.
+    /// </remarks>
+    private void ApplyFlowDirection()
+    {
+        var flow = Loc.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
+        RootGrid.FlowDirection = flow;
+        AppTitleBar.FlowDirection = FlowDirection.LeftToRight;
+        HistoryFlyoutRoot.FlowDirection = flow;
+        SettingsFlyoutRoot.FlowDirection = flow;
+
+        foreach (var item in TranslateMenu.Items)
+        {
+            item.FlowDirection = flow;
+        }
     }
 
     /// <summary>
@@ -292,7 +317,12 @@ public sealed partial class MainWindow : Window
         TranslateMenu.Items.Clear();
         foreach (var target in TranslationService.Targets)
         {
-            var item = new MenuFlyoutItem { Text = target.DisplayName, Tag = target };
+            var item = new MenuFlyoutItem
+            {
+                Text = target.DisplayName,
+                Tag = target,
+                FlowDirection = Loc.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
+            };
             item.Click += TranslateMenuItemClick;
             TranslateMenu.Items.Add(item);
         }

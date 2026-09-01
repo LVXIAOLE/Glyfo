@@ -33,6 +33,14 @@ public sealed partial class RegionCaptureWindow : Window
 
         InitializeComponent();
         HintText.Text = Services.Loc.Get("Region_Hint");
+
+        // Only the hint is mirrored. The selection rectangle is positioned by pointer coordinates
+        // straight onto the canvas, so flipping the overlay itself would put it under the cursor's
+        // mirror image instead of under the cursor.
+        HintText.FlowDirection = Services.Loc.IsRightToLeft
+            ? Microsoft.UI.Xaml.FlowDirection.RightToLeft
+            : Microsoft.UI.Xaml.FlowDirection.LeftToRight;
+
         BackdropImage.Source = new BitmapImage(new Uri(_backdropPath, UriKind.Absolute));
         Closed += (_, _) => _tcs.TrySetResult(null);
 
