@@ -13,7 +13,12 @@ behaviour, not a gap.
 | 说明 / Description | 10,000 characters | **说明** |
 | 简短说明 / Short description | 1,000 characters | **简短说明** |
 | 产品功能 / Product features | 20 entries, 200 characters each | **产品功能** |
+| 屏幕截图 / Screenshots | up to 10 images, caption 200 characters each | **屏幕截图标题** |
 | 搜索词 / Search terms | 7 terms, 30 characters each | **搜索词** |
+
+The same five PNGs go into every language listing — the Store does not share images between them, and
+none of the five has any text burned into it. Captions are per language; they are numbered below in
+upload order.
 
 Two things to keep true if this text is edited: the app makes no network connections, and
 translation exists only on Copilot+ PCs. Both are claims a certification reviewer can check, and
@@ -95,6 +100,14 @@ No account, no telemetry, no advertising.
 - Interface in 33 languages, following your Windows language setting
 - Makes no internet connections: nothing you recognize ever leaves your PC
 
+### 屏幕截图标题 — Screenshot captions
+
+1. `01-text-from-a-page.png` — Every recognized line appears beside the picture in reading order, ready to copy, read aloud, or unwrap back into paragraphs.
+2. `02-any-language.png` — Pick the recognition language from the packs Windows has installed — Chinese, Japanese and Korean included — or let Glyfo choose it.
+3. `03-qr-and-barcodes.png` — QR codes and barcodes are read out of the same picture, so no separate scanner app is needed.
+4. `04-history.png` — Recent results stay in the history, so something you captured a few minutes ago is still one click away.
+5. `05-settings.png` — Interface language, starting with Windows, staying in the notification area, and the fix that keeps v1.6.5 from becoming vl.6.5.
+
 ### 搜索词 — Search terms
 
 `screenshot to text`, `image to text`, `extract text`, `copy text from image`, `qr code reader`,
@@ -165,6 +178,14 @@ Glyfo 不进行任何网络连接。图片、识别出的文字、翻译结果�
 - 界面 33 种语言，跟随 Windows 语言设置
 - 不进行任何联网：识别的内容不会离开这台电脑
 
+### 屏幕截图标题
+
+1. `01-text-from-a-page.png` — 识别结果按原文顺序排在图片旁边，可以直接复制、朗读，或去掉换行还原成段落。
+2. `02-any-language.png` — 识别语言从 Windows 已安装的语言包里选——中日韩都在其中——也可以交给 Glyfo 自动判断。
+3. `03-qr-and-barcodes.png` — 二维码和条码从同一张图里一并读出，不用再装扫码工具。
+4. `04-history.png` — 最近的识别结果留在历史里，几分钟前截的那一张仍然一键可达。
+5. `05-settings.png` — 界面语言、开机自启、关闭后留在通知区域，以及那条让 v1.6.5 不被读成 vl.6.5 的修正。
+
 ### 搜索词
 
 `截图取字`, `图片转文字`, `文字识别`, `二维码识别`, `条形码扫描`, `屏幕取词`, `免费OCR`
@@ -233,6 +254,14 @@ Glyfo 不進行任何網路連線。圖片、辨識出的文字、翻譯結果�
 - 常駐通知區域，關掉視窗之後擷圖快速鍵依然可用
 - 介面 33 種語言，跟隨 Windows 語言設定
 - 不進行任何連網：辨識的內容不會離開這台電腦
+
+### 螢幕擷取畫面標題
+
+1. `01-text-from-a-page.png` — 辨識結果依原文順序排在圖片旁邊，可以直接複製、朗讀，或去掉換行還原成段落。
+2. `02-any-language.png` — 辨識語言從 Windows 已安裝的語言套件裡挑——中日韓都在其中——也可以交給 Glyfo 自動判斷。
+3. `03-qr-and-barcodes.png` — QR 碼和條碼從同一張圖裡一併讀出，不必再裝掃碼工具。
+4. `04-history.png` — 最近的辨識結果留在歷程記錄裡，幾分鐘前擷取的那一張仍然一鍵可達。
+5. `05-settings.png` — 介面語言、開機自動啟動、關閉後留在通知區域，以及那條讓 v1.6.5 不被讀成 vl.6.5 的修正。
 
 ### 搜尋詞
 
@@ -307,6 +336,14 @@ Glyfo はネットワークに接続しません。画像、認識したテキ�
 - 通知領域に常駐するので、ウィンドウを閉じても取り込みのショートカットは使えます
 - インターフェイスは 33 言語、Windows の言語設定に追従します
 - インターネットに一切接続しません。認識した内容が PC の外に出ることはありません
+
+### スクリーンショットのキャプション
+
+1. `01-text-from-a-page.png` — 認識した文字は読み取った順に画像の横へ。そのままコピー、読み上げ、改行をほどいて段落に戻すこともできます。
+2. `02-any-language.png` — 認識する言語は Windows に入っている言語パックから選べます。日本語・中国語・韓国語も含まれ、自動選択も可能です。
+3. `03-qr-and-barcodes.png` — QR コードとバーコードは同じ画像からまとめて読み取ります。別途スキャナーアプリは要りません。
+4. `04-history.png` — 直近の結果は履歴に残るので、数分前に取り込んだものにもワンクリックで戻れます。
+5. `05-settings.png` — 表示言語、Windows と同時に起動、閉じても通知領域に常駐、そして v1.6.5 が vl.6.5 にならないための補正。
 
 ### 検索キーワード
 
@@ -383,6 +420,14 @@ Glyfo는 네트워크에 연결하지 않습니다. 이미지, 인식된 텍스�
 - 알림 영역에 머물러 창을 닫은 뒤에도 캡처 단축키가 동작합니다
 - 33개 언어 인터페이스, Windows 언어 설정을 따릅니다
 - 인터넷에 전혀 연결하지 않습니다. 인식한 내용은 PC를 벗어나지 않습니다
+
+### 스크린샷 캡션
+
+1. `01-text-from-a-page.png` — 인식한 글자는 읽은 순서대로 이미지 옆에 나타납니다. 그대로 복사하거나 소리 내어 읽거나 줄바꿈을 풀어 문단으로 되돌릴 수 있습니다.
+2. `02-any-language.png` — 인식 언어는 Windows에 설치된 언어 팩에서 고릅니다. 한국어·중국어·일본어도 포함되며 자동 선택도 가능합니다.
+3. `03-qr-and-barcodes.png` — QR 코드와 바코드를 같은 이미지에서 함께 읽어냅니다. 별도의 스캐너 앱이 필요 없습니다.
+4. `04-history.png` — 최근 결과는 기록에 남아 있어 몇 분 전에 캡처한 것도 클릭 한 번이면 다시 꺼낼 수 있습니다.
+5. `05-settings.png` — 인터페이스 언어, Windows 시작 시 실행, 닫아도 알림 영역에 유지, 그리고 v1.6.5가 vl.6.5로 읽히지 않게 하는 보정.
 
 ### 검색어
 
@@ -464,6 +509,14 @@ Ihren PC nicht. Kein Konto, keine Telemetrie, keine Werbung.
 - Bleibt im Infobereich, damit das Tastenkürzel auch nach dem Schließen des Fensters funktioniert
 - Oberfläche in 33 Sprachen, folgt der Windows-Spracheinstellung
 - Baut keine Internetverbindung auf: Erkanntes verlässt Ihren PC nie
+
+### Screenshot-Beschriftungen
+
+1. `01-text-from-a-page.png` — Der erkannte Text steht neben dem Bild, in der Reihenfolge, in der er gelesen wurde – zum Kopieren, Vorlesen oder Zurückführen in Absätze.
+2. `02-any-language.png` — Die Erkennungssprache wählen Sie aus den in Windows installierten Sprachpaketen – oder Glyfo entscheidet selbst.
+3. `03-qr-and-barcodes.png` — QR-Codes und Barcodes werden aus demselben Bild gelesen; eine separate Scanner-App ist nicht nötig.
+4. `04-history.png` — Die letzten Ergebnisse bleiben im Verlauf, sodass eine Aufnahme von vor ein paar Minuten weiterhin einen Klick entfernt ist.
+5. `05-settings.png` — Oberflächensprache, Start mit Windows, Verbleib im Infobereich und die Korrektur, die aus v1.6.5 kein vl.6.5 macht.
 
 ### Suchbegriffe
 
@@ -549,6 +602,14 @@ jamais votre PC. Pas de compte, pas de télémétrie, pas de publicité.
 - Interface en 33 langues, alignée sur le réglage de langue de Windows
 - N'établit aucune connexion Internet : ce que vous reconnaissez ne quitte pas votre PC
 
+### Légendes des captures d'écran
+
+1. `01-text-from-a-page.png` — Le texte reconnu s'affiche à côté de l'image, dans l'ordre où il a été lu : à copier, à faire lire à voix haute ou à remettre en paragraphes.
+2. `02-any-language.png` — La langue de reconnaissance se choisit parmi les modules linguistiques installés dans Windows — ou Glyfo la détermine seul.
+3. `03-qr-and-barcodes.png` — Les QR codes et les codes-barres sont lus dans la même image : aucune application de scan supplémentaire n'est nécessaire.
+4. `04-history.png` — Les résultats récents restent dans l'historique ; une capture faite il y a quelques minutes reste à un clic.
+5. `05-settings.png` — Langue de l'interface, démarrage avec Windows, maintien dans la zone de notification, et la correction qui évite que v1.6.5 devienne vl.6.5.
+
 ### Termes de recherche
 
 `texte depuis image`, `capture écran texte`, `reconnaissance texte`, `lire QR code`,
@@ -627,6 +688,14 @@ salen de tu PC. Sin cuenta, sin telemetría y sin publicidad.
 - Interfaz en 33 idiomas, según la configuración de idioma de Windows
 - No se conecta a Internet: lo que reconoces no sale de tu PC
 
+### Leyendas de las capturas de pantalla
+
+1. `01-text-from-a-page.png` — El texto reconocido aparece junto a la imagen, en el orden en que se leyó: listo para copiar, escuchar en voz alta o volver a unir en párrafos.
+2. `02-any-language.png` — El idioma de reconocimiento se elige entre los paquetes que Windows tenga instalados, o lo decide Glyfo por su cuenta.
+3. `03-qr-and-barcodes.png` — Los códigos QR y de barras se leen de la misma imagen; no hace falta otra aplicación para escanear.
+4. `04-history.png` — Los resultados recientes quedan en el historial, así que una captura de hace unos minutos sigue a un clic de distancia.
+5. `05-settings.png` — Idioma de la interfaz, inicio con Windows, permanencia en el área de notificación y la corrección que evita que v1.6.5 se lea vl.6.5.
+
 ### Términos de búsqueda
 
 `texto desde imagen`, `captura a texto`, `reconocimiento de texto`, `leer código QR`,
@@ -704,6 +773,14 @@ conta, sem telemetria e sem publicidade.
 - Fica na área de notificação para o atalho continuar valendo depois que a janela é fechada
 - Interface em 33 idiomas, seguindo a configuração de idioma do Windows
 - Não se conecta à Internet: o que você reconhece não sai do seu PC
+
+### Legendas das capturas de tela
+
+1. `01-text-from-a-page.png` — O texto reconhecido aparece ao lado da imagem, na ordem em que foi lido: pronto para copiar, ouvir em voz alta ou juntar de novo em parágrafos.
+2. `02-any-language.png` — O idioma de reconhecimento vem dos pacotes que o Windows tem instalados — ou o Glyfo escolhe sozinho.
+3. `03-qr-and-barcodes.png` — Códigos QR e de barras são lidos da mesma imagem; não é preciso outro aplicativo para escanear.
+4. `04-history.png` — Os resultados recentes ficam no histórico, então uma captura de alguns minutos atrás continua a um clique.
+5. `05-settings.png` — Idioma da interface, iniciar com o Windows, continuar na área de notificação e a correção que impede v1.6.5 de virar vl.6.5.
 
 ### Termos de pesquisa
 
@@ -786,6 +863,14 @@ Glyfo не устанавливает сетевых соединений. Из�
 - Остаётся в области уведомлений, поэтому сочетание клавиш работает и после закрытия окна
 - Интерфейс на 33 языках, следует языковым настройкам Windows
 - Не выходит в интернет: распознанное не покидает ваш ПК
+
+### Подписи к снимкам экрана
+
+1. `01-text-from-a-page.png` — Распознанный текст стоит рядом с изображением в том порядке, в каком он был прочитан: копируйте, слушайте вслух или собирайте обратно в абзацы.
+2. `02-any-language.png` — Язык распознавания выбирается из языковых пакетов, установленных в Windows, — или Glyfo определяет его сам.
+3. `03-qr-and-barcodes.png` — QR-коды и штрихкоды считываются с того же изображения; отдельное приложение-сканер не нужно.
+4. `04-history.png` — Недавние результаты остаются в журнале, поэтому снимок, сделанный несколько минут назад, по-прежнему в одном клике.
+5. `05-settings.png` — Язык интерфейса, запуск вместе с Windows, работа в области уведомлений и исправление, из-за которого v1.6.5 не превращается в vl.6.5.
 
 ### Поисковые запросы
 
