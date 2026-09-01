@@ -2,7 +2,6 @@
 
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
@@ -11,16 +10,20 @@
   xmlns:systemai="http://schemas.microsoft.com/appx/manifest/systemai/windows10"
   IgnorableNamespaces="uap rescap systemai">
 
+  <!--
+    Reserved in Partner Center. Name and Publisher have to match the values there byte for byte
+    or the upload is rejected, and Name is permanent from the moment the first submission is
+    accepted — the Store keys the product's identity off it forever. The display name above it
+    is the part that can still be changed later.
+  -->
   <Identity
-    Name="0ea0c7a9-6d67-425c-ba60-75e02e6282e8"
-    Publisher="CN=kdan"
+    Name="LVLE.Glyfo"
+    Publisher="CN=B8B25EFA-5CE4-4BE4-A5CC-360E7B53648F"
     Version="1.0.0.0" />
-
-  <mp:PhoneIdentity PhoneProductId="0ea0c7a9-6d67-425c-ba60-75e02e6282e8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Glyfo</DisplayName>
-    <PublisherDisplayName>kdan</PublisherDisplayName>
+    <PublisherDisplayName>LVLE</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
