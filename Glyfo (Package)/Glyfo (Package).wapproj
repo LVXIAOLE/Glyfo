@@ -58,6 +58,17 @@
     <Content Include="Images\*.png" />
   </ItemGroup>
   <ItemGroup>
+    <!-- One near-empty .resw per interface language. Nothing reads them: the interface is
+         translated in Services/Strings.*.cs and compiled in. They exist because the manifest's
+         <Resources> element is generated from the qualifiers MakePri collected during this
+         project's index pass, and that pass looks at @(PRIResource) *here* — the referenced app
+         project's resources reach the package as an already-built .pri, which contributes
+         resources but no qualifiers. Put these under Glyfo\ instead and the package goes back to
+         declaring en-US alone, which is all the Store would then list for an app that ships
+         thirty-three languages. -->
+    <PRIResource Include="Strings\**\*.resw" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Glyfo\Glyfo.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <PublishProfile>Properties\PublishProfiles\win-$(Platform).pubxml</PublishProfile>

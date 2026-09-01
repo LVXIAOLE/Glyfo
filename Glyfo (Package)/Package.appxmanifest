@@ -38,6 +38,13 @@
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26226.0" />
   </Dependencies>
 
+  <!--
+    x-generate, and it has to stay that way: the packaging targets overwrite this element on every
+    build from the qualifiers MakePri collected, so languages written here by hand simply vanish.
+    What it expands to is decided by Strings\<tag>\Resources.resw in this project — see the
+    PRIResource item in the .wapproj. All thirty-three interface languages should come out here;
+    if the built package only says EN-US, those files stopped being indexed.
+  -->
   <Resources>
     <Resource Language="x-generate"/>
   </Resources>
