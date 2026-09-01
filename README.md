@@ -1,2 +1,2 @@
-# InstaOCR
-InstaOCR-Image to Text
+# Glyfo
+Glyfo-Image to Text

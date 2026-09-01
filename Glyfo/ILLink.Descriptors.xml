@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Types the trimmer cannot see being used, because nothing references them by name.
+
+  Handing a managed collection to a WinRT property — ObservableCollection<HistoryItem> to
+  ListView.ItemsSource — makes CsWinRT build a COM callable wrapper at run time. It does that by
+  walking the object's interfaces and looking up an ABI shim for each one by reflection. The
+  trimmer sees no call site for those shims, drops them, and the app dies in
+  WinRT.TypeExtensions.GetAbiToProjectionVftblPtr with a NullReferenceException before the window
+  is ever shown.
+
+  Preserved by namespace rather than by rooting the whole assembly: rooting WinRT.Runtime outright
+  leaves ABI.System.FakeMetadataType without an implementation of GetEvents and the app fails even
+  earlier, while the 24MB assembly this trimming exists to shrink stays trimmed either way.
+-->
+<linker>
+  <assembly fullname="WinRT.Runtime">
+    <type fullname="ABI.System.Collections.*" preserve="all" />
+    <type fullname="ABI.System.ComponentModel.*" preserve="all" />
+    <type fullname="ABI.System.Nullable*" preserve="all" />
+    <type fullname="ABI.System.Type" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.WinUI">
+    <type fullname="ABI.System.Collections.*" preserve="all" />
+    <type fullname="ABI.System.ComponentModel.*" preserve="all" />
+    <type fullname="ABI.Microsoft.UI.Xaml.Interop.*" preserve="all" />
+    <type fullname="ABI.Microsoft.UI.Xaml.Data.*" preserve="all" />
+  </assembly>
+</linker>
