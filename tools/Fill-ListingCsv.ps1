@@ -23,7 +23,13 @@
 param(
     [Parameter(Mandatory)][string]$Path,
     [string]$Listing,
-    [string]$OutDir
+    [string]$OutDir,
+    # Fill only these language columns; every other column keeps whatever the export had. Use this
+    # when the dashboard stalls on a whole-file import — a batch is a no-op for the columns it does
+    # not name, so batches can be imported one at a time and re-imported safely.
+    [string[]]$Only,
+    # Same thing, cut automatically: -BatchSize 8 writes ceil(30/8) pairs of files instead of one.
+    [int]$BatchSize
 )
 
 $ErrorActionPreference = 'Stop'
@@ -151,83 +157,107 @@ if ($copy.Count -ne $Column.Count) {
 }
 "parsed store-listing.md: $($copy.Count) languages ($(($copy.Keys | Sort-Object) -join ' '))"
 
-# ---------------------------------------------------------------- read the export
+# ---------------------------------------------------------------- work out the target columns
 
-$rows = Read-ListingCsv $Path
-$header = $rows[0]
+$probe = Read-ListingCsv $Path
+$header = $probe[0]
 $width = $header.Count
 
-$index = @{}
-for ($i = 0; $i -lt $width; $i++) { $index[$header[$i]] = $i }
-
-$byField = @{}
-for ($r = 1; $r -lt $rows.Count; $r++) {
-    # Pad short rows once, here, so every write below can address any column.
-    if ($rows[$r].Count -lt $width) {
-        $padded = New-Object string[] $width
-        [Array]::Copy($rows[$r], $padded, $rows[$r].Count)
-        for ($c = $rows[$r].Count; $c -lt $width; $c++) { $padded[$c] = '' }
-        $rows[$r] = $padded
-    }
-    $byField[$rows[$r][0]] = $rows[$r]
-}
-
 $targets = @($header[4..($width - 1)] | Where-Object { $_ -notin $Keep })
-$translated = @($targets | Where-Object { $copy.ContainsKey($_) })
-$english = @($targets | Where-Object { -not $copy.ContainsKey($_) })
+if ($Only) {
+    $unknown = @($Only | Where-Object { $_ -notin $header })
+    if ($unknown) { throw "-Only names columns that are not in the export: $($unknown -join ' ')" }
+    $targets = @($targets | Where-Object { $_ -in $Only })
+    if (-not $targets) { throw "-Only selected no fillable column (en-us, zh-hant and zh-hans are never touched)" }
+}
 
 "columns to fill: $($targets.Count)"
-"  translated : $($translated -join ' ')"
-"  English    : $($english -join ' ')"
+"  translated : $(@($targets | Where-Object { $copy.ContainsKey($_) }) -join ' ')"
+"  English    : $(@($targets | Where-Object { -not $copy.ContainsKey($_) }) -join ' ')"
 ''
-
-# ---------------------------------------------------------------- fill
-
-$warnings = New-Object Collections.Generic.List[string]
-
-function Set-Cell([string]$field, [string]$lang, [string]$value, [int]$limit) {
-    $row = $byField[$field]
-    if (-not $row) { throw "no row named $field" }
-    if ($limit -and $value.Length -gt $limit) {
-        $warnings.Add("$lang $field is $($value.Length) characters, limit is $limit")
-    }
-    $row[$index[$lang]] = $value
-}
-
-$enTitle = $byField['Title'][$index['en-us']]
-
-foreach ($lang in $targets) {
-    $c = if ($copy.ContainsKey($lang)) { $copy[$lang] } else { $copy['en-us'] }
-
-    Set-Cell 'Title'            $lang $enTitle 0
-    Set-Cell 'ShortDescription' $lang $c.ShortDescription $Limit.ShortDescription
-    Set-Cell 'Description'      $lang $c.Description      $Limit.Description
-
-    for ($i = 0; $i -lt 10; $i++) { Set-Cell "Feature$($i + 1)"                  $lang $c.Features[$i]    $Limit.Feature }
-    for ($i = 0; $i -lt 5;  $i++) { Set-Cell "DesktopScreenshotCaption$($i + 1)" $lang $c.Captions[$i]    $Limit.Caption }
-    for ($i = 0; $i -lt 7;  $i++) { Set-Cell "SearchTerm$($i + 1)"               $lang $c.SearchTerms[$i] $Limit.SearchTerm }
-}
-
-foreach ($w in $warnings) { Write-Warning $w }
-
-$base = [IO.Path]::GetFileNameWithoutExtension($Path)
-$textOnly = Join-Path $OutDir "$base-filled-textonly.csv"
-Write-ListingCsv $textOnly $rows
-"wrote $textOnly"
-
-# ---------------------------------------------------------------- and again, with the images
 
 $imageFields = @('DesktopScreenshot1', 'DesktopScreenshot2', 'DesktopScreenshot3', 'DesktopScreenshot4',
                  'DesktopScreenshot5', 'StoreLogo300x300', 'StoreLogoOverride150x150', 'StoreLogoOverride71x71')
 
-foreach ($lang in $targets) {
-    foreach ($field in $imageFields) {
-        $byField[$field][$index[$lang]] = $byField[$field][$index['en-us']]
+$base = [IO.Path]::GetFileNameWithoutExtension($Path)
+
+# ---------------------------------------------------------------- fill
+
+# The export is re-read for every batch rather than reused. A batch has to leave the columns it does
+# not name byte-identical to the export, and the cheapest way to guarantee that is to start from the
+# export each time instead of trying to undo the previous batch's writes.
+function Write-Filled([string[]]$langs, [string]$suffix) {
+    $rows = Read-ListingCsv $Path
+
+    $index = @{}
+    for ($i = 0; $i -lt $width; $i++) { $index[$header[$i]] = $i }
+
+    $byField = @{}
+    for ($r = 1; $r -lt $rows.Count; $r++) {
+        # Pad short rows once, here, so every write below can address any column.
+        if ($rows[$r].Count -lt $width) {
+            $padded = New-Object string[] $width
+            [Array]::Copy($rows[$r], $padded, $rows[$r].Count)
+            for ($c = $rows[$r].Count; $c -lt $width; $c++) { $padded[$c] = '' }
+            $rows[$r] = $padded
+        }
+        $byField[$rows[$r][0]] = $rows[$r]
     }
-    # The three logo overrides only take effect when this is on, and en-us has it on.
-    $byField['OverrideLogosForWin10'][$index[$lang]] = $byField['OverrideLogosForWin10'][$index['en-us']]
+
+    $warnings = New-Object Collections.Generic.List[string]
+    $set = {
+        param([string]$field, [string]$lang, [string]$value, [int]$limit)
+        $row = $byField[$field]
+        if (-not $row) { throw "no row named $field" }
+        if ($limit -and $value.Length -gt $limit) {
+            $warnings.Add("$lang $field is $($value.Length) characters, limit is $limit")
+        }
+        $row[$index[$lang]] = $value
+    }
+
+    $enTitle = $byField['Title'][$index['en-us']]
+
+    foreach ($lang in $langs) {
+        $c = if ($copy.ContainsKey($lang)) { $copy[$lang] } else { $copy['en-us'] }
+
+        & $set 'Title'            $lang $enTitle 0
+        & $set 'ShortDescription' $lang $c.ShortDescription $Limit.ShortDescription
+        & $set 'Description'      $lang $c.Description      $Limit.Description
+
+        for ($i = 0; $i -lt 10; $i++) { & $set "Feature$($i + 1)"                  $lang $c.Features[$i]    $Limit.Feature }
+        for ($i = 0; $i -lt 5;  $i++) { & $set "DesktopScreenshotCaption$($i + 1)" $lang $c.Captions[$i]    $Limit.Caption }
+        for ($i = 0; $i -lt 7;  $i++) { & $set "SearchTerm$($i + 1)"               $lang $c.SearchTerms[$i] $Limit.SearchTerm }
+    }
+
+    foreach ($w in $warnings) { Write-Warning $w }
+
+    $textOnly = Join-Path $OutDir "$base-filled$suffix-textonly.csv"
+    Write-ListingCsv $textOnly $rows
+    "wrote $textOnly"
+
+    # And again, with the images pointed at the assets en-us already uses.
+    foreach ($lang in $langs) {
+        foreach ($field in $imageFields) {
+            $byField[$field][$index[$lang]] = $byField[$field][$index['en-us']]
+        }
+        # The three logo overrides only take effect when this is on, and en-us has it on.
+        $byField['OverrideLogosForWin10'][$index[$lang]] = $byField['OverrideLogosForWin10'][$index['en-us']]
+    }
+
+    $full = Join-Path $OutDir "$base-filled$suffix.csv"
+    Write-ListingCsv $full $rows
+    "wrote $full"
 }
 
-$full = Join-Path $OutDir "$base-filled.csv"
-Write-ListingCsv $full $rows
-"wrote $full"
+if ($BatchSize -gt 0) {
+    $n = [Math]::Ceiling($targets.Count / $BatchSize)
+    for ($b = 0; $b -lt $n; $b++) {
+        $slice = @($targets | Select-Object -Skip ($b * $BatchSize) -First $BatchSize)
+        "batch $($b + 1)/$n : $($slice -join ' ')"
+        Write-Filled $slice "-b$($b + 1)"
+        ''
+    }
+}
+else {
+    Write-Filled $targets ''
+}
