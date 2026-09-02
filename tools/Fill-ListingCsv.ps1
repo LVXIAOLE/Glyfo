@@ -165,6 +165,9 @@ $width = $header.Count
 
 $targets = @($header[4..($width - 1)] | Where-Object { $_ -notin $Keep })
 if ($Only) {
+    # Split on commas and spaces. Under powershell -File every argument arrives as one literal
+    # string, so -Only es,pt,it is a single element here, not three.
+    $Only = @($Only | ForEach-Object { $_ -split '[,\s]+' } | Where-Object { $_ })
     $unknown = @($Only | Where-Object { $_ -notin $header })
     if ($unknown) { throw "-Only names columns that are not in the export: $($unknown -join ' ')" }
     $targets = @($targets | Where-Object { $_ -in $Only })
