@@ -7,6 +7,14 @@ ten with the most Store traffic for this kind of app are here. Every language th
 but this file does not falls back to the English listing automatically — that is the Store's own
 behaviour, not a gap.
 
+Filling thirty-three listings by hand in the dashboard is not worth it, so the way in is the CSV:
+export **Store listings** from Partner Center, run `tools/Fill-ListingCsv.ps1` over the export, and
+import the result. That script reads *this file* — the sections below are the source, and the CSV
+is generated from them, never the other way round. It leaves the three listings already written by
+hand (en-us, zh-hant, zh-hans) alone, gives the seven translated languages their own copy, and puts
+the English copy into the remaining twenty-three, which reads the same to a customer as the
+fallback would but leaves no listing half-written.
+
 | Partner Center field | Limit | Section below |
 |---|---|---|
 | 产品名称 / Product name | picked from reserved names | `Glyfo — OCR & Screen Capture` for every language |
