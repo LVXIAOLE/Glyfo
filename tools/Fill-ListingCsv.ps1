@@ -3,11 +3,10 @@
 # The three listings written by hand in Partner Center (en-us, zh-hant, zh-hans) are left untouched —
 # whatever is in the export for them wins, because that is what the dashboard actually shows.
 #
-# Of the thirty remaining columns, seven have translated copy in store-listing.md (de, fr, es, pt, ru,
-# ja, ko) and get it. The other twenty-three get the English copy: Partner Center already carries a
-# Title for every one of them, so those listings exist, and a listing with a title and no description
-# is worse than a listing in English. What a reader sees is the same either way — the Store would have
-# fallen back to the English listing anyway — but this way nothing is half-written.
+# The thirty remaining columns all have translated copy in store-listing.md and get it. The fallback
+# to English further down is therefore dead code now; it stays because it is what should happen if a
+# language is ever added to the package before its copy is written, and a silently English listing
+# beats a silently empty one.
 #
 # Two files come out, because one question cannot be settled from here:
 #
@@ -51,6 +50,29 @@ $Column = @{
     'Spanish'                = 'es'
     'Portuguese (Brazil)'    = 'pt'
     'Russian'                = 'ru'
+    'Italian'                = 'it'
+    'Polish'                 = 'pl'
+    'Dutch'                  = 'nl'
+    'Czech'                  = 'cs'
+    'Turkish'                = 'tr'
+    'Swedish'                = 'sv'
+    'Danish'                 = 'da'
+    'Norwegian'              = 'nb'
+    'Finnish'                = 'fi'
+    'Greek'                  = 'el'
+    'Hungarian'              = 'hu'
+    'Romanian'               = 'ro'
+    'Ukrainian'              = 'uk'
+    'Vietnamese'             = 'vi'
+    'Thai'                   = 'th'
+    'Indonesian'             = 'id'
+    'Malay'                  = 'ms'
+    'Filipino'               = 'fil'
+    'Hindi'                  = 'hi'
+    'Bengali'                = 'bn'
+    'Arabic'                 = 'ar'
+    'Hebrew'                 = 'he'
+    'Persian'                = 'fa'
 }
 
 # Already written by hand in the dashboard.

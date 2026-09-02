@@ -2,18 +2,25 @@
 
 Ready-to-paste text for the Partner Center **Store listings** page, one section per language.
 
-The package declares thirty-three languages, but a Store listing is written by hand, so only the
-ten with the most Store traffic for this kind of app are here. Every language the package declares
-but this file does not falls back to the English listing automatically — that is the Store's own
-behaviour, not a gap.
+The package declares thirty-three languages and all thirty-three have their own listing here. None
+of them falls back to English: a customer browsing the Store in Thai or Hebrew reads the app
+described in their own language, which is the whole point of shipping the UI in thirty-three.
 
 Filling thirty-three listings by hand in the dashboard is not worth it, so the way in is the CSV:
 export **Store listings** from Partner Center, run `tools/Fill-ListingCsv.ps1` over the export, and
 import the result. That script reads *this file* — the sections below are the source, and the CSV
 is generated from them, never the other way round. It leaves the three listings already written by
-hand (en-us, zh-hant, zh-hans) alone, gives the seven translated languages their own copy, and puts
-the English copy into the remaining twenty-three, which reads the same to a customer as the
-fallback would but leaves no listing half-written.
+hand (en-us, zh-hant, zh-hans) alone and fills the other thirty from their own sections.
+
+Each section has exactly five `###` subsections and the script keys them **by position**, not by
+heading text — short description, description, ten `- ` features, five numbered captions, seven
+backtick-quoted search terms. Translate the headings freely; do not reorder them, do not wrap a
+feature across two lines, and keep the counts exact or the script throws.
+
+Arabic, Hebrew and Persian carry no directional control characters. Every paragraph and bullet is
+instead written to *begin* with a word in its own script, so first-strong bidi detection resolves
+the whole run right-to-left on its own. That survives a CSV round trip; an invisible U+200F may not,
+and cannot be proofread by eye.
 
 | Partner Center field | Limit | Section below |
 |---|---|---|
@@ -885,3 +892,2017 @@ Glyfo не устанавливает сетевых соединений. Из�
 
 `текст с картинки`, `скриншот в текст`, `распознавание текста`, `сканер QR-кода`,
 `сканер штрихкодов`, `извлечь текст`, `читать вслух`
+
+---
+
+## Italiano — Italian
+
+### Descrizione breve
+
+Glyfo estrae il testo da tutto ciò che vedi: uno screenshot, la foto di una pagina, un documento
+scansionato, una diapositiva, un fotogramma di un video. Premi Alt+Z e traccia un riquadro su una
+parte dello schermo, oppure apri un file, incolla dagli appunti, invia un'immagine da un'altra app.
+Il testo riconosciuto compare accanto all'immagine, pronto da copiare, ascoltare o ripulire. Legge
+anche i codici QR e i codici a barre dalla stessa immagine e, su un PC Copilot+, ne traduce il
+risultato. Tutto avviene sul tuo PC: Glyfo non stabilisce alcuna connessione a Internet. Gratis,
+senza pubblicità e senza acquisti.
+
+### Descrizione
+
+Glyfo trasforma le immagini di testo in testo che puoi usare.
+
+Il riconoscimento si appoggia all'OCR incluso in Windows: nessun account da creare, nessun
+caricamento, nessuna attesa di un server. Su un PC Copilot+, Glyfo usa in più il modello di
+riconoscimento del testo sul dispositivo per le immagini difficili e può tradurre il risultato —
+anche in questo caso senza rete.
+
+**Quattro modi per far entrare un'immagine**
+- Alt+Z traccia un riquadro su una parte qualsiasi dello schermo. Ctrl+Shift+R prende tutto lo
+  schermo.
+- Ctrl+V incolla un'immagine dagli appunti, e anche del testo.
+- Ctrl+O apre un file; trascinarlo nella finestra funziona allo stesso modo.
+- Clic destro su un'immagine in Esplora file per aprirla con Glyfo, oppure inviala dal riquadro di
+  condivisione di Windows (Foto, Strumento di cattura, browser).
+
+**Cosa ottieni**
+- Il testo riconosciuto accanto all'immagine, nell'ordine in cui era disposto.
+- Copia con un clic, oppure lascia che una cattura si copi da sola appena finisce.
+- Lettura ad alta voce con qualsiasi voce installata sul PC.
+- «Rimuovi a capo» ricompone le interruzioni di riga forzate in paragrafi, «Rimuovi spazi» elimina
+  tutti gli spazi: è ciò di cui il testo cinese, giapponese e coreano ha bisogno dopo il
+  riconoscimento.
+- Codici QR e codici a barre dalla stessa immagine.
+- Una cronologia dei risultati recenti: la cattura di due minuti fa è ancora a un clic.
+
+**Decidi tu come legge**
+- Scegli la lingua di riconoscimento tra i pacchetti installati in Windows, oppure lascia decidere a
+  Glyfo.
+- Un'opzione corregge il classico errore dell'OCR che legge v1.6.5 come vl.6.5: una l o una I
+  diventa 1 solo dove accanto ci sono un separatore e una cifra, così html5 e IPv6 restano intatti.
+- Adatta alla finestra o visualizza a dimensione reale; riconosci l'immagine intera o solo la
+  selezione.
+
+**Non sta tra i piedi**
+- Chiudendo la finestra Glyfo resta nell'area di notifica e la scorciatoia di cattura continua a
+  funzionare. «Esci» da lì lo chiude davvero. Questo comportamento è a sua volta un'impostazione.
+- Può avviarsi con Windows e andare dritto nell'area di notifica senza aprire finestre, così la
+  scorciatoia è pronta dal momento dell'accesso. Disattivato per impostazione predefinita: sei tu
+  ad attivarlo.
+- A finestra nascosta, una notifica mostra la prima riga di ciò che è stato appena riconosciuto.
+
+**Lingue**
+L'interfaccia è disponibile in 33 lingue e segue l'impostazione della lingua di Windows. Il
+riconoscimento usa i pacchetti OCR installati sul PC: se ne aggiungono da Impostazioni › Data/ora e
+lingua › Lingua e area geografica.
+
+**Privacy**
+Glyfo non stabilisce connessioni di rete. Immagini, testo riconosciuto e traduzioni non lasciano mai
+il tuo PC. Nessun account, nessuna telemetria, nessuna pubblicità.
+
+### Funzionalità del prodotto
+
+- Cattura una parte qualsiasi dello schermo con Alt+Z e riconoscila subito, senza uscire dall'app che stavi leggendo
+- Si basa sull'OCR integrato in Windows e, sui PC Copilot+, sul modello di riconoscimento sul dispositivo
+- Apri un file, incolla dagli appunti, trascina e rilascia o ricevi dal riquadro di condivisione di Windows
+- Legge codici QR e codici a barre dalla stessa immagine
+- Traduce sui PC Copilot+, sul dispositivo, senza accesso alla rete
+- Legge il risultato ad alta voce con qualsiasi voce installata sul PC
+- Rimuovi gli a capo e gli spazi: la ripulitura di cui il testo CJK ha bisogno dopo il riconoscimento
+- Resta nell'area di notifica, così la scorciatoia funziona anche dopo aver chiuso la finestra
+- Interfaccia in 33 lingue, allineata all'impostazione della lingua di Windows
+- Non si collega a Internet: ciò che riconosci non lascia il tuo PC
+
+### Didascalie degli screenshot
+
+1. `01-text-from-a-page.png` — Il testo riconosciuto compare accanto all'immagine, nell'ordine in cui è stato letto: pronto da copiare, ascoltare o ricomporre in paragrafi.
+2. `02-any-language.png` — La lingua di riconoscimento si sceglie tra i pacchetti installati in Windows — oppure decide Glyfo da solo.
+3. `03-qr-and-barcodes.png` — Codici QR e codici a barre vengono letti dalla stessa immagine: non serve un'altra app per la scansione.
+4. `04-history.png` — I risultati recenti restano nella cronologia, così una cattura di qualche minuto fa è ancora a un clic.
+5. `05-settings.png` — Lingua dell'interfaccia, avvio con Windows, permanenza nell'area di notifica e la correzione che evita che v1.6.5 diventi vl.6.5.
+
+### Termini di ricerca
+
+`testo da immagine`, `screenshot in testo`, `riconoscimento testo`, `leggere codice QR`,
+`scanner codice a barre`, `estrarre testo`, `lettura ad alta voce`
+
+---
+
+## Polski — Polish
+
+### Krótki opis
+
+Glyfo wyciąga tekst ze wszystkiego, co widzisz: ze zrzutu ekranu, zdjęcia strony, skanu, slajdu,
+klatki filmu. Naciśnij Alt+Z i zaznacz ramką fragment ekranu albo otwórz plik, wklej ze schowka,
+prześlij obraz z innej aplikacji. Rozpoznany tekst pojawia się obok obrazu — gotowy do skopiowania,
+odczytania na głos lub uporządkowania. Glyfo odczytuje też kody QR i kody kreskowe z tego samego
+obrazu, a na komputerze Copilot+ tłumaczy wynik. Wszystko dzieje się na Twoim komputerze — Glyfo nie
+nawiązuje żadnych połączeń internetowych. Bezpłatnie, bez reklam i bez zakupów.
+
+### Opis
+
+Glyfo zamienia obrazy z tekstem w tekst, którego można używać.
+
+Rozpoznawanie działa na OCR wbudowanym w Windows: bez zakładania konta, bez wysyłania czegokolwiek i
+bez czekania na serwer. Na komputerze Copilot+ Glyfo dodatkowo korzysta z modelu rozpoznawania
+tekstu działającego na urządzeniu przy trudniejszych obrazach i potrafi przetłumaczyć wynik —
+również bez sieci.
+
+**Cztery sposoby na wczytanie obrazu**
+- Alt+Z zaznacza ramką dowolny fragment ekranu. Ctrl+Shift+R robi zrzut całego ekranu.
+- Ctrl+V wkleja obraz ze schowka, tekst również.
+- Ctrl+O otwiera plik; przeciągnięcie go do okna działa tak samo.
+- Kliknij obraz prawym przyciskiem w Eksploratorze plików i otwórz go w Glyfo albo prześlij przez
+  panel udostępniania Windows (Zdjęcia, Narzędzie Wycinanie, przeglądarka).
+
+**Co dostajesz**
+- Rozpoznany tekst obok obrazu, w kolejności pierwotnego układu.
+- Kopiowanie jednym kliknięciem albo automatyczne kopiowanie zaraz po zakończeniu zrzutu.
+- Czytanie na głos dowolnym głosem zainstalowanym na komputerze.
+- „Usuń podziały wierszy” skleja twarde złamania z powrotem w akapity, a „Usuń spacje” kasuje
+  wszystkie spacje — tego zwykle wymaga tekst chiński, japoński i koreański po rozpoznaniu.
+- Kody QR i kody kreskowe z tego samego obrazu.
+- Historia ostatnich wyników: zrzut sprzed dwóch minut wciąż jest o jedno kliknięcie.
+
+**To Ty decydujesz, jak czyta**
+- Język rozpoznawania wybierasz spośród pakietów zainstalowanych w Windows albo zostawiasz decyzję
+  Glyfo.
+- Osobna opcja naprawia klasyczny błąd OCR, przez który v1.6.5 czytane jest jako vl.6.5: l lub I
+  zamienia się w 1 tylko tam, gdzie obok stoi separator i cyfra, więc html5 i IPv6 pozostają
+  nietknięte.
+- Dopasowanie do okna albo podgląd w rzeczywistym rozmiarze; rozpoznawanie całego obrazu lub tylko
+  zaznaczenia.
+
+**Nie wchodzi w drogę**
+- Po zamknięciu okna Glyfo zostaje w obszarze powiadomień, a skrót do zrzutu nadal działa. Dopiero
+  „Zakończ” zamyka program na dobre. Samo to zachowanie też jest przełącznikiem.
+- Glyfo może uruchamiać się razem z Windows i od razu przechodzić do obszaru powiadomień, bez
+  otwierania okna — skrót działa od momentu zalogowania. Domyślnie wyłączone; włączasz je sam.
+- Gdy okno jest ukryte, powiadomienie pokazuje pierwszy wiersz właśnie rozpoznanego tekstu.
+
+**Języki**
+Interfejs jest dostępny w 33 językach i podąża za ustawieniem języka Windows. Rozpoznawanie korzysta
+z pakietów OCR zainstalowanych na komputerze — kolejne dodasz w Ustawienia › Czas i język › Język i
+region.
+
+**Prywatność**
+Glyfo nie nawiązuje połączeń sieciowych. Obrazy, rozpoznany tekst i tłumaczenia nigdy nie opuszczają
+Twojego komputera. Bez konta, bez telemetrii, bez reklam.
+
+### Funkcje produktu
+
+- Zaznacz dowolny fragment ekranu skrótem Alt+Z i rozpoznaj go od razu, nie wychodząc z aplikacji, którą właśnie czytasz
+- Działa na OCR wbudowanym w Windows, a na komputerach Copilot+ dodatkowo na modelu rozpoznawania na urządzeniu
+- Otwórz plik, wklej ze schowka, przeciągnij i upuść albo odbierz przez panel udostępniania Windows
+- Odczytuje kody QR i kody kreskowe z tego samego obrazu
+- Tłumaczy na komputerach Copilot+, na urządzeniu, bez dostępu do sieci
+- Czyta wynik na głos dowolnym głosem zainstalowanym na komputerze
+- Usuwanie podziałów wierszy i spacji — porządki, których tekst CJK wymaga po rozpoznaniu
+- Zostaje w obszarze powiadomień, więc skrót działa także po zamknięciu okna
+- Interfejs w 33 językach, zgodnie z ustawieniem języka Windows
+- Nie łączy się z internetem: to, co rozpoznajesz, nie opuszcza Twojego komputera
+
+### Podpisy zrzutów ekranu
+
+1. `01-text-from-a-page.png` — Rozpoznany tekst stoi obok obrazu w kolejności, w jakiej został odczytany: do skopiowania, odczytania na głos albo złożenia z powrotem w akapity.
+2. `02-any-language.png` — Język rozpoznawania wybierasz spośród pakietów zainstalowanych w Windows — albo Glyfo ustala go sam.
+3. `03-qr-and-barcodes.png` — Kody QR i kreskowe są odczytywane z tego samego obrazu; osobna aplikacja do skanowania nie jest potrzebna.
+4. `04-history.png` — Ostatnie wyniki zostają w historii, więc zrzut sprzed kilku minut wciąż jest o jedno kliknięcie.
+5. `05-settings.png` — Język interfejsu, uruchamianie z Windows, pozostawanie w obszarze powiadomień i poprawka, dzięki której v1.6.5 nie staje się vl.6.5.
+
+### Wyszukiwane hasła
+
+`tekst ze zdjęcia`, `zrzut ekranu na tekst`, `rozpoznawanie tekstu`, `czytnik kodów QR`,
+`skaner kodów kreskowych`, `wyodrębnij tekst`, `czytanie na głos`
+
+---
+
+## Nederlands — Dutch
+
+### Korte beschrijving
+
+Glyfo haalt tekst uit alles wat je kunt zien: een schermafbeelding, een foto van een bladzijde, een
+scan, een dia, een videobeeld. Druk op Alt+Z en trek een kader om een deel van het scherm, of open
+een bestand, plak vanaf het klembord, stuur een afbeelding vanuit een andere app. De herkende tekst
+verschijnt naast de afbeelding, klaar om te kopiëren, voor te laten lezen of op te schonen. Glyfo
+leest ook QR-codes en streepjescodes uit dezelfde afbeelding, en op een Copilot+ pc vertaalt het het
+resultaat. Alles gebeurt op je eigen pc — Glyfo maakt geen enkele internetverbinding. Gratis, zonder
+advertenties en zonder aankopen.
+
+### Beschrijving
+
+Glyfo maakt van afbeeldingen met tekst weer tekst waarmee je kunt werken.
+
+De herkenning draait op de OCR die in Windows zit: geen account, geen upload, geen wachten op een
+server. Op een Copilot+ pc gebruikt Glyfo daarnaast het tekstherkenningsmodel op het apparaat voor
+lastigere afbeeldingen en kan het het resultaat vertalen — ook dat zonder netwerk.
+
+**Vier manieren om een afbeelding binnen te krijgen**
+- Alt+Z trekt een kader om een willekeurig deel van het scherm. Ctrl+Shift+R neemt het hele scherm.
+- Ctrl+V plakt een afbeelding vanaf het klembord, tekst ook.
+- Ctrl+O opent een bestand; het in het venster slepen werkt net zo goed.
+- Klik met de rechtermuisknop op een afbeelding in Verkenner en open die met Glyfo, of stuur hem via
+  het deelvenster van Windows (Foto's, Knipprogramma, browser).
+
+**Wat je terugkrijgt**
+- De herkende tekst naast de afbeelding, in de volgorde van de oorspronkelijke opmaak.
+- Kopiëren met één klik, of een opname zichzelf laten kopiëren zodra hij klaar is.
+- Voorlezen met elke stem die op je pc is geïnstalleerd.
+- ‘Regeleinden verwijderen’ voegt harde regelovergangen weer samen tot alinea's en ‘Spaties
+  verwijderen’ haalt elke spatie weg — precies wat Chinese, Japanse en Koreaanse tekst na herkenning
+  nodig heeft.
+- QR-codes en streepjescodes uit dezelfde afbeelding.
+- Een geschiedenis van recente resultaten: de opname van twee minuten geleden is nog één klik weg.
+
+**Jij bepaalt hoe het leest**
+- Kies de herkenningstaal uit de taalpakketten die in Windows zijn geïnstalleerd, of laat Glyfo
+  kiezen.
+- Een optie herstelt de klassieke OCR-fout waarbij v1.6.5 als vl.6.5 wordt gelezen: een l of I wordt
+  alleen een 1 waar er een scheidingsteken en een cijfer naast staan, dus html5 en IPv6 blijven
+  ongemoeid.
+- Passend maken aan het venster of op ware grootte bekijken; de hele afbeelding herkennen of alleen
+  de selectie.
+
+**Het zit niet in de weg**
+- Het venster sluiten laat Glyfo in het systeemvak achter, zodat de sneltoets blijft werken.
+  ‘Afsluiten’ daar stopt het echt. Dat gedrag is zelf ook een instelling.
+- Glyfo kan met Windows meestarten en meteen naar het systeemvak gaan zonder venster, zodat de
+  sneltoets werkt vanaf het moment dat je je aanmeldt. Standaard uit; jij zet het aan.
+- Is het venster verborgen, dan toont een melding de eerste regel van wat er zojuist is herkend.
+
+**Talen**
+De interface is er in 33 talen en volgt je taalinstelling in Windows. De tekstherkenning gebruikt de
+OCR-taalpakketten die op je pc staan — meer voeg je toe via Instellingen › Tijd en taal › Taal en
+regio.
+
+**Privacy**
+Glyfo maakt geen netwerkverbindingen. Afbeeldingen, herkende tekst en vertalingen verlaten je pc
+nooit. Geen account, geen telemetrie, geen advertenties.
+
+### Productfuncties
+
+- Leg met Alt+Z een willekeurig deel van het scherm vast en herken het meteen, zonder de app te verlaten waarin je aan het lezen was
+- Draait op de OCR die in Windows is ingebouwd, op Copilot+ pc's aangevuld met het herkenningsmodel op het apparaat
+- Een bestand openen, plakken vanaf het klembord, slepen en neerzetten of ontvangen via het deelvenster van Windows
+- Leest QR-codes en streepjescodes uit dezelfde afbeelding
+- Vertaalt op Copilot+ pc's, op het apparaat zelf, zonder netwerktoegang
+- Leest het resultaat voor met elke stem die op de pc is geïnstalleerd
+- Regeleinden en spaties verwijderen — het opschonen dat CJK-tekst na herkenning nodig heeft
+- Blijft in het systeemvak, zodat de sneltoets ook na het sluiten van het venster werkt
+- Interface in 33 talen, volgt de taalinstelling van Windows
+- Maakt geen internetverbinding: wat je herkent verlaat je pc niet
+
+### Bijschriften bij schermafbeeldingen
+
+1. `01-text-from-a-page.png` — De herkende tekst staat naast de afbeelding, in de volgorde waarin hij gelezen is: klaar om te kopiëren, voor te laten lezen of terug te voegen tot alinea's.
+2. `02-any-language.png` — De herkenningstaal kies je uit de taalpakketten die in Windows zijn geïnstalleerd — of Glyfo bepaalt hem zelf.
+3. `03-qr-and-barcodes.png` — QR-codes en streepjescodes worden uit dezelfde afbeelding gelezen; een aparte scan-app is niet nodig.
+4. `04-history.png` — Recente resultaten blijven in de geschiedenis staan, dus een opname van een paar minuten geleden is nog één klik weg.
+5. `05-settings.png` — Interfacetaal, meestarten met Windows, in het systeemvak blijven, en de correctie die voorkomt dat v1.6.5 vl.6.5 wordt.
+
+### Zoektermen
+
+`tekst uit afbeelding`, `schermafbeelding naar tekst`, `tekstherkenning`, `QR-code lezen`,
+`streepjescode scannen`, `tekst extraheren`, `voorlezen`
+
+---
+
+## Čeština — Czech
+
+### Stručný popis
+
+Glyfo vytáhne text ze všeho, co vidíte: ze snímku obrazovky, z fotky stránky, ze skenu, ze snímku
+prezentace i z videa. Stiskněte Alt+Z a orámujte část obrazovky, nebo otevřete soubor, vložte ze
+schránky, pošlete obrázek z jiné aplikace. Rozpoznaný text se objeví vedle obrázku — připravený ke
+zkopírování, přečtení nahlas nebo úpravě. Glyfo přečte ze stejného obrázku i QR kódy a čárové kódy
+a na počítači Copilot+ výsledek přeloží. Všechno probíhá ve vašem počítači — Glyfo se vůbec
+nepřipojuje k internetu. Zdarma, bez reklam a bez nákupů.
+
+### Popis
+
+Glyfo mění obrázky s textem v text, se kterým se dá pracovat.
+
+Rozpoznávání běží na OCR, které je součástí Windows: žádný účet, žádné nahrávání, žádné čekání na
+server. Na počítači Copilot+ Glyfo u složitějších obrázků navíc využije model rozpoznávání textu
+přímo v zařízení a dokáže výsledek přeložit — také bez sítě.
+
+**Čtyři způsoby, jak dostat obrázek dovnitř**
+- Alt+Z orámuje libovolnou část obrazovky. Ctrl+Shift+R sejme celou obrazovku.
+- Ctrl+V vloží obrázek ze schránky, text také.
+- Ctrl+O otevře soubor; přetažení do okna funguje stejně.
+- Klepněte na obrázek v Průzkumníku pravým tlačítkem a otevřete ho v Glyfo, nebo ho pošlete přes
+  panel sdílení Windows (Fotky, Nástroj pro vystřižení, prohlížeč).
+
+**Co dostanete zpět**
+- Rozpoznaný text vedle obrázku, v pořadí původního rozvržení.
+- Kopírování jedním klepnutím, nebo ať se snímek zkopíruje sám, jakmile je hotový.
+- Čtení nahlas libovolným hlasem nainstalovaným v počítači.
+- „Odstranit zalomení“ spojí tvrdé konce řádků zpět do odstavců, „Odstranit mezery“ smaže všechny
+  mezery — právě to čínský, japonský a korejský text po rozpoznání obvykle potřebuje.
+- QR kódy a čárové kódy ze stejného obrázku.
+- Historie posledních výsledků: snímek z doby před dvěma minutami je pořád jedno klepnutí daleko.
+
+**Vy určujete, jak čte**
+- Jazyk rozpoznávání vyberete z jazykových sad nainstalovaných ve Windows, nebo ho nechte na Glyfo.
+- Volba opravuje klasickou chybu OCR, kdy se v1.6.5 čte jako vl.6.5: l nebo I se změní na 1 jen tam,
+  kde vedle stojí oddělovač a číslice, takže html5 a IPv6 zůstanou nedotčené.
+- Přizpůsobit oknu nebo zobrazit ve skutečné velikosti; rozpoznat celý obrázek, nebo jen výběr.
+
+**Nepřekáží**
+- Zavřením okna Glyfo zůstane v oznamovací oblasti a klávesová zkratka dál funguje. Teprve
+  „Ukončit“ ho zavře nadobro. Celé toto chování je samo o sobě přepínač.
+- Glyfo se může spouštět s Windows a jít rovnou do oznamovací oblasti bez okna, takže zkratka
+  funguje od chvíle přihlášení. Ve výchozím stavu vypnuto; zapnete si ho sami.
+- Když je okno skryté, oznámení ukáže první řádek právě rozpoznaného textu.
+
+**Jazyky**
+Rozhraní je k dispozici ve 33 jazycích a řídí se nastavením jazyka ve Windows. Rozpoznávání používá
+jazykové sady OCR nainstalované v počítači — další přidáte v Nastavení › Čas a jazyk › Jazyk a
+oblast.
+
+**Soukromí**
+Glyfo nenavazuje žádná síťová spojení. Obrázky, rozpoznaný text ani překlady nikdy neopustí váš
+počítač. Žádný účet, žádná telemetrie, žádná reklama.
+
+### Funkce produktu
+
+- Sejměte klávesou Alt+Z libovolnou část obrazovky a hned ji rozpoznejte, aniž byste opustili aplikaci, kterou jste právě četli
+- Staví na OCR vestavěném ve Windows, na počítačích Copilot+ navíc na modelu rozpoznávání v zařízení
+- Otevřít soubor, vložit ze schránky, přetáhnout nebo přijmout přes panel sdílení Windows
+- Přečte ze stejného obrázku QR kódy i čárové kódy
+- Na počítačích Copilot+ překládá přímo v zařízení, bez přístupu k síti
+- Přečte výsledek nahlas libovolným hlasem nainstalovaným v počítači
+- Odstranění zalomení řádků a mezer — úklid, který text CJK po rozpoznání potřebuje
+- Zůstává v oznamovací oblasti, takže zkratka funguje i po zavření okna
+- Rozhraní ve 33 jazycích, podle nastavení jazyka ve Windows
+- Nepřipojuje se k internetu: co rozpoznáte, neopustí váš počítač
+
+### Popisky snímků obrazovky
+
+1. `01-text-from-a-page.png` — Rozpoznaný text stojí vedle obrázku v pořadí, ve kterém byl přečten: ke zkopírování, přečtení nahlas nebo spojení zpět do odstavců.
+2. `02-any-language.png` — Jazyk rozpoznávání vyberete z jazykových sad nainstalovaných ve Windows — nebo si ho Glyfo určí sám.
+3. `03-qr-and-barcodes.png` — QR kódy a čárové kódy se čtou ze stejného obrázku; samostatná aplikace na skenování není potřeba.
+4. `04-history.png` — Poslední výsledky zůstávají v historii, takže snímek z doby před pár minutami je pořád jedno klepnutí daleko.
+5. `05-settings.png` — Jazyk rozhraní, spouštění s Windows, setrvání v oznamovací oblasti a oprava, díky které se z v1.6.5 nestane vl.6.5.
+
+### Hledané výrazy
+
+`text z obrázku`, `snímek obrazovky na text`, `rozpoznávání textu`, `čtečka QR kódů`,
+`skener čárových kódů`, `extrahovat text`, `čtení nahlas`
+
+---
+
+## Türkçe — Turkish
+
+### Kısa açıklama
+
+Glyfo gördüğünüz her şeyden metni çıkarır: ekran görüntüsü, bir sayfanın fotoğrafı, taranmış belge,
+sunu slaydı, video karesi. Alt+Z tuşuna basıp ekranın bir bölümünü çerçeveleyin; ya da dosya açın,
+panodan yapıştırın, başka bir uygulamadan görsel gönderin. Tanınan metin görselin yanında belirir;
+kopyalamaya, sesli okutmaya veya düzeltmeye hazırdır. Aynı görseldeki QR kodlarını ve barkodları da
+okur, Copilot+ bilgisayarlarda sonucu çevirir. Her şey kendi bilgisayarınızda olur — Glyfo hiçbir
+internet bağlantısı kurmaz. Ücretsiz, reklamsız ve satın alma içermez.
+
+### Açıklama
+
+Glyfo metin içeren görselleri kullanabileceğiniz metne dönüştürür.
+
+Tanıma, Windows ile birlikte gelen OCR üzerinde çalışır: hesap açmak, dosya yüklemek ya da sunucu
+beklemek yok. Copilot+ bilgisayarlarda Glyfo, zor görseller için cihaz üzerindeki metin tanıma
+modelini de kullanır ve sonucu çevirebilir — bu da yine çevrimdışı gerçekleşir.
+
+**Görseli içeri almanın dört yolu**
+- Alt+Z ile ekranın herhangi bir bölümünü çerçeveleyin. Ctrl+Shift+R ekranın tamamını alır.
+- Ctrl+V panodaki görseli yapıştırır, metni de.
+- Ctrl+O bir dosya açar; pencereye sürüklemek de aynı işi görür.
+- Dosya Gezgini'nde bir görsele sağ tıklayıp Glyfo ile açın ya da Windows paylaşım panelinden
+  gönderin (Fotoğraflar, Ekran Alıntısı Aracı, tarayıcı).
+
+**Elinize ne geçer**
+- Tanınan metin görselin yanında, özgün yerleşim sırasıyla.
+- Tek tıkla kopyalama ya da alıntı biter bitmez kendiliğinden kopyalanması.
+- Bilgisayarınızda yüklü herhangi bir sesle sesli okuma.
+- “Satır sonlarını kaldır” zorunlu satır sonlarını paragraflara geri birleştirir, “Boşlukları
+  kaldır” tüm boşlukları siler — Çince, Japonca ve Korece metnin tanıma sonrasında genelde ihtiyaç
+  duyduğu şey budur.
+- Aynı görselden QR kodları ve barkodlar.
+- Son sonuçların tutulduğu bir geçmiş: iki dakika önceki alıntı hâlâ bir tık uzağınızda.
+
+**Nasıl okuyacağına siz karar verirsiniz**
+- Tanıma dilini Windows'ta yüklü dil paketleri arasından seçin ya da kararı Glyfo'ya bırakın.
+- Bir seçenek, OCR'nin v1.6.5'i vl.6.5 diye okuduğu klasik hatayı düzeltir: l ya da I yalnızca
+  yanında bir ayırıcı ve bir rakam varken 1'e dönüşür, böylece html5 ve IPv6 olduğu gibi kalır.
+- Pencereye sığdırın veya gerçek boyutta görün; görselin tamamını ya da yalnızca seçili bölümü
+  tanıyın.
+
+**Ayak altında dolaşmaz**
+- Pencereyi kapattığınızda Glyfo bildirim alanında kalır ve alıntı kısayolu çalışmaya devam eder.
+  Oradan “Çıkış” demek onu tamamen kapatır. Bu davranışın kendisi de bir ayardır.
+- Glyfo Windows ile birlikte başlayıp pencere açmadan doğrudan bildirim alanına geçebilir; böylece
+  kısayol oturum açtığınız andan itibaren hazırdır. Varsayılan olarak kapalıdır; açan siz olursunuz.
+- Pencere gizliyken bir bildirim, yeni tanınan metnin ilk satırını gösterir.
+
+**Diller**
+Arayüz 33 dilde sunulur ve Windows dil ayarınızı izler. Metin tanıma, bilgisayarınızda yüklü OCR dil
+paketlerini kullanır — yenilerini Ayarlar › Saat ve dil › Dil ve bölge altından eklersiniz.
+
+**Gizlilik**
+Glyfo ağ bağlantısı kurmaz. Görseller, tanınan metin ve çeviriler bilgisayarınızdan asla çıkmaz.
+Hesap yok, telemetri yok, reklam yok.
+
+### Ürün özellikleri
+
+- Alt+Z ile ekranın herhangi bir bölümünü alın ve okumakta olduğunuz uygulamadan çıkmadan anında tanıyın
+- Windows'un yerleşik OCR'si üzerinde çalışır, Copilot+ bilgisayarlarda cihaz üzerindeki tanıma modeliyle desteklenir
+- Dosya açma, panodan yapıştırma, sürükle bırak ya da Windows paylaşım panelinden alma
+- Aynı görselden QR kodlarını ve barkodları okur
+- Copilot+ bilgisayarlarda cihaz üzerinde, ağ erişimi olmadan çeviri yapar
+- Sonucu bilgisayarda yüklü herhangi bir sesle sesli okur
+- Satır sonlarını ve boşlukları kaldırma — CJK metninin tanıma sonrasında ihtiyaç duyduğu düzeltme
+- Bildirim alanında kalır, böylece pencere kapandıktan sonra da kısayol çalışır
+- 33 dilde arayüz, Windows dil ayarını izler
+- İnternete hiç bağlanmaz: tanıdığınız hiçbir şey bilgisayarınızdan çıkmaz
+
+### Ekran görüntüsü açıklamaları
+
+1. `01-text-from-a-page.png` — Tanınan metin, okunduğu sırayla görselin yanında durur: kopyalamaya, sesli dinlemeye ya da paragraflara geri birleştirmeye hazır.
+2. `02-any-language.png` — Tanıma dili Windows'ta yüklü dil paketleri arasından seçilir — ya da Glyfo kendisi belirler.
+3. `03-qr-and-barcodes.png` — QR kodları ve barkodlar aynı görselden okunur; ayrı bir tarayıcı uygulamasına gerek yoktur.
+4. `04-history.png` — Son sonuçlar geçmişte kalır; birkaç dakika önce aldığınız bir alıntı hâlâ bir tık uzağınızdadır.
+5. `05-settings.png` — Arayüz dili, Windows ile başlatma, kapatınca bildirim alanında kalma ve v1.6.5'in vl.6.5 olmasını engelleyen düzeltme.
+
+### Arama terimleri
+
+`görselden metin`, `ekran görüntüsü metne`, `metin tanıma`, `QR kod okuyucu`,
+`barkod tarayıcı`, `metin çıkarma`, `sesli okuma`
+
+---
+
+## Svenska — Swedish
+
+### Kort beskrivning
+
+Glyfo plockar ut texten ur allt du kan se: en skärmbild, ett foto av en sida, en inskannad handling,
+en presentationsbild, en filmruta. Tryck Alt+Z och rama in en del av skärmen, eller öppna en fil,
+klistra in från Urklipp, skicka en bild från en annan app. Den avlästa texten hamnar bredvid bilden,
+klar att kopiera, lyssna på eller städa upp. Glyfo läser också QR-koder och streckkoder ur samma
+bild, och på en Copilot+-dator översätter den resultatet. Allt sker på din egen dator — Glyfo
+upprättar inga internetanslutningar. Gratis, utan annonser och utan köp.
+
+### Beskrivning
+
+Glyfo gör om bilder med text till text du kan använda.
+
+Avläsningen bygger på den OCR som redan finns i Windows: inget konto, ingen uppladdning, ingen
+väntan på en server. På en Copilot+-dator använder Glyfo dessutom textigenkänningsmodellen på
+enheten för svårare bilder och kan översätta resultatet — även det utan nätverk.
+
+**Fyra sätt att få in en bild**
+- Alt+Z ramar in vilken del av skärmen som helst. Ctrl+Shift+R tar hela skärmen.
+- Ctrl+V klistrar in en bild från Urklipp, text också.
+- Ctrl+O öppnar en fil; att dra in den i fönstret fungerar lika bra.
+- Högerklicka en bild i Utforskaren och öppna den med Glyfo, eller skicka den via delningsfönstret i
+  Windows (Foton, Skärmklipp, webbläsaren).
+
+**Vad du får tillbaka**
+- Den avlästa texten bredvid bilden, i den ordning den låg i.
+- Kopiera med ett klick, eller låt en skärmbild kopiera sig själv så fort den är klar.
+- Uppläsning med vilken röst som helst som är installerad på datorn.
+- ”Ta bort radbrytningar” fogar ihop hårda radbrytningar till stycken igen och ”Ta bort blanksteg”
+  tar bort varje mellanslag — precis vad kinesisk, japansk och koreansk text behöver efter
+  avläsning.
+- QR-koder och streckkoder ur samma bild.
+- En historik över de senaste resultaten: skärmbilden från två minuter sedan är fortfarande ett
+  klick bort.
+
+**Du bestämmer hur den läser**
+- Välj avläsningsspråk bland de språkpaket som är installerade i Windows, eller låt Glyfo välja.
+- En inställning rättar det klassiska OCR-felet där v1.6.5 läses som vl.6.5: ett l eller I blir en
+  1:a bara där det står en avgränsare och en siffra intill, så html5 och IPv6 lämnas i fred.
+- Anpassa till fönstret eller visa i verklig storlek; läs av hela bilden eller bara markeringen.
+
+**Den är inte i vägen**
+- Stänger du fönstret ligger Glyfo kvar i meddelandefältet och kortkommandot fortsätter fungera.
+  ”Avsluta” därifrån stänger den på riktigt. Beteendet är i sin tur en inställning.
+- Glyfo kan starta med Windows och gå rakt ned i meddelandefältet utan att öppna något fönster, så
+  kortkommandot fungerar från det att du loggar in. Avstängt som standard; du slår på det själv.
+- När fönstret är dolt visar en avisering första raden av det som just lästes av.
+
+**Språk**
+Gränssnittet finns på 33 språk och följer språkinställningen i Windows. Avläsningen använder de
+OCR-språkpaket som finns på datorn — fler lägger du till under Inställningar › Tid och språk › Språk
+och region.
+
+**Integritet**
+Glyfo upprättar inga nätverksanslutningar. Bilder, avläst text och översättningar lämnar aldrig din
+dator. Inget konto, ingen telemetri, inga annonser.
+
+### Produktfunktioner
+
+- Fånga vilken del av skärmen som helst med Alt+Z och läs av den direkt, utan att lämna appen du läste i
+- Bygger på den OCR som finns i Windows, och på Copilot+-datorer även på igenkänningsmodellen på enheten
+- Öppna en fil, klistra in från Urklipp, dra och släpp eller ta emot via delningsfönstret i Windows
+- Läser QR-koder och streckkoder ur samma bild
+- Översätter på Copilot+-datorer, på enheten, utan nätverksåtkomst
+- Läser upp resultatet med vilken röst som helst som är installerad på datorn
+- Ta bort radbrytningar och blanksteg — den städning som CJK-text behöver efter avläsning
+- Ligger kvar i meddelandefältet, så kortkommandot fungerar även när fönstret är stängt
+- Gränssnitt på 33 språk, följer språkinställningen i Windows
+- Ansluter aldrig till internet: det du läser av lämnar inte din dator
+
+### Bildtexter till skärmbilder
+
+1. `01-text-from-a-page.png` — Den avlästa texten står bredvid bilden i den ordning den lästes: klar att kopiera, lyssna på eller foga ihop till stycken igen.
+2. `02-any-language.png` — Avläsningsspråket väljer du bland språkpaketen som är installerade i Windows — eller så avgör Glyfo det själv.
+3. `03-qr-and-barcodes.png` — QR-koder och streckkoder läses ur samma bild; någon separat skanningsapp behövs inte.
+4. `04-history.png` — De senaste resultaten ligger kvar i historiken, så en skärmbild från några minuter sedan är fortfarande ett klick bort.
+5. `05-settings.png` — Gränssnittsspråk, start med Windows, kvar i meddelandefältet, och rättelsen som hindrar v1.6.5 från att bli vl.6.5.
+
+### Söktermer
+
+`text från bild`, `skärmbild till text`, `textigenkänning`, `läsa QR-kod`,
+`streckkodsläsare`, `extrahera text`, `läs upp text`
+
+---
+
+## Dansk — Danish
+
+### Kort beskrivelse
+
+Glyfo henter teksten ud af alt, hvad du kan se: et skærmbillede, et foto af en side, et scannet
+dokument, et dias, et videobillede. Tryk Alt+Z og træk en ramme om en del af skærmen, eller åbn en
+fil, indsæt fra udklipsholderen, send et billede fra en anden app. Den genkendte tekst står ved
+siden af billedet, klar til at kopiere, lytte til eller rydde op i. Glyfo læser også QR-koder og
+stregkoder i det samme billede, og på en Copilot+-pc oversætter den resultatet. Det hele sker på din
+egen pc — Glyfo opretter ingen internetforbindelser. Gratis, uden reklamer og uden køb.
+
+### Beskrivelse
+
+Glyfo laver billeder med tekst om til tekst, du kan bruge.
+
+Genkendelsen kører på den OCR, der allerede findes i Windows: ingen konto, ingen upload, ingen
+ventetid på en server. På en Copilot+-pc bruger Glyfo desuden tekstgenkendelsesmodellen på enheden
+til de svære billeder og kan oversætte resultatet — også det uden netværk.
+
+**Fire måder at få et billede ind på**
+- Alt+Z trækker en ramme om en hvilken som helst del af skærmen. Ctrl+Shift+R tager hele skærmen.
+- Ctrl+V indsætter et billede fra udklipsholderen, tekst også.
+- Ctrl+O åbner en fil; at trække den ind i vinduet virker lige så godt.
+- Højreklik et billede i Stifinder og åbn det med Glyfo, eller send det via delingspanelet i Windows
+  (Billeder, Klippeværktøj, browseren).
+
+**Hvad du får igen**
+- Den genkendte tekst ved siden af billedet, i den rækkefølge den lå i.
+- Kopiér med ét klik, eller lad et udklip kopiere sig selv, så snart det er færdigt.
+- Oplæsning med enhver stemme, der er installeret på pc'en.
+- ”Fjern linjeskift” samler hårde linjeskift til afsnit igen, og ”Fjern mellemrum” fjerner hvert
+  eneste mellemrum — netop det, kinesisk, japansk og koreansk tekst har brug for efter genkendelse.
+- QR-koder og stregkoder fra det samme billede.
+- En historik over de seneste resultater: udklippet fra to minutter siden er stadig ét klik væk.
+
+**Du bestemmer, hvordan den læser**
+- Vælg genkendelsessprog blandt de sprogpakker, der er installeret i Windows, eller lad Glyfo vælge.
+- En indstilling retter den klassiske OCR-fejl, hvor v1.6.5 læses som vl.6.5: et l eller I bliver
+  kun til et 1-tal, hvor der står et skilletegn og et ciffer ved siden af, så html5 og IPv6 får lov
+  at være.
+- Tilpas til vinduet eller vis i faktisk størrelse; genkend hele billedet eller kun markeringen.
+
+**Den er ikke i vejen**
+- Lukker du vinduet, bliver Glyfo liggende i meddelelsesområdet, og genvejen virker stadig. ”Afslut”
+  derfra lukker den for alvor. Den adfærd er selv en indstilling.
+- Glyfo kan starte med Windows og gå direkte i meddelelsesområdet uden at åbne et vindue, så
+  genvejen virker fra det øjeblik, du logger på. Slået fra som standard; du slår den til selv.
+- Når vinduet er skjult, viser en meddelelse den første linje af det, der lige er genkendt.
+
+**Sprog**
+Brugerfladen findes på 33 sprog og følger sprogindstillingen i Windows. Genkendelsen bruger de
+OCR-sprogpakker, der ligger på pc'en — flere tilføjer du under Indstillinger › Klokkeslæt og sprog ›
+Sprog og område.
+
+**Beskyttelse af personlige oplysninger**
+Glyfo opretter ingen netværksforbindelser. Billeder, genkendt tekst og oversættelser forlader aldrig
+din pc. Ingen konto, ingen telemetri, ingen reklamer.
+
+### Produktfunktioner
+
+- Tag et udklip af en hvilken som helst del af skærmen med Alt+Z og genkend det straks, uden at forlade den app, du læste i
+- Bygger på den OCR, der er indbygget i Windows, og på Copilot+-pc'er også på genkendelsesmodellen på enheden
+- Åbn en fil, indsæt fra udklipsholderen, træk og slip eller modtag via delingspanelet i Windows
+- Læser QR-koder og stregkoder fra det samme billede
+- Oversætter på Copilot+-pc'er, på enheden, uden netværksadgang
+- Læser resultatet op med enhver stemme, der er installeret på pc'en
+- Fjern linjeskift og mellemrum — den oprydning, CJK-tekst har brug for efter genkendelse
+- Bliver liggende i meddelelsesområdet, så genvejen virker, også når vinduet er lukket
+- Brugerflade på 33 sprog, følger sprogindstillingen i Windows
+- Opretter aldrig forbindelse til internettet: det, du genkender, forlader ikke din pc
+
+### Billedtekster til skærmbilleder
+
+1. `01-text-from-a-page.png` — Den genkendte tekst står ved siden af billedet i den rækkefølge, den blev læst: klar til at kopiere, lytte til eller samle til afsnit igen.
+2. `02-any-language.png` — Genkendelsessproget vælger du blandt de sprogpakker, der er installeret i Windows — eller Glyfo afgør det selv.
+3. `03-qr-and-barcodes.png` — QR-koder og stregkoder læses fra det samme billede; en separat scannerapp er ikke nødvendig.
+4. `04-history.png` — De seneste resultater bliver i historikken, så et udklip fra få minutter siden er stadig ét klik væk.
+5. `05-settings.png` — Sprog i brugerfladen, start med Windows, bliv i meddelelsesområdet, og rettelsen der forhindrer v1.6.5 i at blive til vl.6.5.
+
+### Søgetermer
+
+`tekst fra billede`, `skærmbillede til tekst`, `tekstgenkendelse`, `læs QR-kode`,
+`stregkodescanner`, `udtræk tekst`, `læs op`
+
+---
+
+## Norsk bokmål — Norwegian
+
+### Kort beskrivelse
+
+Glyfo henter teksten ut av alt du kan se: et skjermbilde, et foto av en side, et skannet dokument,
+et lysbilde, en videorute. Trykk Alt+Z og ramme inn en del av skjermen, eller åpne en fil, lim inn
+fra utklippstavlen, send et bilde fra en annen app. Den gjenkjente teksten står ved siden av bildet,
+klar til å kopieres, lyttes til eller ryddes opp i. Glyfo leser også QR-koder og strekkoder fra det
+samme bildet, og på en Copilot+-PC oversetter den resultatet. Alt skjer på din egen PC — Glyfo
+oppretter ingen internettforbindelser. Gratis, uten annonser og uten kjøp.
+
+### Beskrivelse
+
+Glyfo gjør bilder med tekst om til tekst du kan bruke.
+
+Gjenkjenningen bygger på OCR-en som allerede finnes i Windows: ingen konto, ingen opplasting, ingen
+venting på en server. På en Copilot+-PC bruker Glyfo i tillegg tekstgjenkjenningsmodellen på enheten
+til de vanskelige bildene og kan oversette resultatet — også det uten nettverk.
+
+**Fire måter å få inn et bilde på**
+- Alt+Z rammer inn hvilken som helst del av skjermen. Ctrl+Shift+R tar hele skjermen.
+- Ctrl+V limer inn et bilde fra utklippstavlen, tekst også.
+- Ctrl+O åpner en fil; å dra den inn i vinduet fungerer like godt.
+- Høyreklikk et bilde i Filutforsker og åpne det med Glyfo, eller send det via delingspanelet i
+  Windows (Bilder, Utklippsverktøy, nettleseren).
+
+**Hva du får tilbake**
+- Den gjenkjente teksten ved siden av bildet, i den rekkefølgen den lå i.
+- Kopier med ett klikk, eller la et utklipp kopiere seg selv så snart det er ferdig.
+- Opplesing med hvilken som helst stemme som er installert på PC-en.
+- ”Fjern linjeskift” setter harde linjeskift sammen til avsnitt igjen, og ”Fjern mellomrom” fjerner
+  hvert mellomrom — akkurat det kinesisk, japansk og koreansk tekst trenger etter gjenkjenning.
+- QR-koder og strekkoder fra det samme bildet.
+- En historikk over de siste resultatene: utklippet fra to minutter siden er fortsatt ett klikk unna.
+
+**Du bestemmer hvordan den leser**
+- Velg gjenkjenningsspråk blant språkpakkene som er installert i Windows, eller la Glyfo velge.
+- En innstilling retter den klassiske OCR-feilen der v1.6.5 leses som vl.6.5: en l eller I blir et
+  1-tall bare der det står et skilletegn og et siffer ved siden av, så html5 og IPv6 blir stående.
+- Tilpass til vinduet eller vis i faktisk størrelse; gjenkjenn hele bildet eller bare utvalget.
+
+**Den er ikke i veien**
+- Lukker du vinduet, blir Glyfo liggende i systemstatusfeltet, og hurtigtasten virker fortsatt.
+  ”Avslutt” derfra lukker den for godt. Denne oppførselen er i seg selv en innstilling.
+- Glyfo kan starte med Windows og gå rett til systemstatusfeltet uten å åpne et vindu, slik at
+  hurtigtasten virker fra det øyeblikket du logger på. Av som standard; du slår den på selv.
+- Når vinduet er skjult, viser et varsel den første linjen av det som nettopp ble gjenkjent.
+
+**Språk**
+Grensesnittet finnes på 33 språk og følger språkinnstillingen i Windows. Gjenkjenningen bruker
+OCR-språkpakkene som ligger på PC-en — flere legger du til under Innstillinger › Tid og språk ›
+Språk og område.
+
+**Personvern**
+Glyfo oppretter ingen nettverksforbindelser. Bilder, gjenkjent tekst og oversettelser forlater aldri
+PC-en din. Ingen konto, ingen telemetri, ingen annonser.
+
+### Produktfunksjoner
+
+- Ta et utklipp av hvilken som helst del av skjermen med Alt+Z og gjenkjenn det med én gang, uten å forlate appen du leste i
+- Bygger på OCR-en som er innebygd i Windows, og på Copilot+-PC-er også på gjenkjenningsmodellen på enheten
+- Åpne en fil, lim inn fra utklippstavlen, dra og slipp eller motta via delingspanelet i Windows
+- Leser QR-koder og strekkoder fra det samme bildet
+- Oversetter på Copilot+-PC-er, på enheten, uten nettverkstilgang
+- Leser opp resultatet med hvilken som helst stemme som er installert på PC-en
+- Fjern linjeskift og mellomrom — oppryddingen CJK-tekst trenger etter gjenkjenning
+- Blir liggende i systemstatusfeltet, så hurtigtasten virker også når vinduet er lukket
+- Grensesnitt på 33 språk, følger språkinnstillingen i Windows
+- Kobler seg aldri til internett: det du gjenkjenner, forlater ikke PC-en din
+
+### Bildetekster til skjermbilder
+
+1. `01-text-from-a-page.png` — Den gjenkjente teksten står ved siden av bildet i den rekkefølgen den ble lest: klar til å kopieres, lyttes til eller settes sammen til avsnitt igjen.
+2. `02-any-language.png` — Gjenkjenningsspråket velger du blant språkpakkene som er installert i Windows — eller Glyfo bestemmer det selv.
+3. `03-qr-and-barcodes.png` — QR-koder og strekkoder leses fra det samme bildet; en egen skanne-app er ikke nødvendig.
+4. `04-history.png` — De siste resultatene blir liggende i historikken, så et utklipp fra noen minutter siden er fortsatt ett klikk unna.
+5. `05-settings.png` — Språk i grensesnittet, start med Windows, bli i systemstatusfeltet, og rettelsen som hindrer v1.6.5 i å bli vl.6.5.
+
+### Søkeord
+
+`tekst fra bilde`, `skjermbilde til tekst`, `tekstgjenkjenning`, `lese QR-kode`,
+`strekkodeleser`, `hente ut tekst`, `les opp`
+
+---
+
+## Suomi — Finnish
+
+### Lyhyt kuvaus
+
+Glyfo poimii tekstin kaikesta, mitä näet: kuvakaappauksesta, sivun valokuvasta, skannatusta
+asiakirjasta, diasta, videoruudusta. Paina Alt+Z ja rajaa osa näytöstä, tai avaa tiedosto, liitä
+leikepöydältä, lähetä kuva toisesta sovelluksesta. Tunnistettu teksti ilmestyy kuvan viereen valmiina
+kopioitavaksi, kuunneltavaksi tai siistittäväksi. Glyfo lukee samasta kuvasta myös QR-koodit ja
+viivakoodit, ja Copilot+-tietokoneessa se kääntää tuloksen. Kaikki tapahtuu omalla koneellasi — Glyfo
+ei muodosta lainkaan internet-yhteyksiä. Ilmainen, ei mainoksia eikä ostoksia.
+
+### Kuvaus
+
+Glyfo muuttaa tekstiä sisältävät kuvat tekstiksi, jota voi käyttää.
+
+Tunnistus toimii Windowsin omalla OCR:llä: ei tiliä, ei latausta palvelimelle, ei odottelua.
+Copilot+-tietokoneessa Glyfo käyttää vaikeisiin kuviin lisäksi laitteessa toimivaa
+tekstintunnistusmallia ja osaa kääntää tuloksen — myös se tapahtuu ilman verkkoa.
+
+**Neljä tapaa tuoda kuva sisään**
+- Alt+Z rajaa minkä tahansa osan näytöstä. Ctrl+Shift+R ottaa koko näytön.
+- Ctrl+V liittää kuvan leikepöydältä, tekstin myös.
+- Ctrl+O avaa tiedoston; ikkunaan raahaaminen toimii yhtä hyvin.
+- Napsauta kuvaa Resurssienhallinnassa hiiren kakkospainikkeella ja avaa se Glyfossa, tai lähetä se
+  Windowsin jakopaneelista (Kuvat, Kuvakaappaustyökalu, selain).
+
+**Mitä saat takaisin**
+- Tunnistetun tekstin kuvan vieressä, alkuperäisen asettelun järjestyksessä.
+- Kopiointi yhdellä napsautuksella, tai anna kaappauksen kopioida itsensä heti kun se on valmis.
+- Ääneen lukeminen millä tahansa koneelle asennetulla äänellä.
+- ”Poista rivinvaihdot” liittää kovat rivinvaihdot takaisin kappaleiksi ja ”Poista välilyönnit”
+  poistaa jokaisen välilyönnin — juuri sitä kiinan-, japanin- ja koreankielinen teksti tarvitsee
+  tunnistuksen jälkeen.
+- QR-koodit ja viivakoodit samasta kuvasta.
+- Historia viimeisimmistä tuloksista: kahden minuutin takainen kaappaus on yhä yhden napsautuksen
+  päässä.
+
+**Sinä päätät, miten se lukee**
+- Valitse tunnistuskieli Windowsiin asennetuista kielipaketeista tai anna Glyfon valita.
+- Yksi asetus korjaa klassisen OCR-virheen, jossa v1.6.5 luetaan muodossa vl.6.5: l tai I muuttuu
+  ykköseksi vain silloin, kun vieressä on erotin ja numero, joten html5 ja IPv6 jäävät ennalleen.
+- Sovita ikkunaan tai näytä todellisessa koossa; tunnista koko kuva tai vain valinta.
+
+**Se ei ole tiellä**
+- Kun suljet ikkunan, Glyfo jää ilmoitusalueelle ja kaappauspikanäppäin toimii edelleen. Sieltä
+  valittu ”Lopeta” sulkee sen kokonaan. Tämäkin toiminta on oma asetuksensa.
+- Glyfo voi käynnistyä Windowsin mukana ja mennä suoraan ilmoitusalueelle avaamatta ikkunaa, jolloin
+  pikanäppäin toimii heti kirjautumisesta alkaen. Oletuksena pois päältä; sinä otat sen käyttöön.
+- Kun ikkuna on piilossa, ilmoitus näyttää juuri tunnistetun tekstin ensimmäisen rivin.
+
+**Kielet**
+Käyttöliittymä on saatavilla 33 kielellä ja noudattaa Windowsin kieliasetusta. Tunnistus käyttää
+koneelle asennettuja OCR-kielipaketteja — lisää niitä kohdasta Asetukset › Aika ja kieli › Kieli ja
+alue.
+
+**Tietosuoja**
+Glyfo ei muodosta verkkoyhteyksiä. Kuvat, tunnistettu teksti ja käännökset eivät poistu koneeltasi
+koskaan. Ei tiliä, ei telemetriaa, ei mainoksia.
+
+### Tuotteen ominaisuudet
+
+- Kaappaa mikä tahansa osa näytöstä Alt+Z:lla ja tunnista se heti poistumatta sovelluksesta, jota olit lukemassa
+- Perustuu Windowsin sisäänrakennettuun OCR:ään, ja Copilot+-koneissa myös laitteessa toimivaan tunnistusmalliin
+- Avaa tiedosto, liitä leikepöydältä, raahaa ja pudota tai vastaanota Windowsin jakopaneelista
+- Lukee samasta kuvasta QR-koodit ja viivakoodit
+- Kääntää Copilot+-koneissa laitteessa, ilman verkkoyhteyttä
+- Lukee tuloksen ääneen millä tahansa koneelle asennetulla äänellä
+- Rivinvaihtojen ja välilyöntien poisto — se siistiminen, jota CJK-teksti tunnistuksen jälkeen tarvitsee
+- Jää ilmoitusalueelle, joten pikanäppäin toimii myös ikkunan sulkemisen jälkeen
+- Käyttöliittymä 33 kielellä, noudattaa Windowsin kieliasetusta
+- Ei yhdistä internetiin: se, minkä tunnistat, ei poistu koneeltasi
+
+### Kuvakaappausten tekstit
+
+1. `01-text-from-a-page.png` — Tunnistettu teksti on kuvan vieressä siinä järjestyksessä, jossa se luettiin: valmiina kopioitavaksi, kuunneltavaksi tai koottavaksi takaisin kappaleiksi.
+2. `02-any-language.png` — Tunnistuskielen valitset Windowsiin asennetuista kielipaketeista — tai Glyfo päättää sen itse.
+3. `03-qr-and-barcodes.png` — QR-koodit ja viivakoodit luetaan samasta kuvasta; erillistä skannaussovellusta ei tarvita.
+4. `04-history.png` — Viimeisimmät tulokset jäävät historiaan, joten muutaman minuutin takainen kaappaus on yhä yhden napsautuksen päässä.
+5. `05-settings.png` — Käyttöliittymän kieli, käynnistys Windowsin mukana, ilmoitusalueelle jääminen ja korjaus, joka estää v1.6.5:tä muuttumasta muotoon vl.6.5.
+
+### Hakutermit
+
+`teksti kuvasta`, `kuvakaappaus tekstiksi`, `tekstintunnistus`, `QR-koodin lukija`,
+`viivakoodinlukija`, `poimi teksti`, `lue ääneen`
+
+---
+
+## Ελληνικά — Greek
+
+### Σύντομη περιγραφή
+
+Το Glyfo βγάζει το κείμενο από οτιδήποτε βλέπετε: ένα στιγμιότυπο οθόνης, τη φωτογραφία μιας
+σελίδας, ένα σαρωμένο έγγραφο, μια διαφάνεια, ένα καρέ βίντεο. Πατήστε Alt+Z και πλαισιώστε ένα
+τμήμα της οθόνης, ή ανοίξτε ένα αρχείο, επικολλήστε από το πρόχειρο, στείλτε μια εικόνα από άλλη
+εφαρμογή. Το κείμενο που αναγνωρίστηκε εμφανίζεται δίπλα στην εικόνα, έτοιμο για αντιγραφή, ακρόαση
+ή καθάρισμα. Το Glyfo διαβάζει επίσης κωδικούς QR και barcode από την ίδια εικόνα, και σε έναν
+υπολογιστή Copilot+ μεταφράζει το αποτέλεσμα. Όλα γίνονται στον υπολογιστή σας — το Glyfo δεν κάνει
+καμία σύνδεση στο διαδίκτυο. Δωρεάν, χωρίς διαφημίσεις και χωρίς αγορές.
+
+### Περιγραφή
+
+Το Glyfo μετατρέπει τις εικόνες με κείμενο σε κείμενο που μπορείτε να χρησιμοποιήσετε.
+
+Η αναγνώριση στηρίζεται στο OCR που είναι ήδη μέσα στα Windows: χωρίς λογαριασμό, χωρίς αποστολή
+αρχείων, χωρίς αναμονή για κάποιον διακομιστή. Σε υπολογιστή Copilot+, το Glyfo αξιοποιεί επιπλέον
+το μοντέλο αναγνώρισης κειμένου που τρέχει στη συσκευή για τις δύσκολες εικόνες και μπορεί να
+μεταφράσει το αποτέλεσμα — και αυτό χωρίς δίκτυο.
+
+**Τέσσερις τρόποι να μπει μια εικόνα**
+- Alt+Z για να πλαισιώσετε οποιοδήποτε τμήμα της οθόνης. Ctrl+Shift+R παίρνει ολόκληρη την οθόνη.
+- Ctrl+V επικολλά εικόνα από το πρόχειρο, και κείμενο επίσης.
+- Ctrl+O ανοίγει ένα αρχείο· η μεταφορά του μέσα στο παράθυρο δουλεύει το ίδιο καλά.
+- Δεξί κλικ σε μια εικόνα στην Εξερεύνηση αρχείων και άνοιγμα με το Glyfo, ή αποστολή από το
+  παράθυρο κοινής χρήσης των Windows (Φωτογραφίες, Εργαλείο αποκομμάτων, πρόγραμμα περιήγησης).
+
+**Τι παίρνετε πίσω**
+- Το αναγνωρισμένο κείμενο δίπλα στην εικόνα, με τη σειρά που είχε στη διάταξη.
+- Αντιγραφή με ένα κλικ, ή αφήστε το απόκομμα να αντιγραφεί μόνο του μόλις ολοκληρωθεί.
+- Ανάγνωση φωναχτά με όποια φωνή είναι εγκατεστημένη στον υπολογιστή.
+- Η «Αφαίρεση αλλαγών γραμμής» ενώνει ξανά τις σκληρές αλλαγές γραμμής σε παραγράφους και η
+  «Αφαίρεση κενών» σβήνει κάθε κενό — ακριβώς αυτό που χρειάζεται το κινεζικό, ιαπωνικό και κορεατικό
+  κείμενο μετά την αναγνώριση.
+- Κωδικοί QR και barcode από την ίδια εικόνα.
+- Ένα ιστορικό των πρόσφατων αποτελεσμάτων: το απόκομμα των δύο λεπτών πριν είναι ακόμη ένα κλικ
+  μακριά.
+
+**Εσείς αποφασίζετε πώς διαβάζει**
+- Διαλέξτε γλώσσα αναγνώρισης ανάμεσα στα πακέτα που είναι εγκατεστημένα στα Windows, ή αφήστε το
+  Glyfo να αποφασίσει.
+- Μια επιλογή διορθώνει το κλασικό λάθος του OCR που διαβάζει το v1.6.5 ως vl.6.5: το l ή το I
+  γίνεται 1 μόνο εκεί που δίπλα του υπάρχει διαχωριστικό και ψηφίο, οπότε το html5 και το IPv6 μένουν
+  ανέπαφα.
+- Προσαρμογή στο παράθυρο ή προβολή σε πραγματικό μέγεθος· αναγνώριση ολόκληρης της εικόνας ή μόνο
+  της επιλογής.
+
+**Δεν σας μπαίνει εμπόδιο**
+- Κλείνοντας το παράθυρο, το Glyfo παραμένει στην περιοχή ειδοποιήσεων και η συντόμευση συνεχίζει να
+  δουλεύει. Η «Έξοδος» από εκεί το κλείνει στ' αλήθεια. Η ίδια αυτή συμπεριφορά είναι κι αυτή
+  ρύθμιση.
+- Το Glyfo μπορεί να ξεκινά μαζί με τα Windows και να πηγαίνει κατευθείαν στην περιοχή ειδοποιήσεων
+  χωρίς να ανοίγει παράθυρο, ώστε η συντόμευση να δουλεύει από τη στιγμή που συνδέεστε.
+  Απενεργοποιημένο εξ ορισμού· εσείς το ανοίγετε.
+- Με το παράθυρο κρυμμένο, μια ειδοποίηση δείχνει την πρώτη γραμμή αυτού που μόλις αναγνωρίστηκε.
+
+**Γλώσσες**
+Το περιβάλλον είναι διαθέσιμο σε 33 γλώσσες και ακολουθεί τη ρύθμιση γλώσσας των Windows. Η
+αναγνώριση χρησιμοποιεί τα πακέτα γλώσσας OCR που υπάρχουν στον υπολογιστή — προσθέτετε κι άλλα από
+τις Ρυθμίσεις › Ώρα και γλώσσα › Γλώσσα και περιοχή.
+
+**Απόρρητο**
+Το Glyfo δεν κάνει συνδέσεις δικτύου. Οι εικόνες, το αναγνωρισμένο κείμενο και οι μεταφράσεις δεν
+φεύγουν ποτέ από τον υπολογιστή σας. Χωρίς λογαριασμό, χωρίς τηλεμετρία, χωρίς διαφημίσεις.
+
+### Δυνατότητες προϊόντος
+
+- Αποτυπώστε οποιοδήποτε τμήμα της οθόνης με Alt+Z και αναγνωρίστε το αμέσως, χωρίς να φύγετε από την εφαρμογή που διαβάζατε
+- Στηρίζεται στο ενσωματωμένο OCR των Windows και, σε υπολογιστές Copilot+, στο μοντέλο αναγνώρισης της συσκευής
+- Άνοιγμα αρχείου, επικόλληση από το πρόχειρο, μεταφορά και απόθεση ή λήψη από το παράθυρο κοινής χρήσης
+- Διαβάζει κωδικούς QR και barcode από την ίδια εικόνα
+- Μεταφράζει σε υπολογιστές Copilot+, στη συσκευή, χωρίς πρόσβαση στο δίκτυο
+- Διαβάζει το αποτέλεσμα φωναχτά με όποια φωνή είναι εγκατεστημένη στον υπολογιστή
+- Αφαίρεση αλλαγών γραμμής και κενών — το καθάρισμα που χρειάζεται το κείμενο CJK μετά την αναγνώριση
+- Παραμένει στην περιοχή ειδοποιήσεων, ώστε η συντόμευση να δουλεύει και με κλειστό παράθυρο
+- Περιβάλλον σε 33 γλώσσες, ακολουθεί τη ρύθμιση γλώσσας των Windows
+- Δεν συνδέεται στο διαδίκτυο: ό,τι αναγνωρίζετε δεν φεύγει από τον υπολογιστή σας
+
+### Λεζάντες στιγμιότυπων
+
+1. `01-text-from-a-page.png` — Το αναγνωρισμένο κείμενο στέκεται δίπλα στην εικόνα με τη σειρά που διαβάστηκε: έτοιμο για αντιγραφή, ακρόαση ή ένωση ξανά σε παραγράφους.
+2. `02-any-language.png` — Τη γλώσσα αναγνώρισης τη διαλέγετε ανάμεσα στα πακέτα που είναι εγκατεστημένα στα Windows — ή την ορίζει μόνο του το Glyfo.
+3. `03-qr-and-barcodes.png` — Κωδικοί QR και barcode διαβάζονται από την ίδια εικόνα· δεν χρειάζεται ξεχωριστή εφαρμογή σάρωσης.
+4. `04-history.png` — Τα πρόσφατα αποτελέσματα μένουν στο ιστορικό, οπότε ένα απόκομμα λίγων λεπτών πριν είναι ακόμη ένα κλικ μακριά.
+5. `05-settings.png` — Γλώσσα περιβάλλοντος, εκκίνηση με τα Windows, παραμονή στην περιοχή ειδοποιήσεων και η διόρθωση που δεν αφήνει το v1.6.5 να γίνει vl.6.5.
+
+### Όροι αναζήτησης
+
+`κείμενο από εικόνα`, `στιγμιότυπο σε κείμενο`, `αναγνώριση κειμένου`, `ανάγνωση QR κωδικού`,
+`σαρωτής barcode`, `εξαγωγή κειμένου`, `ανάγνωση φωναχτά`
+
+---
+
+## Magyar — Hungarian
+
+### Rövid leírás
+
+A Glyfo mindenből kiszedi a szöveget, amit látsz: képernyőképből, egy oldalról készült fotóból,
+beszkennelt iratból, diából, videokockából. Nyomd meg az Alt+Z billentyűt, és keretezz be egy részt a
+képernyőből, vagy nyiss meg egy fájlt, illessz be a vágólapról, küldj át egy képet egy másik
+alkalmazásból. A felismert szöveg a kép mellett jelenik meg, készen a másolásra, felolvasásra vagy
+rendbe tételre. A Glyfo ugyanabból a képből a QR-kódokat és vonalkódokat is kiolvassa, Copilot+ gépen
+pedig le is fordítja az eredményt. Minden a saját gépeden történik — a Glyfo egyáltalán nem
+kapcsolódik az internethez. Ingyenes, hirdetések és vásárlások nélkül.
+
+### Leírás
+
+A Glyfo a szöveget tartalmazó képekből használható szöveget csinál.
+
+A felismerés a Windowsba épített OCR-re támaszkodik: nincs fiók, nincs feltöltés, nincs várakozás egy
+kiszolgálóra. Copilot+ gépen a Glyfo a nehezebb képekhez az eszközön futó szövegfelismerő modellt is
+igénybe veszi, és le tudja fordítani az eredményt — ez is hálózat nélkül.
+
+**Négyféleképpen kerülhet be egy kép**
+- Az Alt+Z bekeretezi a képernyő tetszőleges részét. A Ctrl+Shift+R az egész képernyőt viszi.
+- A Ctrl+V képet illeszt be a vágólapról, szöveget is.
+- A Ctrl+O fájlt nyit meg; az ablakba húzás ugyanúgy működik.
+- Kattints jobb gombbal egy képre a Fájlkezelőben, és nyisd meg a Glyfóval, vagy küldd át a Windows
+  megosztási paneljéről (Fényképek, Képmetsző, böngésző).
+
+**Mit kapsz vissza**
+- A felismert szöveget a kép mellett, az eredeti elrendezés sorrendjében.
+- Másolás egy kattintással, vagy hagyd, hogy a felvétel magától a vágólapra kerüljön, amint elkészül.
+- Felolvasás bármelyik, a gépre telepített hanggal.
+- A „Sortörések eltávolítása” a kemény sortöréseket visszafűzi bekezdésekké, a „Szóközök
+  eltávolítása” pedig minden szóközt kitöröl — pontosan erre van szüksége a kínai, japán és koreai
+  szövegnek a felismerés után.
+- QR-kódok és vonalkódok ugyanabból a képből.
+- A legutóbbi eredmények előzménye: a két perccel ezelőtti felvétel még mindig egy kattintásnyira van.
+
+**Te döntöd el, hogyan olvas**
+- A felismerés nyelvét a Windowsban telepített nyelvi csomagok közül választhatod ki, vagy a Glyfóra
+  bízhatod.
+- Egy beállítás javítja azt a klasszikus OCR-hibát, amelytől a v1.6.5 vl.6.5 lesz: az l vagy az I
+  csak ott válik 1-essé, ahol elválasztó és számjegy áll mellette, így a html5 és az IPv6 érintetlen
+  marad.
+- Igazítás az ablakhoz vagy valódi méret; az egész kép vagy csak a kijelölés felismerése.
+
+**Nincs útban**
+- Az ablak bezárásakor a Glyfo az értesítési területen marad, és a gyorsbillentyű továbbra is
+  működik. Az ottani „Kilépés” zárja be igazán. Maga ez a viselkedés is beállítás.
+- A Glyfo elindulhat a Windowsszal, és ablak nyitása nélkül egyenesen az értesítési területre mehet,
+  így a gyorsbillentyű a bejelentkezés pillanatától működik. Alapértelmezés szerint kikapcsolva; te
+  kapcsolod be.
+- Rejtett ablaknál egy értesítés mutatja az imént felismert szöveg első sorát.
+
+**Nyelvek**
+A felület 33 nyelven érhető el, és a Windows nyelvi beállítását követi. A felismerés a gépre
+telepített OCR-nyelvi csomagokat használja — továbbiakat a Beállítások › Idő és nyelv › Nyelv és
+régió alatt adhatsz hozzá.
+
+**Adatvédelem**
+A Glyfo nem létesít hálózati kapcsolatot. A képek, a felismert szöveg és a fordítások soha nem
+hagyják el a gépedet. Nincs fiók, nincs telemetria, nincs hirdetés.
+
+### Termékjellemzők
+
+- Vágd ki a képernyő bármelyik részét az Alt+Z billentyűvel, és ismerd fel azonnal, anélkül hogy kilépnél abból az alkalmazásból, amelyet éppen olvastál
+- A Windowsba épített OCR-re épül, Copilot+ gépeken pedig az eszközön futó felismerő modellre is
+- Fájl megnyitása, beillesztés a vágólapról, húzd és ejtsd, vagy fogadás a Windows megosztási paneljéről
+- Kiolvassa ugyanabból a képből a QR-kódokat és a vonalkódokat
+- Copilot+ gépeken az eszközön fordít, hálózati hozzáférés nélkül
+- Felolvassa az eredményt bármelyik, a gépre telepített hanggal
+- Sortörések és szóközök eltávolítása — az a rendrakás, amire a CJK-szövegnek felismerés után szüksége van
+- Az értesítési területen marad, így a gyorsbillentyű az ablak bezárása után is működik
+- 33 nyelvű felület, a Windows nyelvi beállítását követve
+- Nem kapcsolódik az internethez: amit felismersz, nem hagyja el a gépedet
+
+### Képernyőképek feliratai
+
+1. `01-text-from-a-page.png` — A felismert szöveg a kép mellett áll, abban a sorrendben, ahogy beolvasásra került: másolható, felolvastatható vagy visszafűzhető bekezdésekké.
+2. `02-any-language.png` — A felismerés nyelvét a Windowsban telepített nyelvi csomagok közül választod ki — vagy a Glyfo dönti el magától.
+3. `03-qr-and-barcodes.png` — A QR-kódok és a vonalkódok ugyanabból a képből olvashatók ki; külön szkennelő alkalmazásra nincs szükség.
+4. `04-history.png` — A legutóbbi eredmények az előzményekben maradnak, így egy néhány perccel ezelőtti felvétel még mindig egy kattintásnyira van.
+5. `05-settings.png` — A felület nyelve, indulás a Windowsszal, az értesítési területen maradás, és a javítás, amitől a v1.6.5 nem lesz vl.6.5.
+
+### Keresési kifejezések
+
+`szöveg képből`, `képernyőkép szöveggé`, `szövegfelismerés`, `QR-kód olvasó`,
+`vonalkód olvasó`, `szöveg kinyerése`, `felolvasás`
+
+---
+
+## Română — Romanian
+
+### Descriere scurtă
+
+Glyfo extrage textul din tot ce vezi: o captură de ecran, fotografia unei pagini, un document
+scanat, un diapozitiv, un cadru dintr-un clip. Apasă Alt+Z și încadrează o parte a ecranului, ori
+deschide un fișier, lipește din clipboard, trimite o imagine din altă aplicație. Textul recunoscut
+apare lângă imagine, gata de copiat, de ascultat sau de curățat. Glyfo citește din aceeași imagine
+și codurile QR și codurile de bare, iar pe un PC Copilot+ traduce rezultatul. Totul se întâmplă pe
+calculatorul tău — Glyfo nu deschide nicio conexiune la internet. Gratuit, fără reclame și fără
+achiziții.
+
+### Descriere
+
+Glyfo transformă imaginile cu text în text pe care îl poți folosi.
+
+Recunoașterea se sprijină pe OCR-ul din Windows: fără cont, fără încărcare, fără așteptare după un
+server. Pe un PC Copilot+, Glyfo folosește în plus modelul de recunoaștere a textului de pe
+dispozitiv pentru imaginile dificile și poate traduce rezultatul — tot fără rețea.
+
+**Patru feluri de a aduce o imagine înăuntru**
+- Alt+Z încadrează orice parte a ecranului. Ctrl+Shift+R ia tot ecranul.
+- Ctrl+V lipește o imagine din clipboard, și text la fel.
+- Ctrl+O deschide un fișier; tragerea lui în fereastră funcționează la fel de bine.
+- Clic dreapta pe o imagine în Explorer și deschide-o cu Glyfo, sau trimite-o din panoul de
+  partajare Windows (Fotografii, Instrument de decupare, browser).
+
+**Ce primești înapoi**
+- Textul recunoscut lângă imagine, în ordinea în care era așezat.
+- Copiere cu un clic, sau lasă o captură să se copieze singură imediat ce e gata.
+- Citire cu voce tare cu orice voce instalată pe calculator.
+- „Elimină întreruperile de rând” lipește la loc rândurile rupte în paragrafe, iar „Elimină
+  spațiile” șterge fiecare spațiu — exact ce îi trebuie textului chinezesc, japonez și coreean după
+  recunoaștere.
+- Coduri QR și coduri de bare din aceeași imagine.
+- Un istoric al rezultatelor recente: captura de acum două minute e tot la un clic distanță.
+
+**Tu hotărăști cum citește**
+- Alege limba de recunoaștere dintre pachetele instalate în Windows, sau las-o pe Glyfo să aleagă.
+- O opțiune repară eroarea clasică de OCR prin care v1.6.5 e citit vl.6.5: un l sau un I devine 1
+  doar acolo unde alături stau un separator și o cifră, așa că html5 și IPv6 rămân neatinse.
+- Potrivire la fereastră sau vizualizare la dimensiunea reală; recunoaște toată imaginea sau doar
+  selecția.
+
+**Nu îți stă în cale**
+- Dacă închizi fereastra, Glyfo rămâne în zona de notificare, iar scurtătura funcționează în
+  continuare. „Ieșire” de acolo îl închide cu adevărat. Chiar și comportamentul acesta e o setare.
+- Glyfo poate porni odată cu Windows și poate merge direct în zona de notificare fără să deschidă o
+  fereastră, așa încât scurtătura funcționează din clipa în care te conectezi. Dezactivat implicit;
+  tu îl activezi.
+- Cu fereastra ascunsă, o notificare arată primul rând din ce tocmai a fost recunoscut.
+
+**Limbi**
+Interfața există în 33 de limbi și urmează setarea de limbă din Windows. Recunoașterea folosește
+pachetele de limbă OCR instalate pe calculator — mai adaugi din Setări › Oră și limbă › Limbă și
+regiune.
+
+**Confidențialitate**
+Glyfo nu deschide conexiuni de rețea. Imaginile, textul recunoscut și traducerile nu îți părăsesc
+niciodată calculatorul. Fără cont, fără telemetrie, fără reclame.
+
+### Caracteristicile produsului
+
+- Capturează orice parte a ecranului cu Alt+Z și recunoaște-o pe loc, fără să ieși din aplicația în care citeai
+- Se bazează pe OCR-ul integrat în Windows, iar pe PC-urile Copilot+ și pe modelul de recunoaștere de pe dispozitiv
+- Deschide un fișier, lipește din clipboard, trage și plasează sau primește din panoul de partajare Windows
+- Citește coduri QR și coduri de bare din aceeași imagine
+- Traduce pe PC-urile Copilot+, pe dispozitiv, fără acces la rețea
+- Citește rezultatul cu voce tare cu orice voce instalată pe calculator
+- Eliminarea întreruperilor de rând și a spațiilor — curățenia de care are nevoie textul CJK după recunoaștere
+- Rămâne în zona de notificare, așa că scurtătura merge și după închiderea ferestrei
+- Interfață în 33 de limbi, după setarea de limbă din Windows
+- Nu se conectează la internet: ce recunoști nu îți părăsește calculatorul
+
+### Subtitrări pentru capturi de ecran
+
+1. `01-text-from-a-page.png` — Textul recunoscut stă lângă imagine în ordinea în care a fost citit: gata de copiat, de ascultat sau de lipit la loc în paragrafe.
+2. `02-any-language.png` — Limba de recunoaștere se alege dintre pachetele instalate în Windows — sau o stabilește Glyfo singur.
+3. `03-qr-and-barcodes.png` — Codurile QR și codurile de bare se citesc din aceeași imagine; nu îți trebuie o aplicație separată de scanare.
+4. `04-history.png` — Rezultatele recente rămân în istoric, așa că o captură de acum câteva minute e tot la un clic distanță.
+5. `05-settings.png` — Limba interfeței, pornirea odată cu Windows, rămânerea în zona de notificare și corecția care nu lasă v1.6.5 să devină vl.6.5.
+
+### Termeni de căutare
+
+`text din imagine`, `captură de ecran în text`, `recunoaștere text`, `citire cod QR`,
+`scaner coduri de bare`, `extrage text`, `citire cu voce tare`
+
+---
+
+## Українська — Ukrainian
+
+### Короткий опис
+
+Glyfo дістає текст з усього, що ви бачите: зі знімка екрана, з фотографії сторінки, зі сканованого
+документа, зі слайда, з кадру відео. Натисніть Alt+Z і обведіть частину екрана, або відкрийте файл,
+вставте з буфера обміну, надішліть зображення з іншої програми. Розпізнаний текст з'являється поруч
+із зображенням — готовий скопіювати, прослухати або причесати. Glyfo зчитує з того самого
+зображення й QR-коди та штрихкоди, а на комп'ютері Copilot+ ще й перекладає результат. Усе
+відбувається на вашому комп'ютері — Glyfo не встановлює жодних інтернет-з'єднань. Безкоштовно, без
+реклами та без покупок.
+
+### Опис
+
+Glyfo перетворює зображення з текстом на текст, яким можна користуватися.
+
+Розпізнавання працює на OCR, вбудованому у Windows: без облікового запису, без завантаження на
+сервер, без очікування. На комп'ютері Copilot+ Glyfo додатково задіює модель розпізнавання тексту
+просто на пристрої для складних зображень і вміє перекласти результат — теж без мережі.
+
+**Чотири способи завести зображення**
+- Alt+Z обводить будь-яку частину екрана. Ctrl+Shift+R знімає весь екран.
+- Ctrl+V вставляє зображення з буфера обміну, а також текст.
+- Ctrl+O відкриває файл; перетягування у вікно працює так само.
+- Клацніть зображення правою кнопкою у Провіднику й відкрийте його в Glyfo або надішліть із панелі
+  спільного доступу Windows (Фотографії, Ножиці, браузер).
+
+**Що ви отримуєте**
+- Розпізнаний текст поруч із зображенням, у порядку початкового розташування.
+- Копіювання одним клацанням або автоматичне копіювання знімка одразу після завершення.
+- Читання вголос будь-яким голосом, встановленим на комп'ютері.
+- «Прибрати переноси» зшиває жорсткі розриви рядків назад в абзаци, а «Прибрати пробіли» видаляє
+  кожен пробіл — саме це потрібно китайському, японському та корейському тексту після
+  розпізнавання.
+- QR-коди та штрихкоди з того самого зображення.
+- Історія останніх результатів: знімок дводавнини все ще за одне клацання.
+
+**Ви вирішуєте, як воно читає**
+- Мову розпізнавання оберіть із мовних пакетів, встановлених у Windows, або довіртеся Glyfo.
+- Окремий параметр виправляє класичну помилку OCR, через яку v1.6.5 читається як vl.6.5: l або I
+  стає одиницею лише там, де поруч стоять роздільник і цифра, тож html5 та IPv6 лишаються цілими.
+- Вписати у вікно або показати в справжньому розмірі; розпізнати все зображення чи тільки виділене.
+
+**Воно не заважає**
+- Після закриття вікна Glyfo лишається в області сповіщень, і комбінація клавіш працює далі.
+  «Вийти» звідти закриває його по-справжньому. Сама ця поведінка теж є перемикачем.
+- Glyfo може запускатися разом із Windows і одразу йти в область сповіщень, не відкриваючи вікна,
+  тож комбінація працює з моменту входу в систему. Типово вимкнено; вмикаєте ви самі.
+- Коли вікно приховане, сповіщення показує перший рядок щойно розпізнаного тексту.
+
+**Мови**
+Інтерфейс доступний 33 мовами й слідує за мовним налаштуванням Windows. Розпізнавання використовує
+мовні пакети OCR, встановлені на комп'ютері — нові додаються в Параметри › Час і мова › Мова та
+регіон.
+
+**Конфіденційність**
+Glyfo не встановлює мережевих з'єднань. Зображення, розпізнаний текст і переклади ніколи не
+залишають ваш комп'ютер. Без облікового запису, без телеметрії, без реклами.
+
+### Функції продукту
+
+- Зніміть будь-яку частину екрана комбінацією Alt+Z і розпізнайте її одразу, не виходячи з програми, яку читали
+- Спирається на вбудований в Windows OCR, а на комп'ютерах Copilot+ ще й на модель розпізнавання на пристрої
+- Відкрити файл, вставити з буфера обміну, перетягнути або прийняти з панелі спільного доступу Windows
+- Зчитує QR-коди та штрихкоди з того самого зображення
+- Перекладає на комп'ютерах Copilot+, просто на пристрої, без доступу до мережі
+- Читає результат уголос будь-яким голосом, встановленим на комп'ютері
+- Прибирання переносів і пробілів — те прибирання, якого текст CJK потребує після розпізнавання
+- Лишається в області сповіщень, тож комбінація клавіш працює й після закриття вікна
+- Інтерфейс 33 мовами, за мовним налаштуванням Windows
+- Не під'єднується до інтернету: те, що ви розпізнаєте, не залишає ваш комп'ютер
+
+### Підписи до знімків екрана
+
+1. `01-text-from-a-page.png` — Розпізнаний текст стоїть поруч із зображенням у порядку, в якому його прочитали: копіюйте, слухайте або зшивайте назад в абзаци.
+2. `02-any-language.png` — Мову розпізнавання ви обираєте з мовних пакетів, встановлених у Windows — або Glyfo визначає її сам.
+3. `03-qr-and-barcodes.png` — QR-коди та штрихкоди зчитуються з того самого зображення; окрема програма-сканер не потрібна.
+4. `04-history.png` — Останні результати лишаються в історії, тож знімок кількахвилинної давнини все ще за одне клацання.
+5. `05-settings.png` — Мова інтерфейсу, запуск разом із Windows, перебування в області сповіщень і виправлення, яке не дає v1.6.5 стати vl.6.5.
+
+### Пошукові терміни
+
+`текст із зображення`, `скриншот у текст`, `розпізнавання тексту`, `сканер QR-коду`,
+`сканер штрихкодів`, `витягти текст`, `читати вголос`
+
+---
+
+## Tiếng Việt — Vietnamese
+
+### Mô tả ngắn
+
+Glyfo lấy chữ ra khỏi mọi thứ bạn nhìn thấy: một ảnh chụp màn hình, ảnh chụp một trang sách, một
+bản quét, một trang chiếu, một khung hình video. Nhấn Alt+Z rồi khoanh một vùng màn hình, hoặc mở
+tệp, dán từ bảng tạm, gửi ảnh sang từ ứng dụng khác. Văn bản nhận dạng được hiện ngay bên cạnh ảnh,
+sẵn sàng để sao chép, nghe đọc hoặc dọn dẹp. Glyfo cũng đọc mã QR và mã vạch từ chính tấm ảnh đó, và
+trên máy Copilot+ thì dịch luôn kết quả. Mọi thứ diễn ra trên máy của bạn — Glyfo không hề tạo kết
+nối internet nào. Miễn phí, không quảng cáo và không mua thêm.
+
+### Mô tả
+
+Glyfo biến những tấm ảnh có chữ thành văn bản bạn dùng được.
+
+Việc nhận dạng chạy trên OCR có sẵn trong Windows: không cần tài khoản, không tải lên, không chờ máy
+chủ. Trên máy Copilot+, Glyfo dùng thêm mô hình nhận dạng văn bản ngay trên thiết bị cho những tấm
+ảnh khó và có thể dịch kết quả — cũng không cần mạng.
+
+**Bốn cách đưa ảnh vào**
+- Alt+Z khoanh bất kỳ vùng nào trên màn hình. Ctrl+Shift+R lấy toàn màn hình.
+- Ctrl+V dán ảnh từ bảng tạm, dán chữ cũng được.
+- Ctrl+O mở một tệp; kéo tệp vào cửa sổ cũng cho kết quả như vậy.
+- Bấm chuột phải vào một tấm ảnh trong File Explorer rồi mở bằng Glyfo, hoặc gửi từ bảng chia sẻ của
+  Windows (Photos, Snipping Tool, trình duyệt).
+
+**Bạn nhận lại được gì**
+- Văn bản nhận dạng nằm cạnh ảnh, theo đúng thứ tự bố cục ban đầu.
+- Sao chép bằng một cú bấm, hoặc để bản chụp tự sao chép ngay khi xong.
+- Đọc to bằng bất kỳ giọng nào đã cài trên máy.
+- “Bỏ ngắt dòng” nối những chỗ xuống dòng cứng trở lại thành đoạn văn, còn “Bỏ khoảng trắng” xoá
+  từng khoảng trắng — đúng thứ mà văn bản tiếng Trung, tiếng Nhật và tiếng Hàn cần sau khi nhận
+  dạng.
+- Mã QR và mã vạch từ chính tấm ảnh đó.
+- Một lịch sử các kết quả gần đây: bản chụp hai phút trước vẫn chỉ cách một cú bấm.
+
+**Bạn quyết định cách nó đọc**
+- Chọn ngôn ngữ nhận dạng trong số các gói đã cài trong Windows, hoặc để Glyfo tự chọn.
+- Một tuỳ chọn sửa lỗi OCR kinh điển khiến v1.6.5 bị đọc thành vl.6.5: chữ l hay I chỉ biến thành số
+  1 ở chỗ có dấu phân cách và chữ số đứng cạnh, nên html5 và IPv6 vẫn nguyên vẹn.
+- Vừa khung cửa sổ hoặc xem đúng kích thước thật; nhận dạng cả tấm ảnh hoặc chỉ phần đã chọn.
+
+**Nó không vướng chân bạn**
+- Đóng cửa sổ thì Glyfo vẫn nằm ở khay thông báo và phím tắt chụp vẫn chạy. Chọn “Thoát” ở đó mới
+  thực sự đóng hẳn. Bản thân cách hoạt động này cũng là một tuỳ chọn.
+- Glyfo có thể khởi động cùng Windows và đi thẳng xuống khay thông báo mà không mở cửa sổ nào, nên
+  phím tắt dùng được ngay từ lúc bạn đăng nhập. Mặc định tắt; bạn tự bật.
+- Khi cửa sổ đang ẩn, một thông báo hiện dòng đầu tiên của phần vừa nhận dạng xong.
+
+**Ngôn ngữ**
+Giao diện có 33 ngôn ngữ và đi theo thiết lập ngôn ngữ của Windows. Việc nhận dạng dùng các gói ngôn
+ngữ OCR đã cài trên máy — thêm gói mới ở Settings › Time & language › Language & region.
+
+**Quyền riêng tư**
+Glyfo không tạo kết nối mạng. Ảnh, văn bản nhận dạng và bản dịch không bao giờ rời khỏi máy bạn.
+Không tài khoản, không thu thập dữ liệu, không quảng cáo.
+
+### Tính năng sản phẩm
+
+- Chụp bất kỳ vùng nào trên màn hình bằng Alt+Z và nhận dạng ngay, không phải rời khỏi ứng dụng bạn đang đọc
+- Chạy trên OCR có sẵn của Windows, và trên máy Copilot+ còn dùng thêm mô hình nhận dạng trên thiết bị
+- Mở tệp, dán từ bảng tạm, kéo thả hoặc nhận từ bảng chia sẻ của Windows
+- Đọc mã QR và mã vạch từ chính tấm ảnh đó
+- Dịch trên máy Copilot+, ngay trên thiết bị, không cần truy cập mạng
+- Đọc to kết quả bằng bất kỳ giọng nào đã cài trên máy
+- Bỏ ngắt dòng và khoảng trắng — phần dọn dẹp mà văn bản CJK cần sau khi nhận dạng
+- Nằm lại ở khay thông báo, nên phím tắt vẫn chạy sau khi bạn đóng cửa sổ
+- Giao diện 33 ngôn ngữ, đi theo thiết lập ngôn ngữ của Windows
+- Không kết nối internet: thứ bạn nhận dạng không rời khỏi máy bạn
+
+### Chú thích ảnh chụp màn hình
+
+1. `01-text-from-a-page.png` — Văn bản nhận dạng nằm cạnh tấm ảnh theo đúng thứ tự đã đọc: sẵn sàng để sao chép, nghe đọc hoặc nối lại thành đoạn văn.
+2. `02-any-language.png` — Ngôn ngữ nhận dạng chọn trong số các gói đã cài trong Windows — hoặc để Glyfo tự quyết định.
+3. `03-qr-and-barcodes.png` — Mã QR và mã vạch được đọc từ chính tấm ảnh đó; không cần thêm ứng dụng quét riêng.
+4. `04-history.png` — Các kết quả gần đây nằm lại trong lịch sử, nên bản chụp vài phút trước vẫn chỉ cách một cú bấm.
+5. `05-settings.png` — Ngôn ngữ giao diện, khởi động cùng Windows, nằm lại ở khay thông báo, và phần sửa lỗi giữ cho v1.6.5 không thành vl.6.5.
+
+### Từ khoá tìm kiếm
+
+`văn bản từ hình ảnh`, `ảnh chụp màn hình sang chữ`, `nhận dạng văn bản`, `đọc mã QR`,
+`quét mã vạch`, `trích xuất văn bản`, `đọc to văn bản`
+
+---
+
+## ไทย — Thai
+
+### คำอธิบายแบบสั้น
+
+Glyfo ดึงข้อความออกมาจากทุกอย่างที่คุณเห็น ไม่ว่าจะเป็นภาพหน้าจอ ภาพถ่ายของหน้าหนังสือ เอกสารที่สแกนมา
+สไลด์นำเสนอ หรือเฟรมจากวิดีโอ กด Alt+Z แล้วลากกรอบครอบส่วนใดก็ได้ของหน้าจอ หรือจะเปิดไฟล์ วางจากคลิปบอร์ด
+ส่งภาพมาจากแอปอื่นก็ได้ ข้อความที่อ่านได้จะปรากฏข้างภาพ พร้อมให้คัดลอก ฟังเสียงอ่าน หรือจัดให้เรียบร้อย
+Glyfo ยังอ่านคิวอาร์โค้ดและบาร์โค้ดจากภาพเดียวกันนี้ด้วย และบนเครื่อง Copilot+ ยังแปลผลลัพธ์ให้อีก
+ทุกอย่างเกิดขึ้นบนเครื่องของคุณเอง Glyfo ไม่เชื่อมต่ออินเทอร์เน็ตเลยแม้แต่ครั้งเดียว ใช้ฟรี ไม่มีโฆษณา
+และไม่มีการซื้อเพิ่ม
+
+### คำอธิบาย
+
+Glyfo เปลี่ยนภาพที่มีตัวหนังสือให้กลายเป็นข้อความที่คุณเอาไปใช้งานต่อได้
+
+การอ่านข้อความทำงานบน OCR ที่มีอยู่แล้วในตัว Windows ไม่ต้องสมัครบัญชี ไม่ต้องอัปโหลด
+ไม่ต้องรอเซิร์ฟเวอร์ บนเครื่อง Copilot+ นั้น Glyfo จะเรียกใช้โมเดลรู้จำข้อความที่ทำงานบนเครื่องเพิ่มอีกชั้น
+สำหรับภาพที่อ่านยาก และแปลผลลัพธ์ให้ได้ด้วย ซึ่งก็ไม่ต้องใช้เครือข่ายเช่นกัน
+
+**สี่วิธีในการนำภาพเข้ามา**
+- Alt+Z ลากกรอบครอบส่วนใดก็ได้ของหน้าจอ ส่วน Ctrl+Shift+R จับภาพทั้งหน้าจอ
+- Ctrl+V วางภาพจากคลิปบอร์ด วางข้อความก็ได้เช่นกัน
+- Ctrl+O เปิดไฟล์ และการลากไฟล์เข้ามาในหน้าต่างก็ได้ผลเหมือนกัน
+- คลิกขวาที่ภาพใน File Explorer แล้วเปิดด้วย Glyfo หรือส่งมาจากแผงแชร์ของ Windows (Photos,
+  Snipping Tool, เว็บเบราว์เซอร์)
+
+**สิ่งที่คุณจะได้กลับมา**
+- ข้อความที่อ่านได้วางอยู่ข้างภาพ เรียงตามลำดับเดิมของเนื้อหา
+- คัดลอกด้วยคลิกเดียว หรือจะให้ภาพที่เพิ่งจับคัดลอกตัวเองทันทีที่อ่านเสร็จก็ได้
+- อ่านออกเสียงด้วยเสียงใดก็ได้ที่ติดตั้งอยู่บนเครื่อง
+- “ลบการขึ้นบรรทัด” จะเชื่อมบรรทัดที่ถูกตัดแข็ง ๆ กลับเป็นย่อหน้า ส่วน “ลบช่องว่าง” จะลบช่องว่างทุกตัว
+  ซึ่งเป็นสิ่งที่ข้อความภาษาจีน ญี่ปุ่น และเกาหลีต้องการหลังการอ่าน
+- คิวอาร์โค้ดและบาร์โค้ดจากภาพเดียวกัน
+- ประวัติผลลัพธ์ล่าสุด ภาพที่จับไว้เมื่อสองนาทีก่อนยังอยู่ห่างแค่คลิกเดียว
+
+**คุณเป็นคนกำหนดว่าจะให้อ่านอย่างไร**
+- เลือกภาษาที่จะใช้อ่านจากชุดภาษาที่ติดตั้งไว้ใน Windows หรือปล่อยให้ Glyfo เลือกเอง
+- มีตัวเลือกหนึ่งที่แก้ข้อผิดพลาดคลาสสิกของ OCR ที่อ่าน v1.6.5 เป็น vl.6.5 โดยตัว l หรือ I
+  จะกลายเป็นเลข 1 เฉพาะตรงที่มีตัวคั่นและตัวเลขอยู่ข้าง ๆ เท่านั้น html5 และ IPv6 จึงไม่ถูกแตะต้อง
+- ย่อให้พอดีหน้าต่างหรือดูขนาดจริง จะอ่านทั้งภาพหรืออ่านเฉพาะส่วนที่เลือกไว้ก็ได้
+
+**มันไม่เกะกะ**
+- ปิดหน้าต่างแล้ว Glyfo จะยังอยู่ในพื้นที่แจ้งเตือน และปุ่มลัดสำหรับจับภาพก็ยังใช้ได้ ต้องเลือก “ออก”
+  จากตรงนั้นจึงจะปิดจริง ๆ พฤติกรรมนี้เองก็เป็นตัวเลือกที่เปิดปิดได้
+- Glyfo เริ่มทำงานพร้อม Windows แล้วลงไปอยู่ในพื้นที่แจ้งเตือนโดยไม่เปิดหน้าต่างเลยก็ได้
+  ปุ่มลัดจึงพร้อมใช้ตั้งแต่วินาทีที่คุณลงชื่อเข้าใช้ ค่าเริ่มต้นคือปิดไว้ คุณเป็นคนเปิดเอง
+- เมื่อหน้าต่างถูกซ่อนอยู่ การแจ้งเตือนจะแสดงบรรทัดแรกของข้อความที่เพิ่งอ่านได้
+
+**ภาษา**
+หน้าตาโปรแกรมมีให้เลือก 33 ภาษา และจะเดินตามการตั้งค่าภาษาของ Windows ส่วนการอ่านข้อความจะใช้ชุดภาษา OCR
+ที่ติดตั้งอยู่บนเครื่อง เพิ่มชุดใหม่ได้ที่ การตั้งค่า › เวลาและภาษา › ภาษาและภูมิภาค
+
+**ความเป็นส่วนตัว**
+Glyfo ไม่เปิดการเชื่อมต่อเครือข่ายใด ๆ ภาพ ข้อความที่อ่านได้ และคำแปล จะไม่ออกจากเครื่องของคุณเลย
+ไม่มีบัญชีผู้ใช้ ไม่มีการเก็บข้อมูลการใช้งาน ไม่มีโฆษณา
+
+### คุณสมบัติของผลิตภัณฑ์
+
+- จับภาพส่วนใดก็ได้ของหน้าจอด้วย Alt+Z แล้วอ่านข้อความทันที โดยไม่ต้องออกจากแอปที่คุณกำลังอ่านอยู่
+- ทำงานบน OCR ที่มีมาในตัว Windows และบนเครื่อง Copilot+ ยังเสริมด้วยโมเดลรู้จำข้อความบนเครื่อง
+- เปิดไฟล์ วางจากคลิปบอร์ด ลากมาวาง หรือรับมาจากแผงแชร์ของ Windows
+- อ่านคิวอาร์โค้ดและบาร์โค้ดจากภาพเดียวกัน
+- แปลบนเครื่อง Copilot+ โดยประมวลผลบนเครื่อง ไม่ต้องต่อเครือข่าย
+- อ่านผลลัพธ์ออกเสียงด้วยเสียงใดก็ได้ที่ติดตั้งอยู่บนเครื่อง
+- ลบการขึ้นบรรทัดและช่องว่าง คือการจัดเก็บกวาดที่ข้อความ CJK ต้องการหลังการอ่าน
+- อยู่ต่อในพื้นที่แจ้งเตือน ปุ่มลัดจึงยังใช้ได้แม้ปิดหน้าต่างไปแล้ว
+- หน้าตาโปรแกรม 33 ภาษา เดินตามการตั้งค่าภาษาของ Windows
+- ไม่ต่ออินเทอร์เน็ต สิ่งที่คุณอ่านจะไม่ออกไปจากเครื่องของคุณ
+
+### คำบรรยายภาพหน้าจอ
+
+1. `01-text-from-a-page.png` — ข้อความที่อ่านได้วางอยู่ข้างภาพตามลำดับที่อ่านมา พร้อมให้คัดลอก ฟังเสียงอ่าน หรือเชื่อมกลับเป็นย่อหน้า
+2. `02-any-language.png` — เลือกภาษาที่จะใช้อ่านได้จากชุดภาษาที่ติดตั้งไว้ใน Windows หรือจะให้ Glyfo ตัดสินใจเองก็ได้
+3. `03-qr-and-barcodes.png` — คิวอาร์โค้ดและบาร์โค้ดถูกอ่านจากภาพเดียวกันนี้ ไม่ต้องหาแอปสแกนอีกตัว
+4. `04-history.png` — ผลลัพธ์ล่าสุดยังอยู่ในประวัติ ภาพที่จับไว้เมื่อไม่กี่นาทีก่อนจึงยังห่างแค่คลิกเดียว
+5. `05-settings.png` — ภาษาของหน้าตาโปรแกรม การเริ่มพร้อม Windows การอยู่ต่อในพื้นที่แจ้งเตือน และตัวแก้ที่กัน v1.6.5 ไม่ให้กลายเป็น vl.6.5
+
+### คำค้นหา
+
+`ข้อความจากรูปภาพ`, `ภาพหน้าจอเป็นข้อความ`, `รู้จำข้อความ`, `อ่านคิวอาร์โค้ด`,
+`สแกนบาร์โค้ด`, `ดึงข้อความ`, `อ่านออกเสียง`
+
+---
+
+## Bahasa Indonesia — Indonesian
+
+### Deskripsi singkat
+
+Glyfo menarik teks dari apa pun yang Anda lihat: tangkapan layar, foto sebuah halaman, dokumen hasil
+pindai, salindia presentasi, satu bingkai video. Tekan Alt+Z lalu tarik kotak pada bagian layar mana
+pun, atau buka berkas, tempel dari papan klip, kirim gambar dari aplikasi lain. Teks yang terbaca
+muncul di samping gambar, siap disalin, didengarkan, atau dirapikan. Glyfo juga membaca kode QR dan
+kode batang dari gambar yang sama, dan pada PC Copilot+ ia menerjemahkan hasilnya. Semuanya terjadi
+di PC Anda sendiri — Glyfo tidak membuka koneksi internet sama sekali. Gratis, tanpa iklan dan tanpa
+pembelian.
+
+### Deskripsi
+
+Glyfo mengubah gambar berisi tulisan menjadi teks yang bisa Anda pakai.
+
+Pembacaannya berjalan di atas OCR bawaan Windows: tanpa akun, tanpa unggahan, tanpa menunggu server.
+Pada PC Copilot+, Glyfo juga memakai model pengenalan teks yang berjalan di perangkat untuk gambar
+yang sulit dan dapat menerjemahkan hasilnya — ini pun tanpa jaringan.
+
+**Empat cara memasukkan gambar**
+- Alt+Z menarik kotak pada bagian layar mana pun. Ctrl+Shift+R mengambil seluruh layar.
+- Ctrl+V menempelkan gambar dari papan klip, teks juga bisa.
+- Ctrl+O membuka berkas; menyeretnya ke jendela sama saja hasilnya.
+- Klik kanan sebuah gambar di File Explorer lalu buka dengan Glyfo, atau kirim lewat panel berbagi
+  Windows (Photos, Snipping Tool, peramban).
+
+**Apa yang Anda dapatkan**
+- Teks yang terbaca di samping gambar, dalam urutan tata letak aslinya.
+- Salin dengan satu klik, atau biarkan hasil tangkapan menyalin dirinya sendiri begitu selesai.
+- Pembacaan nyaring dengan suara mana pun yang terpasang di PC.
+- “Hapus pemenggalan baris” menyambung kembali baris yang terpotong menjadi paragraf, dan “Hapus
+  spasi” menghapus setiap spasi — persis yang dibutuhkan teks Tionghoa, Jepang, dan Korea setelah
+  dibaca.
+- Kode QR dan kode batang dari gambar yang sama.
+- Riwayat hasil terbaru: tangkapan dua menit lalu masih berjarak satu klik.
+
+**Anda yang menentukan cara membacanya**
+- Pilih bahasa pembacaan dari paket bahasa yang terpasang di Windows, atau serahkan pada Glyfo.
+- Sebuah opsi memperbaiki kesalahan klasik OCR yang membaca v1.6.5 sebagai vl.6.5: huruf l atau I
+  berubah menjadi angka 1 hanya di tempat yang bersebelahan dengan pemisah dan angka, jadi html5 dan
+  IPv6 tetap utuh.
+- Sesuaikan dengan jendela atau tampilkan pada ukuran asli; baca seluruh gambar atau hanya bagian
+  yang dipilih.
+
+**Ia tidak menghalangi**
+- Menutup jendela membuat Glyfo tetap tinggal di area pemberitahuan, dan pintasan tangkapan tetap
+  bekerja. “Keluar” dari sana barulah benar-benar menutupnya. Perilaku ini sendiri pun sebuah
+  pengaturan.
+- Glyfo bisa ikut menyala bersama Windows dan langsung masuk ke area pemberitahuan tanpa membuka
+  jendela, sehingga pintasan siap sejak Anda masuk. Mati secara bawaan; Anda sendiri yang
+  menyalakannya.
+- Saat jendela tersembunyi, sebuah pemberitahuan menampilkan baris pertama dari yang baru terbaca.
+
+**Bahasa**
+Antarmukanya tersedia dalam 33 bahasa dan mengikuti pengaturan bahasa Windows. Pembacaan memakai
+paket bahasa OCR yang terpasang di PC — tambahkan lainnya lewat Settings › Time & language ›
+Language & region.
+
+**Privasi**
+Glyfo tidak membuka koneksi jaringan. Gambar, teks yang terbaca, dan terjemahan tidak pernah keluar
+dari PC Anda. Tanpa akun, tanpa telemetri, tanpa iklan.
+
+### Fitur produk
+
+- Tangkap bagian layar mana pun dengan Alt+Z dan baca saat itu juga, tanpa keluar dari aplikasi yang sedang Anda baca
+- Berjalan di atas OCR bawaan Windows, dan pada PC Copilot+ ditambah model pengenalan di perangkat
+- Buka berkas, tempel dari papan klip, seret dan lepas, atau terima lewat panel berbagi Windows
+- Membaca kode QR dan kode batang dari gambar yang sama
+- Menerjemahkan pada PC Copilot+, di perangkat, tanpa akses jaringan
+- Membacakan hasilnya dengan suara mana pun yang terpasang di PC
+- Hapus pemenggalan baris dan spasi — perapian yang dibutuhkan teks CJK setelah dibaca
+- Tetap tinggal di area pemberitahuan, jadi pintasan bekerja walau jendela sudah ditutup
+- Antarmuka dalam 33 bahasa, mengikuti pengaturan bahasa Windows
+- Tidak menyambung ke internet: apa yang Anda baca tidak keluar dari PC Anda
+
+### Keterangan tangkapan layar
+
+1. `01-text-from-a-page.png` — Teks yang terbaca berdiri di samping gambar dalam urutan saat dibaca: siap disalin, didengarkan, atau disambung kembali menjadi paragraf.
+2. `02-any-language.png` — Bahasa pembacaan dipilih dari paket bahasa yang terpasang di Windows — atau Glyfo yang menentukannya sendiri.
+3. `03-qr-and-barcodes.png` — Kode QR dan kode batang dibaca dari gambar yang sama; aplikasi pemindai terpisah tidak diperlukan.
+4. `04-history.png` — Hasil terbaru tersimpan di riwayat, jadi tangkapan beberapa menit lalu masih berjarak satu klik.
+5. `05-settings.png` — Bahasa antarmuka, menyala bersama Windows, tinggal di area pemberitahuan, dan koreksi yang menjaga v1.6.5 tidak menjadi vl.6.5.
+
+### Istilah pencarian
+
+`teks dari gambar`, `tangkapan layar ke teks`, `pengenalan teks`, `baca kode QR`,
+`pemindai barcode`, `ekstrak teks`, `baca dengan suara`
+
+---
+
+## Bahasa Melayu — Malay
+
+### Penerangan ringkas
+
+Glyfo mengeluarkan teks daripada apa sahaja yang anda lihat: tangkapan skrin, foto sesebuah halaman,
+dokumen yang diimbas, slaid pembentangan, satu bingkai video. Tekan Alt+Z lalu bingkaikan mana-mana
+bahagian skrin, atau buka fail, tampal daripada papan keratan, hantar imej dari aplikasi lain. Teks
+yang dikenali muncul di sebelah imej, sedia untuk disalin, didengar atau dikemaskan. Glyfo turut
+membaca kod QR dan kod bar daripada imej yang sama, dan pada PC Copilot+ ia menterjemah hasilnya.
+Semuanya berlaku pada PC anda sendiri — Glyfo tidak membuka sebarang sambungan internet. Percuma,
+tanpa iklan dan tanpa pembelian.
+
+### Penerangan
+
+Glyfo menukar imej bertulisan menjadi teks yang boleh anda guna.
+
+Pengecaman berjalan di atas OCR yang sedia ada dalam Windows: tiada akaun, tiada muat naik, tiada
+menunggu pelayan. Pada PC Copilot+, Glyfo turut menggunakan model pengecaman teks yang berjalan pada
+peranti untuk imej yang sukar dan boleh menterjemah hasilnya — itu pun tanpa rangkaian.
+
+**Empat cara memasukkan imej**
+- Alt+Z membingkaikan mana-mana bahagian skrin. Ctrl+Shift+R mengambil keseluruhan skrin.
+- Ctrl+V menampal imej daripada papan keratan, teks juga boleh.
+- Ctrl+O membuka fail; menyeretnya ke dalam tetingkap memberi hasil yang sama.
+- Klik kanan sesebuah imej dalam File Explorer lalu buka dengan Glyfo, atau hantar melalui panel
+  perkongsian Windows (Photos, Snipping Tool, pelayar web).
+
+**Apa yang anda dapat**
+- Teks yang dikenali di sebelah imej, mengikut susunan asalnya.
+- Salin dengan satu klik, atau biarkan tangkapan menyalin dirinya sendiri sebaik sahaja siap.
+- Bacaan kuat dengan mana-mana suara yang dipasang pada PC.
+- “Buang pemisah baris” menyambung semula baris yang terputus menjadi perenggan, dan “Buang ruang”
+  membuang setiap ruang — itulah yang diperlukan teks Cina, Jepun dan Korea selepas dikenali.
+- Kod QR dan kod bar daripada imej yang sama.
+- Sejarah hasil terkini: tangkapan dua minit lalu masih sejauh satu klik.
+
+**Anda yang menentukan cara ia membaca**
+- Pilih bahasa pengecaman daripada pakej bahasa yang dipasang dalam Windows, atau serahkan kepada
+  Glyfo.
+- Satu pilihan membetulkan ralat OCR klasik yang membaca v1.6.5 sebagai vl.6.5: huruf l atau I
+  bertukar menjadi angka 1 hanya di tempat yang bersebelahan dengan pemisah dan digit, jadi html5
+  dan IPv6 kekal seperti asal.
+- Muatkan pada tetingkap atau lihat pada saiz sebenar; kenali keseluruhan imej atau bahagian yang
+  dipilih sahaja.
+
+**Ia tidak menghalang**
+- Menutup tetingkap membuatkan Glyfo kekal di kawasan pemberitahuan, dan pintasan tangkapan terus
+  berfungsi. “Keluar” dari situ barulah menutupnya betul-betul. Kelakuan ini sendiri pun satu
+  tetapan.
+- Glyfo boleh dimulakan bersama Windows dan terus masuk ke kawasan pemberitahuan tanpa membuka
+  tetingkap, jadi pintasan berfungsi sebaik sahaja anda log masuk. Dimatikan secara lalai; anda yang
+  menghidupkannya.
+- Ketika tetingkap tersembunyi, satu pemberitahuan menunjukkan baris pertama yang baru dikenali.
+
+**Bahasa**
+Antara mukanya tersedia dalam 33 bahasa dan mengikut tetapan bahasa Windows. Pengecaman menggunakan
+pakej bahasa OCR yang dipasang pada PC — tambah lagi melalui Settings › Time & language › Language &
+region.
+
+**Privasi**
+Glyfo tidak membuka sambungan rangkaian. Imej, teks yang dikenali dan terjemahan tidak pernah keluar
+daripada PC anda. Tiada akaun, tiada telemetri, tiada iklan.
+
+### Ciri produk
+
+- Tangkap mana-mana bahagian skrin dengan Alt+Z dan kenali serta-merta, tanpa keluar daripada aplikasi yang sedang anda baca
+- Berjalan di atas OCR terbina dalam Windows, dan pada PC Copilot+ ditambah model pengecaman pada peranti
+- Buka fail, tampal daripada papan keratan, seret dan lepas, atau terima melalui panel perkongsian Windows
+- Membaca kod QR dan kod bar daripada imej yang sama
+- Menterjemah pada PC Copilot+, pada peranti, tanpa akses rangkaian
+- Membacakan hasilnya dengan mana-mana suara yang dipasang pada PC
+- Buang pemisah baris dan ruang — pengemasan yang diperlukan teks CJK selepas dikenali
+- Kekal di kawasan pemberitahuan, jadi pintasan berfungsi walaupun tetingkap sudah ditutup
+- Antara muka dalam 33 bahasa, mengikut tetapan bahasa Windows
+- Tidak menyambung ke internet: apa yang anda kenali tidak keluar daripada PC anda
+
+### Kapsyen tangkapan skrin
+
+1. `01-text-from-a-page.png` — Teks yang dikenali berdiri di sebelah imej mengikut susunan ia dibaca: sedia untuk disalin, didengar atau disambung semula menjadi perenggan.
+2. `02-any-language.png` — Bahasa pengecaman dipilih daripada pakej bahasa yang dipasang dalam Windows — atau Glyfo menentukannya sendiri.
+3. `03-qr-and-barcodes.png` — Kod QR dan kod bar dibaca daripada imej yang sama; aplikasi pengimbas berasingan tidak diperlukan.
+4. `04-history.png` — Hasil terkini kekal dalam sejarah, jadi tangkapan beberapa minit lalu masih sejauh satu klik.
+5. `05-settings.png` — Bahasa antara muka, mula bersama Windows, kekal di kawasan pemberitahuan, dan pembetulan yang menghalang v1.6.5 daripada menjadi vl.6.5.
+
+### Istilah carian
+
+`teks daripada imej`, `tangkapan skrin ke teks`, `pengecaman teks`, `baca kod QR`,
+`pengimbas kod bar`, `ekstrak teks`, `baca dengan suara`
+
+---
+
+## Filipino
+
+### Maikling paglalarawan
+
+Kinukuha ng Glyfo ang teksto mula sa kahit anong nakikita mo: isang screenshot, litrato ng isang
+pahina, na-scan na dokumento, slide sa presentasyon, isang frame ng video. Pindutin ang Alt+Z at
+kahunan ang alinmang bahagi ng screen, o magbukas ng file, mag-paste mula sa clipboard, magpadala ng
+larawan mula sa ibang app. Lumalabas ang nabasang teksto sa tabi ng larawan, handa nang kopyahin,
+pakinggan o linisin. Binabasa rin ng Glyfo ang mga QR code at barcode mula sa parehong larawan, at
+sa isang Copilot+ PC ay isinasalin pa nito ang resulta. Lahat ay nangyayari sa sarili mong PC — hindi
+kumakabit ang Glyfo sa internet kahit kailan. Libre, walang ad at walang bibilhin.
+
+### Paglalarawan
+
+Ginagawang magamit na teksto ng Glyfo ang mga larawang may nakasulat.
+
+Umaandar ang pagbasa sa OCR na nasa Windows na: walang account, walang ia-upload, walang hinihintay
+na server. Sa isang Copilot+ PC, ginagamit din ng Glyfo ang modelo ng pagkilala ng teksto na tumatakbo
+sa mismong device para sa mahihirap na larawan, at kayang isalin ang resulta — wala ring network
+dito.
+
+**Apat na paraan para makapasok ang larawan**
+- Kinakahunan ng Alt+Z ang alinmang bahagi ng screen. Kinukuha ng Ctrl+Shift+R ang buong screen.
+- Nagpe-paste ang Ctrl+V ng larawan mula sa clipboard, pati teksto.
+- Nagbubukas ng file ang Ctrl+O; ganoon din kung kakaladkarin mo ito papasok sa window.
+- I-right-click ang isang larawan sa File Explorer at buksan sa Glyfo, o ipadala mula sa share panel
+  ng Windows (Photos, Snipping Tool, browser).
+
+**Ano ang makukuha mo**
+- Ang nabasang teksto sa tabi ng larawan, sa pagkakasunod-sunod ng orihinal na ayos nito.
+- Kopyahin sa isang click, o hayaang kusang kumopya ang isang capture pagkatapos nito.
+- Pagbabasa nang malakas gamit ang alinmang boses na naka-install sa PC.
+- Pinagdurugtong muli ng “Alisin ang mga line break” ang matitigas na putol ng linya pabalik sa mga
+  talata, at inaalis ng “Alisin ang mga espasyo” ang bawat espasyo — iyon mismo ang kailangan ng
+  tekstong Tsino, Hapon at Koreano pagkatapos basahin.
+- Mga QR code at barcode mula sa parehong larawan.
+- Kasaysayan ng mga huling resulta: isang click pa rin ang layo ng capture kanina lang.
+
+**Ikaw ang nagpapasya kung paano ito magbasa**
+- Piliin ang wikang gagamitin sa pagbasa mula sa mga language pack na naka-install sa Windows, o
+  ipaubaya sa Glyfo.
+- May opsyong nag-aayos sa klasikong mali ng OCR kung saan nababasa ang v1.6.5 bilang vl.6.5: nagiging
+  1 lamang ang l o I kung may separator at digit sa tabi nito, kaya nananatiling buo ang html5 at
+  IPv6.
+- Ikasya sa window o tingnan sa totoong laki; basahin ang buong larawan o ang napiling bahagi lang.
+
+**Hindi ito nakakaabala**
+- Kapag isinara mo ang window, nananatili ang Glyfo sa notification area at gumagana pa rin ang
+  shortcut sa pagkuha. Ang “Lumabas” doon ang tunay na nagsasara nito. Isa ring setting ang ugaling
+  ito.
+- Puwedeng bumukas ang Glyfo kasabay ng Windows at dumiretso sa notification area nang hindi
+  nagbubukas ng window, kaya gumagana ang shortcut mula sa sandaling mag-sign in ka. Naka-off bilang
+  default; ikaw ang magbubukas nito.
+- Kapag nakatago ang window, ipinapakita ng isang notification ang unang linya ng katatapos basahin.
+
+**Mga wika**
+Makukuha ang interface sa 33 wika at sumusunod ito sa setting ng wika ng Windows. Ginagamit ng
+pagbasa ang mga OCR language pack na nasa PC — magdagdag pa sa Settings › Time & language › Language
+& region.
+
+**Privacy**
+Walang binubuksang koneksyon sa network ang Glyfo. Hindi kailanman umaalis sa PC mo ang mga larawan,
+ang nabasang teksto at ang mga salin. Walang account, walang telemetry, walang ad.
+
+### Mga tampok ng produkto
+
+- Kunan ang alinmang bahagi ng screen gamit ang Alt+Z at basahin agad, nang hindi umaalis sa app na binabasa mo
+- Umaandar sa OCR na nakapaloob sa Windows, at sa mga Copilot+ PC ay may dagdag na modelo ng pagkilala sa device
+- Magbukas ng file, mag-paste mula sa clipboard, mag-drag and drop o tumanggap mula sa share panel ng Windows
+- Binabasa ang mga QR code at barcode mula sa parehong larawan
+- Nagsasalin sa mga Copilot+ PC, sa mismong device, nang walang access sa network
+- Binabasa nang malakas ang resulta gamit ang alinmang boses na naka-install sa PC
+- Pag-alis ng mga line break at espasyo — ang paglilinis na kailangan ng tekstong CJK pagkatapos basahin
+- Nananatili sa notification area, kaya gumagana ang shortcut kahit sarado na ang window
+- Interface sa 33 wika, sumusunod sa setting ng wika ng Windows
+- Hindi kumakabit sa internet: hindi umaalis sa PC mo ang binabasa mo
+
+### Mga caption ng screenshot
+
+1. `01-text-from-a-page.png` — Nakatayo ang nabasang teksto sa tabi ng larawan sa pagkakasunod-sunod na binasa ito: handa nang kopyahin, pakinggan o pagdugtungin pabalik sa mga talata.
+2. `02-any-language.png` — Ang wika sa pagbasa ay pipiliin mula sa mga language pack na naka-install sa Windows — o ang Glyfo na mismo ang magpapasya.
+3. `03-qr-and-barcodes.png` — Binabasa ang mga QR code at barcode mula sa parehong larawan; hindi na kailangan ng hiwalay na scanner app.
+4. `04-history.png` — Nananatili sa kasaysayan ang mga huling resulta, kaya isang click pa rin ang layo ng capture mula ilang minuto ang nakalipas.
+5. `05-settings.png` — Wika ng interface, pagbukas kasabay ng Windows, pananatili sa notification area, at ang pagwawastong pumipigil sa v1.6.5 na maging vl.6.5.
+
+### Mga termino sa paghahanap
+
+`teksto mula sa larawan`, `screenshot sa teksto`, `pagkilala ng teksto`, `basahin ang QR code`,
+`barcode scanner`, `kunin ang teksto`, `basahin nang malakas`
+
+---
+
+## हिन्दी — Hindi
+
+### संक्षिप्त विवरण
+
+Glyfo हर उस चीज़ से टेक्स्ट निकाल लेता है जो आपको दिखती है: स्क्रीनशॉट, किसी पन्ने की फ़ोटो, स्कैन
+किया दस्तावेज़, प्रेज़ेंटेशन की स्लाइड, वीडियो का कोई फ़्रेम। Alt+Z दबाइए और स्क्रीन के किसी भी हिस्से
+पर फ़्रेम खींचिए, या फ़ाइल खोलिए, क्लिपबोर्ड से पेस्ट कीजिए, किसी दूसरे ऐप से तस्वीर भेजिए। पहचाना गया
+टेक्स्ट तस्वीर के बगल में आ जाता है — कॉपी करने, सुनने या साफ़ करने के लिए तैयार। Glyfo उसी तस्वीर से
+QR कोड और बारकोड भी पढ़ लेता है, और Copilot+ PC पर नतीजे का अनुवाद भी कर देता है। सब कुछ आपके अपने PC
+पर होता है — Glyfo इंटरनेट से कोई कनेक्शन नहीं बनाता। मुफ़्त, बिना विज्ञापन और बिना किसी ख़रीदारी के।
+
+### विवरण
+
+Glyfo टेक्स्ट वाली तस्वीरों को ऐसे टेक्स्ट में बदल देता है जिसे आप काम में ले सकें।
+
+पहचान Windows में पहले से मौजूद OCR पर चलती है: न कोई खाता, न कुछ अपलोड, न किसी सर्वर का इंतज़ार।
+Copilot+ PC पर Glyfo मुश्किल तस्वीरों के लिए डिवाइस पर ही चलने वाले टेक्स्ट पहचान मॉडल का भी इस्तेमाल
+करता है और नतीजे का अनुवाद कर सकता है — यह भी बिना नेटवर्क के।
+
+**तस्वीर अंदर लाने के चार तरीके**
+- Alt+Z स्क्रीन के किसी भी हिस्से पर फ़्रेम खींचता है। Ctrl+Shift+R पूरी स्क्रीन ले लेता है।
+- Ctrl+V क्लिपबोर्ड से तस्वीर चिपकाता है, टेक्स्ट भी।
+- Ctrl+O फ़ाइल खोलता है; उसे विंडो में खींचकर छोड़ना भी उतना ही काम करता है।
+- File Explorer में किसी तस्वीर पर दायाँ क्लिक करके उसे Glyfo से खोलिए, या Windows के शेयर पैनल से
+  भेजिए (Photos, Snipping Tool, ब्राउज़र)।
+
+**आपको क्या वापस मिलता है**
+- पहचाना गया टेक्स्ट तस्वीर के बगल में, उसी क्रम में जिसमें वह सजा हुआ था।
+- एक क्लिक में कॉपी, या कैप्चर पूरा होते ही उसे ख़ुद-ब-ख़ुद कॉपी हो जाने दीजिए।
+- PC पर लगी किसी भी आवाज़ से ज़ोर से पढ़कर सुनाना।
+- “लाइन ब्रेक हटाएँ” कड़े लाइन ब्रेक को दोबारा पैराग्राफ़ में जोड़ देता है और “स्पेस हटाएँ” हर स्पेस मिटा
+  देता है — पहचान के बाद चीनी, जापानी और कोरियाई टेक्स्ट को यही चाहिए होता है।
+- उसी तस्वीर से QR कोड और बारकोड।
+- हाल के नतीजों का इतिहास: दो मिनट पहले लिया गया कैप्चर अब भी एक क्लिक की दूरी पर है।
+
+**कैसे पढ़ना है, यह आप तय करते हैं**
+- Windows में लगे भाषा पैकों में से पहचान की भाषा चुनिए, या Glyfo पर छोड़ दीजिए।
+- एक विकल्प OCR की उस पुरानी ग़लती को सुधारता है जिसमें v1.6.5 को vl.6.5 पढ़ लिया जाता है: l या I तभी
+  1 बनता है जब उसके बगल में कोई विभाजक और अंक हो, इसलिए html5 और IPv6 जस के तस रहते हैं।
+- विंडो में फ़िट कीजिए या असली आकार में देखिए; पूरी तस्वीर पहचानिए या सिर्फ़ चुना हुआ हिस्सा।
+
+**यह रास्ते में नहीं आता**
+- विंडो बंद करने पर Glyfo सूचना क्षेत्र में बना रहता है और कैप्चर का शॉर्टकट चलता रहता है। वहाँ से
+  “बाहर निकलें” चुनने पर ही यह सचमुच बंद होता है। यह व्यवहार भी अपने आप में एक सेटिंग है।
+- Glyfo Windows के साथ शुरू होकर बिना कोई विंडो खोले सीधे सूचना क्षेत्र में जा सकता है, ताकि साइन इन
+  करते ही शॉर्टकट काम करने लगे। डिफ़ॉल्ट रूप से बंद; इसे आप ख़ुद चालू करते हैं।
+- विंडो छिपी हो तो एक सूचना अभी-अभी पहचाने गए टेक्स्ट की पहली पंक्ति दिखा देती है।
+
+**भाषाएँ**
+इंटरफ़ेस 33 भाषाओं में उपलब्ध है और Windows की भाषा सेटिंग के पीछे चलता है। पहचान PC पर लगे OCR भाषा
+पैकों का इस्तेमाल करती है — और जोड़ने के लिए Settings › Time & language › Language & region पर जाइए।
+
+**निजता**
+Glyfo कोई नेटवर्क कनेक्शन नहीं बनाता। तस्वीरें, पहचाना गया टेक्स्ट और अनुवाद कभी आपके PC से बाहर नहीं
+जाते। न कोई खाता, न टेलीमेट्री, न विज्ञापन।
+
+### उत्पाद की विशेषताएँ
+
+- Alt+Z से स्क्रीन का कोई भी हिस्सा कैप्चर कीजिए और उसी वक़्त पहचानिए, जिस ऐप में पढ़ रहे थे उससे बाहर निकले बिना
+- Windows में बने OCR पर चलता है, और Copilot+ PC पर डिवाइस पर ही चलने वाले पहचान मॉडल के साथ
+- फ़ाइल खोलिए, क्लिपबोर्ड से पेस्ट कीजिए, खींचकर छोड़िए या Windows के शेयर पैनल से पाइए
+- उसी तस्वीर से QR कोड और बारकोड पढ़ता है
+- Copilot+ PC पर डिवाइस पर ही अनुवाद करता है, बिना किसी नेटवर्क पहुँच के
+- PC पर लगी किसी भी आवाज़ से नतीजा ज़ोर से पढ़कर सुनाता है
+- लाइन ब्रेक और स्पेस हटाना — पहचान के बाद CJK टेक्स्ट को जिस सफ़ाई की ज़रूरत होती है
+- सूचना क्षेत्र में बना रहता है, इसलिए विंडो बंद करने के बाद भी शॉर्टकट चलता है
+- 33 भाषाओं में इंटरफ़ेस, Windows की भाषा सेटिंग के अनुसार
+- इंटरनेट से नहीं जुड़ता: आप जो पहचानते हैं वह आपके PC से बाहर नहीं जाता
+
+### स्क्रीनशॉट कैप्शन
+
+1. `01-text-from-a-page.png` — पहचाना गया टेक्स्ट तस्वीर के बगल में उसी क्रम में खड़ा रहता है जिसमें उसे पढ़ा गया: कॉपी करने, सुनने या दोबारा पैराग्राफ़ में जोड़ने के लिए तैयार।
+2. `02-any-language.png` — पहचान की भाषा Windows में लगे भाषा पैकों में से चुनी जाती है — या Glyfo ख़ुद तय कर लेता है।
+3. `03-qr-and-barcodes.png` — QR कोड और बारकोड उसी तस्वीर से पढ़े जाते हैं; अलग से कोई स्कैनर ऐप नहीं चाहिए।
+4. `04-history.png` — हाल के नतीजे इतिहास में बने रहते हैं, इसलिए कुछ मिनट पहले लिया कैप्चर अब भी एक क्लिक की दूरी पर है।
+5. `05-settings.png` — इंटरफ़ेस की भाषा, Windows के साथ शुरू होना, सूचना क्षेत्र में बने रहना, और वह सुधार जो v1.6.5 को vl.6.5 बनने से रोकता है।
+
+### खोज शब्द
+
+`छवि से टेक्स्ट`, `स्क्रीनशॉट से टेक्स्ट`, `टेक्स्ट पहचान`, `QR कोड रीडर`,
+`बारकोड स्कैनर`, `टेक्स्ट निकालें`, `ज़ोर से पढ़ें`
+
+---
+
+## বাংলা — Bengali
+
+### সংক্ষিপ্ত বিবরণ
+
+আপনি যা কিছু দেখতে পান, Glyfo তার ভেতর থেকে লেখাটা তুলে আনে: স্ক্রিনশট, কোনো পাতার ছবি, স্ক্যান করা
+নথি, উপস্থাপনার স্লাইড, ভিডিওর একটা ফ্রেম। Alt+Z চাপুন আর পর্দার যেকোনো অংশে একটা ফ্রেম টানুন, কিংবা
+ফাইল খুলুন, ক্লিপবোর্ড থেকে পেস্ট করুন, অন্য অ্যাপ থেকে ছবি পাঠান। শনাক্ত হওয়া লেখা ছবির পাশেই এসে
+দাঁড়ায় — কপি করা, শুনে নেওয়া বা গুছিয়ে নেওয়ার জন্য তৈরি। একই ছবি থেকে Glyfo QR কোড আর বারকোডও পড়ে
+নেয়, আর Copilot+ পিসিতে ফলাফলটা অনুবাদও করে দেয়। সবকিছু ঘটে আপনার নিজের পিসিতেই — Glyfo ইন্টারনেটে
+কোনো সংযোগই তৈরি করে না। বিনামূল্যে, বিজ্ঞাপন ছাড়া এবং কোনো কেনাকাটা ছাড়া।
+
+### বিবরণ
+
+লেখা আছে এমন ছবিকে Glyfo এমন লেখায় বদলে দেয় যা আপনি কাজে লাগাতে পারেন।
+
+শনাক্তকরণ চলে Windows-এর ভেতরেই থাকা OCR-এর উপর: কোনো অ্যাকাউন্ট নেই, কিছু আপলোড করা নেই, সার্ভারের
+জন্য অপেক্ষাও নেই। Copilot+ পিসিতে কঠিন ছবিগুলোর জন্য Glyfo ডিভাইসেই চলা টেক্সট শনাক্তকরণ মডেলটিও
+কাজে লাগায় এবং ফলাফল অনুবাদ করতে পারে — সেটাও নেটওয়ার্ক ছাড়াই।
+
+**ছবি ভেতরে আনার চারটি উপায়**
+- Alt+Z পর্দার যেকোনো অংশে ফ্রেম টানে। Ctrl+Shift+R পুরো পর্দাটাই নেয়।
+- Ctrl+V ক্লিপবোর্ড থেকে ছবি পেস্ট করে, লেখাও।
+- Ctrl+O ফাইল খোলে; উইন্ডোর ভেতরে টেনে ছেড়ে দিলেও একই কাজ হয়।
+- File Explorer-এ কোনো ছবিতে ডান ক্লিক করে সেটি Glyfo দিয়ে খুলুন, অথবা Windows-এর শেয়ার প্যানেল থেকে
+  পাঠান (Photos, Snipping Tool, ব্রাউজার)।
+
+**আপনি কী ফেরত পান**
+- শনাক্ত হওয়া লেখা ছবির পাশে, মূল বিন্যাসে যে ক্রমে ছিল সেই ক্রমেই।
+- এক ক্লিকে কপি, কিংবা ক্যাপচার শেষ হওয়ামাত্র সেটিকে নিজে থেকেই কপি হতে দিন।
+- পিসিতে বসানো যেকোনো কণ্ঠে জোরে পড়ে শোনানো।
+- “লাইন ব্রেক সরান” শক্ত লাইন ভাঙাগুলোকে আবার অনুচ্ছেদে জুড়ে দেয় আর “স্পেস সরান” প্রতিটি ফাঁকা জায়গা
+  মুছে দেয় — শনাক্তকরণের পরে চীনা, জাপানি ও কোরীয় লেখার ঠিক এটাই দরকার হয়।
+- একই ছবি থেকে QR কোড আর বারকোড।
+- সাম্প্রতিক ফলাফলের একটা ইতিহাস: দুই মিনিট আগের ক্যাপচারটা এখনও এক ক্লিক দূরে।
+
+**কীভাবে পড়বে তা আপনিই ঠিক করেন**
+- Windows-এ বসানো ভাষা প্যাকগুলোর মধ্য থেকে শনাক্তকরণের ভাষা বেছে নিন, অথবা Glyfo-র উপর ছেড়ে দিন।
+- একটি বিকল্প OCR-এর সেই পুরোনো ভুলটা শুধরে দেয় যাতে v1.6.5 পড়া হয় vl.6.5 হিসেবে: l বা I কেবল
+  তখনই 1 হয় যখন তার পাশে একটা বিভাজক আর একটা অঙ্ক থাকে, ফলে html5 আর IPv6 অক্ষত থাকে।
+- উইন্ডোর মাপে বসান কিংবা আসল আকারে দেখুন; পুরো ছবি শনাক্ত করুন অথবা কেবল নির্বাচিত অংশটুকু।
+
+**এটি পথে দাঁড়ায় না**
+- উইন্ডো বন্ধ করলে Glyfo বিজ্ঞপ্তি এলাকায় থেকে যায় আর ক্যাপচারের শর্টকাটও চলতে থাকে। সেখান থেকে
+  “প্রস্থান” বেছে নিলে তবেই এটি সত্যিকারের বন্ধ হয়। এই আচরণটাও নিজেই একটা সেটিং।
+- Glyfo Windows-এর সঙ্গে চালু হয়ে কোনো উইন্ডো না খুলেই সরাসরি বিজ্ঞপ্তি এলাকায় চলে যেতে পারে, ফলে
+  সাইন ইন করার মুহূর্ত থেকেই শর্টকাট কাজ করে। ডিফল্টভাবে বন্ধ; আপনি নিজে এটি চালু করেন।
+- উইন্ডো লুকানো থাকলে একটি বিজ্ঞপ্তি সদ্য শনাক্ত হওয়া লেখার প্রথম লাইনটি দেখায়।
+
+**ভাষা**
+ইন্টারফেসটি ৩৩টি ভাষায় পাওয়া যায় এবং Windows-এর ভাষা সেটিং অনুসরণ করে। শনাক্তকরণ পিসিতে বসানো OCR
+ভাষা প্যাকগুলো ব্যবহার করে — আরও যোগ করতে যান Settings › Time & language › Language & region-এ।
+
+**গোপনীয়তা**
+Glyfo কোনো নেটওয়ার্ক সংযোগ তৈরি করে না। ছবি, শনাক্ত হওয়া লেখা এবং অনুবাদ কখনোই আপনার পিসি ছেড়ে যায়
+না। কোনো অ্যাকাউন্ট নেই, টেলিমেট্রি নেই, বিজ্ঞাপন নেই।
+
+### পণ্যের বৈশিষ্ট্য
+
+- Alt+Z দিয়ে পর্দার যেকোনো অংশ ক্যাপচার করুন আর সঙ্গে সঙ্গেই শনাক্ত করুন, যে অ্যাপে পড়ছিলেন সেখান থেকে না বেরিয়েই
+- Windows-এর ভেতরে থাকা OCR-এর উপর চলে, আর Copilot+ পিসিতে ডিভাইসেই চলা শনাক্তকরণ মডেলের সঙ্গে
+- ফাইল খুলুন, ক্লিপবোর্ড থেকে পেস্ট করুন, টেনে ছেড়ে দিন বা Windows-এর শেয়ার প্যানেল থেকে গ্রহণ করুন
+- একই ছবি থেকে QR কোড আর বারকোড পড়ে
+- Copilot+ পিসিতে ডিভাইসেই অনুবাদ করে, কোনো নেটওয়ার্ক ব্যবহার ছাড়াই
+- পিসিতে বসানো যেকোনো কণ্ঠে ফলাফল জোরে পড়ে শোনায়
+- লাইন ব্রেক আর স্পেস সরানো — শনাক্তকরণের পরে CJK লেখার যে গোছগাছটা দরকার
+- বিজ্ঞপ্তি এলাকায় থেকে যায়, তাই উইন্ডো বন্ধ করার পরেও শর্টকাট কাজ করে
+- ৩৩টি ভাষায় ইন্টারফেস, Windows-এর ভাষা সেটিং অনুযায়ী
+- ইন্টারনেটে যুক্ত হয় না: আপনি যা শনাক্ত করেন তা আপনার পিসি ছেড়ে যায় না
+
+### স্ক্রিনশটের ক্যাপশন
+
+1. `01-text-from-a-page.png` — শনাক্ত হওয়া লেখা ছবির পাশে সেই ক্রমেই দাঁড়িয়ে থাকে যে ক্রমে সেটি পড়া হয়েছে: কপি করতে, শুনতে বা আবার অনুচ্ছেদে জুড়তে তৈরি।
+2. `02-any-language.png` — শনাক্তকরণের ভাষা Windows-এ বসানো ভাষা প্যাকগুলো থেকে বেছে নেওয়া হয় — কিংবা Glyfo নিজেই ঠিক করে নেয়।
+3. `03-qr-and-barcodes.png` — QR কোড আর বারকোড একই ছবি থেকেই পড়া হয়; আলাদা কোনো স্ক্যানার অ্যাপ লাগে না।
+4. `04-history.png` — সাম্প্রতিক ফলাফল ইতিহাসে থেকে যায়, তাই কয়েক মিনিট আগের ক্যাপচারটাও এখনও এক ক্লিক দূরে।
+5. `05-settings.png` — ইন্টারফেসের ভাষা, Windows-এর সঙ্গে চালু হওয়া, বিজ্ঞপ্তি এলাকায় থেকে যাওয়া, আর সেই সংশোধন যা v1.6.5-কে vl.6.5 হতে দেয় না।
+
+### অনুসন্ধানের শব্দ
+
+`ছবি থেকে টেক্সট`, `স্ক্রিনশট থেকে টেক্সট`, `টেক্সট শনাক্তকরণ`, `QR কোড রিডার`,
+`বারকোড স্ক্যানার`, `টেক্সট বের করুন`, `জোরে পড়ুন`
+
+---
+
+## العربية — Arabic
+
+### وصف مختصر
+
+يستخرج Glyfo النص من كل ما تراه: لقطة شاشة، صورة لصفحة من كتاب، مستند ممسوح ضوئيًا، شريحة عرض، إطار
+من مقطع فيديو. اضغط Alt+Z وحدّد إطارًا حول أي جزء من الشاشة، أو افتح ملفًا، أو الصق من الحافظة، أو
+أرسل صورة من تطبيق آخر. يظهر النص المتعرَّف عليه بجوار الصورة، جاهزًا للنسخ أو الاستماع أو التنظيف.
+ويقرأ Glyfo أيضًا رموز QR والباركود من الصورة نفسها، وعلى حاسوب Copilot+ يترجم النتيجة. كل ذلك يجري
+على حاسوبك وحده — لا ينشئ Glyfo أي اتصال بالإنترنت. مجاني، بلا إعلانات وبلا مشتريات.
+
+### الوصف
+
+يحوّل Glyfo الصور التي تحمل نصًا إلى نص يمكنك استخدامه.
+
+يعتمد التعرّف على محرك OCR المدمج في Windows: لا حساب تنشئه، ولا ملفات ترفعها، ولا انتظار لخادم.
+وعلى حاسوب Copilot+ يستعين Glyfo إضافةً إلى ذلك بنموذج التعرّف على النص العامل داخل الجهاز في الصور
+الصعبة، ويستطيع ترجمة النتيجة — ودون شبكة أيضًا.
+
+**أربع طرق لإدخال صورة**
+- اضغط Alt+Z لتحديد إطار حول أي جزء من الشاشة. ويلتقط Ctrl+Shift+R الشاشة كاملة.
+- الصق صورة من الحافظة بالاختصار Ctrl+V، والنص كذلك.
+- افتح ملفًا بالاختصار Ctrl+O؛ وسحب الملف إلى النافذة يؤدي الغرض نفسه.
+- انقر بزر الفأرة الأيمن على صورة في مستكشف الملفات وافتحها بـ Glyfo، أو أرسلها من لوحة المشاركة في
+  Windows (تطبيق الصور، أداة القص، المتصفح).
+
+**ما الذي تحصل عليه**
+- النص المتعرَّف عليه بجوار الصورة، بالترتيب الذي كان عليه في التخطيط الأصلي.
+- النسخ بنقرة واحدة، أو دع اللقطة تنسخ نفسها بمجرد انتهائها.
+- القراءة بصوت عالٍ بأي صوت مثبَّت على الحاسوب.
+- خيار «إزالة فواصل الأسطر» يعيد وصل الأسطر المقطوعة إلى فقرات، و«إزالة المسافات» يمحو كل مسافة —
+  وهذا تحديدًا ما تحتاجه النصوص الصينية واليابانية والكورية بعد التعرّف عليها.
+- رموز QR والباركود من الصورة نفسها.
+- سجلّ بالنتائج الأخيرة: اللقطة التي أخذتها قبل دقيقتين لا تزال على بعد نقرة واحدة.
+
+**أنت من يقرر كيف يقرأ**
+- اختر لغة التعرّف من بين حزم اللغات المثبَّتة في Windows، أو اترك الأمر لـ Glyfo.
+- هناك خيار يصحّح خطأ OCR الشهير الذي يقرأ v1.6.5 على أنها vl.6.5: لا يتحول الحرف l أو I إلى الرقم 1
+  إلا حيث يجاوره فاصل ورقم، فتبقى html5 و IPv6 على حالها.
+- يمكنك ملاءمة الصورة للنافذة أو عرضها بحجمها الحقيقي؛ والتعرّف على الصورة كاملة أو على التحديد وحده.
+
+**لا يقف في طريقك**
+- عند إغلاق النافذة يبقى Glyfo في منطقة الإعلام، ويظل اختصار الالتقاط يعمل. أما «إنهاء» من هناك
+  فيغلقه فعليًا. وهذا السلوك نفسه إعداد يمكنك تغييره.
+- يستطيع Glyfo أن يبدأ مع Windows وأن ينتقل مباشرةً إلى منطقة الإعلام دون فتح أي نافذة، فيعمل
+  الاختصار منذ لحظة تسجيل الدخول. معطَّل افتراضيًا؛ وأنت من يفعّله.
+- عندما تكون النافذة مخفية، يعرض إشعارٌ أول سطر مما تم التعرّف عليه للتو.
+
+**اللغات**
+تتوفر الواجهة بـ 33 لغة وتتبع إعداد اللغة في Windows. ويستخدم التعرّف حزم لغات OCR المثبَّتة على
+الحاسوب — وتضيف المزيد من الإعدادات › الوقت واللغة › اللغة والمنطقة.
+
+**الخصوصية**
+لا ينشئ Glyfo أي اتصالات شبكية. ولا تغادر الصور ولا النص المتعرَّف عليه ولا الترجمات حاسوبك أبدًا. لا
+حساب، ولا قياس عن بُعد، ولا إعلانات.
+
+### ميزات المنتج
+
+- التقط أي جزء من الشاشة بالاختصار Alt+Z وتعرّف عليه في الحال، دون مغادرة التطبيق الذي كنت تقرأ فيه
+- يعتمد على محرك OCR المدمج في Windows، وعلى حواسيب Copilot+ على نموذج التعرّف العامل داخل الجهاز
+- افتح ملفًا، أو الصق من الحافظة، أو اسحب وأفلت، أو استقبل من لوحة المشاركة في Windows
+- يقرأ رموز QR والباركود من الصورة نفسها
+- يترجم على حواسيب Copilot+ داخل الجهاز، دون أي وصول إلى الشبكة
+- يقرأ النتيجة بصوت عالٍ بأي صوت مثبَّت على الحاسوب
+- إزالة فواصل الأسطر والمسافات — وهو التنظيف الذي تحتاجه نصوص CJK بعد التعرّف عليها
+- يبقى في منطقة الإعلام، فيظل الاختصار يعمل حتى بعد إغلاق النافذة
+- واجهة بـ 33 لغة، تتبع إعداد اللغة في Windows
+- لا يتصل بالإنترنت: ما تتعرّف عليه لا يغادر حاسوبك
+
+### تعليقات لقطات الشاشة
+
+1. `01-text-from-a-page.png` — يقف النص المتعرَّف عليه بجوار الصورة بالترتيب الذي قُرئ به: جاهزًا للنسخ أو الاستماع أو إعادة وصله إلى فقرات.
+2. `02-any-language.png` — تُختار لغة التعرّف من بين حزم اللغات المثبَّتة في Windows — أو يحددها Glyfo بنفسه.
+3. `03-qr-and-barcodes.png` — تُقرأ رموز QR والباركود من الصورة نفسها؛ ولا حاجة إلى تطبيق مسح منفصل.
+4. `04-history.png` — تبقى النتائج الأخيرة في السجل، فتظل لقطة أخذتها قبل دقائق على بعد نقرة واحدة.
+5. `05-settings.png` — لغة الواجهة، والبدء مع Windows، والبقاء في منطقة الإعلام، والتصحيح الذي يمنع تحوّل v1.6.5 إلى vl.6.5.
+
+### مصطلحات البحث
+
+`نص من صورة`, `لقطة شاشة إلى نص`, `التعرف على النص`, `قارئ رمز QR`,
+`ماسح الباركود`, `استخراج النص`, `قراءة بصوت عال`
+
+---
+
+## עברית — Hebrew
+
+### תיאור קצר
+
+Glyfo שולף את הטקסט מכל מה שאתם רואים: צילום מסך, תצלום של עמוד, מסמך סרוק, שקופית מצגת, פריים
+מסרטון. הקישו Alt+Z וסמנו מסגרת סביב חלק כלשהו מהמסך, או פתחו קובץ, הדביקו מהלוח, שלחו תמונה
+מאפליקציה אחרת. הטקסט שזוהה מופיע לצד התמונה, מוכן להעתקה, להאזנה או לניקוי. Glyfo קורא גם קודי QR
+וברקודים מאותה תמונה עצמה, ובמחשב Copilot+ אף מתרגם את התוצאה. הכול מתרחש במחשב שלכם — Glyfo אינו
+יוצר שום חיבור לאינטרנט. חינם, בלי פרסומות ובלי רכישות.
+
+### תיאור
+
+Glyfo הופך תמונות שיש בהן כתב לטקסט שאפשר להשתמש בו.
+
+הזיהוי רץ על מנוע ה‑OCR המובנה ב‑Windows: בלי חשבון, בלי העלאה, בלי להמתין לשרת. במחשב Copilot+
+נעזר Glyfo נוסף על כך במודל זיהוי הטקסט שרץ על המכשיר עצמו עבור התמונות הקשות, ויודע לתרגם את
+התוצאה — גם זאת בלי רשת.
+
+**ארבע דרכים להכניס תמונה**
+- הקישו Alt+Z כדי לסמן מסגרת סביב כל חלק במסך. Ctrl+Shift+R לוקח את המסך כולו.
+- הדביקו תמונה מהלוח עם Ctrl+V, וגם טקסט.
+- פתחו קובץ עם Ctrl+O; גרירה של הקובץ אל החלון עושה בדיוק את אותו הדבר.
+- לחצו לחיצה ימנית על תמונה בסייר הקבצים ופתחו אותה ב‑Glyfo, או שלחו אותה מחלונית השיתוף של Windows
+  (תמונות, כלי החיתוך, הדפדפן).
+
+**מה מקבלים בחזרה**
+- הטקסט שזוהה לצד התמונה, בסדר שבו היה מסודר במקור.
+- העתקה בלחיצה אחת, או לתת לצילום להעתיק את עצמו ברגע שהוא מסתיים.
+- הקראה בקול בכל קול שמותקן במחשב.
+- הפעולה ״הסרת שבירות שורה״ מחברת שוב שורות שנקטעו לפסקאות, ו״הסרת רווחים״ מוחקת כל רווח — בדיוק מה
+  שטקסט סיני, יפני וקוריאני צריך אחרי הזיהוי.
+- קודי QR וברקודים מאותה תמונה עצמה.
+- היסטוריה של התוצאות האחרונות: הצילום מלפני שתי דקות עדיין במרחק לחיצה אחת.
+
+**אתם מחליטים איך הוא קורא**
+- בחרו את שפת הזיהוי מתוך חבילות השפה המותקנות ב‑Windows, או הניחו ל‑Glyfo להחליט.
+- אפשרות אחת מתקנת את שגיאת ה‑OCR הקלאסית שבה v1.6.5 נקרא vl.6.5: האות l או I הופכת ל‑1 רק במקום
+  שבו ניצבים לצידה מפריד וספרה, כך ש‑html5 ו‑IPv6 נשארים כפי שהם.
+- התאימו לחלון או הציגו בגודל אמיתי; זהו את התמונה כולה או רק את הבחירה.
+
+**הוא לא עומד בדרך**
+- סגירת החלון משאירה את Glyfo באזור ההתראות, וקיצור המקשים ממשיך לעבוד. ״יציאה״ משם סוגר אותו
+  באמת. ההתנהגות הזו היא בעצמה הגדרה.
+- Glyfo יכול לעלות יחד עם Windows וללכת היישר לאזור ההתראות בלי לפתוח חלון, כך שקיצור המקשים עובד
+  מרגע הכניסה למערכת. כבוי כברירת מחדל; אתם מדליקים אותו.
+- כשהחלון מוסתר, התראה מציגה את השורה הראשונה של מה שזה עתה זוהה.
+
+**שפות**
+הממשק זמין ב‑33 שפות ועוקב אחר הגדרת השפה של Windows. הזיהוי משתמש בחבילות שפת ה‑OCR המותקנות
+במחשב — מוסיפים עוד דרך הגדרות › שעה ושפה › שפה ואזור.
+
+**פרטיות**
+Glyfo אינו יוצר חיבורי רשת. תמונות, טקסט שזוהה ותרגומים לעולם אינם עוזבים את המחשב שלכם. בלי חשבון,
+בלי טלמטריה, בלי פרסומות.
+
+### תכונות המוצר
+
+- צלמו כל חלק במסך עם Alt+Z וזהו אותו מיד, בלי לצאת מהאפליקציה שבה קראתם
+- רץ על מנוע ה‑OCR המובנה ב‑Windows, ובמחשבי Copilot+ גם על מודל הזיהוי שעל המכשיר
+- פתיחת קובץ, הדבקה מהלוח, גרירה ושחרור או קבלה מחלונית השיתוף של Windows
+- קורא קודי QR וברקודים מאותה תמונה עצמה
+- מתרגם במחשבי Copilot+ על המכשיר עצמו, בלי גישה לרשת
+- מקריא את התוצאה בקול בכל קול שמותקן במחשב
+- הסרת שבירות שורה ורווחים — הניקוי שטקסט CJK זקוק לו אחרי הזיהוי
+- נשאר באזור ההתראות, כך שקיצור המקשים עובד גם אחרי סגירת החלון
+- ממשק ב‑33 שפות, בהתאם להגדרת השפה של Windows
+- אינו מתחבר לאינטרנט: מה שאתם מזהים לא עוזב את המחשב שלכם
+
+### כיתובים לצילומי מסך
+
+1. `01-text-from-a-page.png` — הטקסט שזוהה עומד לצד התמונה בסדר שבו נקרא: מוכן להעתקה, להאזנה או לחיבור מחדש לפסקאות.
+2. `02-any-language.png` — שפת הזיהוי נבחרת מתוך חבילות השפה המותקנות ב‑Windows — או ש‑Glyfo קובע אותה בעצמו.
+3. `03-qr-and-barcodes.png` — קודי QR וברקודים נקראים מאותה תמונה עצמה; אין צורך באפליקציית סריקה נפרדת.
+4. `04-history.png` — התוצאות האחרונות נשארות בהיסטוריה, כך שצילום מלפני כמה דקות עדיין במרחק לחיצה אחת.
+5. `05-settings.png` — שפת הממשק, עלייה יחד עם Windows, הישארות באזור ההתראות, והתיקון שמונע מ‑v1.6.5 להפוך ל‑vl.6.5.
+
+### מונחי חיפוש
+
+`טקסט מתמונה`, `צילום מסך לטקסט`, `זיהוי טקסט`, `קורא קוד QR`,
+`סורק ברקוד`, `חילוץ טקסט`, `הקראה בקול`
+
+---
+
+## فارسی — Persian
+
+### توضیح کوتاه
+
+Glyfo متن را از هر چیزی که می‌بینید بیرون می‌کشد: از یک اسکرین‌شات، از عکس یک صفحه، از سندی که
+اسکن شده، از اسلاید ارائه، از یک فریم ویدیو. کلید Alt+Z را بزنید و دور بخشی از صفحه کادر بکشید، یا
+فایلی باز کنید، از کلیپ‌بورد بچسبانید، تصویری را از برنامه‌ای دیگر بفرستید. متن شناسایی‌شده کنار
+تصویر ظاهر می‌شود، آماده‌ی کپی کردن، شنیدن یا مرتب کردن. Glyfo کدهای QR و بارکد را هم از همان تصویر
+می‌خواند، و روی رایانه‌ی Copilot+ نتیجه را ترجمه می‌کند. همه‌چیز روی رایانه‌ی خودتان انجام می‌شود —
+Glyfo هیچ اتصالی به اینترنت برقرار نمی‌کند. رایگان، بدون تبلیغات و بدون خرید.
+
+### توضیحات
+
+Glyfo تصویرهایی را که در آن‌ها نوشته هست به متنی تبدیل می‌کند که می‌توانید به کارش ببرید.
+
+شناسایی روی همان OCR کار می‌کند که در Windows تعبیه شده است: نه حسابی می‌سازید، نه چیزی آپلود
+می‌کنید، نه منتظر سروری می‌مانید. روی رایانه‌ی Copilot+، افزون بر آن، Glyfo برای تصویرهای دشوار از
+مدل شناسایی متن که روی خود دستگاه اجرا می‌شود کمک می‌گیرد و می‌تواند نتیجه را ترجمه کند — آن هم بدون
+شبکه.
+
+**چهار راه برای وارد کردن تصویر**
+- کلید Alt+Z دور هر بخشی از صفحه کادر می‌کشد. کلید Ctrl+Shift+R تمام صفحه را برمی‌دارد.
+- کلید Ctrl+V تصویر را از کلیپ‌بورد می‌چسباند، متن را هم همین‌طور.
+- کلید Ctrl+O فایلی را باز می‌کند؛ کشیدن فایل داخل پنجره هم دقیقاً همان کار را می‌کند.
+- روی تصویری در File Explorer راست‌کلیک کنید و آن را با Glyfo باز کنید، یا از پنل اشتراک‌گذاری
+  Windows بفرستید (Photos، Snipping Tool، مرورگر).
+
+**چه چیزی به دست می‌آورید**
+- متن شناسایی‌شده کنار تصویر، به همان ترتیبی که در چیدمان اصلی بوده است.
+- کپی با یک کلیک، یا بگذارید یک برداشت به‌محض تمام‌شدن، خودش را کپی کند.
+- خواندن با صدای بلند با هر صدایی که روی رایانه نصب است.
+- گزینه‌ی «حذف شکست خط» خط‌های بریده‌شده را دوباره به پاراگراف وصل می‌کند و «حذف فاصله‌ها» هر فاصله
+  را پاک می‌کند — دقیقاً همان چیزی که متن چینی، ژاپنی و کره‌ای پس از شناسایی لازم دارد.
+- کدهای QR و بارکد از همان تصویر.
+- تاریخچه‌ای از نتیجه‌های اخیر: برداشتی که دو دقیقه پیش گرفته‌اید هنوز یک کلیک فاصله دارد.
+
+**شما تصمیم می‌گیرید چطور بخواند**
+- زبان شناسایی را از میان بسته‌های زبانی نصب‌شده در Windows انتخاب کنید، یا تصمیم را به Glyfo
+  بسپارید.
+- گزینه‌ای آن خطای کلاسیک OCR را درست می‌کند که v1.6.5 را vl.6.5 می‌خواند: حرف l یا I تنها جایی به
+  عدد ۱ تبدیل می‌شود که کنارش یک جداکننده و یک رقم ایستاده باشد، پس html5 و IPv6 دست‌نخورده
+  می‌مانند.
+- می‌توانید تصویر را اندازه‌ی پنجره کنید یا در اندازه‌ی واقعی ببینید؛ کل تصویر را شناسایی کنید یا
+  فقط بخش انتخاب‌شده را.
+
+**سر راهتان نیست**
+- بستن پنجره Glyfo را در ناحیه‌ی اعلان نگه می‌دارد و میان‌بر برداشت همچنان کار می‌کند. «خروج» از
+  همان‌جا واقعاً می‌بنددش. خودِ همین رفتار هم یک تنظیم است.
+- Glyfo می‌تواند همراه Windows بالا بیاید و بدون باز کردن هیچ پنجره‌ای یک‌راست به ناحیه‌ی اعلان
+  برود، تا میان‌بر از همان لحظه‌ی ورود به سیستم کار کند. به‌طور پیش‌فرض خاموش است؛ خودتان روشنش
+  می‌کنید.
+- وقتی پنجره پنهان است، یک اعلان سطر اول چیزی را که همین حالا شناسایی شده نشان می‌دهد.
+
+**زبان‌ها**
+رابط کاربری به ۳۳ زبان در دسترس است و از تنظیم زبان Windows پیروی می‌کند. شناسایی از بسته‌های زبانی
+OCR نصب‌شده روی رایانه استفاده می‌کند — بسته‌های تازه را از Settings › Time & language › Language &
+region اضافه کنید.
+
+**حریم خصوصی**
+Glyfo هیچ اتصال شبکه‌ای برقرار نمی‌کند. تصویرها، متن شناسایی‌شده و ترجمه‌ها هرگز از رایانه‌ی شما
+بیرون نمی‌روند. نه حسابی، نه داده‌ی از راه دور، نه تبلیغی.
+
+### ویژگی‌های محصول
+
+- هر بخشی از صفحه را با Alt+Z بردارید و همان‌جا شناسایی کنید، بی‌آنکه از برنامه‌ای که در آن می‌خواندید بیرون بیایید
+- روی OCR تعبیه‌شده در Windows کار می‌کند و روی رایانه‌های Copilot+ با مدل شناسایی روی خود دستگاه
+- فایل باز کنید، از کلیپ‌بورد بچسبانید، بکشید و رها کنید یا از پنل اشتراک‌گذاری Windows دریافت کنید
+- کدهای QR و بارکد را از همان تصویر می‌خواند
+- روی رایانه‌های Copilot+ همان‌جا روی دستگاه ترجمه می‌کند، بدون دسترسی به شبکه
+- نتیجه را با هر صدایی که روی رایانه نصب است با صدای بلند می‌خواند
+- حذف شکست خط و فاصله‌ها — همان مرتب‌سازی که متن CJK پس از شناسایی لازم دارد
+- در ناحیه‌ی اعلان می‌ماند، پس میان‌بر حتی پس از بستن پنجره کار می‌کند
+- رابط کاربری به ۳۳ زبان، بر پایه‌ی تنظیم زبان Windows
+- به اینترنت وصل نمی‌شود: آنچه شناسایی می‌کنید از رایانه‌ی شما بیرون نمی‌رود
+
+### زیرنویس تصویرها
+
+1. `01-text-from-a-page.png` — متن شناسایی‌شده به همان ترتیبی که خوانده شده کنار تصویر می‌ایستد: آماده‌ی کپی، شنیدن یا وصل شدن دوباره به پاراگراف.
+2. `02-any-language.png` — زبان شناسایی از میان بسته‌های زبانی نصب‌شده در Windows انتخاب می‌شود — یا Glyfo خودش آن را تعیین می‌کند.
+3. `03-qr-and-barcodes.png` — کدهای QR و بارکد از همان تصویر خوانده می‌شوند؛ به برنامه‌ی اسکن جداگانه نیازی نیست.
+4. `04-history.png` — نتیجه‌های اخیر در تاریخچه می‌مانند، پس برداشتی از چند دقیقه پیش هنوز یک کلیک فاصله دارد.
+5. `05-settings.png` — زبان رابط کاربری، بالا آمدن همراه Windows، ماندن در ناحیه‌ی اعلان، و اصلاحی که نمی‌گذارد v1.6.5 به vl.6.5 تبدیل شود.
+
+### عبارت‌های جست‌وجو
+
+`متن از تصویر`, `اسکرین‌شات به متن`, `تشخیص متن`, `خواننده کد QR`,
+`اسکنر بارکد`, `استخراج متن`, `خواندن با صدای بلند`
