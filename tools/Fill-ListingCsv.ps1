@@ -29,7 +29,9 @@ param(
     # not name, so batches can be imported one at a time and re-imported safely.
     [string[]]$Only,
     # Same thing, cut automatically: -BatchSize 8 writes ceil(30/8) pairs of files instead of one.
-    [int]$BatchSize
+    [int]$BatchSize,
+    # Added to the output file names, so two runs over the same export do not overwrite each other.
+    [string]$Suffix
 )
 
 $ErrorActionPreference = 'Stop'
@@ -257,10 +259,10 @@ if ($BatchSize -gt 0) {
     for ($b = 0; $b -lt $n; $b++) {
         $slice = @($targets | Select-Object -Skip ($b * $BatchSize) -First $BatchSize)
         "batch $($b + 1)/$n : $($slice -join ' ')"
-        Write-Filled $slice "-b$($b + 1)"
+        Write-Filled $slice "$Suffix-b$($b + 1)"
         ''
     }
 }
 else {
-    Write-Filled $targets ''
+    Write-Filled $targets $Suffix
 }
