@@ -18,7 +18,8 @@ behaviour, not a gap.
 
 The same five PNGs go into every language listing — the Store does not share images between them, and
 none of the five has any text burned into it. Captions are per language; they are numbered below in
-upload order.
+upload order. The images are in `docs/store-screenshots/`; `tools/store-shots/` is what produced
+them, off the real packaged app.
 
 Two things to keep true if this text is edited: the app makes no network connections, and
 translation exists only on Copilot+ PCs. Both are claims a certification reviewer can check, and

@@ -55,3 +55,8 @@ $RECYCLE.BIN/
 
 # MSBuild scratch
 *.assets.cache
+
+# Where the screenshot harness lands its raw grabs. The finished five live in
+# docs/store-screenshots/ and are copied there by hand, so a half-finished run cannot overwrite
+# what was uploaded to the Store.
+tools/store-shots/out/
