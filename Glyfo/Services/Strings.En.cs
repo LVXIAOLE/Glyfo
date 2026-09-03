@@ -168,6 +168,7 @@ internal static partial class Strings
         ["News_110_1"] = "An About page, with the version and links to the source code and the privacy policy.",
         ["News_110_2"] = "You can rate Glyfo without leaving the window.",
         ["News_110_3"] = "These notes, shown once for each new version.",
+        ["News_110_4"] = "Capture now offers the whole screen as well, and hides the window first so Glyfo is never in the shot.",
         ["Rate_Title"] = "Is Glyfo earning its place?",
         ["Rate_Body"] = "A rating in the Store is how other people find it, and it only takes a moment.",
         ["Rate_Action"] = "Rate it",

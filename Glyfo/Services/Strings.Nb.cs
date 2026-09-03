@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "En Om-side med versjonen og lenker til kildekoden og personvernerklæringen.",
         ["News_110_2"] = "Du kan vurdere Glyfo uten å forlate vinduet.",
         ["News_110_3"] = "Disse merknadene, som vises én gang ved hver nye versjon.",
+        ["News_110_4"] = "Skjermbildet kan nå ta hele skjermen, og vinduet skjules først, så Glyfo aldri havner med i bildet.",
         ["Rate_Title"] = "Er Glyfo til nytte?",
         ["Rate_Body"] = "En vurdering i Store er det som gjør at andre finner appen. Det tar bare et øyeblikk.",
         ["Rate_Action"] = "Vurder",

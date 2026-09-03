@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Trang Giới thiệu, có số phiên bản cùng liên kết tới mã nguồn và chính sách quyền riêng tư.",
         ["News_110_2"] = "Bạn có thể đánh giá Glyfo mà không cần rời khỏi cửa sổ.",
         ["News_110_3"] = "Chính những ghi chú này, hiện một lần mỗi khi có phiên bản mới.",
+        ["News_110_4"] = "Chụp giờ có thêm toàn màn hình, và cửa sổ được ẩn trước nên Glyfo không bao giờ lọt vào ảnh.",
         ["Rate_Title"] = "Glyfo có giúp được gì cho bạn không?",
         ["Rate_Body"] = "Đánh giá trên Store là cách để người khác tìm thấy ứng dụng. Chỉ mất một chút thời gian.",
         ["Rate_Action"] = "Đánh giá",

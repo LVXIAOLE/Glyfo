@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Une page « À propos », avec la version et des liens vers le code source et la politique de confidentialité.",
         ["News_110_2"] = "Vous pouvez noter Glyfo sans quitter la fenêtre.",
         ["News_110_3"] = "Ces notes, affichées une fois à chaque nouvelle version.",
+        ["News_110_4"] = "La capture propose aussi l'écran entier, et masque la fenêtre au préalable : Glyfo n'apparaît plus dans l'image.",
         ["Rate_Title"] = "Glyfo vous rend service ?",
         ["Rate_Body"] = "Une note dans le Store, c'est ce qui permet aux autres de le trouver. Cela ne prend qu'un instant.",
         ["Rate_Action"] = "Noter",

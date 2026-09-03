@@ -39,6 +39,14 @@ public sealed partial class MainWindow : Window
     private const uint VkG = 0x47;
     private const uint VkR = 0x52;
     private const uint VkZ = 0x5A;
+
+    /// <summary>
+    /// The full-screen shortcut, spelled out for the capture menu. Not translated and not built
+    /// from the registration: it has no fallback combination the way the region one does, and the
+    /// capture tooltip has been naming it unconditionally since 1.0.
+    /// </summary>
+    private const string FullScreenHotkeyText = "Ctrl+Shift+R";
+
     private const int SmCxscreen = 0;
     private const int SmCyscreen = 1;
     private const int SmXvirtualscreen = 76;
@@ -72,6 +80,13 @@ public sealed partial class MainWindow : Window
     /// nothing.
     /// </summary>
     private const int WhatsNewDelayMs = 700;
+
+    /// <summary>
+    /// How long the desktop is given to repaint after the window is taken off it for a capture.
+    /// Long enough to outlast the DWM fade at the default animation speed, short enough that the
+    /// button still feels like it acted on the click.
+    /// </summary>
+    private const int CaptureHideDelayMs = 220;
 
     /// <summary>
     /// How many images have to be read successfully before the app asks for a rating. Ten is past
@@ -255,6 +270,16 @@ public sealed partial class MainWindow : Window
         SetTip(OpenButton, Loc.Get("Tip_OpenFile"));
         CaptureLabel.Text = Loc.Get("Btn_Capture");
         SetTip(CaptureButton, Loc.Get("Tip_Capture", _captureHotkeyText));
+
+        // The same two entries the tray menu offers, under the same names: they do the same thing,
+        // and a second wording for it would only invite the reader to look for a difference.
+        CaptureRegionItem.Text = Loc.Get("Tray_CaptureRegion");
+        CaptureFullScreenItem.Text = Loc.Get("Tray_CaptureFullScreen");
+
+        // Blank when both combinations are taken, rather than the sentence that says so: this slot
+        // is for a key name, and the tooltip already explains the situation in full.
+        CaptureRegionItem.KeyboardAcceleratorTextOverride = _hotkeyAvailable ? _captureHotkeyText : string.Empty;
+        CaptureFullScreenItem.KeyboardAcceleratorTextOverride = FullScreenHotkeyText;
         PasteLabel.Text = Loc.Get("Btn_Paste");
         SetTip(PasteButton, Loc.Get("Tip_Paste"));
         HistoryLabel.Text = Loc.Get("Btn_History");
@@ -319,6 +344,11 @@ public sealed partial class MainWindow : Window
         RatingTip.FlowDirection = flow;
 
         foreach (var item in TranslateMenu.Items)
+        {
+            item.FlowDirection = flow;
+        }
+
+        foreach (var item in CaptureMenu.Items)
         {
             item.FlowDirection = flow;
         }
@@ -535,9 +565,22 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    /// <summary>The button body, which is region capture — the arrow beside it is the only way to
+    /// reach anything else. A separate handler because SplitButton.Click carries its own event
+    /// args rather than the RoutedEventArgs a menu item raises.</summary>
+    private async void CaptureSplitClick(SplitButton sender, SplitButtonClickEventArgs args)
+    {
+        await CaptureRegionAndRunAsync();
+    }
+
     private async void CaptureRegionClick(object sender, RoutedEventArgs e)
     {
         await CaptureRegionAndRunAsync();
+    }
+
+    private async void CaptureFullScreenClick(object sender, RoutedEventArgs e)
+    {
+        await CaptureFullScreenAndRunAsync();
     }
 
     private async void PasteClick(object sender, RoutedEventArgs e)
@@ -1427,9 +1470,19 @@ public sealed partial class MainWindow : Window
 
     private async Task CaptureFullScreenAndRunAsync()
     {
+        var hidden = await HideForCaptureAsync();
         try
         {
             var (path, _) = await Task.Run(CaptureVirtualScreen);
+
+            // Back before the reading starts, not after: recognition takes a second or two, and
+            // the window is where its progress and its result are shown.
+            if (hidden)
+            {
+                ShowAfterCapture();
+                hidden = false;
+            }
+
             _sessionTempFiles.Add(path);
 
             var label = Loc.Get("Source_FullScreen");
@@ -1445,10 +1498,18 @@ public sealed partial class MainWindow : Window
                 Toasts.ShowFailed(ex.Message);
             }
         }
+        finally
+        {
+            if (hidden)
+            {
+                ShowAfterCapture();
+            }
+        }
     }
 
     private async Task CaptureRegionAndRunAsync()
     {
+        var hidden = await HideForCaptureAsync();
         string? screenshotPath = null;
         try
         {
@@ -1459,6 +1520,16 @@ public sealed partial class MainWindow : Window
 
             var captureWindow = new RegionCaptureWindow(screenshotPath, bounds);
             var selection = await captureWindow.CaptureAsync();
+
+            // Only now, and not a moment earlier: the overlay covers every monitor, so a window
+            // brought back underneath it would be invisible anyway, and taking the foreground off
+            // the overlay would leave its Escape key going nowhere.
+            if (hidden)
+            {
+                ShowAfterCapture();
+                hidden = false;
+            }
+
             if (selection is null)
             {
                 return;
@@ -1483,12 +1554,64 @@ public sealed partial class MainWindow : Window
         }
         finally
         {
+            if (hidden)
+            {
+                ShowAfterCapture();
+            }
+
             if (screenshotPath is not null && !TryDeleteFile(screenshotPath))
             {
                 // Still referenced by the overlay's BitmapImage; the next startup sweep gets it.
                 _sessionTempFiles.Add(screenshotPath);
             }
         }
+    }
+
+    /// <summary>
+    /// Takes the window off the screen so that it cannot end up inside the capture, and reports
+    /// whether it now has to be put back.
+    /// </summary>
+    /// <remarks>
+    /// Unconditional, with no setting behind it: nobody reaches for a capture tool in order to
+    /// read Glyfo's own window, and every other one on Windows does the same thing.
+    ///
+    /// Deliberately does not touch <see cref="_isHidden"/>. That flag means "living in the tray",
+    /// which is what decides whether a result is copied to the clipboard and announced by toast;
+    /// a window that vanishes for a fifth of a second is not that.
+    /// </remarks>
+    private async Task<bool> HideForCaptureAsync()
+    {
+        // Already off the screen — captured from the tray, or from the shortcut while minimized.
+        // Showing it afterwards would be putting up a window the user never had open.
+        if (_isClosed || _appWindow is null || _isHidden || !_appWindow.IsVisible)
+        {
+            return false;
+        }
+
+        if (_appWindow.Presenter is OverlappedPresenter { State: OverlappedPresenterState.Minimized })
+        {
+            return false;
+        }
+
+        _appWindow.Hide();
+
+        // The capture reads pixels off the screen, and Hide only starts the process of clearing
+        // them: DWM animates the window out and repaints what was behind it a frame or two later.
+        // Without the wait the image contains a half-faded copy of the window.
+        await Task.Delay(CaptureHideDelayMs);
+        return true;
+    }
+
+    /// <summary>Puts the window back after <see cref="HideForCaptureAsync"/> hid it.</summary>
+    private void ShowAfterCapture()
+    {
+        if (_isClosed || _appWindow is null)
+        {
+            return;
+        }
+
+        _appWindow.Show();
+        SetForegroundWindow(_hwnd);
     }
 
     /// <summary>

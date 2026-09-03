@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Een pagina Over Glyfo, met de versie en koppelingen naar de broncode en het privacybeleid.",
         ["News_110_2"] = "U kunt Glyfo beoordelen zonder het venster te verlaten.",
         ["News_110_3"] = "Deze notities, die bij elke nieuwe versie één keer verschijnen.",
+        ["News_110_4"] = "Vastleggen biedt nu ook het hele scherm en verbergt eerst het venster, zodat Glyfo nooit op de opname staat.",
         ["Rate_Title"] = "Heeft u iets aan Glyfo?",
         ["Rate_Body"] = "Een beoordeling in de Store is hoe anderen de app vinden. Het kost maar een moment.",
         ["Rate_Action"] = "Beoordelen",

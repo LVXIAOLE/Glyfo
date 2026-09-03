@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Halaman Perihal, dengan versi serta pautan ke kod sumber dan dasar privasi.",
         ["News_110_2"] = "Anda boleh menilai Glyfo tanpa meninggalkan tetingkap.",
         ["News_110_3"] = "Nota ini, yang dipaparkan sekali bagi setiap versi baharu.",
+        ["News_110_4"] = "Tangkapan kini turut menawarkan keseluruhan skrin dan menyembunyikan tetingkap dahulu, jadi Glyfo tidak pernah masuk ke dalam gambar.",
         ["Rate_Title"] = "Adakah Glyfo membantu anda?",
         ["Rate_Body"] = "Penilaian di Store ialah cara orang lain menemui aplikasi ini. Ia hanya mengambil sekejap.",
         ["Rate_Action"] = "Nilaikan",

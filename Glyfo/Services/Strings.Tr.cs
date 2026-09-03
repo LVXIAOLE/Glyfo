@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Sürümü, kaynak kodu ve gizlilik ilkesi bağlantılarını içeren bir hakkında sayfası.",
         ["News_110_2"] = "Glyfo'yu pencereden çıkmadan değerlendirebilirsiniz.",
         ["News_110_3"] = "Yeni bir sürümü ilk açtığınızda görünen bu notlar.",
+        ["News_110_4"] = "Yakalama artık tüm ekranı da sunuyor ve önce pencereyi gizliyor, böylece Glyfo görüntüye hiç girmiyor.",
         ["Rate_Title"] = "Glyfo işinizi görüyor mu?",
         ["Rate_Body"] = "Mağazadaki değerlendirmeler, başkalarının uygulamayı bulmasını sağlar. Yalnızca birkaç saniye sürer.",
         ["Rate_Action"] = "Değerlendir",

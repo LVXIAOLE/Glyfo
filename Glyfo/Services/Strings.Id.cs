@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Halaman Tentang, berisi versi serta tautan ke kode sumber dan kebijakan privasi.",
         ["News_110_2"] = "Anda dapat memberi rating Glyfo tanpa meninggalkan jendela.",
         ["News_110_3"] = "Catatan ini, yang muncul sekali setiap kali ada versi baru.",
+        ["News_110_4"] = "Tangkapan kini juga menawarkan seluruh layar dan menyembunyikan jendela lebih dulu, jadi Glyfo tidak pernah ikut terekam.",
         ["Rate_Title"] = "Apakah Glyfo membantu?",
         ["Rate_Body"] = "Rating di Store adalah cara orang lain menemukan aplikasi ini. Hanya perlu sebentar.",
         ["Rate_Action"] = "Beri rating",

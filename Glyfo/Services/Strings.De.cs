@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Eine Seite „Über Glyfo“ mit der Version und Links zum Quellcode und zur Datenschutzerklärung.",
         ["News_110_2"] = "Sie können Glyfo bewerten, ohne das Fenster zu verlassen.",
         ["News_110_3"] = "Diese Hinweise, einmal bei jeder neuen Version.",
+        ["News_110_4"] = "Die Aufnahme bietet jetzt auch den ganzen Bildschirm und blendet das Fenster vorher aus, sodass Glyfo nie mit im Bild ist.",
         ["Rate_Title"] = "Leistet Glyfo gute Dienste?",
         ["Rate_Body"] = "Eine Bewertung im Store ist der Weg, über den andere die App finden. Es dauert nur einen Moment.",
         ["Rate_Action"] = "Bewerten",

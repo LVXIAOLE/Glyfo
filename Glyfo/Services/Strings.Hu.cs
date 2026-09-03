@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Névjegylap a verziószámmal, valamint a forráskódra és az adatvédelmi irányelvekre mutató hivatkozásokkal.",
         ["News_110_2"] = "A Glyfo az ablak elhagyása nélkül értékelhető.",
         ["News_110_3"] = "Ezek a megjegyzések, amelyek minden új verziónál egyszer megjelennek.",
+        ["News_110_4"] = "A rögzítés már a teljes képernyőt is kínálja, és előbb elrejti az ablakot, így a Glyfo soha nem kerül a képre.",
         ["Rate_Title"] = "Hasznát veszi a Glyfónak?",
         ["Rate_Body"] = "Az áruházbeli értékelés az, aminek révén mások rátalálnak. Egy pillanat az egész.",
         ["Rate_Action"] = "Értékelés",

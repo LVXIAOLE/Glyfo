@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Stránka O aplikaci s číslem verze a odkazy na zdrojový kód a zásady ochrany osobních údajů.",
         ["News_110_2"] = "Glyfo můžete ohodnotit, aniž byste opustili okno.",
         ["News_110_3"] = "Tyto poznámky, které se zobrazí jednou u každé nové verze.",
+        ["News_110_4"] = "Snímání teď nabízí i celou obrazovku a nejdřív skryje okno, takže Glyfo už na snímku nikdy není.",
         ["Rate_Title"] = "Slouží vám Glyfo dobře?",
         ["Rate_Body"] = "Hodnocení ve Storu je to, díky čemu aplikaci najdou ostatní. Zabere to chvilku.",
         ["Rate_Action"] = "Ohodnotit",

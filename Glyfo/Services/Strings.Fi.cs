@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Tietoja-sivu, jossa näkyy versio sekä linkit lähdekoodiin ja tietosuojakäytäntöön.",
         ["News_110_2"] = "Voit arvioida Glyfon poistumatta ikkunasta.",
         ["News_110_3"] = "Nämä tiedot, jotka näytetään kerran jokaisen uuden version yhteydessä.",
+        ["News_110_4"] = "Kaappaus tarjoaa nyt myös koko näytön ja piilottaa ikkunan ensin, joten Glyfo ei enää jää kuvaan.",
         ["Rate_Title"] = "Onko Glyfosta ollut hyötyä?",
         ["Rate_Body"] = "Storen arvio on se, jonka avulla muut löytävät sovelluksen. Siihen menee hetki.",
         ["Rate_Action"] = "Arvioi",

@@ -217,12 +217,29 @@
                         <KeyboardAccelerator Modifiers="Control" Key="O" />
                     </Button.KeyboardAccelerators>
                 </Button>
-                <Button x:Name="CaptureButton" Click="CaptureRegionClick">
+                <!-- A SplitButton rather than a DropDownButton: region capture is what all but a
+                     few presses want, and it stays one click. Full screen is a mode, not a peer,
+                     so it lives behind the arrow next to the shortcut that also invokes it. -->
+                <SplitButton x:Name="CaptureButton" Click="CaptureSplitClick">
                     <StackPanel Orientation="Horizontal" Spacing="6">
                         <SymbolIcon Symbol="Camera" />
                         <TextBlock x:Name="CaptureLabel" />
                     </StackPanel>
-                </Button>
+                    <SplitButton.Flyout>
+                        <MenuFlyout x:Name="CaptureMenu" Placement="Top">
+                            <MenuFlyoutItem x:Name="CaptureRegionItem" Click="CaptureRegionClick">
+                                <MenuFlyoutItem.Icon>
+                                    <SymbolIcon Symbol="Crop" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem x:Name="CaptureFullScreenItem" Click="CaptureFullScreenClick">
+                                <MenuFlyoutItem.Icon>
+                                    <SymbolIcon Symbol="FullScreen" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </SplitButton.Flyout>
+                </SplitButton>
                 <!-- Ctrl+V only reaches this button when the focused control has not already
                      claimed it, so pasting text into the result box still works normally. -->
                 <Button x:Name="PasteButton" Click="PasteClick">

@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Uma página Sobre, com a versão e links para o código-fonte e a política de privacidade.",
         ["News_110_2"] = "Você pode avaliar o Glyfo sem sair da janela.",
         ["News_110_3"] = "Estas notas, mostradas uma vez a cada versão nova.",
+        ["News_110_4"] = "A captura agora também oferece a tela inteira e esconde a janela antes, para o Glyfo nunca aparecer na imagem.",
         ["Rate_Title"] = "O Glyfo está sendo útil?",
         ["Rate_Body"] = "Uma avaliação na Store é o que faz outras pessoas encontrarem o aplicativo. Leva só um instante.",
         ["Rate_Action"] = "Avaliar",

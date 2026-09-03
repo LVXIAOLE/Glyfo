@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "Isang pahinang Tungkol sa, kasama ang bersyon at mga link sa source code at patakaran sa privacy.",
         ["News_110_2"] = "Puwede mong i-rate ang Glyfo nang hindi umaalis sa window.",
         ["News_110_3"] = "Ang mga tala na ito, na lumalabas nang isang beses sa bawat bagong bersyon.",
+        ["News_110_4"] = "Puwede nang kunin ang buong screen, at itinatago muna ang window kaya hindi na napapasama ang Glyfo sa larawan.",
         ["Rate_Title"] = "Nakakatulong ba ang Glyfo?",
         ["Rate_Body"] = "Ang rating sa Store ang paraan para makita ito ng iba. Sandali lang ito.",
         ["Rate_Action"] = "I-rate",

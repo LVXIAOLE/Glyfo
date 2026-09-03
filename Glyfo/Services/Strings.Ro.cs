@@ -152,6 +152,7 @@ internal static partial class Strings
         ["News_110_1"] = "O pagină Despre, cu versiunea și linkuri către codul sursă și politica de confidențialitate.",
         ["News_110_2"] = "Puteți evalua Glyfo fără să părăsiți fereastra.",
         ["News_110_3"] = "Aceste note, afișate o dată la fiecare versiune nouă.",
+        ["News_110_4"] = "Capturarea oferă acum și tot ecranul și ascunde mai întâi fereastra, așa că Glyfo nu mai apare în imagine.",
         ["Rate_Title"] = "Vă este de folos Glyfo?",
         ["Rate_Body"] = "O evaluare în Store este ceea ce îi ajută pe alții să găsească aplicația. Durează o clipă.",
         ["Rate_Action"] = "Evaluați",
