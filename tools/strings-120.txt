@@ -1,0 +1,416 @@
+Ar|Tip_PdfPrev|الصفحة السابقة
+Ar|Tip_PdfNext|الصفحة التالية
+Ar|Action_Open|فتح الرابط
+Ar|Action_Mail|مراسلة
+Ar|Action_Call|اتصال بـ
+Ar|Action_Search|البحث في الويب عن
+Ar|Status_PdfFailed|تعذّرت قراءة ملف PDF هذا — قد يكون محميًا بكلمة مرور أو تالفًا
+Ar|Status_LaunchFailed|لم يجد Windows تطبيقًا يفتح به هذا.
+Ar|Setting_WatchClipboard|قراءة الصور التي أنسخها
+Ar|Setting_WatchClipboard_Desc|التقط لقطة شاشة بالضغط على Win+Shift+S فيقرأها Glyfo فورًا، ثم يضع النص في الحافظة بدل الصورة، فيكون اللصق التالي نصًا. تُقرأ الصور وحدها، ولا يُقرأ النص المنسوخ أبدًا، ولا يُرسل شيء إلى أي مكان — كل ذلك يجري على هذا الجهاز.
+Ar|News_120_1|التقط لقطة شاشة بالضغط على Win+Shift+S فيقرأها Glyfo نيابةً عنك ويترك النص في الحافظة. الميزة معطّلة حتى تفعّلها من الإعدادات.
+Ar|News_120_2|صار بالإمكان فتح ملفات PDF مثل الصور، صفحةً صفحة.
+Ar|News_120_3|تحصل الروابط وعناوين البريد وأرقام الهاتف الموجودة في النص على زر أسفله.
+Bn|Tip_PdfPrev|আগের পাতা
+Bn|Tip_PdfNext|পরের পাতা
+Bn|Action_Open|লিঙ্ক খুলুন
+Bn|Action_Mail|মেল করুন
+Bn|Action_Call|কল করুন
+Bn|Action_Search|ওয়েবে খুঁজুন
+Bn|Status_PdfFailed|এই PDF পড়া গেল না — এটি পাসওয়ার্ড-সুরক্ষিত বা নষ্ট হতে পারে
+Bn|Status_LaunchFailed|এটি খোলার মতো কিছু Windows খুঁজে পায়নি।
+Bn|Setting_WatchClipboard|আমি যে ছবি কপি করি তা পড়ো
+Bn|Setting_WatchClipboard_Desc|Win+Shift+S দিয়ে স্ক্রিনশট নিন, Glyfo সঙ্গে সঙ্গে সেটি পড়ে ছবির বদলে লেখাটি ক্লিপবোর্ডে রাখে, তাই পরের পেস্টেই লেখা পাবেন। কেবল ছবিই পড়া হয়, কপি করা লেখা কখনও নয়, আর কিছুই কোথাও পাঠানো হয় না — পুরোটাই এই ডিভাইসে ঘটে।
+Bn|News_120_1|Win+Shift+S দিয়ে স্ক্রিনশট নিলে Glyfo সেটি পড়ে লেখাটি ক্লিপবোর্ডে রেখে দেয়। সেটিংসে চালু না করা পর্যন্ত এটি বন্ধ থাকে।
+Bn|News_120_2|এখন ছবির মতোই PDF খোলা যায়, এক পাতা করে।
+Bn|News_120_3|লেখার মধ্যে পাওয়া লিঙ্ক, ইমেল ঠিকানা ও ফোন নম্বরের জন্য নিচে বোতাম আসে।
+Cs|Tip_PdfPrev|Předchozí stránka
+Cs|Tip_PdfNext|Další stránka
+Cs|Action_Open|Otevřít odkaz
+Cs|Action_Mail|Napsat na
+Cs|Action_Call|Zavolat na
+Cs|Action_Search|Vyhledat na webu
+Cs|Status_PdfFailed|toto PDF se nepodařilo přečíst — může být chráněné heslem nebo poškozené
+Cs|Status_LaunchFailed|Windows nenašel nic, čím by to otevřel.
+Cs|Setting_WatchClipboard|Číst obrázky, které zkopíruji
+Cs|Setting_WatchClipboard_Desc|Pořiďte snímek klávesami Win+Shift+S a Glyfo jej ihned přečte a místo obrázku vloží do schránky text, takže další vložení je text. Čtou se jen obrázky, nikdy zkopírovaný text, a nic se nikam neodesílá — vše probíhá v tomto zařízení.
+Cs|News_120_1|Pořiďte snímek klávesami Win+Shift+S a Glyfo jej za vás přečte a text nechá ve schránce. Dokud to nezapnete v nastavení, je funkce vypnutá.
+Cs|News_120_2|PDF se teď otevírají jako obrázky, po jedné stránce.
+Cs|News_120_3|Odkazy, e-mailové adresy a telefonní čísla nalezené v textu dostanou pod ním tlačítko.
+Da|Tip_PdfPrev|Forrige side
+Da|Tip_PdfNext|Næste side
+Da|Action_Open|Åbn link
+Da|Action_Mail|Skriv til
+Da|Action_Call|Ring til
+Da|Action_Search|Søg på nettet efter
+Da|Status_PdfFailed|denne PDF kunne ikke læses — den er måske adgangskodebeskyttet eller beskadiget
+Da|Status_LaunchFailed|Windows havde ikke noget at åbne det med.
+Da|Setting_WatchClipboard|Læs billeder, jeg kopierer
+Da|Setting_WatchClipboard_Desc|Tag et skærmbillede med Win+Shift+S, så læser Glyfo det med det samme og lægger teksten på udklipsholderen i stedet for billedet, så næste indsætning er tekst. Kun billeder læses, aldrig kopieret tekst, og intet sendes nogen steder hen — det hele sker på denne enhed.
+Da|News_120_1|Tag et skærmbillede med Win+Shift+S, så læser Glyfo det for dig og efterlader teksten på udklipsholderen. Slået fra, indtil du slår det til under Indstillinger.
+Da|News_120_2|PDF-filer åbnes nu som billeder, én side ad gangen.
+Da|News_120_3|Links, mailadresser og telefonnumre i teksten får en knap nedenunder.
+De|Tip_PdfPrev|Vorherige Seite
+De|Tip_PdfNext|Nächste Seite
+De|Action_Open|Link öffnen
+De|Action_Mail|Schreiben an
+De|Action_Call|Anrufen
+De|Action_Search|Im Web suchen nach
+De|Status_PdfFailed|dieses PDF konnte nicht gelesen werden — es ist womöglich kennwortgeschützt oder beschädigt
+De|Status_LaunchFailed|Windows hat nichts gefunden, womit sich das öffnen ließe.
+De|Setting_WatchClipboard|Kopierte Bilder lesen
+De|Setting_WatchClipboard_Desc|Machen Sie mit Win+Shift+S einen Screenshot, und Glyfo liest ihn sofort und legt den Text anstelle des Bildes in die Zwischenablage, sodass das nächste Einfügen den Text liefert. Gelesen werden nur Bilder, niemals kopierter Text, und nichts wird irgendwohin gesendet — alles geschieht auf diesem Gerät.
+De|News_120_1|Machen Sie mit Win+Shift+S einen Screenshot, und Glyfo liest ihn für Sie und lässt den Text in der Zwischenablage. Aus, bis Sie es in den Einstellungen einschalten.
+De|News_120_2|PDFs lassen sich jetzt wie Bilder öffnen, Seite für Seite.
+De|News_120_3|Links, E-Mail-Adressen und Telefonnummern im Text bekommen darunter eine Schaltfläche.
+El|Tip_PdfPrev|Προηγούμενη σελίδα
+El|Tip_PdfNext|Επόμενη σελίδα
+El|Action_Open|Άνοιγμα συνδέσμου
+El|Action_Mail|Αποστολή σε
+El|Action_Call|Κλήση
+El|Action_Search|Αναζήτηση στον ιστό για
+El|Status_PdfFailed|αυτό το PDF δεν ήταν δυνατό να διαβαστεί — ίσως προστατεύεται με κωδικό ή είναι κατεστραμμένο
+El|Status_LaunchFailed|Τα Windows δεν βρήκαν κάτι για να το ανοίξουν.
+El|Setting_WatchClipboard|Ανάγνωση των εικόνων που αντιγράφω
+El|Setting_WatchClipboard_Desc|Τραβήξτε στιγμιότυπο με Win+Shift+S και το Glyfo το διαβάζει αμέσως, βάζοντας στο πρόχειρο το κείμενο αντί για την εικόνα, ώστε η επόμενη επικόλληση να είναι το κείμενο. Διαβάζονται μόνο εικόνες, ποτέ αντιγραμμένο κείμενο, και τίποτα δεν αποστέλλεται πουθενά — όλα γίνονται σε αυτή τη συσκευή.
+El|News_120_1|Τραβήξτε στιγμιότυπο με Win+Shift+S και το Glyfo το διαβάζει για εσάς, αφήνοντας το κείμενο στο πρόχειρο. Ανενεργό μέχρι να το ενεργοποιήσετε στις ρυθμίσεις.
+El|News_120_2|Τα PDF ανοίγουν πλέον σαν εικόνες, μία σελίδα κάθε φορά.
+El|News_120_3|Σύνδεσμοι, διευθύνσεις email και τηλέφωνα μέσα στο κείμενο αποκτούν κουμπί από κάτω.
+Es|Tip_PdfPrev|Página anterior
+Es|Tip_PdfNext|Página siguiente
+Es|Action_Open|Abrir enlace
+Es|Action_Mail|Escribir a
+Es|Action_Call|Llamar a
+Es|Action_Search|Buscar en la web
+Es|Status_PdfFailed|no se pudo leer este PDF: puede estar protegido con contraseña o dañado
+Es|Status_LaunchFailed|Windows no encontró con qué abrir eso.
+Es|Setting_WatchClipboard|Leer las imágenes que copio
+Es|Setting_WatchClipboard_Desc|Haz una captura con Win+Shift+S y Glyfo la lee al momento y deja el texto en el portapapeles en lugar de la imagen, así el siguiente pegado es el texto. Solo se leen imágenes, nunca el texto copiado, y no se envía nada a ninguna parte: todo ocurre en este dispositivo.
+Es|News_120_1|Haz una captura con Win+Shift+S y Glyfo la lee por ti y deja el texto en el portapapeles. Está desactivado hasta que lo actives en Opciones.
+Es|News_120_2|Los PDF se abren como las imágenes, página a página.
+Es|News_120_3|Los enlaces, correos y teléfonos que aparecen en el texto reciben un botón debajo.
+Fa|Tip_PdfPrev|صفحهٔ قبل
+Fa|Tip_PdfNext|صفحهٔ بعد
+Fa|Action_Open|باز کردن پیوند
+Fa|Action_Mail|نوشتن به
+Fa|Action_Call|تماس با
+Fa|Action_Search|جست‌وجو در وب برای
+Fa|Status_PdfFailed|این PDF خوانده نشد — شاید با گذرواژه محافظت شده یا آسیب دیده باشد
+Fa|Status_LaunchFailed|ویندوز چیزی برای باز کردن آن پیدا نکرد.
+Fa|Setting_WatchClipboard|خواندن تصویرهایی که کپی می‌کنم
+Fa|Setting_WatchClipboard_Desc|با Win+Shift+S از صفحه عکس بگیرید تا Glyfo بی‌درنگ آن را بخواند و به‌جای تصویر، متن را در بریده‌دان بگذارد؛ پس چسباندن بعدی همان متن است. تنها تصویرها خوانده می‌شوند، هرگز متن کپی‌شده، و چیزی به جایی فرستاده نمی‌شود — همه‌چیز روی همین دستگاه انجام می‌گیرد.
+Fa|News_120_1|با Win+Shift+S از صفحه عکس بگیرید تا Glyfo آن را برایتان بخواند و متن را در بریده‌دان بگذارد. تا زمانی که در تنظیمات روشنش نکنید خاموش است.
+Fa|News_120_2|حالا PDF هم مثل تصویر باز می‌شود، صفحه‌به‌صفحه.
+Fa|News_120_3|پیوندها، نشانی‌های ایمیل و شماره‌های تلفنِ درون متن، زیر آن دکمه می‌گیرند.
+Fi|Tip_PdfPrev|Edellinen sivu
+Fi|Tip_PdfNext|Seuraava sivu
+Fi|Action_Open|Avaa linkki
+Fi|Action_Mail|Kirjoita osoitteeseen
+Fi|Action_Call|Soita numeroon
+Fi|Action_Search|Hae verkosta
+Fi|Status_PdfFailed|tätä PDF-tiedostoa ei voitu lukea — se voi olla salasanasuojattu tai vioittunut
+Fi|Status_LaunchFailed|Windows ei löytänyt mitään, jolla sen voisi avata.
+Fi|Setting_WatchClipboard|Lue kopioimani kuvat
+Fi|Setting_WatchClipboard_Desc|Ota kuvakaappaus näppäimillä Win+Shift+S, niin Glyfo lukee sen heti ja panee tekstin leikepöydälle kuvan tilalle, joten seuraava liittäminen tuottaa tekstin. Vain kuvia luetaan, ei koskaan kopioitua tekstiä, eikä mitään lähetetä minnekään — kaikki tapahtuu tässä laitteessa.
+Fi|News_120_1|Ota kuvakaappaus näppäimillä Win+Shift+S, niin Glyfo lukee sen puolestasi ja jättää tekstin leikepöydälle. Pois päältä, kunnes otat sen käyttöön asetuksista.
+Fi|News_120_2|PDF-tiedostot avautuvat nyt kuvien tavoin, sivu kerrallaan.
+Fi|News_120_3|Tekstistä löytyvät linkit, sähköpostiosoitteet ja puhelinnumerot saavat painikkeen sen alle.
+Fil|Tip_PdfPrev|Nakaraang pahina
+Fil|Tip_PdfNext|Susunod na pahina
+Fil|Action_Open|Buksan ang link
+Fil|Action_Mail|Sulatan si
+Fil|Action_Call|Tawagan ang
+Fil|Action_Search|Hanapin sa web ang
+Fil|Status_PdfFailed|hindi nabasa ang PDF na ito — maaaring may password ito o sira
+Fil|Status_LaunchFailed|Walang nakitang pambukas ang Windows para diyan.
+Fil|Setting_WatchClipboard|Basahin ang mga larawang kinokopya ko
+Fil|Setting_WatchClipboard_Desc|Kumuha ng screenshot gamit ang Win+Shift+S at agad itong babasahin ng Glyfo, saka ilalagay ang teksto sa clipboard kapalit ng larawan, kaya teksto na ang susunod mong ipe-paste. Mga larawan lang ang binabasa, hindi kailanman ang kinopyang teksto, at walang ipinapadala kahit saan — lahat ay nangyayari sa device na ito.
+Fil|News_120_1|Kumuha ng screenshot gamit ang Win+Shift+S at babasahin ito ng Glyfo para sa iyo, saka iiwan ang teksto sa clipboard. Naka-off hanggang buksan mo ito sa Mga Opsyon.
+Fil|News_120_2|Nabubuksan na ang PDF gaya ng larawan, isang pahina sa bawat pagkakataon.
+Fil|News_120_3|Ang mga link, email address at numero ng telepono sa teksto ay binibigyan ng button sa ilalim nito.
+Fr|Tip_PdfPrev|Page précédente
+Fr|Tip_PdfNext|Page suivante
+Fr|Action_Open|Ouvrir le lien
+Fr|Action_Mail|Écrire à
+Fr|Action_Call|Appeler
+Fr|Action_Search|Rechercher sur le web
+Fr|Status_PdfFailed|ce PDF n a pas pu être lu — il est peut-être protégé par mot de passe ou endommagé
+Fr|Status_LaunchFailed|Windows n a rien trouvé pour ouvrir cela.
+Fr|Setting_WatchClipboard|Lire les images que je copie
+Fr|Setting_WatchClipboard_Desc|Faites une capture avec Win+Shift+S et Glyfo la lit aussitôt, puis place le texte dans le presse-papiers à la place de l image, si bien que le prochain collage donne le texte. Seules les images sont lues, jamais le texte copié, et rien n est envoyé nulle part : tout se passe sur cet appareil.
+Fr|News_120_1|Faites une capture avec Win+Shift+S et Glyfo la lit pour vous, puis laisse le texte dans le presse-papiers. Désactivé tant que vous ne l activez pas dans les options.
+Fr|News_120_2|Les PDF s ouvrent désormais comme des images, page par page.
+Fr|News_120_3|Les liens, adresses e-mail et numéros de téléphone repérés dans le texte reçoivent un bouton en dessous.
+He|Tip_PdfPrev|העמוד הקודם
+He|Tip_PdfNext|העמוד הבא
+He|Action_Open|פתיחת הקישור
+He|Action_Mail|כתיבה אל
+He|Action_Call|התקשרות אל
+He|Action_Search|חיפוש באינטרנט אחר
+He|Status_PdfFailed|לא ניתן היה לקרוא את קובץ ה-PDF הזה — ייתכן שהוא מוגן בסיסמה או פגום
+He|Status_LaunchFailed|ל-Windows לא היה במה לפתוח את זה.
+He|Setting_WatchClipboard|לקרוא תמונות שאני מעתיק
+He|Setting_WatchClipboard_Desc|צלמו מסך באמצעות Win+Shift+S ו-Glyfo יקרא אותו מיד, ואז ישים את הטקסט בלוח במקום התמונה, כך שההדבקה הבאה תהיה הטקסט. נקראות תמונות בלבד, אף פעם לא טקסט שהועתק, ודבר אינו נשלח לשום מקום — הכול קורה במכשיר הזה.
+He|News_120_1|צלמו מסך באמצעות Win+Shift+S ו-Glyfo יקרא אותו עבורכם וישאיר את הטקסט בלוח. כבוי עד שתפעילו אותו בהגדרות.
+He|News_120_2|קובצי PDF נפתחים עכשיו כמו תמונות, עמוד בכל פעם.
+He|News_120_3|קישורים, כתובות דואר ומספרי טלפון שנמצאו בטקסט מקבלים כפתור מתחתיו.
+Hi|Tip_PdfPrev|पिछला पृष्ठ
+Hi|Tip_PdfNext|अगला पृष्ठ
+Hi|Action_Open|लिंक खोलें
+Hi|Action_Mail|मेल भेजें
+Hi|Action_Call|कॉल करें
+Hi|Action_Search|वेब पर खोजें
+Hi|Status_PdfFailed|यह PDF पढ़ी नहीं जा सकी — यह पासवर्ड से सुरक्षित या क्षतिग्रस्त हो सकती है
+Hi|Status_LaunchFailed|Windows के पास इसे खोलने के लिए कुछ नहीं था।
+Hi|Setting_WatchClipboard|मेरी कॉपी की गई तस्वीरें पढ़ें
+Hi|Setting_WatchClipboard_Desc|Win+Shift+S से स्क्रीनशॉट लें और Glyfo उसे तुरंत पढ़कर तस्वीर की जगह टेक्स्ट क्लिपबोर्ड में रख देता है, ताकि अगली बार पेस्ट करने पर टेक्स्ट मिले। केवल तस्वीरें पढ़ी जाती हैं, कॉपी किया गया टेक्स्ट कभी नहीं, और कुछ भी कहीं नहीं भेजा जाता — सब कुछ इसी डिवाइस पर होता है।
+Hi|News_120_1|Win+Shift+S से स्क्रीनशॉट लें और Glyfo उसे आपके लिए पढ़कर टेक्स्ट क्लिपबोर्ड में छोड़ देता है। जब तक आप इसे विकल्पों में चालू न करें, यह बंद रहता है।
+Hi|News_120_2|अब PDF भी तस्वीरों की तरह खुलती हैं, एक-एक पृष्ठ करके।
+Hi|News_120_3|टेक्स्ट में मिले लिंक, ईमेल पते और फ़ोन नंबर के लिए नीचे एक बटन आता है।
+Hu|Tip_PdfPrev|Előző oldal
+Hu|Tip_PdfNext|Következő oldal
+Hu|Action_Open|Hivatkozás megnyitása
+Hu|Action_Mail|Levél írása ide
+Hu|Action_Call|Hívás
+Hu|Action_Search|Keresés a weben
+Hu|Status_PdfFailed|ezt a PDF-et nem sikerült beolvasni — lehet, hogy jelszóval védett vagy sérült
+Hu|Status_LaunchFailed|A Windows nem talált semmit, amivel ezt megnyithatná.
+Hu|Setting_WatchClipboard|Olvassa be a másolt képeket
+Hu|Setting_WatchClipboard_Desc|Készítsen képernyőképet a Win+Shift+S kombinációval, és a Glyfo azonnal beolvassa, majd a kép helyett a szöveget teszi a vágólapra, így a következő beillesztés már a szöveg lesz. Csak képeket olvas be, másolt szöveget soha, és semmit nem küld sehová — minden ezen az eszközön történik.
+Hu|News_120_1|Készítsen képernyőképet a Win+Shift+S kombinációval, és a Glyfo beolvassa Ön helyett, a szöveget pedig a vágólapon hagyja. Kikapcsolva, amíg a beállításokban be nem kapcsolja.
+Hu|News_120_2|A PDF-ek mostantól a képekhez hasonlóan nyílnak meg, oldalanként.
+Hu|News_120_3|A szövegben talált hivatkozások, e-mail-címek és telefonszámok alatta gombot kapnak.
+Id|Tip_PdfPrev|Halaman sebelumnya
+Id|Tip_PdfNext|Halaman berikutnya
+Id|Action_Open|Buka tautan
+Id|Action_Mail|Kirim surel ke
+Id|Action_Call|Telepon
+Id|Action_Search|Cari di web
+Id|Status_PdfFailed|PDF ini tidak dapat dibaca — mungkin dilindungi kata sandi atau rusak
+Id|Status_LaunchFailed|Windows tidak menemukan apa pun untuk membukanya.
+Id|Setting_WatchClipboard|Baca gambar yang saya salin
+Id|Setting_WatchClipboard_Desc|Ambil tangkapan layar dengan Win+Shift+S dan Glyfo langsung membacanya, lalu menaruh teksnya di papan klip menggantikan gambar, sehingga tempelan berikutnya berupa teks. Hanya gambar yang dibaca, tidak pernah teks yang disalin, dan tidak ada yang dikirim ke mana pun — semuanya terjadi di perangkat ini.
+Id|News_120_1|Ambil tangkapan layar dengan Win+Shift+S dan Glyfo membacanya untuk Anda, lalu meninggalkan teksnya di papan klip. Mati sampai Anda menyalakannya di Opsi.
+Id|News_120_2|PDF kini terbuka seperti gambar, satu halaman setiap kali.
+Id|News_120_3|Tautan, alamat surel, dan nomor telepon yang ditemukan dalam teks mendapat tombol di bawahnya.
+It|Tip_PdfPrev|Pagina precedente
+It|Tip_PdfNext|Pagina successiva
+It|Action_Open|Apri il collegamento
+It|Action_Mail|Scrivi a
+It|Action_Call|Chiama
+It|Action_Search|Cerca sul web
+It|Status_PdfFailed|non è stato possibile leggere questo PDF: potrebbe essere protetto da password o danneggiato
+It|Status_LaunchFailed|Windows non ha trovato nulla con cui aprirlo.
+It|Setting_WatchClipboard|Leggi le immagini che copio
+It|Setting_WatchClipboard_Desc|Cattura una schermata con Win+Shift+S e Glyfo la legge subito, poi mette il testo negli appunti al posto dell immagine, così il prossimo incolla è il testo. Vengono lette solo le immagini, mai il testo copiato, e non viene inviato nulla da nessuna parte: tutto avviene su questo dispositivo.
+It|News_120_1|Cattura una schermata con Win+Shift+S e Glyfo la legge per te, lasciando il testo negli appunti. Disattivato finché non lo attivi nelle opzioni.
+It|News_120_2|I PDF ora si aprono come le immagini, una pagina alla volta.
+It|News_120_3|Collegamenti, indirizzi e-mail e numeri di telefono trovati nel testo ricevono un pulsante sotto di esso.
+Ja|Tip_PdfPrev|前のページ
+Ja|Tip_PdfNext|次のページ
+Ja|Action_Open|リンクを開く
+Ja|Action_Mail|メールを書く
+Ja|Action_Call|電話をかける
+Ja|Action_Search|ウェブで検索
+Ja|Status_PdfFailed|この PDF を読み取れませんでした。パスワード保護されているか、壊れている可能性があります
+Ja|Status_LaunchFailed|Windows にこれを開けるものがありませんでした。
+Ja|Setting_WatchClipboard|コピーした画像を読み取る
+Ja|Setting_WatchClipboard_Desc|Win+Shift+S でスクリーンショットを撮ると Glyfo がすぐに読み取り、画像の代わりにテキストをクリップボードへ入れます。次の貼り付けはテキストになります。読み取るのは画像だけで、コピーしたテキストは読み取らず、どこにも送信しません。すべてこの端末の中で完結します。
+Ja|News_120_1|Win+Shift+S でスクリーンショットを撮ると Glyfo が読み取り、テキストをクリップボードに残します。オプションでオンにするまでは無効です。
+Ja|News_120_2|PDF も画像と同じように、1 ページずつ開けるようになりました。
+Ja|News_120_3|テキスト内のリンク・メールアドレス・電話番号には、その下にボタンが出ます。
+Ko|Tip_PdfPrev|이전 페이지
+Ko|Tip_PdfNext|다음 페이지
+Ko|Action_Open|링크 열기
+Ko|Action_Mail|메일 쓰기
+Ko|Action_Call|전화 걸기
+Ko|Action_Search|웹에서 검색
+Ko|Status_PdfFailed|이 PDF를 읽을 수 없습니다. 암호로 보호되어 있거나 손상되었을 수 있습니다
+Ko|Status_LaunchFailed|Windows에 이것을 열 수 있는 항목이 없습니다.
+Ko|Setting_WatchClipboard|복사한 그림 읽기
+Ko|Setting_WatchClipboard_Desc|Win+Shift+S로 화면을 캡처하면 Glyfo가 곧바로 읽어 그림 대신 텍스트를 클립보드에 넣으므로, 다음 붙여넣기는 텍스트가 됩니다. 그림만 읽고 복사한 텍스트는 읽지 않으며, 어디로도 전송하지 않습니다. 모든 과정이 이 기기 안에서 이루어집니다.
+Ko|News_120_1|Win+Shift+S로 화면을 캡처하면 Glyfo가 대신 읽어 텍스트를 클립보드에 남깁니다. 옵션에서 켜기 전까지는 꺼져 있습니다.
+Ko|News_120_2|이제 PDF도 그림처럼 한 페이지씩 열 수 있습니다.
+Ko|News_120_3|텍스트에서 찾은 링크, 메일 주소, 전화번호에는 아래에 단추가 생깁니다.
+Ms|Tip_PdfPrev|Halaman sebelumnya
+Ms|Tip_PdfNext|Halaman seterusnya
+Ms|Action_Open|Buka pautan
+Ms|Action_Mail|Hantar e-mel kepada
+Ms|Action_Call|Hubungi
+Ms|Action_Search|Cari di web
+Ms|Status_PdfFailed|PDF ini tidak dapat dibaca — mungkin dilindungi kata laluan atau rosak
+Ms|Status_LaunchFailed|Windows tidak menemui apa-apa untuk membukanya.
+Ms|Setting_WatchClipboard|Baca gambar yang saya salin
+Ms|Setting_WatchClipboard_Desc|Ambil tangkapan skrin dengan Win+Shift+S dan Glyfo terus membacanya, kemudian meletakkan teksnya pada papan keratan menggantikan gambar, jadi tampalan seterusnya ialah teks. Hanya gambar dibaca, tidak sekali-kali teks yang disalin, dan tiada apa-apa dihantar ke mana-mana — semuanya berlaku pada peranti ini.
+Ms|News_120_1|Ambil tangkapan skrin dengan Win+Shift+S dan Glyfo membacanya untuk anda, lalu meninggalkan teks pada papan keratan. Dimatikan sehingga anda menghidupkannya dalam Pilihan.
+Ms|News_120_2|PDF kini dibuka seperti gambar, sehalaman pada satu masa.
+Ms|News_120_3|Pautan, alamat e-mel dan nombor telefon yang ditemui dalam teks mendapat butang di bawahnya.
+Nb|Tip_PdfPrev|Forrige side
+Nb|Tip_PdfNext|Neste side
+Nb|Action_Open|Åpne lenken
+Nb|Action_Mail|Skriv til
+Nb|Action_Call|Ring
+Nb|Action_Search|Søk på nettet etter
+Nb|Status_PdfFailed|denne PDF-en kunne ikke leses — den er kanskje passordbeskyttet eller skadet
+Nb|Status_LaunchFailed|Windows fant ingenting å åpne det med.
+Nb|Setting_WatchClipboard|Les bilder jeg kopierer
+Nb|Setting_WatchClipboard_Desc|Ta et skjermbilde med Win+Shift+S, så leser Glyfo det med én gang og legger teksten på utklippstavlen i stedet for bildet, slik at neste innliming blir teksten. Bare bilder leses, aldri kopiert tekst, og ingenting sendes noe sted — alt skjer på denne enheten.
+Nb|News_120_1|Ta et skjermbilde med Win+Shift+S, så leser Glyfo det for deg og lar teksten ligge på utklippstavlen. Av til du slår det på i alternativene.
+Nb|News_120_2|PDF-er åpnes nå som bilder, én side om gangen.
+Nb|News_120_3|Lenker, e-postadresser og telefonnumre i teksten får en knapp under den.
+Nl|Tip_PdfPrev|Vorige pagina
+Nl|Tip_PdfNext|Volgende pagina
+Nl|Action_Open|Koppeling openen
+Nl|Action_Mail|Schrijven aan
+Nl|Action_Call|Bellen
+Nl|Action_Search|Op het web zoeken naar
+Nl|Status_PdfFailed|deze pdf kon niet worden gelezen — hij is mogelijk beveiligd met een wachtwoord of beschadigd
+Nl|Status_LaunchFailed|Windows had niets om dat mee te openen.
+Nl|Setting_WatchClipboard|Gekopieerde afbeeldingen lezen
+Nl|Setting_WatchClipboard_Desc|Maak een schermafbeelding met Win+Shift+S en Glyfo leest die meteen en zet de tekst op het klembord in plaats van de afbeelding, zodat de volgende plakactie de tekst oplevert. Alleen afbeeldingen worden gelezen, nooit gekopieerde tekst, en er wordt niets ergens naartoe gestuurd — alles gebeurt op dit apparaat.
+Nl|News_120_1|Maak een schermafbeelding met Win+Shift+S en Glyfo leest die voor je en laat de tekst op het klembord staan. Uit totdat je het bij de opties inschakelt.
+Nl|News_120_2|Pdf-bestanden openen nu net als afbeeldingen, pagina voor pagina.
+Nl|News_120_3|Koppelingen, e-mailadressen en telefoonnummers in de tekst krijgen er een knop onder.
+Pl|Tip_PdfPrev|Poprzednia strona
+Pl|Tip_PdfNext|Następna strona
+Pl|Action_Open|Otwórz łącze
+Pl|Action_Mail|Napisz do
+Pl|Action_Call|Zadzwoń pod
+Pl|Action_Search|Szukaj w sieci
+Pl|Status_PdfFailed|nie udało się odczytać tego pliku PDF — może być chroniony hasłem lub uszkodzony
+Pl|Status_LaunchFailed|System Windows nie znalazł niczego, czym mógłby to otworzyć.
+Pl|Setting_WatchClipboard|Odczytuj kopiowane obrazy
+Pl|Setting_WatchClipboard_Desc|Zrób zrzut ekranu klawiszami Win+Shift+S, a Glyfo od razu go odczyta i umieści w schowku tekst zamiast obrazu, więc następne wklejenie da tekst. Odczytywane są tylko obrazy, nigdy skopiowany tekst, i nic nie jest nigdzie wysyłane — wszystko dzieje się na tym urządzeniu.
+Pl|News_120_1|Zrób zrzut ekranu klawiszami Win+Shift+S, a Glyfo odczyta go za Ciebie i zostawi tekst w schowku. Funkcja jest wyłączona, dopóki nie włączysz jej w opcjach.
+Pl|News_120_2|Pliki PDF otwierają się teraz jak obrazy, strona po stronie.
+Pl|News_120_3|Znalezione w tekście łącza, adresy e-mail i numery telefonów dostają pod nim przycisk.
+Pt|Tip_PdfPrev|Página anterior
+Pt|Tip_PdfNext|Próxima página
+Pt|Action_Open|Abrir link
+Pt|Action_Mail|Escrever para
+Pt|Action_Call|Ligar para
+Pt|Action_Search|Pesquisar na web por
+Pt|Status_PdfFailed|não foi possível ler este PDF: ele pode estar protegido por senha ou danificado
+Pt|Status_LaunchFailed|O Windows não encontrou nada para abrir isso.
+Pt|Setting_WatchClipboard|Ler as imagens que eu copio
+Pt|Setting_WatchClipboard_Desc|Faça uma captura com Win+Shift+S e o Glyfo a lê na hora, colocando o texto na área de transferência no lugar da imagem, de modo que a próxima colagem seja o texto. Só imagens são lidas, nunca o texto copiado, e nada é enviado a lugar algum: tudo acontece neste dispositivo.
+Pt|News_120_1|Faça uma captura com Win+Shift+S e o Glyfo a lê para você, deixando o texto na área de transferência. Fica desligado até você ativá-lo nas opções.
+Pt|News_120_2|Os PDFs agora abrem como imagens, uma página por vez.
+Pt|News_120_3|Links, endereços de e-mail e telefones encontrados no texto ganham um botão abaixo dele.
+Ro|Tip_PdfPrev|Pagina anterioară
+Ro|Tip_PdfNext|Pagina următoare
+Ro|Action_Open|Deschide linkul
+Ro|Action_Mail|Scrie la
+Ro|Action_Call|Sună la
+Ro|Action_Search|Caută pe web
+Ro|Status_PdfFailed|acest PDF nu a putut fi citit — poate fi protejat cu parolă sau deteriorat
+Ro|Status_LaunchFailed|Windows nu a găsit nimic cu care să deschidă asta.
+Ro|Setting_WatchClipboard|Citește imaginile pe care le copiez
+Ro|Setting_WatchClipboard_Desc|Fă o captură cu Win+Shift+S, iar Glyfo o citește imediat și pune textul în clipboard în locul imaginii, astfel încât următoarea lipire să fie textul. Se citesc doar imagini, niciodată textul copiat, și nimic nu este trimis nicăieri — totul se petrece pe acest dispozitiv.
+Ro|News_120_1|Fă o captură cu Win+Shift+S, iar Glyfo o citește în locul tău și lasă textul în clipboard. Este dezactivat până îl activezi din opțiuni.
+Ro|News_120_2|Fișierele PDF se deschid acum ca imaginile, pagină cu pagină.
+Ro|News_120_3|Linkurile, adresele de e-mail și numerele de telefon găsite în text primesc un buton dedesubt.
+Ru|Tip_PdfPrev|Предыдущая страница
+Ru|Tip_PdfNext|Следующая страница
+Ru|Action_Open|Открыть ссылку
+Ru|Action_Mail|Написать на
+Ru|Action_Call|Позвонить
+Ru|Action_Search|Найти в интернете
+Ru|Status_PdfFailed|не удалось прочитать этот PDF — возможно, он защищён паролем или повреждён
+Ru|Status_LaunchFailed|Windows не нашла, чем это открыть.
+Ru|Setting_WatchClipboard|Читать скопированные изображения
+Ru|Setting_WatchClipboard_Desc|Сделайте снимок экрана клавишами Win+Shift+S — Glyfo сразу прочитает его и положит в буфер обмена текст вместо изображения, так что следующая вставка даст текст. Читаются только изображения, скопированный текст — никогда, и ничего никуда не отправляется: всё происходит на этом устройстве.
+Ru|News_120_1|Сделайте снимок экрана клавишами Win+Shift+S — Glyfo прочитает его за вас и оставит текст в буфере обмена. Выключено, пока вы не включите это в параметрах.
+Ru|News_120_2|PDF теперь открываются как изображения, по одной странице.
+Ru|News_120_3|Ссылки, адреса почты и телефоны, найденные в тексте, получают кнопку под ним.
+Sv|Tip_PdfPrev|Föregående sida
+Sv|Tip_PdfNext|Nästa sida
+Sv|Action_Open|Öppna länken
+Sv|Action_Mail|Skriv till
+Sv|Action_Call|Ring
+Sv|Action_Search|Sök på webben efter
+Sv|Status_PdfFailed|den här PDF-filen gick inte att läsa — den kan vara lösenordsskyddad eller skadad
+Sv|Status_LaunchFailed|Windows hittade inget att öppna det med.
+Sv|Setting_WatchClipboard|Läs bilder jag kopierar
+Sv|Setting_WatchClipboard_Desc|Ta en skärmbild med Win+Shift+S så läser Glyfo den direkt och lägger texten i urklipp i stället för bilden, så att nästa inklistring blir texten. Bara bilder läses, aldrig kopierad text, och ingenting skickas någonstans — allt sker på den här enheten.
+Sv|News_120_1|Ta en skärmbild med Win+Shift+S så läser Glyfo den åt dig och lämnar kvar texten i urklipp. Avstängt tills du slår på det i alternativen.
+Sv|News_120_2|PDF-filer öppnas nu som bilder, en sida i taget.
+Sv|News_120_3|Länkar, e-postadresser och telefonnummer i texten får en knapp under den.
+Th|Tip_PdfPrev|หน้าก่อนหน้า
+Th|Tip_PdfNext|หน้าถัดไป
+Th|Action_Open|เปิดลิงก์
+Th|Action_Mail|เขียนถึง
+Th|Action_Call|โทรหา
+Th|Action_Search|ค้นหาบนเว็บ
+Th|Status_PdfFailed|อ่านไฟล์ PDF นี้ไม่ได้ อาจมีการป้องกันด้วยรหัสผ่านหรือเสียหาย
+Th|Status_LaunchFailed|Windows ไม่มีอะไรที่จะเปิดสิ่งนี้ได้
+Th|Setting_WatchClipboard|อ่านรูปที่ฉันคัดลอก
+Th|Setting_WatchClipboard_Desc|จับภาพหน้าจอด้วย Win+Shift+S แล้ว Glyfo จะอ่านทันที จากนั้นใส่ข้อความลงคลิปบอร์ดแทนรูป การวางครั้งถัดไปจึงได้ข้อความ อ่านเฉพาะรูปเท่านั้น ไม่เคยอ่านข้อความที่คัดลอก และไม่มีอะไรถูกส่งไปที่ใด ทุกอย่างเกิดขึ้นบนเครื่องนี้
+Th|News_120_1|จับภาพหน้าจอด้วย Win+Shift+S แล้ว Glyfo จะอ่านให้และทิ้งข้อความไว้ในคลิปบอร์ด ปิดอยู่จนกว่าคุณจะเปิดในตัวเลือก
+Th|News_120_2|ตอนนี้เปิดไฟล์ PDF ได้เหมือนรูป ทีละหน้า
+Th|News_120_3|ลิงก์ อีเมล และเบอร์โทรที่พบในข้อความจะมีปุ่มอยู่ด้านล่าง
+Tr|Tip_PdfPrev|Önceki sayfa
+Tr|Tip_PdfNext|Sonraki sayfa
+Tr|Action_Open|Bağlantıyı aç
+Tr|Action_Mail|Şuraya yaz
+Tr|Action_Call|Ara
+Tr|Action_Search|Web de ara
+Tr|Status_PdfFailed|bu PDF okunamadı — parola korumalı ya da bozuk olabilir
+Tr|Status_LaunchFailed|Windows bunu açacak bir şey bulamadı.
+Tr|Setting_WatchClipboard|Kopyaladığım resimleri oku
+Tr|Setting_WatchClipboard_Desc|Win+Shift+S ile ekran görüntüsü alın; Glyfo onu hemen okur ve resim yerine metni panoya koyar, böylece bir sonraki yapıştırma metin olur. Yalnızca resimler okunur, kopyalanan metin asla okunmaz ve hiçbir şey hiçbir yere gönderilmez — her şey bu cihazda olur.
+Tr|News_120_1|Win+Shift+S ile ekran görüntüsü alın; Glyfo onu sizin için okur ve metni panoda bırakır. Seçeneklerden açana kadar kapalıdır.
+Tr|News_120_2|PDF dosyaları artık resimler gibi, sayfa sayfa açılıyor.
+Tr|News_120_3|Metinde bulunan bağlantılar, e-posta adresleri ve telefon numaraları altında bir düğme kazanır.
+Uk|Tip_PdfPrev|Попередня сторінка
+Uk|Tip_PdfNext|Наступна сторінка
+Uk|Action_Open|Відкрити посилання
+Uk|Action_Mail|Написати на
+Uk|Action_Call|Подзвонити
+Uk|Action_Search|Шукати в інтернеті
+Uk|Status_PdfFailed|не вдалося прочитати цей PDF — можливо, він захищений паролем або пошкоджений
+Uk|Status_LaunchFailed|Windows не знайшла, чим це відкрити.
+Uk|Setting_WatchClipboard|Читати скопійовані зображення
+Uk|Setting_WatchClipboard_Desc|Зробіть знімок екрана клавішами Win+Shift+S — Glyfo одразу прочитає його й покладе в буфер обміну текст замість зображення, тож наступна вставка дасть текст. Читаються лише зображення, скопійований текст — ніколи, і нічого нікуди не надсилається: усе відбувається на цьому пристрої.
+Uk|News_120_1|Зробіть знімок екрана клавішами Win+Shift+S — Glyfo прочитає його за вас і залишить текст у буфері обміну. Вимкнено, доки ви не увімкнете це в параметрах.
+Uk|News_120_2|PDF тепер відкриваються як зображення, по одній сторінці.
+Uk|News_120_3|Посилання, адреси пошти й телефони, знайдені в тексті, отримують кнопку під ним.
+Vi|Tip_PdfPrev|Trang trước
+Vi|Tip_PdfNext|Trang sau
+Vi|Action_Open|Mở liên kết
+Vi|Action_Mail|Gửi thư tới
+Vi|Action_Call|Gọi
+Vi|Action_Search|Tìm trên web
+Vi|Status_PdfFailed|không đọc được tệp PDF này — có thể nó được bảo vệ bằng mật khẩu hoặc đã hỏng
+Vi|Status_LaunchFailed|Windows không tìm thấy gì để mở thứ đó.
+Vi|Setting_WatchClipboard|Đọc ảnh tôi sao chép
+Vi|Setting_WatchClipboard_Desc|Chụp màn hình bằng Win+Shift+S và Glyfo đọc ngay, rồi đặt văn bản vào clipboard thay cho ảnh, nên lần dán tiếp theo sẽ là văn bản. Chỉ ảnh mới được đọc, không bao giờ đọc văn bản đã sao chép, và không có gì được gửi đi đâu — mọi thứ diễn ra trên thiết bị này.
+Vi|News_120_1|Chụp màn hình bằng Win+Shift+S và Glyfo đọc giúp bạn, để lại văn bản trong clipboard. Tính năng tắt cho tới khi bạn bật trong tùy chọn.
+Vi|News_120_2|Giờ đây có thể mở PDF như ảnh, từng trang một.
+Vi|News_120_3|Liên kết, địa chỉ e-mail và số điện thoại tìm thấy trong văn bản sẽ có nút ở bên dưới.
+ZhHans|Tip_PdfPrev|上一页
+ZhHans|Tip_PdfNext|下一页
+ZhHans|Action_Open|打开链接
+ZhHans|Action_Mail|写邮件给
+ZhHans|Action_Call|拨打
+ZhHans|Action_Search|在网上搜索
+ZhHans|Status_PdfFailed|这个 PDF 读不出来，可能设了密码或已损坏
+ZhHans|Status_LaunchFailed|Windows 没有可以打开它的程序。
+ZhHans|Setting_WatchClipboard|读取我复制的图片
+ZhHans|Setting_WatchClipboard_Desc|用 Win+Shift+S 截图后，Glyfo 立刻识别，并把文字放进剪贴板、替换掉那张图，于是下一次粘贴就是文字。只读图片，从不读你复制的文字，也不会把任何东西发到别处——全部在这台设备上完成。
+ZhHans|News_120_1|用 Win+Shift+S 截图后，Glyfo 自动读出里面的文字并留在剪贴板里。默认关闭，需在选项里打开。
+ZhHans|News_120_2|现在可以像打开图片一样打开 PDF，逐页识别。
+ZhHans|News_120_3|文本里认出的网址、邮箱和电话，下面会出现对应的按钮。
+ZhHant|Tip_PdfPrev|上一頁
+ZhHant|Tip_PdfNext|下一頁
+ZhHant|Action_Open|開啟連結
+ZhHant|Action_Mail|寫信給
+ZhHant|Action_Call|撥打
+ZhHant|Action_Search|在網路上搜尋
+ZhHant|Status_PdfFailed|這個 PDF 讀不出來，可能設了密碼或已損毀
+ZhHant|Status_LaunchFailed|Windows 沒有可以開啟它的程式。
+ZhHant|Setting_WatchClipboard|讀取我複製的圖片
+ZhHant|Setting_WatchClipboard_Desc|用 Win+Shift+S 截圖後，Glyfo 立刻辨識，並把文字放進剪貼簿、取代那張圖，於是下一次貼上就是文字。只讀圖片，從不讀你複製的文字，也不會把任何東西送到別處——全部在這台裝置上完成。
+ZhHant|News_120_1|用 Win+Shift+S 截圖後，Glyfo 自動讀出裡面的文字並留在剪貼簿裡。預設關閉，需在選項裡開啟。
+ZhHant|News_120_2|現在可以像開啟圖片一樣開啟 PDF，逐頁辨識。
+ZhHant|News_120_3|文字裡辨識出的網址、電子郵件和電話，下面會出現對應的按鈕。
