@@ -22,7 +22,7 @@
   <Identity
     Name="LVLE.Glyfo"
     Publisher="CN=B8B25EFA-5CE4-4BE4-A5CC-360E7B53648F"
-    Version="1.0.1.0" />
+    Version="1.1.0.0" />
 
   <Properties>
     <DisplayName>Glyfo</DisplayName>

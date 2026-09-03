@@ -66,6 +66,20 @@ public sealed partial class MainWindow : Window
     private const int StartupHintDelayMs = 1500;
 
     /// <summary>
+    /// How long the release notes wait for the window to finish coming up. A ContentDialog needs a
+    /// <c>XamlRoot</c>, which does not exist until the tree is loaded, and the notes are the first
+    /// thing this version does — arriving before the window has drawn would be a dialog over
+    /// nothing.
+    /// </summary>
+    private const int WhatsNewDelayMs = 700;
+
+    /// <summary>
+    /// How many images have to be read successfully before the app asks for a rating. Ten is past
+    /// the point where someone is still deciding whether they like it.
+    /// </summary>
+    private const int RatingPromptAfter = 10;
+
+    /// <summary>
     /// Must match the TaskId of the windows.startupTask extension in Package.appxmanifest. The two
     /// together are one identifier; changing either side alone means the app asks Windows about a
     /// task that does not exist.
@@ -116,6 +130,15 @@ public sealed partial class MainWindow : Window
 
     /// <summary>Set once the user picks a voice by hand, after which recognition stops choosing one.</summary>
     private bool _voicePinned;
+
+    /// <summary>
+    /// Whether this run has already put something in the user's way that they did not ask for.
+    /// </summary>
+    /// <remarks>
+    /// One per launch, at most. Reading the release notes and then being asked for a rating in the
+    /// same sitting is the combination that makes an app feel like it wants something.
+    /// </remarks>
+    private bool _interrupted;
 
     public MainWindow()
     {
@@ -186,6 +209,7 @@ public sealed partial class MainWindow : Window
 
         _ = ProbeOnDeviceAiAsync();
         _ = AnnounceStartupAsync();
+        _ = ShowWhatsNewIfUpdatedAsync();
     }
 
     // ---------------------------------------------------------------- localization
@@ -251,6 +275,12 @@ public sealed partial class MainWindow : Window
         RepairVersionsToggle.OnContent = Loc.Get("Common_On");
         RepairVersionsToggle.OffContent = Loc.Get("Common_Off");
         RepairVersionsDescription.Text = Loc.Get("Setting_RepairNumbers_Desc");
+        AboutButton.Content = Loc.Get("Btn_About");
+
+        RatingTip.Title = Loc.Get("Rate_Title");
+        RatingTip.Subtitle = Loc.Get("Rate_Body");
+        RatingTip.ActionButtonContent = Loc.Get("Rate_Action");
+        RatingTip.CloseButtonContent = Loc.Get("Rate_Later");
 
         LanguageComboBox.PlaceholderText = Loc.Get("Lang_Placeholder");
         SetTip(LanguageComboBox, Loc.Get("Tip_OcrLanguage"));
@@ -286,6 +316,7 @@ public sealed partial class MainWindow : Window
         AppTitleBar.FlowDirection = FlowDirection.LeftToRight;
         HistoryFlyoutRoot.FlowDirection = flow;
         SettingsFlyoutRoot.FlowDirection = flow;
+        RatingTip.FlowDirection = flow;
 
         foreach (var item in TranslateMenu.Items)
         {
@@ -986,6 +1017,7 @@ public sealed partial class MainWindow : Window
                     InfoBarSeverity.Success);
 
                 AddHistoryItem(sourceLabel ?? _currentImageName, result.Text, result.MeanConfidence);
+                NoteSuccessfulRecognition();
 
                 // Captured from the tray, so the status bar just written is on a window nobody can
                 // see. Put the text where it is useful without making the user open anything.
@@ -1683,6 +1715,104 @@ public sealed partial class MainWindow : Window
             Toasts.ShowStartupHint(_captureHotkeyText);
         }
     }
+
+    // ------------------------------------------------------- about, release notes, rating
+
+    private async void AboutClick(object sender, RoutedEventArgs e)
+    {
+        // The dialog dims the whole window, and the settings flyout would sit lit up on top of the
+        // dimming layer — flyouts are in a popup of their own, above it.
+        SettingsButton.Flyout?.Hide();
+
+        await AppDialogs.ShowAboutAsync(RootGrid.XamlRoot, _hwnd);
+    }
+
+    /// <summary>
+    /// Shows what changed, once, the first time a version the user has not read about is opened.
+    /// </summary>
+    /// <remarks>
+    /// Skipped entirely when the window is hidden. Started with Windows, the app goes straight to
+    /// the notification area and never activates the window (see <c>App.OnLaunched</c>), and a modal
+    /// dialog on a window nobody can see is a dialog nobody can dismiss. Nothing is written in that
+    /// case either, so the notes are still waiting the next time the window is actually opened.
+    /// </remarks>
+    private async Task ShowWhatsNewIfUpdatedAsync()
+    {
+        // Before anything is decided, because App.OnLaunched calls MarkStartedHidden() after this
+        // window's constructor has already started the task: reading _isHidden any earlier reads it
+        // as false on exactly the launch that must not show a dialog.
+        await Task.Delay(WhatsNewDelayMs);
+
+        if (_isClosed || _isHidden || RootGrid.XamlRoot is null)
+        {
+            Trace.Write($"release notes skipped: closed={_isClosed} hidden={_isHidden} root={RootGrid.XamlRoot is not null}");
+            return;
+        }
+
+        var stored = AppSettings.Current.LastSeenVersion;
+        Version? lastSeen = Version.TryParse(stored, out var parsed) ? parsed : null;
+
+        // Nothing stored and nothing else stored either: this is a first-ever install, which has no
+        // "what changed" to be told about. Record where it came in so the next update does.
+        if (lastSeen is null && !AppSettings.Current.HasEarlierState)
+        {
+            Trace.Write($"release notes skipped: first install, marking {ProductInfo.Current}");
+            AppSettings.Current.LastSeenVersion = ProductInfo.Current.ToString();
+            return;
+        }
+
+        var releases = Changelog.Since(lastSeen);
+        Trace.Write($"release notes: lastSeen={stored} current={ProductInfo.Current} unread={releases.Count}");
+
+        if (releases.Count == 0)
+        {
+            // Still worth writing: it collapses "upgraded from 1.0.x" to an ordinary up-to-date
+            // install, so HasEarlierState is only consulted the once.
+            AppSettings.Current.LastSeenVersion = ProductInfo.Current.ToString();
+            return;
+        }
+
+        _interrupted = true;
+        AppSettings.Current.LastSeenVersion = ProductInfo.Current.ToString();
+
+        await AppDialogs.ShowWhatsNewAsync(RootGrid.XamlRoot, _hwnd, releases);
+    }
+
+    /// <summary>
+    /// Counts a recognition that worked, and asks for a rating once enough of them have.
+    /// </summary>
+    /// <remarks>
+    /// The count is of successes rather than launches because the question only makes sense to
+    /// someone the app has already worked for. Hidden windows are skipped for the obvious reason
+    /// that the tip would be pointing at a button that is not on screen.
+    /// </remarks>
+    private void NoteSuccessfulRecognition()
+    {
+        var count = AppSettings.Current.RecognizeCount + 1;
+        AppSettings.Current.RecognizeCount = count;
+
+        if (count < RatingPromptAfter ||
+            AppSettings.Current.RatingPromptDone ||
+            _isHidden ||
+            _interrupted)
+        {
+            return;
+        }
+
+        // Set before it is shown, not in the handlers: light dismiss raises neither of them, and a
+        // tip that came back because the user clicked past it is worse than one they never saw.
+        AppSettings.Current.RatingPromptDone = true;
+        _interrupted = true;
+        RatingTip.IsOpen = true;
+    }
+
+    private async void RatingTipAction(TeachingTip sender, object args)
+    {
+        RatingTip.IsOpen = false;
+        await ProductInfo.RateAsync(_hwnd);
+    }
+
+    private void RatingTipClose(TeachingTip sender, object args) => RatingTip.IsOpen = false;
 
     private void ToastInvoked(object? sender, string action)
     {

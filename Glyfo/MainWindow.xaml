@@ -308,6 +308,14 @@
                                                Style="{StaticResource CaptionTextBlockStyle}"
                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                TextWrapping="Wrap" />
+                                    <Border Height="1" Margin="0,10"
+                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                    <!-- Only an entry point, not the content: the panel above is
+                                         already taller than the space it opens into, and version,
+                                         links and rating belong in a dialog anyway. -->
+                                    <HyperlinkButton x:Name="AboutButton"
+                                                     Margin="-12,0,-12,0"
+                                                     Click="AboutClick" />
                                 </StackPanel>
                             </ScrollViewer>
                         </Flyout>
@@ -348,5 +356,13 @@
                 </Button>
             </StackPanel>
         </Grid>
+
+        <!-- Anchored on the settings button on purpose: once this has been dismissed, the permanent
+             way to rate is behind About, which lives exactly where the tip was pointing. -->
+        <TeachingTip x:Name="RatingTip"
+                     Target="{x:Bind SettingsButton}"
+                     PreferredPlacement="Top"
+                     ActionButtonClick="RatingTipAction"
+                     CloseButtonClick="RatingTipClose" />
     </Grid>
 </Window>

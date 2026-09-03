@@ -154,5 +154,23 @@ internal static partial class Strings
         ["Err_TextTooLong"] = "The text is too long for the on-device model. Translate a smaller piece of it.",
         ["Err_ModelDeclined"] = "The on-device model declined to translate this text.",
         ["Err_TranslationFailed"] = "On-device translation did not produce a result.",
+        // About, the release notes, and the rating prompt
+        ["Btn_About"] = "About Glyfo",
+        ["About_Title"] = "About Glyfo",
+        ["About_Version"] = "Version {0}",
+        ["About_Tagline"] = "Reads the text in any image, on this device. Nothing is sent over the network.",
+        ["About_Rate"] = "Rate Glyfo",
+        ["About_WhatsNew"] = "What's new",
+        ["About_Source"] = "Source code on GitHub",
+        ["About_Privacy"] = "Privacy policy",
+        ["Common_Close"] = "Close",
+        ["News_Title"] = "What's new",
+        ["News_110_1"] = "An About page, with the version and links to the source code and the privacy policy.",
+        ["News_110_2"] = "You can rate Glyfo without leaving the window.",
+        ["News_110_3"] = "These notes, shown once for each new version.",
+        ["Rate_Title"] = "Is Glyfo earning its place?",
+        ["Rate_Body"] = "A rating in the Store is how other people find it, and it only takes a moment.",
+        ["Rate_Action"] = "Rate it",
+        ["Rate_Later"] = "Not now",
     };
 }

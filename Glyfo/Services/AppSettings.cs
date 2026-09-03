@@ -20,6 +20,19 @@ public sealed class AppSettings
     private const string HotkeyUsedKey = "HotkeyUsed";
     private const string StartupHintMutedKey = "StartupHintMuted";
     private const string TrayHintCountKey = "TrayHintCount";
+    private const string LastSeenVersionKey = "LastSeenVersion";
+    private const string RecognizeCountKey = "RecognizeCount";
+    private const string RatingPromptDoneKey = "RatingPromptDone";
+
+    /// <summary>
+    /// Keys that already existed in 1.0.x. Their presence is what tells an upgrade apart from a
+    /// first-ever install; see <see cref="HasEarlierState"/>.
+    /// </summary>
+    private static readonly string[] LegacyKeys =
+    {
+        RepairVersionNumbersKey, UiLanguageKey, OcrLanguageKey,
+        CloseToTrayKey, HotkeyUsedKey, StartupHintMutedKey, TrayHintCountKey,
+    };
 
     private readonly Dictionary<string, object> _fallback = new(StringComparer.Ordinal);
     private readonly Windows.Storage.ApplicationDataContainer? _store;
@@ -122,6 +135,78 @@ public sealed class AppSettings
     {
         get => GetInt(TrayHintCountKey, 0);
         set => SetInt(TrayHintCountKey, value);
+    }
+
+    /// <summary>
+    /// The version whose release notes have already been shown, empty until the first time.
+    /// </summary>
+    /// <remarks>
+    /// Stored as the full four-part string so it can be parsed straight back into a
+    /// <see cref="Version"/> and compared. Writing it is what closes the notes for good, so it is
+    /// only written once they have actually been on screen.
+    /// </remarks>
+    public string LastSeenVersion
+    {
+        get => GetString(LastSeenVersionKey, string.Empty);
+        set => SetString(LastSeenVersionKey, value);
+    }
+
+    /// <summary>How many images have been read successfully, ever. Paces the rating prompt.</summary>
+    /// <remarks>
+    /// Counting successes rather than launches: someone who has opened the app ten times without
+    /// getting a usable result out of it has nothing to rate, and asking them would be asking for
+    /// the wrong answer.
+    /// </remarks>
+    public int RecognizeCount
+    {
+        get => GetInt(RecognizeCountKey, 0);
+        set => SetInt(RecognizeCountKey, value);
+    }
+
+    /// <summary>Set once the rating prompt has been shown, whatever the user did with it.</summary>
+    /// <remarks>
+    /// Deliberately not "did they rate": the Store will not say, and asking a second time is worse
+    /// than never hearing back from someone who declined once.
+    /// </remarks>
+    public bool RatingPromptDone
+    {
+        get => GetBool(RatingPromptDoneKey, false);
+        set => SetBool(RatingPromptDoneKey, value);
+    }
+
+    /// <summary>
+    /// Whether this install has been used before the release-notes feature existed.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="LastSeenVersion"/> is empty in two very different situations: a fresh install,
+    /// which has nothing new to be told about, and an upgrade from 1.0.x, which is exactly the
+    /// audience the notes are for. Nothing distinguishes them except the settings 1.0.x already
+    /// wrote, so those are what gets asked.
+    /// </remarks>
+    public bool HasEarlierState
+    {
+        get
+        {
+            try
+            {
+                if (_store is not null)
+                {
+                    foreach (var key in LegacyKeys)
+                    {
+                        if (_store.Values.ContainsKey(key))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Unreadable store. Treating it as a fresh install only costs one set of notes.
+            }
+
+            return false;
+        }
     }
 
     private bool GetBool(string key, bool fallback)
