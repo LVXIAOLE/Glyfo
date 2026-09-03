@@ -48,11 +48,17 @@ function Read-ListingCsv([string]$Path) {
 
 function Write-ListingCsv([string]$Path, $Rows) {
     $sb = New-Object Text.StringBuilder
+    $first = $true
     foreach ($row in $Rows) {
+        # CRLF between records, none after the last one. Partner Center's own export ends without a
+        # terminator, and a trailing one is an empty final record to a strict parser. Nothing else in
+        # a round trip of an untouched export differs from the export by even one byte.
+        if (-not $first) { [void]$sb.Append("`r`n") }
+        $first = $false
         $cells = foreach ($cell in $row) {
             if ($cell -match '[",\r\n]') { '"' + $cell.Replace('"', '""') + '"' } else { $cell }
         }
-        [void]$sb.Append(($cells -join ',')).Append("`r`n")
+        [void]$sb.Append(($cells -join ','))
     }
     # With the BOM: Partner Center reads these as UTF-8 only when it is there, and without it every
     # non-Latin listing comes back as mojibake.
