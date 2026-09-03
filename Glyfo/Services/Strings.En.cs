@@ -27,6 +27,15 @@ internal static partial class Strings
         ["Btn_FitToWindow"] = "Fit",
         ["Tip_FitToWindow"] = "Zoom to fit the window",
         ["Tip_ActualSize"] = "Actual pixel size",
+        ["Tip_PdfPrev"] = "Previous page",
+        ["Tip_PdfNext"] = "Next page",
+
+        // Smart actions. Verbs, because they are what the button does — the button's own label is
+        // the address it found.
+        ["Action_Open"] = "Open link",
+        ["Action_Mail"] = "Write to",
+        ["Action_Call"] = "Call",
+        ["Action_Search"] = "Search the web for",
 
         // Text pane
         ["Voice_Placeholder"] = "Voice",
@@ -58,6 +67,8 @@ internal static partial class Strings
         ["Lang_SystemDefault"] = "System default",
         ["Setting_RepairNumbers"] = "Fix l and I inside numbers",
         ["Setting_RepairNumbers_Desc"] = "Recognizers routinely read v1.6.5 as vl.6.5. When this is on, an l or I becomes a 1 only where a separator and a digit sit beside it, so html5 and IPv6 are left alone. When it is off, the engine's own reading is kept exactly as it came back.",
+        ["Setting_WatchClipboard"] = "Read pictures I copy",
+        ["Setting_WatchClipboard_Desc"] = "Take a screenshot with Win+Shift+S and Glyfo reads it straight away, then puts the text on the clipboard in place of the picture, so the next paste is the text. Only pictures are read, never copied text, and nothing is sent anywhere — the whole thing happens on this device.",
         ["Common_On"] = "On",
         ["Common_Off"] = "Off",
         ["Lang_Placeholder"] = "Language",
@@ -94,6 +105,8 @@ internal static partial class Strings
         ["Status_BarcodeOne"] = "Found one {0} code.",
         ["Status_BarcodeMany"] = "Found {0} codes.",
         ["Status_ScanFailed"] = "The scan failed: {0}",
+        ["Status_PdfFailed"] = "this PDF could not be read — it may be password-protected or damaged",
+        ["Status_LaunchFailed"] = "Windows had nothing to open that with.",
         ["Status_NothingToTranslate"] = "There is no text to translate.",
         ["Status_Translating"] = "Translating into {0} on this device…",
         ["Status_Translated"] = "Translated into {0}, on this device, with no network access.",
@@ -165,7 +178,10 @@ internal static partial class Strings
         ["About_Privacy"] = "Privacy policy",
         ["Common_Close"] = "Close",
         ["News_Title"] = "What's new",
-        ["News_110_1"] = "An About page, with the version and links to the source code and the privacy policy.",
+        ["News_120_1"] = "Take a screenshot with Win+Shift+S and Glyfo reads it for you, then leaves the text on the clipboard. Off until you turn it on, in Settings.",
+        ["News_120_2"] = "PDFs open like images now, a page at a time.",
+        ["News_120_3"] = "Links, email addresses and phone numbers found in the text get a button under it.",
+        ["News_110_1"] ="An About page, with the version and links to the source code and the privacy policy.",
         ["News_110_2"] = "You can rate Glyfo without leaving the window.",
         ["News_110_3"] = "These notes, shown once for each new version.",
         ["News_110_4"] = "Capture now offers the whole screen as well, and hides the window first so Glyfo is never in the shot.",

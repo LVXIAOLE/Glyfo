@@ -22,7 +22,7 @@
   <Identity
     Name="LVLE.Glyfo"
     Publisher="CN=B8B25EFA-5CE4-4BE4-A5CC-360E7B53648F"
-    Version="1.1.0.0" />
+    Version="1.2.0.0" />
 
   <Properties>
     <DisplayName>Glyfo</DisplayName>
@@ -133,6 +133,22 @@
         </uap:Extension>
 
         <!--
+          A second association rather than another FileType inside glyfoimage. Renaming or
+          re-scoping an association that has already shipped resets the default-program choices
+          users made against it, and a PDF is not an image anyway — Explorer shows this one its
+          own display name.
+        -->
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="glyfopdf">
+            <uap:DisplayName>PDF document</uap:DisplayName>
+            <uap:Logo>Images\Square44x44Logo.png</uap:Logo>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.pdf</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+
+        <!--
           The Windows share sheet. Both payload shapes are accepted because both occur in practice:
           Explorer and the Photos app share a StorageItem, while Snipping Tool and browsers hand
           over a Bitmap with no file behind it.
@@ -151,6 +167,7 @@
               <uap:FileType>.tif</uap:FileType>
               <uap:FileType>.tiff</uap:FileType>
               <uap:FileType>.webp</uap:FileType>
+              <uap:FileType>.pdf</uap:FileType>
             </uap:SupportedFileTypes>
             <uap:DataFormat>Bitmap</uap:DataFormat>
             <uap:DataFormat>StorageItems</uap:DataFormat>

@@ -113,11 +113,21 @@ public sealed partial class MainWindow : Window
 
     private TranslationService? _translation;
     private TrayIcon? _tray;
+    private ClipboardWatcher? _clipboard;
     private AppWindow? _appWindow;
     private StartupTask? _startupTask;
     private IntPtr _oldWndProc;
     private string _currentImagePath = string.Empty;
     private string _currentImageName = string.Empty;
+
+    /// <summary>The open PDF, or null when the preview came from anywhere else.</summary>
+    /// <remarks>
+    /// Cleared by <see cref="LoadPreview"/> and set back afterwards by the PDF path, so that a
+    /// screenshot taken while a PDF is open takes the page bar down with it. Every other source
+    /// gets that for free rather than having to remember.
+    /// </remarks>
+    private PdfSource? _pdf;
+    private uint _pdfPageIndex;
 
     /// <summary>Which shortcut region capture ended up on; folded into the button's tooltip.</summary>
     private string _captureHotkeyText = string.Empty;
@@ -166,6 +176,7 @@ public sealed partial class MainWindow : Window
         // stored value straight back is harmless.
         RepairVersionsToggle.IsOn = AppSettings.Current.RepairVersionNumbers;
         CloseToTrayToggle.IsOn = AppSettings.Current.CloseToTray;
+        WatchClipboardToggle.IsOn = AppSettings.Current.WatchClipboard;
 
         HistoryListView.ItemsSource = _history;
         _history.CollectionChanged += (_, _) =>
@@ -177,6 +188,7 @@ public sealed partial class MainWindow : Window
         _oldWndProc = SetWindowLongPtr(_hwnd, GwlWndproc, Marshal.GetFunctionPointerForDelegate(_wndProcDelegate));
         RegisterHotkeys();
         InitializeTray();
+        InitializeClipboardWatcher();
 
         var windowId = Win32Interop.GetWindowIdFromWindow(_hwnd);
         var appWindow = AppWindow.GetFromWindowId(windowId);
@@ -300,6 +312,11 @@ public sealed partial class MainWindow : Window
         RepairVersionsToggle.OnContent = Loc.Get("Common_On");
         RepairVersionsToggle.OffContent = Loc.Get("Common_Off");
         RepairVersionsDescription.Text = Loc.Get("Setting_RepairNumbers_Desc");
+
+        WatchClipboardToggle.Header = Loc.Get("Setting_WatchClipboard");
+        WatchClipboardToggle.OnContent = Loc.Get("Common_On");
+        WatchClipboardToggle.OffContent = Loc.Get("Common_Off");
+        WatchClipboardDescription.Text = Loc.Get("Setting_WatchClipboard_Desc");
         AboutButton.Content = Loc.Get("Btn_About");
 
         RatingTip.Title = Loc.Get("Rate_Title");
@@ -315,6 +332,14 @@ public sealed partial class MainWindow : Window
         SetTip(BarcodeButton, Loc.Get("Tip_Barcode"));
         RecognizeLabel.Text = Loc.Get("Btn_Recognize");
         SetTip(RecognizeButton, Loc.Get("Tip_Recognize"));
+
+        SetTip(PdfPrevButton, Loc.Get("Tip_PdfPrev"));
+        SetTip(PdfNextButton, Loc.Get("Tip_PdfNext"));
+
+        // The chips are built in code and carry their verb in the tooltip, so there is nothing to
+        // reassign — they have to be made again. Clearing the cache is what forces that.
+        _actions = Array.Empty<TextAction>();
+        RefreshSmartActions();
 
         // The engine builds its own option names, so it has to be asked again in the new language.
         RefreshLanguageOptions();
@@ -342,6 +367,13 @@ public sealed partial class MainWindow : Window
         HistoryFlyoutRoot.FlowDirection = flow;
         SettingsFlyoutRoot.FlowDirection = flow;
         RatingTip.FlowDirection = flow;
+
+        // The chips are laid out left to right by a StackPanel, so this is what puts the first
+        // one on the right in Arabic. The page pill is mirrored for the same reason, which also
+        // swaps which side the back arrow sits on — correct, since it points backwards in reading
+        // order rather than in a fixed direction.
+        ActionsPanel.FlowDirection = flow;
+        PdfNavBar.FlowDirection = flow;
 
         foreach (var item in TranslateMenu.Items)
         {
@@ -548,6 +580,8 @@ public sealed partial class MainWindow : Window
                 picker.FileTypeFilter.Add(extension);
             }
 
+            picker.FileTypeFilter.Add(".pdf");
+
             InitializeWithWindow.Initialize(picker, _hwnd);
 
             var file = await picker.PickSingleFileAsync();
@@ -556,7 +590,7 @@ public sealed partial class MainWindow : Window
                 return;
             }
 
-            await LoadImageAsync(file);
+            await OpenFileAsync(file);
             SetStatus(Loc.Get("Status_Loaded", file.Name), InfoBarSeverity.Success);
         }
         catch (Exception ex)
@@ -594,9 +628,9 @@ public sealed partial class MainWindow : Window
                 var items = await clipboard.GetStorageItemsAsync();
                 foreach (var item in items)
                 {
-                    if (item is StorageFile file && IsSupportedImage(file.Name))
+                    if (item is StorageFile file && IsSupportedFile(file.Name))
                     {
-                        await LoadImageAsync(file);
+                        await OpenFileAsync(file);
                         SetStatus(Loc.Get("Status_Loaded", file.Name), InfoBarSeverity.Success);
                         return;
                     }
@@ -660,9 +694,9 @@ public sealed partial class MainWindow : Window
                 var items = await e.DataView.GetStorageItemsAsync();
                 foreach (var item in items)
                 {
-                    if (item is StorageFile file && IsSupportedImage(file.Name))
+                    if (item is StorageFile file && IsSupportedFile(file.Name))
                     {
-                        await LoadImageAsync(file);
+                        await OpenFileAsync(file);
                         SetStatus(Loc.Get("Status_Loaded", file.Name), InfoBarSeverity.Success);
                         return;
                     }
@@ -700,9 +734,9 @@ public sealed partial class MainWindow : Window
     {
         foreach (var item in items)
         {
-            if (item is StorageFile file && IsSupportedImage(file.Name))
+            if (item is StorageFile file && IsSupportedFile(file.Name))
             {
-                await OpenExternalAsync(() => LoadImageAsync(file), file.Name, file.Name);
+                await OpenExternalAsync(() => OpenFileAsync(file), file.Name, file.Name);
                 return;
             }
         }
@@ -734,11 +768,11 @@ public sealed partial class MainWindow : Window
             // Both shapes turn up in practice: Explorer and Photos share a file, while Snipping
             // Tool and browsers share a bitmap with nothing on disk behind it.
             if (data.Contains(StandardDataFormats.StorageItems) &&
-                await FirstSupportedImageAsync(data) is { } file)
+                await FirstSupportedFileAsync(data) is { } file)
             {
                 displayName = file.Name;
                 ShowFromTray();
-                await LoadImageAsync(file);
+                await OpenFileAsync(file);
             }
             else if (data.Contains(StandardDataFormats.Bitmap))
             {
@@ -798,11 +832,11 @@ public sealed partial class MainWindow : Window
         await RunOcrAsync(sourceLabel);
     }
 
-    private static async Task<StorageFile?> FirstSupportedImageAsync(DataPackageView data)
+    private static async Task<StorageFile?> FirstSupportedFileAsync(DataPackageView data)
     {
         foreach (var item in await data.GetStorageItemsAsync())
         {
-            if (item is StorageFile file && IsSupportedImage(file.Name))
+            if (item is StorageFile file && IsSupportedFile(file.Name))
             {
                 return file;
             }
@@ -854,6 +888,125 @@ public sealed partial class MainWindow : Window
         _currentImagePath = imagePath;
         _currentImageName = displayName;
         ResultTextBox.Text = string.Empty;
+
+        // Anything reaching here is a new source, so the PDF stops being open. The PDF path
+        // sets it straight back after calling this — see ShowPdfPageAsync.
+        _pdf = null;
+        RefreshPdfNav();
+    }
+
+    // ---------------------------------------------------------------- pdf
+
+    /// <summary>
+    /// Opens a PDF and shows its first page.
+    /// </summary>
+    /// <remarks>
+    /// Throws on failure, like the image path does, so that the entry point that started this is
+    /// the one that reports it — every caller already has a catch. What is replaced is the message:
+    /// a password-protected file fails with an HRESULT nobody can act on, and there is no password
+    /// prompt to offer, so saying plainly what is wrong is the whole of the remedy.
+    /// </remarks>
+    private async Task OpenPdfAsync(StorageFile file)
+    {
+        // Before the load, not after: a failure leaves nothing half-open behind.
+        _pdf = null;
+        RefreshPdfNav();
+
+        PdfSource pdf;
+        try
+        {
+            pdf = await PdfSource.OpenAsync(file);
+            if (pdf.PageCount == 0)
+            {
+                throw new InvalidOperationException("no pages");
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.Write("OpenPdfAsync", ex);
+            throw new InvalidOperationException(Loc.Get("Status_PdfFailed"), ex);
+        }
+
+        _pdfPageIndex = 0;
+        await ShowPdfPageAsync(pdf, 0);
+    }
+
+    /// <summary>
+    /// Draws one page into the preview.
+    /// </summary>
+    /// <remarks>
+    /// The temp file name has to end in <c>.png</c> because <see cref="CreateTempImagePath"/>
+    /// takes the extension from the display name, and a PNG called <c>.pdf</c> would confuse
+    /// everything downstream that reopens the path. The name shown on screen is a separate,
+    /// translated string.
+    /// </remarks>
+    private async Task ShowPdfPageAsync(PdfSource pdf, uint index)
+    {
+        using var stream = await pdf.RenderAsync(index);
+        var baseName = Path.GetFileNameWithoutExtension(pdf.Name);
+
+        await LoadImageFromStreamAsync(stream.AsStreamForRead(), $"{baseName} p{index + 1}.png");
+
+        // After LoadImageFromStreamAsync, which goes through LoadPreview and clears both. The
+        // display name it left behind ("Contract p3.png") is deliberately not replaced with a
+        // translated sentence: it is what Save As suggests and what the history lists, and both
+        // want a file name.
+        _pdf = pdf;
+        _pdfPageIndex = index;
+        RefreshPdfNav();
+    }
+
+    /// <summary>Puts the floating page pill in step with the open document, or hides it.</summary>
+    private void RefreshPdfNav()
+    {
+        if (PdfNavBar is null)
+        {
+            return;
+        }
+
+        if (_pdf is null)
+        {
+            PdfNavBar.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        PdfNavBar.Visibility = Visibility.Visible;
+        PdfPageText.Text = $"{_pdfPageIndex + 1} / {_pdf.PageCount}";
+        PdfPrevButton.IsEnabled = _pdfPageIndex > 0;
+        PdfNextButton.IsEnabled = _pdfPageIndex + 1 < _pdf.PageCount;
+    }
+
+    private async void PdfPrevClick(object sender, RoutedEventArgs e) => await TurnPdfPageAsync(-1);
+
+    private async void PdfNextClick(object sender, RoutedEventArgs e) => await TurnPdfPageAsync(1);
+
+    /// <summary>
+    /// Moves one page and redraws. Does not recognize the new page: rendering is fast enough to
+    /// page through a document looking for the right one, and reading every page on the way there
+    /// would make that unusable.
+    /// </summary>
+    private async Task TurnPdfPageAsync(int delta)
+    {
+        if (_pdf is not { } pdf || _isBusy)
+        {
+            return;
+        }
+
+        var target = (long)_pdfPageIndex + delta;
+        if (target < 0 || target >= pdf.PageCount)
+        {
+            return;
+        }
+
+        try
+        {
+            await ShowPdfPageAsync(pdf, (uint)target);
+        }
+        catch (Exception ex)
+        {
+            Trace.Write("TurnPdfPageAsync", ex);
+            SetStatus(Loc.Get("Status_PdfFailed"), InfoBarSeverity.Error);
+        }
     }
 
     private void PreviewViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -944,6 +1097,10 @@ public sealed partial class MainWindow : Window
             data.SetBitmap(RandomAccessStreamReference.CreateFromFile(file));
             Clipboard.SetContent(data);
             Clipboard.Flush();
+
+            // Or the clipboard watch reads back the picture we just put there and recognizes it
+            // again, which recognizes it again.
+            ClipboardWatcher.NoteOwnWrite();
             SetStatus(Loc.Get("Status_ImageCopied"), InfoBarSeverity.Success);
         }
         catch (Exception ex)
@@ -1002,7 +1159,17 @@ public sealed partial class MainWindow : Window
         await RunOcrAsync();
     }
 
-    private async Task RunOcrAsync(string? sourceLabel = null)
+    /// <summary>
+    /// Reads the image currently in the preview.
+    /// </summary>
+    /// <param name="sourceLabel">What to call this image in the history list.</param>
+    /// <param name="alwaysCopy">
+    /// Puts the text on the clipboard even if the window turns out to be in the foreground. Only the
+    /// clipboard watch passes this, and it is the promise that feature makes: copy a picture, paste
+    /// text. Leaving it to <see cref="UserIsElsewhere"/> would mean the promise quietly held only
+    /// while some other window happened to have focus, which is not something a user can predict.
+    /// </param>
+    private async Task RunOcrAsync(string? sourceLabel = null, bool alwaysCopy = false)
     {
         if (_isBusy)
         {
@@ -1041,7 +1208,7 @@ public sealed partial class MainWindow : Window
             {
                 SetStatus(Loc.Get("Status_NoText", result.EngineName), InfoBarSeverity.Warning);
 
-                if (_isHidden)
+                if (UserIsElsewhere)
                 {
                     Toasts.ShowNoText();
                 }
@@ -1062,11 +1229,21 @@ public sealed partial class MainWindow : Window
                 AddHistoryItem(sourceLabel ?? _currentImageName, result.Text, result.MeanConfidence);
                 NoteSuccessfulRecognition();
 
-                // Captured from the tray, so the status bar just written is on a window nobody can
-                // see. Put the text where it is useful without making the user open anything.
-                if (_isHidden)
+                // Two separate questions, and they only look like one. Where the text goes is asked
+                // first: the clipboard watch always answers yes, everything else answers it only
+                // when the user is looking elsewhere and the status bar above is therefore no use
+                // to them. Whether to interrupt with a toast is asked second, and the answer to
+                // that is never yes while the window is in front of the user — it would be saying
+                // out loud what it has already written on screen.
+                var elsewhere = UserIsElsewhere;
+
+                if (alwaysCopy || elsewhere)
                 {
                     CopyTextToClipboard(result.Text);
+                }
+
+                if (elsewhere)
+                {
                     Toasts.ShowRecognized(result.Text);
                 }
             }
@@ -1075,7 +1252,7 @@ public sealed partial class MainWindow : Window
         {
             SetStatus(Loc.Get("Status_RecognizeFailed", ex.Message), InfoBarSeverity.Error);
 
-            if (_isHidden)
+            if (UserIsElsewhere)
             {
                 Toasts.ShowFailed(ex.Message);
             }
@@ -1199,6 +1376,10 @@ public sealed partial class MainWindow : Window
             // Flush so the text outlives this process, which the tray path depends on: the user's
             // next action is a paste into some other app, possibly after quitting this one.
             Clipboard.Flush();
+
+            // After the flush, not before: it can bump the sequence number a second time, and the
+            // number recorded here is the one the update message will report back.
+            ClipboardWatcher.NoteOwnWrite();
             error = string.Empty;
             return true;
         }
@@ -1219,6 +1400,195 @@ public sealed partial class MainWindow : Window
         ResultTextBox.Text = TextTools.RemoveSpaces(ResultTextBox.Text);
     }
 
+    // ---------------------------------------------------------------- smart actions
+
+    /// <summary>The actions the bar is currently showing, so an unchanged list is not rebuilt.</summary>
+    private IReadOnlyList<TextAction> _actions = Array.Empty<TextAction>();
+
+    /// <summary>
+    /// Hangs the whole feature off the text box.
+    /// </summary>
+    /// <remarks>
+    /// Recognition, barcode scanning, translation, unwrapping and the user's own typing all end
+    /// up assigning to <c>ResultTextBox.Text</c>, so listening here covers every one of them
+    /// instead of six separate call sites that could each be forgotten.
+    /// </remarks>
+    private void ResultTextChanged(object sender, TextChangedEventArgs e) => RefreshSmartActions();
+
+    /// <summary>The Search button only exists while something is selected, so it tracks selection.</summary>
+    private void ResultSelectionChanged(object sender, RoutedEventArgs e) => RefreshSelectionAction();
+
+    /// <summary>
+    /// Rebuilds the row of buttons under the text.
+    /// </summary>
+    /// <remarks>
+    /// Compares against the previous list first. This runs on every keystroke, and tearing down
+    /// and rebuilding buttons while somebody is typing makes the row flicker under their hands
+    /// for no gain — the addresses in a page of text do not change character by character.
+    /// </remarks>
+    private void RefreshSmartActions()
+    {
+        if (ActionsPanel is null)
+        {
+            return;
+        }
+
+        var actions = TextTools.FindActions(ResultTextBox.Text);
+        if (actions.SequenceEqual(_actions))
+        {
+            RefreshSelectionAction();
+            return;
+        }
+
+        _actions = actions;
+        ActionsPanel.Children.Clear();
+
+        foreach (var action in actions)
+        {
+            ActionsPanel.Children.Add(BuildActionChip(action));
+        }
+
+        RefreshSelectionAction();
+    }
+
+    /// <summary>
+    /// Adds or removes the Search button, which is the only action that comes from the selection
+    /// rather than from the text.
+    /// </summary>
+    /// <remarks>
+    /// Kept last in the row and rebuilt separately so that changing the selection does not disturb
+    /// the buttons beside it. Also the reason the bar can be useful on a page with no addresses at
+    /// all: select a phrase, look it up.
+    /// </remarks>
+    private void RefreshSelectionAction()
+    {
+        if (ActionsPanel is null)
+        {
+            return;
+        }
+
+        var last = ActionsPanel.Children.Count > 0 ? ActionsPanel.Children[^1] : null;
+        if (last is FrameworkElement { Tag: string tag } && tag == SearchChipTag)
+        {
+            ActionsPanel.Children.Remove(last);
+        }
+
+        var selection = ResultTextBox.SelectedText.Trim();
+        if (selection.Length is > 0 and <= MaxSearchLength)
+        {
+            var chip = BuildChip("\uE721", Loc.Get("Action_Search"), selection);
+            chip.Tag = SearchChipTag;
+            chip.Click += async (_, _) => await LaunchAsync(
+                "https://www.bing.com/search?q=" + Uri.EscapeDataString(selection));
+
+            ActionsPanel.Children.Add(chip);
+        }
+
+        ActionsBar.Visibility = ActionsPanel.Children.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private Button BuildActionChip(TextAction action)
+    {
+        var (glyph, label, uri) = action.Kind switch
+        {
+            TextActionKind.Email => ("\uE715", Loc.Get("Action_Mail"), "mailto:" + action.Value),
+            TextActionKind.Phone => ("\uE717", Loc.Get("Action_Call"), "tel:" + DiallableForm(action.Value)),
+
+            // A bare "www.something" is a valid address to a human and not a URI to Launcher,
+            // which would take it for a relative path and refuse it.
+            _ => ("\uE71B", Loc.Get("Action_Open"),
+                  action.Value.StartsWith("www.", StringComparison.OrdinalIgnoreCase)
+                      ? "https://" + action.Value
+                      : action.Value),
+        };
+
+        var chip = BuildChip(glyph, label, action.Value);
+        chip.Click += async (_, _) => await LaunchAsync(uri);
+        return chip;
+    }
+
+    /// <summary>
+    /// One button: an icon, a shortened value, and the whole value in the tooltip.
+    /// </summary>
+    /// <remarks>
+    /// The value rather than the verb, because on a row of six the verbs are all the same and the
+    /// addresses are what tells them apart. The verb is in the icon and in the tooltip's first line.
+    /// </remarks>
+    private static Button BuildChip(string glyph, string verb, string value)
+    {
+        var panel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6 };
+        panel.Children.Add(new FontIcon { Glyph = glyph, FontSize = 13 });
+        panel.Children.Add(new TextBlock
+        {
+            Text = Shorten(value),
+            VerticalAlignment = VerticalAlignment.Center,
+            TextTrimming = TextTrimming.CharacterEllipsis,
+        });
+
+        var chip = new Button
+        {
+            Content = panel,
+            Padding = new Thickness(10, 4, 10, 4),
+            CornerRadius = new CornerRadius(14),
+        };
+
+        // Both, and not one or the other. The tooltip breaks the two apart because it has the room;
+        // the accessible name has to be a single phrase, and without it a screen reader announces
+        // a chip as "button" — the same reason SetTip exists for the icon-only buttons.
+        ToolTipService.SetToolTip(chip, $"{verb}\n{value}");
+        AutomationProperties.SetName(chip, $"{verb} {value}");
+        return chip;
+    }
+
+    /// <summary>
+    /// A phone number with the human formatting taken out.
+    /// </summary>
+    /// <remarks>
+    /// Brackets and dashes are how a number is written down, not how it is dialled, and a
+    /// <c>tel:</c> URI carrying them is refused by some handlers before the call is ever placed.
+    /// The leading <c>+</c> is the one piece of punctuation that means something.
+    /// </remarks>
+    private static string DiallableForm(string value)
+    {
+        var digits = new string(value.Where(char.IsAsciiDigit).ToArray());
+        return value.TrimStart().StartsWith('+') ? "+" + digits : digits;
+    }
+
+    private static string Shorten(string value) =>
+        value.Length <= MaxChipLength ? value : value[..(MaxChipLength - 1)] + "…";
+
+    /// <summary>
+    /// Opens one of the chips. A failure here is the shell's refusal, not the app's, and there is
+    /// nothing to do about it beyond saying so.
+    /// </summary>
+    private async Task LaunchAsync(string uri)
+    {
+        try
+        {
+            if (!await Windows.System.Launcher.LaunchUriAsync(new Uri(uri)))
+            {
+                SetStatus(Loc.Get("Status_LaunchFailed"), InfoBarSeverity.Warning);
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.Write("LaunchAsync", ex);
+            SetStatus(Loc.Get("Status_LaunchFailed"), InfoBarSeverity.Warning);
+        }
+    }
+
+    /// <summary>Marks the Search button so it can be replaced without touching the others.</summary>
+    private const string SearchChipTag = "search";
+
+    /// <summary>Longest value shown on a chip before it is cut; the tooltip still has all of it.</summary>
+    private const int MaxChipLength = 28;
+
+    /// <summary>
+    /// Longest selection that gets a Search button. Past this the user has selected a paragraph,
+    /// not a term, and a search box is not what they were reaching for.
+    /// </summary>
+    private const int MaxSearchLength = 120;
+
     /// <summary>
     /// Takes effect on the next recognition. Rerunning here would be surprising — the user may
     /// have edited the text in the meantime, and re-recognizing would silently discard those edits.
@@ -1235,6 +1605,25 @@ public sealed partial class MainWindow : Window
     private void CloseToTrayToggled(object sender, RoutedEventArgs e)
     {
         AppSettings.Current.CloseToTray = CloseToTrayToggle.IsOn;
+    }
+
+    /// <summary>
+    /// Whether a picture copied anywhere on the machine is read automatically.
+    /// </summary>
+    /// <remarks>
+    /// The listener is registered for the life of the window either way; this only decides whether
+    /// it reports. Nothing is read while the switch is off, and turning it back on does not go
+    /// looking at whatever happens to be on the clipboard already — only the next copy counts.
+    /// </remarks>
+    private void WatchClipboardToggled(object sender, RoutedEventArgs e)
+    {
+        var on = WatchClipboardToggle.IsOn;
+        AppSettings.Current.WatchClipboard = on;
+
+        if (_clipboard is not null)
+        {
+            _clipboard.IsEnabled = on;
+        }
     }
 
     /// <summary>
@@ -1696,6 +2085,78 @@ public sealed partial class MainWindow : Window
         _tray.ExitRequested += (_, _) => _dispatcherQueue.TryEnqueue(ExitApp);
     }
 
+    // ------------------------------------------------------------- clipboard watch
+
+    /// <summary>
+    /// Starts watching the clipboard, if the user has asked for it.
+    /// </summary>
+    /// <remarks>
+    /// The listener is registered either way and only reports while the setting is on, so flipping
+    /// the switch never has to create or destroy anything. See <see cref="ClipboardWatcher"/>.
+    /// </remarks>
+    private void InitializeClipboardWatcher()
+    {
+        _clipboard = new ClipboardWatcher(_hwnd) { IsEnabled = AppSettings.Current.WatchClipboard };
+
+        // Through the dispatcher for the same reason the tray handlers are: this runs inside the
+        // window procedure, and reading the clipboard there would re-enter it.
+        _clipboard.ContentChanged += (_, _) =>
+            _dispatcherQueue.TryEnqueue(async () => await ReadClipboardImageAsync());
+    }
+
+    /// <summary>
+    /// Reads a picture that has just been copied, if that is what it is.
+    /// </summary>
+    /// <remarks>
+    /// Only <see cref="StandardDataFormats.Bitmap"/> counts. Copied text has to pass in complete
+    /// silence, and a picture <em>file</em> copied in Explorer is not a screenshot either — that is
+    /// someone moving a file around, and reading it would be startling. What remains is exactly the
+    /// case this exists for: Win+Shift+S, "Copy image" in a browser, a screenshot from a chat app.
+    ///
+    /// Deliberately does not bring the window up. Not having to switch windows is the whole point,
+    /// and the text goes on the clipboard either way — see the <c>alwaysCopy</c> argument to
+    /// <see cref="RunOcrAsync"/>. Whether that is also announced with a toast is a separate
+    /// question, answered by <see cref="UserIsElsewhere"/>.
+    /// </remarks>
+    private async Task ReadClipboardImageAsync()
+    {
+        if (_isClosed || _isBusy)
+        {
+            return;
+        }
+
+        try
+        {
+            var clipboard = Clipboard.GetContent();
+            if (!clipboard.Contains(StandardDataFormats.Bitmap))
+            {
+                return;
+            }
+
+            var streamRef = await clipboard.GetBitmapAsync();
+            if (streamRef is null)
+            {
+                return;
+            }
+
+            // One line per picture actually read, and nothing for the copies that are ignored:
+            // enough to answer "why did it not read my screenshot", without keeping a record of
+            // everything the user copies.
+            Trace.Write("clipboard watch: reading copied picture");
+
+            var label = Loc.Get("Source_Clipboard");
+            await LoadImageAsync(streamRef, label);
+            await RunOcrAsync(label, alwaysCopy: true);
+        }
+        catch (Exception ex)
+        {
+            // Never a toast and never a dialog: the user did not ask for anything here, they copied
+            // something. A line in the log is what this is worth, and it is also the only way to
+            // tell "the platform refused to hand over the clipboard" from "nothing happened".
+            Trace.Write("clipboard watch", ex);
+        }
+    }
+
     /// <summary>
     /// Gives the window the executable's own icon, for the title bar, the taskbar and Alt+Tab.
     /// </summary>
@@ -2002,6 +2463,11 @@ public sealed partial class MainWindow : Window
             }
         }
 
+        if (_clipboard?.HandleMessage(msg) == true)
+        {
+            return IntPtr.Zero;
+        }
+
         if (_tray?.HandleMessage(msg, wParam, lParam) == true)
         {
             return IntPtr.Zero;
@@ -2011,6 +2477,17 @@ public sealed partial class MainWindow : Window
     }
 
     // ---------------------------------------------------------------- helpers
+
+    /// <summary>
+    /// Whether a result has to announce itself, because the user is not looking at this window.
+    /// </summary>
+    /// <remarks>
+    /// Broader than <see cref="_isHidden"/> on purpose. Living in the tray is one way of not being
+    /// looked at; sitting behind the browser the user is actually reading is another, and the
+    /// clipboard watch makes the second one the common case. Both want the same thing: the text on
+    /// the clipboard, and a toast to say it is there.
+    /// </remarks>
+    private bool UserIsElsewhere => _isHidden || GetForegroundWindow() != _hwnd;
 
     private bool HasImage()
     {
@@ -2050,6 +2527,23 @@ public sealed partial class MainWindow : Window
 
     private static bool IsSupportedImage(string fileName) =>
         SupportedExtensions.Contains(Path.GetExtension(fileName).ToLowerInvariant());
+
+    private static bool IsPdf(string fileName) =>
+        Path.GetExtension(fileName).Equals(".pdf", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>Everything the window can open, whatever it arrived through.</summary>
+    private static bool IsSupportedFile(string fileName) => IsSupportedImage(fileName) || IsPdf(fileName);
+
+    /// <summary>
+    /// Opens a file the right way for what it is.
+    /// </summary>
+    /// <remarks>
+    /// Every entry point — the picker, paste, drop, "Open with", share — goes through here rather
+    /// than deciding for itself, so that adding a third kind of file later is one change and not
+    /// five.
+    /// </remarks>
+    private Task OpenFileAsync(StorageFile file) =>
+        IsPdf(file.Name) ? OpenPdfAsync(file) : LoadImageAsync(file);
 
     private static string CreateTempImagePath(string displayName)
     {
@@ -2119,6 +2613,9 @@ public sealed partial class MainWindow : Window
         _tray?.Dispose();
         _tray = null;
 
+        _clipboard?.Dispose();
+        _clipboard = null;
+
         if (_oldWndProc != IntPtr.Zero)
         {
             SetWindowLongPtr(_hwnd, GwlWndproc, _oldWndProc);
@@ -2154,6 +2651,9 @@ public sealed partial class MainWindow : Window
 
     [DllImport("user32.dll")]
     private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetForegroundWindow();
 
     [DllImport("user32.dll", EntryPoint = "LoadImageW", CharSet = CharSet.Unicode)]
     private static extern IntPtr LoadImage(IntPtr instance, IntPtr name, uint type, int cx, int cy, uint load);

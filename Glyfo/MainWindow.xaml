@@ -97,6 +97,39 @@
                         </Grid>
                     </ScrollViewer>
 
+                    <!-- Floats over the viewport rather than sitting in the toolbar below, which at
+                         half the window's width already carries five buttons and would clip. A
+                         sibling of the ScrollViewer, not a child: inside it the pill would scroll
+                         away with the page and zoom along with it. -->
+                    <Border x:Name="PdfNavBar"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            Margin="0,0,0,14"
+                            Padding="4"
+                            CornerRadius="16"
+                            Visibility="Collapsed"
+                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                            BorderThickness="1"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                        <StackPanel Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
+                            <Button x:Name="PdfPrevButton" Click="PdfPrevClick"
+                                    Background="Transparent" BorderThickness="0"
+                                    CornerRadius="14" Padding="10,4">
+                                <FontIcon Glyph="&#xE76B;" FontSize="12" />
+                            </Button>
+                            <TextBlock x:Name="PdfPageText"
+                                       MinWidth="64"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource CaptionTextBlockStyle}" />
+                            <Button x:Name="PdfNextButton" Click="PdfNextClick"
+                                    Background="Transparent" BorderThickness="0"
+                                    CornerRadius="14" Padding="10,4">
+                                <FontIcon Glyph="&#xE76C;" FontSize="12" />
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
                     <Border Grid.Row="1" Style="{StaticResource CardToolbarStyle}" BorderThickness="0,1,0,0">
                         <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
                             <Button x:Name="CopyImageButton" Click="CopyImageClick">
@@ -138,6 +171,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!-- Grid, not a StackPanel: the voice picker has to give up width as the pane
@@ -187,7 +221,24 @@
                              BorderThickness="0"
                              Background="Transparent"
                              Padding="10"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             TextChanged="ResultTextChanged"
+                             SelectionChanged="ResultSelectionChanged" />
+
+                    <!-- Below the text, not above it: you read the address before you decide to
+                         open it. Hidden entirely when there is nothing to act on, so an ordinary
+                         page of prose does not grow an empty strip. -->
+                    <Border x:Name="ActionsBar"
+                            Grid.Row="2"
+                            Style="{StaticResource CardToolbarStyle}"
+                            BorderThickness="0,1,0,0"
+                            Visibility="Collapsed">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollMode="Disabled"
+                                      HorizontalScrollMode="Auto">
+                            <StackPanel x:Name="ActionsPanel" Orientation="Horizontal" Spacing="6" />
+                        </ScrollViewer>
+                    </Border>
                 </Grid>
             </Border>
         </Grid>
@@ -322,6 +373,19 @@
                                     <ToggleSwitch x:Name="RepairVersionsToggle"
                                                   Toggled="RepairVersionsToggled" />
                                     <TextBlock x:Name="RepairVersionsDescription"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                    <Border Height="1" Margin="0,10"
+                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                    <ToggleSwitch x:Name="WatchClipboardToggle"
+                                                  Toggled="WatchClipboardToggled" />
+                                    <!-- Two sentences, and both have to stay. The first says the
+                                         copied picture is replaced by its text, which is the one
+                                         surprising thing this does; the second says the picture
+                                         never leaves the machine, which is what anyone reading
+                                         "watches your clipboard" wants to know next. -->
+                                    <TextBlock x:Name="WatchClipboardDescription"
                                                Style="{StaticResource CaptionTextBlockStyle}"
                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                TextWrapping="Wrap" />

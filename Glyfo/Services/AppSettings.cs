@@ -23,6 +23,7 @@ public sealed class AppSettings
     private const string LastSeenVersionKey = "LastSeenVersion";
     private const string RecognizeCountKey = "RecognizeCount";
     private const string RatingPromptDoneKey = "RatingPromptDone";
+    private const string WatchClipboardKey = "WatchClipboard";
 
     /// <summary>
     /// Keys that already existed in 1.0.x. Their presence is what tells an upgrade apart from a
@@ -172,6 +173,22 @@ public sealed class AppSettings
     {
         get => GetBool(RatingPromptDoneKey, false);
         set => SetBool(RatingPromptDoneKey, value);
+    }
+
+    /// <summary>
+    /// Whether a picture copied to the clipboard is read automatically.
+    /// </summary>
+    /// <remarks>
+    /// Off by default, and that is not a matter of taste. An application that watches the clipboard
+    /// is reading everything the user copies, and nobody should discover that by accident — least of
+    /// all in a Store app whose whole claim is that pictures stay on the machine. The switch has to
+    /// be turned on deliberately, and the text beside it says what it does and where the picture
+    /// goes.
+    /// </remarks>
+    public bool WatchClipboard
+    {
+        get => GetBool(WatchClipboardKey, false);
+        set => SetBool(WatchClipboardKey, value);
     }
 
     /// <summary>
