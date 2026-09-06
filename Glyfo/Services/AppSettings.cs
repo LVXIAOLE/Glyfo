@@ -25,6 +25,11 @@ public sealed class AppSettings
     private const string RatingPromptDoneKey = "RatingPromptDone";
     private const string WatchClipboardKey = "WatchClipboard";
     private const string KeepHistoryKey = "KeepHistory";
+    private const string WindowXKey = "WindowX";
+    private const string WindowYKey = "WindowY";
+    private const string WindowWidthKey = "WindowWidth";
+    private const string WindowHeightKey = "WindowHeight";
+    private const string WindowMaximizedKey = "WindowMaximized";
     private const string RegionHotkeyModsKey = "RegionHotkeyMods";
     private const string RegionHotkeyVkKey = "RegionHotkeyVk";
     private const string FullHotkeyModsKey = "FullHotkeyMods";
@@ -214,6 +219,45 @@ public sealed class AppSettings
     {
         get => GetBool(KeepHistoryKey, true);
         set => SetBool(KeepHistoryKey, value);
+    }
+
+    /// <summary>
+    /// Where the window was when it was last closed, in raw pixels — <see cref="WindowWidth"/> is
+    /// zero until something has been stored.
+    /// </summary>
+    /// <remarks>
+    /// The rectangle is the restored one even when the window was maximized, so that un-maximizing
+    /// on the next run lands on the size the user chose rather than on the size of their screen.
+    /// </remarks>
+    public int WindowX
+    {
+        get => GetInt(WindowXKey, 0);
+        set => SetInt(WindowXKey, value);
+    }
+
+    public int WindowY
+    {
+        get => GetInt(WindowYKey, 0);
+        set => SetInt(WindowYKey, value);
+    }
+
+    public int WindowWidth
+    {
+        get => GetInt(WindowWidthKey, 0);
+        set => SetInt(WindowWidthKey, value);
+    }
+
+    public int WindowHeight
+    {
+        get => GetInt(WindowHeightKey, 0);
+        set => SetInt(WindowHeightKey, value);
+    }
+
+    /// <summary>Whether the window was maximized when it was last closed.</summary>
+    public bool WindowMaximized
+    {
+        get => GetBool(WindowMaximizedKey, false);
+        set => SetBool(WindowMaximizedKey, value);
     }
 
     /// <summary>

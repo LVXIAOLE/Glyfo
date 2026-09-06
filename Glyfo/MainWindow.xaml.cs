@@ -230,18 +230,7 @@ public sealed partial class MainWindow : Window
         appWindow.Closing += AppWindowClosing;
         ApplyWindowIcon(appWindow);
 
-        // AppWindow.Resize takes raw pixels while the XAML inside is laid out in DIPs. Passing a
-        // fixed 1280 on a 150% display produced an 853 DIP window, which is narrower than the two
-        // toolbars need and clipped their trailing buttons.
-        var scale = GetDpiForWindow(_hwnd) / 96.0;
-        appWindow.Resize(new SizeInt32((int)(1280 * scale), (int)(820 * scale)));
-
-        if (appWindow.Presenter is OverlappedPresenter presenter)
-        {
-            // Below this the action bar and the text-pane toolbar start clipping.
-            presenter.PreferredMinimumWidth = 1060;
-            presenter.PreferredMinimumHeight = 640;
-        }
+        RestoreWindowGeometry(appWindow, _hwnd);
 
         _speech.PlaybackEnded += (_, _) => _dispatcherQueue.TryEnqueue(() =>
         {
@@ -2708,6 +2697,105 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Puts the window back where it was left, or sizes it for this display on a first run.
+    /// </summary>
+    /// <remarks>
+    /// The stored rectangle is clamped against the work area of whichever display it lands nearest
+    /// to before it is used. Restoring a saved position as-is is how this feature usually breaks:
+    /// a window last closed on a second monitor comes back entirely off-screen once that monitor is
+    /// unplugged, with no title bar left to drag it home by.
+    /// </remarks>
+    private static void RestoreWindowGeometry(AppWindow appWindow, IntPtr hwnd)
+    {
+        const int minWidth = 1060;
+        const int minHeight = 640;
+
+        if (appWindow.Presenter is OverlappedPresenter presenter)
+        {
+            // Below this the action bar and the text-pane toolbar start clipping.
+            presenter.PreferredMinimumWidth = minWidth;
+            presenter.PreferredMinimumHeight = minHeight;
+        }
+
+        var width = AppSettings.Current.WindowWidth;
+        var height = AppSettings.Current.WindowHeight;
+        if (width <= 0 || height <= 0)
+        {
+            // AppWindow.Resize takes raw pixels while the XAML inside is laid out in DIPs. Passing
+            // a fixed 1280 on a 150% display produced an 853 DIP window, which is narrower than the
+            // two toolbars need and clipped their trailing buttons.
+            var scale = GetDpiForWindow(hwnd) / 96.0;
+            appWindow.Resize(new SizeInt32((int)(1280 * scale), (int)(820 * scale)));
+            return;
+        }
+
+        var stored = new RectInt32(AppSettings.Current.WindowX, AppSettings.Current.WindowY, width, height);
+        var work = DisplayArea.GetFromRect(stored, DisplayAreaFallback.Nearest).WorkArea;
+
+        stored.Width = Math.Min(Math.Max(width, minWidth), work.Width);
+        stored.Height = Math.Min(Math.Max(height, minHeight), work.Height);
+
+        // Reachable, not fully contained. A window left a little taller than the work area, with
+        // its bottom edge behind the taskbar, is an ordinary thing to find; nudging it up every
+        // launch would be the opposite of remembering where it was. What has to hold is that the
+        // title bar can still be grabbed, which is exactly what stops holding when the display it
+        // was closed on is no longer there.
+        const int reachable = 120;
+        stored.X = Math.Min(Math.Max(stored.X, work.X - stored.Width + reachable), work.X + work.Width - reachable);
+        stored.Y = Math.Min(Math.Max(stored.Y, work.Y), work.Y + work.Height - reachable);
+        appWindow.MoveAndResize(stored);
+
+        // After the move rather than before it: the rectangle a maximized window is restored to is
+        // the one it had when it was maximized, so moving it afterwards would set the wrong one.
+        if (AppSettings.Current.WindowMaximized && appWindow.Presenter is OverlappedPresenter overlapped)
+        {
+            overlapped.Maximize();
+        }
+    }
+
+    /// <summary>
+    /// Records where the window is, so the next launch can put it back.
+    /// </summary>
+    /// <remarks>
+    /// Two states are deliberately not recorded. Minimized, because its rectangle is not where the
+    /// window lives and writing it would lose the real one. Hidden to the tray, because by then the
+    /// geometry worth keeping is the one saved on the way in, and the tray's Exit comes back
+    /// through the same handler afterwards. Maximized records the flag but leaves the rectangle
+    /// alone, so un-maximizing on the next run lands on the size the user actually chose.
+    /// </remarks>
+    private void SaveWindowGeometry()
+    {
+        if (_appWindow is null || _isHidden)
+        {
+            return;
+        }
+
+        var maximized = false;
+        if (_appWindow.Presenter is OverlappedPresenter presenter)
+        {
+            if (presenter.State == OverlappedPresenterState.Minimized)
+            {
+                return;
+            }
+
+            maximized = presenter.State == OverlappedPresenterState.Maximized;
+        }
+
+        AppSettings.Current.WindowMaximized = maximized;
+        if (maximized)
+        {
+            return;
+        }
+
+        var position = _appWindow.Position;
+        var size = _appWindow.Size;
+        AppSettings.Current.WindowX = position.X;
+        AppSettings.Current.WindowY = position.Y;
+        AppSettings.Current.WindowWidth = size.Width;
+        AppSettings.Current.WindowHeight = size.Height;
+    }
+
+    /// <summary>
     /// Turns the close button into "hide", unless the user has turned that off or asked to exit.
     /// </summary>
     /// <remarks>
@@ -2717,6 +2805,11 @@ public sealed partial class MainWindow : Window
     /// </remarks>
     private void AppWindowClosing(AppWindow sender, AppWindowClosingEventArgs args)
     {
+        // Before the branches, not inside them: this one line then covers the caption button,
+        // Alt+F4, the taskbar's close command, hiding to the tray and the tray's own Exit, which
+        // arrives here a second time with the window already hidden.
+        SaveWindowGeometry();
+
         if (_exitRequested || !AppSettings.Current.CloseToTray)
         {
             return;
