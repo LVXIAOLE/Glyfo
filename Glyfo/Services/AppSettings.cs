@@ -24,6 +24,7 @@ public sealed class AppSettings
     private const string RecognizeCountKey = "RecognizeCount";
     private const string RatingPromptDoneKey = "RatingPromptDone";
     private const string WatchClipboardKey = "WatchClipboard";
+    private const string KeepHistoryKey = "KeepHistory";
 
     /// <summary>
     /// Keys that already existed in 1.0.x. Their presence is what tells an upgrade apart from a
@@ -189,6 +190,26 @@ public sealed class AppSettings
     {
         get => GetBool(WatchClipboardKey, false);
         set => SetBool(WatchClipboardKey, value);
+    }
+
+    /// <summary>
+    /// Whether the history list is written to disk so it survives restarts.
+    /// </summary>
+    /// <remarks>
+    /// On by default, which is the opposite of <see cref="WatchClipboard"/> and for a reason worth
+    /// stating. What gets written is only what the user has already read on screen and asked for —
+    /// the text of their own recognitions, never the pictures — into a file in the app's own package
+    /// data. Nothing is collected that was not already deliberately produced, and nothing leaves the
+    /// machine.
+    ///
+    /// The switch is still real: turning it off deletes the file and empties the list on the spot
+    /// rather than merely stopping new writes, because someone reaching for it is asking for what is
+    /// already there to be gone, not for the leak to be capped.
+    /// </remarks>
+    public bool KeepHistory
+    {
+        get => GetBool(KeepHistoryKey, true);
+        set => SetBool(KeepHistoryKey, value);
     }
 
     /// <summary>

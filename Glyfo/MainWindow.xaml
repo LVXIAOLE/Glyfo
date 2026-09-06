@@ -309,27 +309,74 @@
                     </StackPanel>
                     <Button.Flyout>
                         <Flyout Placement="Top">
-                            <Grid x:Name="HistoryFlyoutRoot" Width="420" Height="340">
-                                <ListView x:Name="HistoryListView"
-                                          SelectionChanged="HistorySelectionChanged">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="local:HistoryItem">
-                                            <StackPanel Padding="0,6" Spacing="2">
-                                                <TextBlock Text="{x:Bind Header}"
-                                                           Style="{StaticResource CaptionTextBlockStyle}"
-                                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                                                <TextBlock Text="{x:Bind Preview}"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           MaxLines="2"
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                                <TextBlock x:Name="HistoryEmptyText"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <!-- Bigger than it was, because the list now outlives the session: with
+                                 twenty entries you could see most of them at once, with two hundred
+                                 the search box is how you get to one and the extra rows are what
+                                 make the search worth typing into. -->
+                            <Grid x:Name="HistoryFlyoutRoot" Width="460" Height="420" RowSpacing="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox x:Name="HistorySearchBox"
+                                             TextChanged="HistorySearchChanged" />
+                                    <Button x:Name="HistoryClearButton"
+                                            Grid.Column="1"
+                                            Click="HistoryClearClick">
+                                        <SymbolIcon Symbol="Delete" />
+                                    </Button>
+                                </Grid>
+
+                                <Grid Grid.Row="1">
+                                    <ListView x:Name="HistoryListView"
+                                              SelectionChanged="HistorySelectionChanged">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="local:HistoryItem">
+                                                <StackPanel Padding="0,6" Spacing="2">
+                                                    <!-- Right-click rather than buttons on the row:
+                                                         copy and delete are both occasional, and two
+                                                         icons per row would crowd out the preview
+                                                         text that makes the row findable. -->
+                                                    <StackPanel.ContextFlyout>
+                                                        <MenuFlyout Opening="HistoryItemMenuOpening">
+                                                            <MenuFlyoutItem Click="HistoryCopyItemClick">
+                                                                <MenuFlyoutItem.Icon>
+                                                                    <SymbolIcon Symbol="Copy" />
+                                                                </MenuFlyoutItem.Icon>
+                                                            </MenuFlyoutItem>
+                                                            <MenuFlyoutItem Click="HistoryDeleteItemClick">
+                                                                <MenuFlyoutItem.Icon>
+                                                                    <SymbolIcon Symbol="Delete" />
+                                                                </MenuFlyoutItem.Icon>
+                                                            </MenuFlyoutItem>
+                                                        </MenuFlyout>
+                                                    </StackPanel.ContextFlyout>
+                                                    <TextBlock Text="{x:Bind Header}"
+                                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                                    <TextBlock Text="{x:Bind Preview}"
+                                                               TextTrimming="CharacterEllipsis"
+                                                               MaxLines="2"
+                                                               TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <TextBlock x:Name="HistoryEmptyText"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"
+                                               TextWrapping="Wrap"
+                                               Margin="24,0"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                </Grid>
                             </Grid>
                         </Flyout>
                     </Button.Flyout>
@@ -339,7 +386,7 @@
                     <Button.Flyout>
                         <Flyout Placement="Top">
                             <!-- Scrolls because the option descriptions are long and there are now
-                                 four of them: at 150% on a 1080p screen the unscrolled panel is
+                                 five of them: at 150% on a 1080p screen the unscrolled panel is
                                  taller than the space above the button. -->
                             <ScrollViewer MaxHeight="520"
                                           VerticalScrollBarVisibility="Auto"
@@ -386,6 +433,19 @@
                                          never leaves the machine, which is what anyone reading
                                          "watches your clipboard" wants to know next. -->
                                     <TextBlock x:Name="WatchClipboardDescription"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                    <Border Height="1" Margin="0,10"
+                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                    <ToggleSwitch x:Name="KeepHistoryToggle"
+                                                  Toggled="KeepHistoryToggled" />
+                                    <!-- Says what is stored, what is not, and what turning it off
+                                         does. The third part matters as much as the first: a switch
+                                         that only stopped future writes would leave what is already
+                                         on disk behind, which is not what anyone reaching for it
+                                         means. -->
+                                    <TextBlock x:Name="KeepHistoryDescription"
                                                Style="{StaticResource CaptionTextBlockStyle}"
                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                TextWrapping="Wrap" />

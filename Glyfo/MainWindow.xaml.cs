@@ -59,7 +59,6 @@ public sealed partial class MainWindow : Window
     /// <summary>Resource id the compiler gives the icon named by <c>ApplicationIcon</c>.</summary>
     private const int IdiApplication = 32512;
     private const uint ImageIcon = 1;
-    private const int MaxHistoryItems = 20;
 
     /// <summary>
     /// How many times the "it is still running, in the tray" notice is worth showing. Three covers
@@ -108,7 +107,21 @@ public sealed partial class MainWindow : Window
     private readonly DispatcherQueue _dispatcherQueue;
     private readonly IntPtr _hwnd;
     private readonly WndProcDelegate _wndProcDelegate;
-    private readonly ObservableCollection<HistoryItem> _history = new();
+    /// <summary>
+    /// Every entry there is, newest first. The list that is actually stored and searched.
+    /// </summary>
+    private readonly List<HistoryItem> _history = new();
+
+    /// <summary>
+    /// What the list is showing: all of <see cref="_history"/>, or the part matching the search box.
+    /// </summary>
+    /// <remarks>
+    /// A second collection rather than a filter over the first, because <c>ListView</c> takes an
+    /// <c>ObservableCollection</c> and the alternative — removing non-matching rows from the one
+    /// list — would make the search destructive.
+    /// </remarks>
+    private readonly ObservableCollection<HistoryItem> _historyView = new();
+
     private readonly List<string> _sessionTempFiles = new();
 
     private TranslationService? _translation;
@@ -152,6 +165,7 @@ public sealed partial class MainWindow : Window
     private bool _suppressOcrLanguageChange;
     private bool _suppressVoiceChange;
     private bool _suppressStartupToggle;
+    private bool _suppressKeepHistoryToggle;
 
     /// <summary>Set once the user picks a voice by hand, after which recognition stops choosing one.</summary>
     private bool _voicePinned;
@@ -178,9 +192,24 @@ public sealed partial class MainWindow : Window
         CloseToTrayToggle.IsOn = AppSettings.Current.CloseToTray;
         WatchClipboardToggle.IsOn = AppSettings.Current.WatchClipboard;
 
-        HistoryListView.ItemsSource = _history;
-        _history.CollectionChanged += (_, _) =>
-            HistoryEmptyText.Visibility = _history.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+        // Not harmless for this one, which is why it is guarded. Its handler writes the history out
+        // or deletes it, and the write is asynchronous: left ungagged, restoring the switch here
+        // raced the Load below with an empty list and wiped the file it was about to read.
+        _suppressKeepHistoryToggle = true;
+        KeepHistoryToggle.IsOn = AppSettings.Current.KeepHistory;
+        _suppressKeepHistoryToggle = false;
+
+        HistoryListView.ItemsSource = _historyView;
+
+        // Read straight through rather than in the background: it is one small file, it has to be
+        // there before the first recognition can append to it, and a history that appears a moment
+        // after the window would be worse than one that costs a few milliseconds of startup.
+        if (AppSettings.Current.KeepHistory)
+        {
+            _history.AddRange(HistoryStore.Load());
+        }
+
+        RefreshHistoryView();
 
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         _hwnd = WindowNative.GetWindowHandle(this);
@@ -296,7 +325,9 @@ public sealed partial class MainWindow : Window
         SetTip(PasteButton, Loc.Get("Tip_Paste"));
         HistoryLabel.Text = Loc.Get("Btn_History");
         SetTip(HistoryButton, Loc.Get("Tip_History"));
-        HistoryEmptyText.Text = Loc.Get("History_Empty");
+        HistorySearchBox.PlaceholderText = Loc.Get("History_SearchPlaceholder");
+        SetTip(HistoryClearButton, Loc.Get("History_Clear"));
+        UpdateHistoryEmptyText();
         SetTip(SettingsButton, Loc.Get("Tip_Settings"));
 
         SettingsHeaderText.Text = Loc.Get("Settings_Header");
@@ -317,6 +348,12 @@ public sealed partial class MainWindow : Window
         WatchClipboardToggle.OnContent = Loc.Get("Common_On");
         WatchClipboardToggle.OffContent = Loc.Get("Common_Off");
         WatchClipboardDescription.Text = Loc.Get("Setting_WatchClipboard_Desc");
+
+        KeepHistoryToggle.Header = Loc.Get("Setting_KeepHistory");
+        KeepHistoryToggle.OnContent = Loc.Get("Common_On");
+        KeepHistoryToggle.OffContent = Loc.Get("Common_Off");
+        KeepHistoryDescription.Text = Loc.Get("Setting_KeepHistory_Desc");
+
         AboutButton.Content = Loc.Get("Btn_About");
 
         RatingTip.Title = Loc.Get("Rate_Title");
@@ -1849,10 +1886,202 @@ public sealed partial class MainWindow : Window
             Confidence = confidence
         });
 
-        while (_history.Count > MaxHistoryItems)
+        while (_history.Count > HistoryStore.MaxItems)
         {
             _history.RemoveAt(_history.Count - 1);
         }
+
+        RefreshHistoryView();
+        SaveHistory();
+    }
+
+    /// <summary>
+    /// Rebuilds the bound list from <see cref="_history"/> and the search box.
+    /// </summary>
+    /// <remarks>
+    /// Clear-and-refill rather than a computed diff. Two hundred rows is nothing to rebuild, the
+    /// flyout is usually closed while this runs, and a diff would be code to maintain in exchange
+    /// for no difference anyone could see.
+    /// </remarks>
+    private void RefreshHistoryView()
+    {
+        var query = HistorySearchBox.Text.Trim();
+
+        _historyView.Clear();
+
+        foreach (var item in _history)
+        {
+            if (query.Length == 0 || Matches(item, query))
+            {
+                _historyView.Add(item);
+            }
+        }
+
+        UpdateHistoryEmptyText();
+    }
+
+    /// <summary>
+    /// Whether an entry answers the search. Matches the source label as well as the text, so
+    /// "PDF" or "screenshot" finds a whole kind of entry and not just words that were read.
+    /// </summary>
+    private static bool Matches(HistoryItem item, string query) =>
+        item.Text.Contains(query, StringComparison.CurrentCultureIgnoreCase)
+        || item.Source.Contains(query, StringComparison.CurrentCultureIgnoreCase);
+
+    /// <summary>
+    /// Shows the right one of three "nothing here" messages, or none at all.
+    /// </summary>
+    /// <remarks>
+    /// The three are genuinely different situations and telling them apart is the whole point:
+    /// history turned off is a setting the user can undo, a search with no hits is a query they can
+    /// retype, and an empty list is neither.
+    /// </remarks>
+    private void UpdateHistoryEmptyText()
+    {
+        if (_historyView.Count > 0)
+        {
+            HistoryEmptyText.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        HistoryEmptyText.Text =
+            !AppSettings.Current.KeepHistory && _history.Count == 0 ? Loc.Get("History_Off")
+            : _history.Count > 0 ? Loc.Get("History_NoMatch")
+            : Loc.Get("History_Empty");
+
+        HistoryEmptyText.Visibility = Visibility.Visible;
+    }
+
+    /// <summary>Writes the list out, unless the user has asked for it not to be kept.</summary>
+    private void SaveHistory()
+    {
+        if (AppSettings.Current.KeepHistory)
+        {
+            HistoryStore.SaveInBackground(_history);
+        }
+    }
+
+    private void HistorySearchChanged(object sender, TextChangedEventArgs e) => RefreshHistoryView();
+
+    private void HistoryClearClick(object sender, RoutedEventArgs e)
+    {
+        if (_history.Count == 0)
+        {
+            return;
+        }
+
+        _history.Clear();
+        HistorySearchBox.Text = string.Empty;
+
+        // Not merely "stop writing": the file has to go now, or clearing the list would leave
+        // everything it contained on disk to reappear at the next start.
+        HistoryStore.Delete();
+
+        RefreshHistoryView();
+        SetStatus(Loc.Get("Status_HistoryCleared"), InfoBarSeverity.Success);
+    }
+
+    /// <summary>
+    /// Labels the row's menu as it opens.
+    /// </summary>
+    /// <remarks>
+    /// Set here rather than in the markup because the items live inside a <c>DataTemplate</c>, whose
+    /// instances <c>ApplyLanguage</c> cannot reach by name. Reading the strings at open time also
+    /// means a row created before a language switch still opens a menu in the new language.
+    /// </remarks>
+    private void HistoryItemMenuOpening(object sender, object e)
+    {
+        if (sender is not MenuFlyout flyout || flyout.Items.Count < 2)
+        {
+            return;
+        }
+
+        if (flyout.Items[0] is MenuFlyoutItem copy)
+        {
+            copy.Text = Loc.Get("History_CopyItem");
+        }
+
+        if (flyout.Items[1] is MenuFlyoutItem delete)
+        {
+            delete.Text = Loc.Get("History_DeleteItem");
+        }
+    }
+
+    private void HistoryCopyItemClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { DataContext: HistoryItem item })
+        {
+            return;
+        }
+
+        if (CopyTextToClipboard(item.Text, out var error))
+        {
+            SetStatus(Loc.Get("Status_TextCopied"), InfoBarSeverity.Success);
+        }
+        else
+        {
+            SetStatus(Loc.Get("Status_CopyFailed", error), InfoBarSeverity.Error);
+        }
+    }
+
+    private void HistoryDeleteItemClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { DataContext: HistoryItem item })
+        {
+            return;
+        }
+
+        _history.Remove(item);
+        RefreshHistoryView();
+
+        // Rewritten rather than left for the next recognition: someone deleting one entry means it
+        // should be gone from the disk too, not merely from the list until the app next saves.
+        if (AppSettings.Current.KeepHistory)
+        {
+            if (_history.Count == 0)
+            {
+                HistoryStore.Delete();
+            }
+            else
+            {
+                HistoryStore.SaveInBackground(_history);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether the history survives a restart.
+    /// </summary>
+    /// <remarks>
+    /// Turning it off deletes what is already stored and empties the list on the spot. Anything less
+    /// would leave the user with a switch that reads as "forget my history" and behaves as "stop
+    /// adding to it", which is the kind of gap that belongs in a privacy complaint rather than in a
+    /// settings panel.
+    /// </remarks>
+    private void KeepHistoryToggled(object sender, RoutedEventArgs e)
+    {
+        if (_suppressKeepHistoryToggle)
+        {
+            return;
+        }
+
+        var on = KeepHistoryToggle.IsOn;
+        AppSettings.Current.KeepHistory = on;
+
+        if (on)
+        {
+            // Whatever this session has already read is worth keeping; there is nothing on disk to
+            // merge with, because turning it off deleted it.
+            SaveHistory();
+        }
+        else
+        {
+            _history.Clear();
+            HistorySearchBox.Text = string.Empty;
+            HistoryStore.Delete();
+        }
+
+        RefreshHistoryView();
     }
 
     // ---------------------------------------------------------------- screen capture
