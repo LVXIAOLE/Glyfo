@@ -31,7 +31,8 @@
     <PackageReference Include="Microsoft.Windows.AI.MachineLearning" Version="2.1.1" ExcludeAssets="all" />
     <PackageReference Include="Microsoft.WindowsAppSDK.Widgets" Version="2.0.5" ExcludeAssets="all" />
 
-    <!-- Kept for screen capture (Graphics.CopyFromScreen) and region cropping only. -->
+    <!-- Kept for screen capture (Graphics.CopyFromScreen), region cropping, and the rotate and
+         straighten pass in Services\ImageOps.cs. -->
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
     <!-- Apache 2.0, redistributable in a Store package. Core package only: the
          Windows.Compatibility flavour would drag in another System.Drawing binding layer. -->

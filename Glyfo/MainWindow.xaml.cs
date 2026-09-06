@@ -124,6 +124,18 @@ public sealed partial class MainWindow : Window
     private string _currentImagePath = string.Empty;
     private string _currentImageName = string.Empty;
 
+    /// <summary>
+    /// The picture as it arrived, before any turning, and how far it has been turned since.
+    /// </summary>
+    /// <remarks>
+    /// Every rotation re-renders from the original rather than turning the last result. Turning a
+    /// turned picture resamples it again each time, so a few presses of "rotate left" would visibly
+    /// soften a screenshot; it also makes "reset" a single assignment rather than an inverse the
+    /// code would have to get right.
+    /// </remarks>
+    private string _originalImagePath = string.Empty;
+    private double _rotationDegrees;
+
     /// <summary>The open PDF, or null when the preview came from anywhere else.</summary>
     /// <remarks>
     /// Cleared by <see cref="LoadPreview"/> and set back afterwards by the PDF path, so that a
@@ -286,6 +298,14 @@ public sealed partial class MainWindow : Window
         SetTip(CopyImageButton, Loc.Get("Tip_CopyImage"));
         SaveImageLabel.Text = Loc.Get("Btn_SaveImage");
         SetTip(SaveImageButton, Loc.Get("Tip_SaveImage"));
+        // The split button carries no label of its own, so the tooltip is also what a screen reader
+        // announces for it — hence SetTip rather than the plain tooltip.
+        SetTip(RotateButton, Loc.Get("Rotate_Right"));
+        RotateLeftItem.Text = Loc.Get("Rotate_Left");
+        RotateHalfItem.Text = Loc.Get("Rotate_180");
+        DeskewItem.Text = Loc.Get("Rotate_Deskew");
+        RotateResetItem.Text = Loc.Get("Rotate_Reset");
+
         FitToWindowLabel.Text = Loc.Get("Btn_FitToWindow");
         SetTip(FitToWindowButton, Loc.Get("Tip_FitToWindow"));
         SetTip(ActualSizeButton, Loc.Get("Tip_ActualSize"));
@@ -427,6 +447,11 @@ public sealed partial class MainWindow : Window
         }
 
         foreach (var item in CaptureMenu.Items)
+        {
+            item.FlowDirection = flow;
+        }
+
+        foreach (var item in RotateMenu.Items)
         {
             item.FlowDirection = flow;
         }
@@ -939,6 +964,30 @@ public sealed partial class MainWindow : Window
 
     private void LoadPreview(string imagePath, string displayName)
     {
+        ReplacePreview(imagePath);
+
+        _currentImageName = displayName;
+        _originalImagePath = imagePath;
+        _rotationDegrees = 0;
+        ResultTextBox.Text = string.Empty;
+
+        // Anything reaching here is a new source, so the PDF stops being open. The PDF path
+        // sets it straight back after calling this — see ShowPdfPageAsync.
+        _pdf = null;
+        RefreshPdfNav();
+    }
+
+    /// <summary>
+    /// Puts a different picture under the preview, and changes nothing else.
+    /// </summary>
+    /// <remarks>
+    /// What <see cref="LoadPreview"/> does on top of this — clearing the result and closing the PDF
+    /// — is right for a new source and wrong for a rotation, which is the same document seen
+    /// straight. Turning the page you are reading should not throw away what was read from it, and
+    /// it should not take the page bar down with it.
+    /// </remarks>
+    private void ReplacePreview(string imagePath)
+    {
         var bitmap = new BitmapImage();
         bitmap.ImageOpened += (_, _) =>
         {
@@ -952,13 +1001,99 @@ public sealed partial class MainWindow : Window
         PreviewPlaceholder.Visibility = Visibility.Collapsed;
 
         _currentImagePath = imagePath;
-        _currentImageName = displayName;
-        ResultTextBox.Text = string.Empty;
+    }
 
-        // Anything reaching here is a new source, so the PDF stops being open. The PDF path
-        // sets it straight back after calling this — see ShowPdfPageAsync.
-        _pdf = null;
-        RefreshPdfNav();
+    // ---------------------------------------------------------------- rotation
+
+    private void RotateRightClick(SplitButton sender, SplitButtonClickEventArgs args) => TurnBy(90);
+
+    private void RotateLeftClick(object sender, RoutedEventArgs e) => TurnBy(-90);
+
+    private void RotateHalfClick(object sender, RoutedEventArgs e) => TurnBy(180);
+
+    private void RotateResetClick(object sender, RoutedEventArgs e) => TurnTo(0);
+
+    private void TurnBy(double degrees) => TurnTo(_rotationDegrees + degrees);
+
+    /// <summary>
+    /// Shows the original picture turned by <paramref name="degrees"/> from where it started.
+    /// </summary>
+    /// <remarks>
+    /// Straight back to the untouched file at zero: rendering it would be a re-encode of something
+    /// the app already has, and the whole point of keeping the original is that "reset" costs
+    /// nothing.
+    /// </remarks>
+    private void TurnTo(double degrees)
+    {
+        if (!HasImage())
+        {
+            return;
+        }
+
+        degrees = ((degrees % 360) + 360) % 360;
+        if (Math.Abs(degrees) < 0.05)
+        {
+            _rotationDegrees = 0;
+            ReplacePreview(_originalImagePath);
+            return;
+        }
+
+        try
+        {
+            var tempPath = CreateTempImagePath("rotated.png");
+            ImageOps.Rotate(_originalImagePath, degrees, tempPath);
+            _sessionTempFiles.Add(tempPath);
+
+            _rotationDegrees = degrees;
+            ReplacePreview(tempPath);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(Loc.Get("Status_RotateFailed", ex.Message), InfoBarSeverity.Error);
+        }
+    }
+
+    /// <summary>
+    /// Measures how far the page leans and turns it back.
+    /// </summary>
+    /// <remarks>
+    /// Measured on the picture as it is shown, not on the original, so that straightening after a
+    /// quarter turn measures the thing the user is looking at. The measurement is the slow part —
+    /// tens of milliseconds on a large scan — so it goes to a worker under the same busy state the
+    /// recognizer uses; the turn itself then goes through the ordinary path.
+    /// </remarks>
+    private async void DeskewClick(object sender, RoutedEventArgs e)
+    {
+        if (_isBusy || !HasImage())
+        {
+            return;
+        }
+
+        var source = _currentImagePath;
+        SetBusy(true);
+        try
+        {
+            var skew = await Task.Run(() => ImageOps.EstimateSkew(source));
+            if (Math.Abs(skew) < 0.05)
+            {
+                SetStatus(Loc.Get("Status_DeskewNone"), InfoBarSeverity.Informational);
+                return;
+            }
+
+            // The estimate is how far it leans, so the correction is the other way. The message
+            // reports the size of the correction and not its sign: "straightened by -5°" reads as
+            // an error, and which way it went is on the screen already.
+            TurnBy(-skew);
+            SetStatus(Loc.Get("Status_Deskewed", Math.Abs(skew).ToString("0.0")), InfoBarSeverity.Success);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(Loc.Get("Status_RotateFailed", ex.Message), InfoBarSeverity.Error);
+        }
+        finally
+        {
+            SetBusy(false);
+        }
     }
 
     // ---------------------------------------------------------------- pdf

@@ -159,6 +159,39 @@
                                     <KeyboardAccelerator Modifiers="Control,Shift" Key="S" />
                                 </Button.KeyboardAccelerators>
                             </Button>
+                            <!-- Icon only, unlike its two neighbours: this row has to survive the
+                                 1060px minimum width, and a fourth label would push the zoom
+                                 controls off the card. Same shape as the capture button — the one
+                                 turn almost every press wants stays a single click, and the rest
+                                 live behind the arrow. -->
+                            <SplitButton x:Name="RotateButton" Click="RotateRightClick">
+                                <SymbolIcon Symbol="Rotate" />
+                                <SplitButton.Flyout>
+                                    <MenuFlyout x:Name="RotateMenu">
+                                        <MenuFlyoutItem x:Name="RotateLeftItem" Click="RotateLeftClick">
+                                            <MenuFlyoutItem.Icon>
+                                                <SymbolIcon Symbol="Undo" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutItem x:Name="RotateHalfItem" Click="RotateHalfClick">
+                                            <MenuFlyoutItem.Icon>
+                                                <SymbolIcon Symbol="Rotate" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutSeparator />
+                                        <MenuFlyoutItem x:Name="DeskewItem" Click="DeskewClick">
+                                            <MenuFlyoutItem.Icon>
+                                                <SymbolIcon Symbol="Repair" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutItem x:Name="RotateResetItem" Click="RotateResetClick">
+                                            <MenuFlyoutItem.Icon>
+                                                <SymbolIcon Symbol="Refresh" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </SplitButton.Flyout>
+                            </SplitButton>
                             <TextBlock x:Name="ZoomText"
                                        Text="100%"
                                        Width="52"
