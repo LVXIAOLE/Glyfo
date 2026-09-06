@@ -1,0 +1,1056 @@
+ZhHans|Tip_PdfAll|识别全部页面
+ZhHans|Tip_SaveText|将文字保存为文件 (Ctrl+S)
+ZhHans|History_SearchPlaceholder|搜索结果
+ZhHans|History_NoMatch|没有匹配的结果。
+ZhHans|History_Off|历史记录已在选项中关闭。
+ZhHans|History_Clear|清空历史记录
+ZhHans|History_CopyItem|复制这段文字
+ZhHans|History_DeleteItem|删除这条记录
+ZhHans|Setting_KeepHistory|跨会话保留历史记录
+ZhHans|Setting_KeepHistory_Desc|保留最近 200 条结果，重启后依然在。只保存文字，绝不保存图片，存放在本机属于 Glyfo 的文件里。关闭后会立即删除该文件并清空列表。
+ZhHans|Status_NothingToSave|没有可保存的文字。
+ZhHans|Status_TextSaved|文字已保存为 {0}。
+ZhHans|Status_TextSaveFailed|无法保存文字：{0}
+ZhHans|Status_HistoryCleared|历史记录已清空。
+ZhHans|Source_Batch|{0} 个文件
+ZhHans|Source_PdfAll|{0}，全部页面
+ZhHans|FileType_Text|纯文本
+ZhHans|FileType_Markdown|Markdown
+ZhHans|Batch_Title|正在识别多个文件
+ZhHans|Batch_Progress|{0} / {1}
+ZhHans|Batch_DoneAll|已识别 {0} 项。
+ZhHans|Batch_Cancelled|已在第 {0} / {1} 项停止。
+ZhHans|Batch_ItemFailed|无法识别：{0}
+ZhHans|Batch_ItemEmpty|（没有文字）
+ZhHans|Batch_Save|保存…
+ZhHans|Batch_CopyAll|全部复制
+ZhHans|Batch_Separate|每项存为单独的文件
+ZhHans|Batch_SavedFolder|已将 {0} 个文件保存到 {1}。
+ZhHans|Batch_TooLongForBox|已识别 {0} 项。文字太长，这里放不下 — 内容在你刚保存的文件里。
+ZhHans|Common_Cancel|取消
+ZhHans|News_130_1|历史记录现在能活过重启，并且可以搜索。只保存文字 — 在选项里可以清空或关闭。
+ZhHans|News_130_2|Ctrl+S 可把识别出的文字保存为纯文本或 Markdown 文件。
+ZhHans|News_130_3|一次打开或拖入多个文件，或识别整本 PDF，然后合并成一个文件或每项一个文件保存。
+ZhHant|Tip_PdfAll|辨識全部頁面
+ZhHant|Tip_SaveText|將文字儲存為檔案 (Ctrl+S)
+ZhHant|History_SearchPlaceholder|搜尋結果
+ZhHant|History_NoMatch|沒有符合的結果。
+ZhHant|History_Off|歷史記錄已在選項中關閉。
+ZhHant|History_Clear|清空歷史記錄
+ZhHant|History_CopyItem|複製這段文字
+ZhHant|History_DeleteItem|刪除這筆記錄
+ZhHant|Setting_KeepHistory|跨工作階段保留歷史記錄
+ZhHant|Setting_KeepHistory_Desc|保留最近 200 筆結果，重新啟動後仍然在。只儲存文字，絕不儲存圖片，存放在本機屬於 Glyfo 的檔案裡。關閉後會立即刪除該檔案並清空清單。
+ZhHant|Status_NothingToSave|沒有可儲存的文字。
+ZhHant|Status_TextSaved|文字已儲存為 {0}。
+ZhHant|Status_TextSaveFailed|無法儲存文字：{0}
+ZhHant|Status_HistoryCleared|歷史記錄已清空。
+ZhHant|Source_Batch|{0} 個檔案
+ZhHant|Source_PdfAll|{0}，全部頁面
+ZhHant|FileType_Text|純文字
+ZhHant|FileType_Markdown|Markdown
+ZhHant|Batch_Title|正在辨識多個檔案
+ZhHant|Batch_Progress|{0} / {1}
+ZhHant|Batch_DoneAll|已辨識 {0} 項。
+ZhHant|Batch_Cancelled|已在第 {0} / {1} 項停止。
+ZhHant|Batch_ItemFailed|無法辨識：{0}
+ZhHant|Batch_ItemEmpty|（沒有文字）
+ZhHant|Batch_Save|儲存…
+ZhHant|Batch_CopyAll|全部複製
+ZhHant|Batch_Separate|每項儲存為單獨的檔案
+ZhHant|Batch_SavedFolder|已將 {0} 個檔案儲存到 {1}。
+ZhHant|Batch_TooLongForBox|已辨識 {0} 項。文字太長，這裡放不下 — 內容在你剛儲存的檔案裡。
+ZhHant|Common_Cancel|取消
+ZhHant|News_130_1|歷史記錄現在能撐過重新啟動，而且可以搜尋。只保留文字 — 在選項裡可以清空或關閉。
+ZhHant|News_130_2|Ctrl+S 可把辨識出的文字儲存為純文字或 Markdown 檔案。
+ZhHant|News_130_3|一次開啟或拖入多個檔案，或辨識整份 PDF，然後合併成一個檔案或每項一個檔案儲存。
+Ja|Tip_PdfAll|すべてのページを認識
+Ja|Tip_SaveText|テキストをファイルに保存 (Ctrl+S)
+Ja|History_SearchPlaceholder|結果を検索
+Ja|History_NoMatch|一致する結果はありません。
+Ja|History_Off|履歴はオプションでオフになっています。
+Ja|History_Clear|履歴を消去
+Ja|History_CopyItem|このテキストをコピー
+Ja|History_DeleteItem|この項目を削除
+Ja|Setting_KeepHistory|セッションをまたいで履歴を保持
+Ja|Setting_KeepHistory_Desc|直近 200 件の結果を保持し、再起動後も残ります。保存されるのはテキストだけで、画像は一切保存されず、この端末の Glyfo のファイルに置かれます。オフにすると、そのファイルは削除され、一覧はすぐに空になります。
+Ja|Status_NothingToSave|保存できるテキストがありません。
+Ja|Status_TextSaved|テキストを {0} として保存しました。
+Ja|Status_TextSaveFailed|テキストを保存できませんでした: {0}
+Ja|Status_HistoryCleared|履歴を消去しました。
+Ja|Source_Batch|{0} 個のファイル
+Ja|Source_PdfAll|{0}、全ページ
+Ja|FileType_Text|プレーンテキスト
+Ja|FileType_Markdown|Markdown
+Ja|Batch_Title|複数のファイルを認識中
+Ja|Batch_Progress|{0} / {1}
+Ja|Batch_DoneAll|{0} 件を認識しました。
+Ja|Batch_Cancelled|{1} 件中 {0} 件で停止しました。
+Ja|Batch_ItemFailed|読み取れませんでした: {0}
+Ja|Batch_ItemEmpty|（テキストなし）
+Ja|Batch_Save|保存…
+Ja|Batch_CopyAll|すべてコピー
+Ja|Batch_Separate|各項目を個別のファイルとして保存
+Ja|Batch_SavedFolder|{0} 個のファイルを {1} に保存しました。
+Ja|Batch_TooLongForBox|{0} 件を認識しました。テキストが長すぎてここには表示できません — 保存したファイルに入っています。
+Ja|Common_Cancel|キャンセル
+Ja|News_130_1|履歴が再起動後も残るようになり、検索ボックスも付きました。保存されるのはテキストだけで、オプションから空にすることもオフにすることもできます。
+Ja|News_130_2|Ctrl+S で、認識したテキストをプレーンテキストまたは Markdown ファイルとして保存できます。
+Ja|News_130_3|複数のファイルを一度に開く、またはドロップする、あるいは PDF 全体を認識して、1 つのファイルにも項目ごとのファイルにも保存できます。
+Ko|Tip_PdfAll|모든 페이지 인식
+Ko|Tip_SaveText|텍스트를 파일로 저장 (Ctrl+S)
+Ko|History_SearchPlaceholder|결과 검색
+Ko|History_NoMatch|일치하는 결과가 없습니다.
+Ko|History_Off|기록이 옵션에서 꺼져 있습니다.
+Ko|History_Clear|기록 지우기
+Ko|History_CopyItem|이 텍스트 복사
+Ko|History_DeleteItem|이 항목 삭제
+Ko|Setting_KeepHistory|세션 간에 기록 유지
+Ko|Setting_KeepHistory_Desc|최근 200개의 결과를 유지하여 다시 시작한 뒤에도 남아 있습니다. 이미지는 저장하지 않고 텍스트만, 이 장치의 Glyfo 파일에 저장됩니다. 이 기능을 끄면 그 파일이 삭제되고 목록이 즉시 비워집니다.
+Ko|Status_NothingToSave|저장할 텍스트가 없습니다.
+Ko|Status_TextSaved|텍스트를 {0}(으)로 저장했습니다.
+Ko|Status_TextSaveFailed|텍스트를 저장할 수 없습니다: {0}
+Ko|Status_HistoryCleared|기록을 지웠습니다.
+Ko|Source_Batch|파일 {0}개
+Ko|Source_PdfAll|{0}, 모든 페이지
+Ko|FileType_Text|일반 텍스트
+Ko|FileType_Markdown|Markdown
+Ko|Batch_Title|여러 파일을 인식하는 중
+Ko|Batch_Progress|{0} / {1}
+Ko|Batch_DoneAll|{0}개를 인식했습니다.
+Ko|Batch_Cancelled|{1}개 중 {0}개에서 멈췄습니다.
+Ko|Batch_ItemFailed|읽을 수 없습니다: {0}
+Ko|Batch_ItemEmpty|(텍스트 없음)
+Ko|Batch_Save|저장…
+Ko|Batch_CopyAll|모두 복사
+Ko|Batch_Separate|각 항목을 개별 파일로 저장
+Ko|Batch_SavedFolder|파일 {0}개를 {1}에 저장했습니다.
+Ko|Batch_TooLongForBox|{0}개를 인식했습니다. 텍스트가 너무 길어 여기에는 표시할 수 없습니다 — 방금 저장한 파일에 있습니다.
+Ko|Common_Cancel|취소
+Ko|News_130_1|이제 기록이 다시 시작한 뒤에도 남고, 검색 상자도 생겼습니다. 텍스트만 보관하며 옵션에서 비우거나 끌 수 있습니다.
+Ko|News_130_2|Ctrl+S로 인식한 텍스트를 일반 텍스트나 Markdown 파일로 저장합니다.
+Ko|News_130_3|여러 파일을 한 번에 열거나 끌어다 놓고, PDF 전체를 인식한 뒤 하나의 파일 또는 항목별 파일로 저장하세요.
+Fr|Tip_PdfAll|Lire toutes les pages
+Fr|Tip_SaveText|Enregistrer le texte dans un fichier (Ctrl+S)
+Fr|History_SearchPlaceholder|Rechercher dans les résultats
+Fr|History_NoMatch|Aucun résultat ne correspond.
+Fr|History_Off|L'historique est désactivé dans les options.
+Fr|History_Clear|Effacer l'historique
+Fr|History_CopyItem|Copier ce texte
+Fr|History_DeleteItem|Supprimer cette entrée
+Fr|Setting_KeepHistory|Conserver l'historique entre les sessions
+Fr|Setting_KeepHistory_Desc|Conserve les 200 derniers résultats afin qu'ils soient encore là après un redémarrage. Seul le texte est enregistré, jamais les images, dans un fichier appartenant à Glyfo sur cet appareil. Désactiver cette option supprime ce fichier et vide la liste immédiatement.
+Fr|Status_NothingToSave|Il n'y a aucun texte à enregistrer.
+Fr|Status_TextSaved|Texte enregistré sous {0}.
+Fr|Status_TextSaveFailed|Impossible d'enregistrer le texte : {0}
+Fr|Status_HistoryCleared|Historique effacé.
+Fr|Source_Batch|{0} fichiers
+Fr|Source_PdfAll|{0}, toutes les pages
+Fr|FileType_Text|Texte brut
+Fr|FileType_Markdown|Markdown
+Fr|Batch_Title|Lecture de plusieurs fichiers
+Fr|Batch_Progress|{0} sur {1}
+Fr|Batch_DoneAll|{0} élément(s) lu(s).
+Fr|Batch_Cancelled|Arrêté après {0} sur {1}.
+Fr|Batch_ItemFailed|Lecture impossible : {0}
+Fr|Batch_ItemEmpty|(aucun texte)
+Fr|Batch_Save|Enregistrer…
+Fr|Batch_CopyAll|Tout copier
+Fr|Batch_Separate|Enregistrer chaque élément dans son propre fichier
+Fr|Batch_SavedFolder|{0} fichiers enregistrés dans {1}.
+Fr|Batch_TooLongForBox|{0} éléments lus. Le texte est trop long pour être affiché ici — il se trouve dans le fichier que vous venez d'enregistrer.
+Fr|Common_Cancel|Annuler
+Fr|News_130_1|L'historique survit désormais à un redémarrage, et une zone de recherche lui a été ajoutée. Seul le texte est conservé — les options permettent de le vider ou de le désactiver.
+Fr|News_130_2|Ctrl+S enregistre le texte reconnu sous forme de fichier texte brut ou Markdown.
+Fr|News_130_3|Ouvrez ou déposez plusieurs fichiers à la fois, ou lisez un PDF entier, puis enregistrez le tout en un seul fichier ou un fichier par élément.
+De|Tip_PdfAll|Alle Seiten lesen
+De|Tip_SaveText|Text in eine Datei speichern (Strg+S)
+De|History_SearchPlaceholder|Ergebnisse durchsuchen
+De|History_NoMatch|Kein Ergebnis passt dazu.
+De|History_Off|Der Verlauf ist in den Optionen ausgeschaltet.
+De|History_Clear|Verlauf leeren
+De|History_CopyItem|Diesen Text kopieren
+De|History_DeleteItem|Diesen Eintrag löschen
+De|Setting_KeepHistory|Verlauf über Sitzungen hinweg behalten
+De|Setting_KeepHistory_Desc|Behält die letzten 200 Ergebnisse, sodass sie nach einem Neustart noch da sind. Gespeichert wird nur der Text, nie die Bilder, in einer Datei, die auf diesem Gerät zu Glyfo gehört. Wird dies ausgeschaltet, wird diese Datei gelöscht und die Liste sofort geleert.
+De|Status_NothingToSave|Es gibt keinen Text zum Speichern.
+De|Status_TextSaved|Text als {0} gespeichert.
+De|Status_TextSaveFailed|Der Text konnte nicht gespeichert werden: {0}
+De|Status_HistoryCleared|Verlauf geleert.
+De|Source_Batch|{0} Dateien
+De|Source_PdfAll|{0}, alle Seiten
+De|FileType_Text|Nur Text
+De|FileType_Markdown|Markdown
+De|Batch_Title|Mehrere Dateien werden gelesen
+De|Batch_Progress|{0} von {1}
+De|Batch_DoneAll|{0} gelesen.
+De|Batch_Cancelled|Nach {0} von {1} angehalten.
+De|Batch_ItemFailed|Konnte nicht gelesen werden: {0}
+De|Batch_ItemEmpty|(kein Text)
+De|Batch_Save|Speichern…
+De|Batch_CopyAll|Alles kopieren
+De|Batch_Separate|Jedes Element als eigene Datei speichern
+De|Batch_SavedFolder|{0} Dateien in {1} gespeichert.
+De|Batch_TooLongForBox|{0} Elemente gelesen. Der Text ist zu lang, um ihn hier anzuzeigen — er steht in der Datei, die Sie gespeichert haben.
+De|Common_Cancel|Abbrechen
+De|News_130_1|Der Verlauf übersteht jetzt einen Neustart, und es gibt ein Suchfeld dafür. Nur der Text wird behalten — in den Optionen lässt er sich leeren oder ausschalten.
+De|News_130_2|Strg+S speichert den erkannten Text als Textdatei oder Markdown-Datei.
+De|News_130_3|Öffnen Sie mehrere Dateien auf einmal oder ziehen Sie sie hinein, oder lesen Sie ein ganzes PDF, und speichern Sie alles als eine Datei oder als eine Datei pro Element.
+Es|Tip_PdfAll|Leer todas las páginas
+Es|Tip_SaveText|Guardar el texto en un archivo (Ctrl+S)
+Es|History_SearchPlaceholder|Buscar en los resultados
+Es|History_NoMatch|Ningún resultado coincide.
+Es|History_Off|El historial está desactivado en las opciones.
+Es|History_Clear|Borrar el historial
+Es|History_CopyItem|Copiar este texto
+Es|History_DeleteItem|Eliminar esta entrada
+Es|Setting_KeepHistory|Mantener el historial entre sesiones
+Es|Setting_KeepHistory_Desc|Mantiene los últimos 200 resultados para que sigan ahí tras reiniciar. Solo se guarda el texto, nunca las imágenes, en un archivo que pertenece a Glyfo en este dispositivo. Al desactivarlo se elimina ese archivo y la lista se vacía de inmediato.
+Es|Status_NothingToSave|No hay texto que guardar.
+Es|Status_TextSaved|Texto guardado como {0}.
+Es|Status_TextSaveFailed|No se pudo guardar el texto: {0}
+Es|Status_HistoryCleared|Historial borrado.
+Es|Source_Batch|{0} archivos
+Es|Source_PdfAll|{0}, todas las páginas
+Es|FileType_Text|Texto sin formato
+Es|FileType_Markdown|Markdown
+Es|Batch_Title|Leyendo varios archivos
+Es|Batch_Progress|{0} de {1}
+Es|Batch_DoneAll|{0} leídos.
+Es|Batch_Cancelled|Detenido tras {0} de {1}.
+Es|Batch_ItemFailed|No se pudo leer: {0}
+Es|Batch_ItemEmpty|(sin texto)
+Es|Batch_Save|Guardar…
+Es|Batch_CopyAll|Copiar todo
+Es|Batch_Separate|Guardar cada elemento en su propio archivo
+Es|Batch_SavedFolder|{0} archivos guardados en {1}.
+Es|Batch_TooLongForBox|{0} elementos leídos. El texto es demasiado largo para mostrarlo aquí — está en el archivo que has guardado.
+Es|Common_Cancel|Cancelar
+Es|News_130_1|El historial ahora sobrevive a un reinicio y tiene un cuadro de búsqueda. Solo se conserva el texto: en las opciones puedes vaciarlo o desactivarlo.
+Es|News_130_2|Ctrl+S guarda el texto reconocido como archivo de texto sin formato o Markdown.
+Es|News_130_3|Abre o arrastra varios archivos a la vez, o lee un PDF entero, y guarda todo en un solo archivo o uno por elemento.
+Ru|Tip_PdfAll|Распознать все страницы
+Ru|Tip_SaveText|Сохранить текст в файл (Ctrl+S)
+Ru|History_SearchPlaceholder|Поиск по результатам
+Ru|History_NoMatch|Ничего не найдено.
+Ru|History_Off|История отключена в параметрах.
+Ru|History_Clear|Очистить историю
+Ru|History_CopyItem|Копировать этот текст
+Ru|History_DeleteItem|Удалить эту запись
+Ru|Setting_KeepHistory|Сохранять историю между сеансами
+Ru|Setting_KeepHistory_Desc|Хранит последние 200 результатов, чтобы они остались после перезапуска. Сохраняется только текст, никогда изображения, в файле, принадлежащем Glyfo на этом устройстве. При отключении этот файл удаляется, а список сразу очищается.
+Ru|Status_NothingToSave|Нет текста для сохранения.
+Ru|Status_TextSaved|Текст сохранён как {0}.
+Ru|Status_TextSaveFailed|Не удалось сохранить текст: {0}
+Ru|Status_HistoryCleared|История очищена.
+Ru|Source_Batch|Файлов: {0}
+Ru|Source_PdfAll|{0}, все страницы
+Ru|FileType_Text|Обычный текст
+Ru|FileType_Markdown|Markdown
+Ru|Batch_Title|Распознавание нескольких файлов
+Ru|Batch_Progress|{0} из {1}
+Ru|Batch_DoneAll|Распознано: {0}.
+Ru|Batch_Cancelled|Остановлено после {0} из {1}.
+Ru|Batch_ItemFailed|Не удалось прочитать: {0}
+Ru|Batch_ItemEmpty|(нет текста)
+Ru|Batch_Save|Сохранить…
+Ru|Batch_CopyAll|Копировать всё
+Ru|Batch_Separate|Сохранять каждый элемент отдельным файлом
+Ru|Batch_SavedFolder|Сохранено файлов: {0} в {1}.
+Ru|Batch_TooLongForBox|Распознано: {0}. Текст слишком длинный, чтобы показать его здесь — он в сохранённом вами файле.
+Ru|Common_Cancel|Отмена
+Ru|News_130_1|История теперь переживает перезапуск, и у неё появилось поле поиска. Хранится только текст — в параметрах его можно очистить или отключить.
+Ru|News_130_2|Ctrl+S сохраняет распознанный текст в виде обычного текстового файла или файла Markdown.
+Ru|News_130_3|Открывайте или перетаскивайте несколько файлов сразу либо распознавайте PDF целиком и сохраняйте всё одним файлом или по файлу на элемент.
+Pt|Tip_PdfAll|Ler todas as páginas
+Pt|Tip_SaveText|Salvar o texto em um arquivo (Ctrl+S)
+Pt|History_SearchPlaceholder|Pesquisar nos resultados
+Pt|History_NoMatch|Nenhum resultado corresponde.
+Pt|History_Off|O histórico está desativado nas opções.
+Pt|History_Clear|Limpar o histórico
+Pt|History_CopyItem|Copiar este texto
+Pt|History_DeleteItem|Excluir esta entrada
+Pt|Setting_KeepHistory|Manter o histórico entre sessões
+Pt|Setting_KeepHistory_Desc|Mantém os últimos 200 resultados para que continuem lá depois de reiniciar. Só o texto é guardado, nunca as imagens, em um arquivo que pertence ao Glyfo neste dispositivo. Desativar isto exclui esse arquivo e esvazia a lista na hora.
+Pt|Status_NothingToSave|Não há texto para salvar.
+Pt|Status_TextSaved|Texto salvo como {0}.
+Pt|Status_TextSaveFailed|Não foi possível salvar o texto: {0}
+Pt|Status_HistoryCleared|Histórico limpo.
+Pt|Source_Batch|{0} arquivos
+Pt|Source_PdfAll|{0}, todas as páginas
+Pt|FileType_Text|Texto simples
+Pt|FileType_Markdown|Markdown
+Pt|Batch_Title|Lendo vários arquivos
+Pt|Batch_Progress|{0} de {1}
+Pt|Batch_DoneAll|{0} lidos.
+Pt|Batch_Cancelled|Parado após {0} de {1}.
+Pt|Batch_ItemFailed|Não foi possível ler: {0}
+Pt|Batch_ItemEmpty|(sem texto)
+Pt|Batch_Save|Salvar…
+Pt|Batch_CopyAll|Copiar tudo
+Pt|Batch_Separate|Salvar cada item em seu próprio arquivo
+Pt|Batch_SavedFolder|{0} arquivos salvos em {1}.
+Pt|Batch_TooLongForBox|{0} itens lidos. O texto é longo demais para ser mostrado aqui — ele está no arquivo que você salvou.
+Pt|Common_Cancel|Cancelar
+Pt|News_130_1|O histórico agora sobrevive a uma reinicialização e ganhou uma caixa de pesquisa. Só o texto é mantido — nas opções dá para esvaziá-lo ou desativá-lo.
+Pt|News_130_2|Ctrl+S salva o texto reconhecido como arquivo de texto simples ou Markdown.
+Pt|News_130_3|Abra ou arraste vários arquivos de uma vez, ou leia um PDF inteiro, e salve tudo em um único arquivo ou um por item.
+It|Tip_PdfAll|Leggi tutte le pagine
+It|Tip_SaveText|Salva il testo in un file (Ctrl+S)
+It|History_SearchPlaceholder|Cerca nei risultati
+It|History_NoMatch|Nessun risultato corrisponde.
+It|History_Off|La cronologia è disattivata nelle opzioni.
+It|History_Clear|Svuota la cronologia
+It|History_CopyItem|Copia questo testo
+It|History_DeleteItem|Elimina questa voce
+It|Setting_KeepHistory|Mantieni la cronologia tra le sessioni
+It|Setting_KeepHistory_Desc|Mantiene gli ultimi 200 risultati, così sono ancora lì dopo un riavvio. Viene salvato solo il testo, mai le immagini, in un file che appartiene a Glyfo su questo dispositivo. Disattivandolo, quel file viene eliminato e l'elenco si svuota subito.
+It|Status_NothingToSave|Non c'è testo da salvare.
+It|Status_TextSaved|Testo salvato come {0}.
+It|Status_TextSaveFailed|Impossibile salvare il testo: {0}
+It|Status_HistoryCleared|Cronologia svuotata.
+It|Source_Batch|{0} file
+It|Source_PdfAll|{0}, tutte le pagine
+It|FileType_Text|Testo semplice
+It|FileType_Markdown|Markdown
+It|Batch_Title|Lettura di più file
+It|Batch_Progress|{0} di {1}
+It|Batch_DoneAll|Letti {0}.
+It|Batch_Cancelled|Interrotto dopo {0} di {1}.
+It|Batch_ItemFailed|Impossibile leggere: {0}
+It|Batch_ItemEmpty|(nessun testo)
+It|Batch_Save|Salva…
+It|Batch_CopyAll|Copia tutto
+It|Batch_Separate|Salva ogni elemento in un file separato
+It|Batch_SavedFolder|Salvati {0} file in {1}.
+It|Batch_TooLongForBox|Letti {0} elementi. Il testo è troppo lungo per essere mostrato qui — si trova nel file che hai salvato.
+It|Common_Cancel|Annulla
+It|News_130_1|La cronologia ora sopravvive a un riavvio e ha una casella di ricerca. Viene conservato solo il testo: dalle opzioni puoi svuotarla o disattivarla.
+It|News_130_2|Ctrl+S salva il testo riconosciuto come file di testo semplice o Markdown.
+It|News_130_3|Apri o trascina più file alla volta, oppure leggi un intero PDF, e salva tutto in un unico file o uno per elemento.
+Nl|Tip_PdfAll|Alle pagina's lezen
+Nl|Tip_SaveText|De tekst opslaan in een bestand (Ctrl+S)
+Nl|History_SearchPlaceholder|Resultaten doorzoeken
+Nl|History_NoMatch|Geen resultaat komt overeen.
+Nl|History_Off|De geschiedenis staat uit in de opties.
+Nl|History_Clear|Geschiedenis wissen
+Nl|History_CopyItem|Deze tekst kopiëren
+Nl|History_DeleteItem|Dit item verwijderen
+Nl|Setting_KeepHistory|Geschiedenis tussen sessies bewaren
+Nl|Setting_KeepHistory_Desc|Bewaart de laatste 200 resultaten, zodat ze er na een herstart nog zijn. Alleen de tekst wordt bewaard, nooit de afbeeldingen, in een bestand dat op dit apparaat bij Glyfo hoort. Dit uitzetten verwijdert dat bestand en maakt de lijst meteen leeg.
+Nl|Status_NothingToSave|Er is geen tekst om op te slaan.
+Nl|Status_TextSaved|Tekst opgeslagen als {0}.
+Nl|Status_TextSaveFailed|De tekst kon niet worden opgeslagen: {0}
+Nl|Status_HistoryCleared|Geschiedenis gewist.
+Nl|Source_Batch|{0} bestanden
+Nl|Source_PdfAll|{0}, alle pagina's
+Nl|FileType_Text|Platte tekst
+Nl|FileType_Markdown|Markdown
+Nl|Batch_Title|Meerdere bestanden lezen
+Nl|Batch_Progress|{0} van {1}
+Nl|Batch_DoneAll|{0} gelezen.
+Nl|Batch_Cancelled|Gestopt na {0} van {1}.
+Nl|Batch_ItemFailed|Kon niet worden gelezen: {0}
+Nl|Batch_ItemEmpty|(geen tekst)
+Nl|Batch_Save|Opslaan…
+Nl|Batch_CopyAll|Alles kopiëren
+Nl|Batch_Separate|Elk item als eigen bestand opslaan
+Nl|Batch_SavedFolder|{0} bestanden opgeslagen in {1}.
+Nl|Batch_TooLongForBox|{0} items gelezen. De tekst is te lang om hier te tonen — hij staat in het bestand dat je hebt opgeslagen.
+Nl|Common_Cancel|Annuleren
+Nl|News_130_1|De geschiedenis overleeft nu een herstart en heeft een zoekvak gekregen. Alleen de tekst wordt bewaard — in de opties kun je hem legen of uitzetten.
+Nl|News_130_2|Ctrl+S slaat de herkende tekst op als plattetekst- of Markdown-bestand.
+Nl|News_130_3|Open of sleep meerdere bestanden tegelijk, of lees een hele pdf, en sla alles op als één bestand of één per item.
+Pl|Tip_PdfAll|Odczytaj wszystkie strony
+Pl|Tip_SaveText|Zapisz tekst do pliku (Ctrl+S)
+Pl|History_SearchPlaceholder|Szukaj w wynikach
+Pl|History_NoMatch|Żaden wynik nie pasuje.
+Pl|History_Off|Historia jest wyłączona w opcjach.
+Pl|History_Clear|Wyczyść historię
+Pl|History_CopyItem|Kopiuj ten tekst
+Pl|History_DeleteItem|Usuń ten wpis
+Pl|Setting_KeepHistory|Zachowuj historię między sesjami
+Pl|Setting_KeepHistory_Desc|Zachowuje ostatnie 200 wyników, więc są dostępne także po ponownym uruchomieniu. Zapisywany jest tylko tekst, nigdy obrazy, w pliku należącym do Glyfo na tym urządzeniu. Wyłączenie tej opcji usuwa ten plik i od razu czyści listę.
+Pl|Status_NothingToSave|Nie ma tekstu do zapisania.
+Pl|Status_TextSaved|Tekst zapisany jako {0}.
+Pl|Status_TextSaveFailed|Nie udało się zapisać tekstu: {0}
+Pl|Status_HistoryCleared|Historia wyczyszczona.
+Pl|Source_Batch|Pliki: {0}
+Pl|Source_PdfAll|{0}, wszystkie strony
+Pl|FileType_Text|Zwykły tekst
+Pl|FileType_Markdown|Markdown
+Pl|Batch_Title|Odczytywanie wielu plików
+Pl|Batch_Progress|{0} z {1}
+Pl|Batch_DoneAll|Odczytano: {0}.
+Pl|Batch_Cancelled|Zatrzymano po {0} z {1}.
+Pl|Batch_ItemFailed|Nie udało się odczytać: {0}
+Pl|Batch_ItemEmpty|(brak tekstu)
+Pl|Batch_Save|Zapisz…
+Pl|Batch_CopyAll|Kopiuj wszystko
+Pl|Batch_Separate|Zapisz każdą pozycję w osobnym pliku
+Pl|Batch_SavedFolder|Zapisano {0} plików w {1}.
+Pl|Batch_TooLongForBox|Odczytano {0} pozycji. Tekst jest za długi, aby go tu pokazać — jest w pliku, który zapisano.
+Pl|Common_Cancel|Anuluj
+Pl|News_130_1|Historia przetrwa teraz ponowne uruchomienie i ma pole wyszukiwania. Zachowywany jest tylko tekst — w opcjach można ją wyczyścić lub wyłączyć.
+Pl|News_130_2|Ctrl+S zapisuje rozpoznany tekst jako plik zwykłego tekstu lub Markdown.
+Pl|News_130_3|Otwórz albo przeciągnij kilka plików naraz lub odczytaj cały PDF i zapisz całość w jednym pliku albo po jednym na pozycję.
+Tr|Tip_PdfAll|Tüm sayfaları oku
+Tr|Tip_SaveText|Metni bir dosyaya kaydet (Ctrl+S)
+Tr|History_SearchPlaceholder|Sonuçlarda ara
+Tr|History_NoMatch|Eşleşen sonuç yok.
+Tr|History_Off|Geçmiş seçeneklerde kapalı.
+Tr|History_Clear|Geçmişi temizle
+Tr|History_CopyItem|Bu metni kopyala
+Tr|History_DeleteItem|Bu kaydı sil
+Tr|Setting_KeepHistory|Geçmişi oturumlar arasında sakla
+Tr|Setting_KeepHistory_Desc|Son 200 sonucu saklar, böylece yeniden başlattıktan sonra da oradadırlar. Yalnızca metin saklanır, görüntüler asla saklanmaz; bu cihazda Glyfo'ya ait bir dosyada tutulur. Bunu kapatmak o dosyayı siler ve listeyi hemen boşaltır.
+Tr|Status_NothingToSave|Kaydedilecek metin yok.
+Tr|Status_TextSaved|Metin {0} olarak kaydedildi.
+Tr|Status_TextSaveFailed|Metin kaydedilemedi: {0}
+Tr|Status_HistoryCleared|Geçmiş temizlendi.
+Tr|Source_Batch|{0} dosya
+Tr|Source_PdfAll|{0}, tüm sayfalar
+Tr|FileType_Text|Düz metin
+Tr|FileType_Markdown|Markdown
+Tr|Batch_Title|Birden çok dosya okunuyor
+Tr|Batch_Progress|{0} / {1}
+Tr|Batch_DoneAll|{0} okundu.
+Tr|Batch_Cancelled|{1} öğeden {0} tanesinden sonra durduruldu.
+Tr|Batch_ItemFailed|Okunamadı: {0}
+Tr|Batch_ItemEmpty|(metin yok)
+Tr|Batch_Save|Kaydet…
+Tr|Batch_CopyAll|Tümünü kopyala
+Tr|Batch_Separate|Her öğeyi ayrı bir dosya olarak kaydet
+Tr|Batch_SavedFolder|{0} dosya {1} klasörüne kaydedildi.
+Tr|Batch_TooLongForBox|{0} öğe okundu. Metin burada gösterilemeyecek kadar uzun — kaydettiğiniz dosyanın içinde.
+Tr|Common_Cancel|İptal
+Tr|News_130_1|Geçmiş artık yeniden başlatmayı atlatıyor ve bir arama kutusu var. Yalnızca metin saklanır — seçeneklerden boşaltılabilir veya kapatılabilir.
+Tr|News_130_2|Ctrl+S tanınan metni düz metin veya Markdown dosyası olarak kaydeder.
+Tr|News_130_3|Birden çok dosyayı bir kerede açın veya sürükleyin ya da bir PDF belgesinin tamamını okuyun; tümünü tek bir dosya veya öğe başına bir dosya olarak kaydedin.
+Uk|Tip_PdfAll|Розпізнати всі сторінки
+Uk|Tip_SaveText|Зберегти текст у файл (Ctrl+S)
+Uk|History_SearchPlaceholder|Пошук у результатах
+Uk|History_NoMatch|Немає збігів.
+Uk|History_Off|Історію вимкнено в параметрах.
+Uk|History_Clear|Очистити історію
+Uk|History_CopyItem|Копіювати цей текст
+Uk|History_DeleteItem|Видалити цей запис
+Uk|Setting_KeepHistory|Зберігати історію між сеансами
+Uk|Setting_KeepHistory_Desc|Зберігає останні 200 результатів, щоб вони лишалися після перезапуску. Зберігається лише текст, ніколи зображення, у файлі, що належить Glyfo на цьому пристрої. Якщо вимкнути, цей файл буде видалено, а список одразу очищено.
+Uk|Status_NothingToSave|Немає тексту для збереження.
+Uk|Status_TextSaved|Текст збережено як {0}.
+Uk|Status_TextSaveFailed|Не вдалося зберегти текст: {0}
+Uk|Status_HistoryCleared|Історію очищено.
+Uk|Source_Batch|Файлів: {0}
+Uk|Source_PdfAll|{0}, усі сторінки
+Uk|FileType_Text|Звичайний текст
+Uk|FileType_Markdown|Markdown
+Uk|Batch_Title|Розпізнавання кількох файлів
+Uk|Batch_Progress|{0} з {1}
+Uk|Batch_DoneAll|Розпізнано: {0}.
+Uk|Batch_Cancelled|Зупинено після {0} з {1}.
+Uk|Batch_ItemFailed|Не вдалося прочитати: {0}
+Uk|Batch_ItemEmpty|(немає тексту)
+Uk|Batch_Save|Зберегти…
+Uk|Batch_CopyAll|Копіювати все
+Uk|Batch_Separate|Зберігати кожен елемент окремим файлом
+Uk|Batch_SavedFolder|Збережено файлів: {0} у {1}.
+Uk|Batch_TooLongForBox|Розпізнано: {0}. Текст задовгий, щоб показати його тут — він у збереженому вами файлі.
+Uk|Common_Cancel|Скасувати
+Uk|News_130_1|Історія тепер переживає перезапуск, і в неї з'явилося поле пошуку. Зберігається лише текст — у параметрах її можна очистити або вимкнути.
+Uk|News_130_2|Ctrl+S зберігає розпізнаний текст як звичайний текстовий файл або файл Markdown.
+Uk|News_130_3|Відкривайте чи перетягуйте кілька файлів одразу або розпізнавайте PDF цілком і зберігайте все одним файлом чи по файлу на елемент.
+Cs|Tip_PdfAll|Načíst všechny stránky
+Cs|Tip_SaveText|Uložit text do souboru (Ctrl+S)
+Cs|History_SearchPlaceholder|Hledat ve výsledcích
+Cs|History_NoMatch|Žádný výsledek neodpovídá.
+Cs|History_Off|Historie je v možnostech vypnutá.
+Cs|History_Clear|Vymazat historii
+Cs|History_CopyItem|Zkopírovat tento text
+Cs|History_DeleteItem|Odstranit tuto položku
+Cs|Setting_KeepHistory|Zachovávat historii mezi relacemi
+Cs|Setting_KeepHistory_Desc|Uchová posledních 200 výsledků, takže tu jsou i po restartu. Ukládá se jen text, nikdy obrázky, do souboru, který na tomto zařízení patří Glyfo. Vypnutím se tento soubor smaže a seznam se ihned vyprázdní.
+Cs|Status_NothingToSave|Není co uložit.
+Cs|Status_TextSaved|Text uložen jako {0}.
+Cs|Status_TextSaveFailed|Text se nepodařilo uložit: {0}
+Cs|Status_HistoryCleared|Historie vymazána.
+Cs|Source_Batch|Souborů: {0}
+Cs|Source_PdfAll|{0}, všechny stránky
+Cs|FileType_Text|Prostý text
+Cs|FileType_Markdown|Markdown
+Cs|Batch_Title|Načítání více souborů
+Cs|Batch_Progress|{0} z {1}
+Cs|Batch_DoneAll|Načteno: {0}.
+Cs|Batch_Cancelled|Zastaveno po {0} z {1}.
+Cs|Batch_ItemFailed|Nepodařilo se načíst: {0}
+Cs|Batch_ItemEmpty|(žádný text)
+Cs|Batch_Save|Uložit…
+Cs|Batch_CopyAll|Kopírovat vše
+Cs|Batch_Separate|Uložit každou položku do vlastního souboru
+Cs|Batch_SavedFolder|Uloženo {0} souborů do {1}.
+Cs|Batch_TooLongForBox|Načteno {0} položek. Text je příliš dlouhý, než aby se sem vešel — je v souboru, který jste uložili.
+Cs|Common_Cancel|Zrušit
+Cs|News_130_1|Historie teď přežije restart a má vyhledávací pole. Uchovává se jen text — v možnostech ji lze vyprázdnit nebo vypnout.
+Cs|News_130_2|Ctrl+S uloží rozpoznaný text jako soubor prostého textu nebo Markdown.
+Cs|News_130_3|Otevřete nebo přetáhněte několik souborů najednou, případně načtěte celé PDF, a uložte vše do jednoho souboru nebo po jednom na položku.
+Ro|Tip_PdfAll|Citește toate paginile
+Ro|Tip_SaveText|Salvează textul într-un fișier (Ctrl+S)
+Ro|History_SearchPlaceholder|Caută în rezultate
+Ro|History_NoMatch|Niciun rezultat nu se potrivește.
+Ro|History_Off|Istoricul este dezactivat în opțiuni.
+Ro|History_Clear|Golește istoricul
+Ro|History_CopyItem|Copiază acest text
+Ro|History_DeleteItem|Șterge această intrare
+Ro|Setting_KeepHistory|Păstrează istoricul între sesiuni
+Ro|Setting_KeepHistory_Desc|Păstrează ultimele 200 de rezultate, ca să fie acolo și după o repornire. Se salvează doar textul, niciodată imaginile, într-un fișier care aparține de Glyfo pe acest dispozitiv. Dezactivarea șterge acel fișier și golește lista imediat.
+Ro|Status_NothingToSave|Nu există text de salvat.
+Ro|Status_TextSaved|Text salvat ca {0}.
+Ro|Status_TextSaveFailed|Textul nu a putut fi salvat: {0}
+Ro|Status_HistoryCleared|Istoric golit.
+Ro|Source_Batch|{0} fișiere
+Ro|Source_PdfAll|{0}, toate paginile
+Ro|FileType_Text|Text simplu
+Ro|FileType_Markdown|Markdown
+Ro|Batch_Title|Se citesc mai multe fișiere
+Ro|Batch_Progress|{0} din {1}
+Ro|Batch_DoneAll|Citite: {0}.
+Ro|Batch_Cancelled|Oprit după {0} din {1}.
+Ro|Batch_ItemFailed|Nu a putut fi citit: {0}
+Ro|Batch_ItemEmpty|(fără text)
+Ro|Batch_Save|Salvează…
+Ro|Batch_CopyAll|Copiază tot
+Ro|Batch_Separate|Salvează fiecare element în fișierul său
+Ro|Batch_SavedFolder|{0} fișiere salvate în {1}.
+Ro|Batch_TooLongForBox|Au fost citite {0} elemente. Textul este prea lung ca să fie afișat aici — se află în fișierul pe care l-ai salvat.
+Ro|Common_Cancel|Anulare
+Ro|News_130_1|Istoricul supraviețuiește acum unei reporniri și are o casetă de căutare. Se păstrează doar textul — din opțiuni poate fi golit sau dezactivat.
+Ro|News_130_2|Ctrl+S salvează textul recunoscut ca fișier text simplu sau Markdown.
+Ro|News_130_3|Deschide sau trage mai multe fișiere odată ori citește un PDF întreg și salvează tot într-un singur fișier sau câte unul pentru fiecare element.
+Hu|Tip_PdfAll|Az összes oldal beolvasása
+Hu|Tip_SaveText|A szöveg mentése fájlba (Ctrl+S)
+Hu|History_SearchPlaceholder|Keresés a találatok közt
+Hu|History_NoMatch|Nincs találat.
+Hu|History_Off|Az előzmények ki vannak kapcsolva a beállításokban.
+Hu|History_Clear|Előzmények törlése
+Hu|History_CopyItem|Ennek a szövegnek a másolása
+Hu|History_DeleteItem|Ennek a bejegyzésnek a törlése
+Hu|Setting_KeepHistory|Előzmények megőrzése munkamenetek között
+Hu|Setting_KeepHistory_Desc|Megőrzi az utolsó 200 találatot, így újraindítás után is megvannak. Csak a szöveg tárolódik, a képek soha, egy ezen az eszközön a Glyfóhoz tartozó fájlban. Kikapcsoláskor ez a fájl törlődik, a lista pedig azonnal kiürül.
+Hu|Status_NothingToSave|Nincs menthető szöveg.
+Hu|Status_TextSaved|A szöveg mentve {0} néven.
+Hu|Status_TextSaveFailed|A szöveget nem sikerült menteni: {0}
+Hu|Status_HistoryCleared|Előzmények törölve.
+Hu|Source_Batch|{0} fájl
+Hu|Source_PdfAll|{0}, összes oldal
+Hu|FileType_Text|Egyszerű szöveg
+Hu|FileType_Markdown|Markdown
+Hu|Batch_Title|Több fájl beolvasása
+Hu|Batch_Progress|{0} / {1}
+Hu|Batch_DoneAll|{0} beolvasva.
+Hu|Batch_Cancelled|Leállítva {1} elemből {0} után.
+Hu|Batch_ItemFailed|Nem sikerült beolvasni: {0}
+Hu|Batch_ItemEmpty|(nincs szöveg)
+Hu|Batch_Save|Mentés…
+Hu|Batch_CopyAll|Összes másolása
+Hu|Batch_Separate|Minden elem külön fájlba mentése
+Hu|Batch_SavedFolder|{0} fájl mentve ide: {1}.
+Hu|Batch_TooLongForBox|{0} elem beolvasva. A szöveg túl hosszú ahhoz, hogy itt megjelenjen — a most mentett fájlban van.
+Hu|Common_Cancel|Mégse
+Hu|News_130_1|Az előzmények most már túlélik az újraindítást, és keresőmező is került hozzájuk. Csak a szöveg marad meg — a beállításokban kiüríthető vagy kikapcsolható.
+Hu|News_130_2|A Ctrl+S egyszerű szöveges vagy Markdown fájlba menti a felismert szöveget.
+Hu|News_130_3|Nyisson meg vagy húzzon be több fájlt egyszerre, vagy olvasson be egy teljes PDF-et, majd mentse az egészet egy fájlba vagy elemenként egybe.
+El|Tip_PdfAll|Ανάγνωση όλων των σελίδων
+El|Tip_SaveText|Αποθήκευση του κειμένου σε αρχείο (Ctrl+S)
+El|History_SearchPlaceholder|Αναζήτηση στα αποτελέσματα
+El|History_NoMatch|Κανένα αποτέλεσμα δεν ταιριάζει.
+El|History_Off|Το ιστορικό είναι απενεργοποιημένο στις επιλογές.
+El|History_Clear|Εκκαθάριση ιστορικού
+El|History_CopyItem|Αντιγραφή αυτού του κειμένου
+El|History_DeleteItem|Διαγραφή αυτής της καταχώρισης
+El|Setting_KeepHistory|Διατήρηση ιστορικού μεταξύ συνεδριών
+El|Setting_KeepHistory_Desc|Διατηρεί τα τελευταία 200 αποτελέσματα, ώστε να είναι εκεί και μετά την επανεκκίνηση. Αποθηκεύεται μόνο το κείμενο, ποτέ οι εικόνες, σε ένα αρχείο που ανήκει στο Glyfo σε αυτή τη συσκευή. Η απενεργοποίηση διαγράφει αυτό το αρχείο και αδειάζει αμέσως τη λίστα.
+El|Status_NothingToSave|Δεν υπάρχει κείμενο για αποθήκευση.
+El|Status_TextSaved|Το κείμενο αποθηκεύτηκε ως {0}.
+El|Status_TextSaveFailed|Δεν ήταν δυνατή η αποθήκευση του κειμένου: {0}
+El|Status_HistoryCleared|Το ιστορικό εκκαθαρίστηκε.
+El|Source_Batch|{0} αρχεία
+El|Source_PdfAll|{0}, όλες οι σελίδες
+El|FileType_Text|Απλό κείμενο
+El|FileType_Markdown|Markdown
+El|Batch_Title|Ανάγνωση πολλών αρχείων
+El|Batch_Progress|{0} από {1}
+El|Batch_DoneAll|Διαβάστηκαν {0}.
+El|Batch_Cancelled|Σταμάτησε μετά από {0} από {1}.
+El|Batch_ItemFailed|Δεν ήταν δυνατή η ανάγνωση: {0}
+El|Batch_ItemEmpty|(χωρίς κείμενο)
+El|Batch_Save|Αποθήκευση…
+El|Batch_CopyAll|Αντιγραφή όλων
+El|Batch_Separate|Αποθήκευση κάθε στοιχείου σε δικό του αρχείο
+El|Batch_SavedFolder|Αποθηκεύτηκαν {0} αρχεία στο {1}.
+El|Batch_TooLongForBox|Διαβάστηκαν {0} στοιχεία. Το κείμενο είναι πολύ μεγάλο για να εμφανιστεί εδώ — βρίσκεται στο αρχείο που αποθηκεύσατε.
+El|Common_Cancel|Άκυρο
+El|News_130_1|Το ιστορικό επιβιώνει πλέον μιας επανεκκίνησης και απέκτησε πλαίσιο αναζήτησης. Διατηρείται μόνο το κείμενο — από τις επιλογές μπορεί να αδειάσει ή να απενεργοποιηθεί.
+El|News_130_2|Το Ctrl+S αποθηκεύει το αναγνωρισμένο κείμενο ως αρχείο απλού κειμένου ή Markdown.
+El|News_130_3|Ανοίξτε ή σύρετε πολλά αρχεία ταυτόχρονα, ή διαβάστε ένα ολόκληρο PDF, και αποθηκεύστε τα όλα σε ένα αρχείο ή ένα ανά στοιχείο.
+Sv|Tip_PdfAll|Läs alla sidor
+Sv|Tip_SaveText|Spara texten till en fil (Ctrl+S)
+Sv|History_SearchPlaceholder|Sök bland resultaten
+Sv|History_NoMatch|Inget resultat matchar.
+Sv|History_Off|Historiken är avstängd i alternativen.
+Sv|History_Clear|Rensa historiken
+Sv|History_CopyItem|Kopiera den här texten
+Sv|History_DeleteItem|Ta bort den här posten
+Sv|Setting_KeepHistory|Behåll historiken mellan sessioner
+Sv|Setting_KeepHistory_Desc|Behåller de senaste 200 resultaten så att de finns kvar efter en omstart. Bara texten sparas, aldrig bilderna, i en fil som hör till Glyfo på den här enheten. Stänger du av det tas filen bort och listan töms direkt.
+Sv|Status_NothingToSave|Det finns ingen text att spara.
+Sv|Status_TextSaved|Texten sparades som {0}.
+Sv|Status_TextSaveFailed|Det gick inte att spara texten: {0}
+Sv|Status_HistoryCleared|Historiken rensades.
+Sv|Source_Batch|{0} filer
+Sv|Source_PdfAll|{0}, alla sidor
+Sv|FileType_Text|Oformaterad text
+Sv|FileType_Markdown|Markdown
+Sv|Batch_Title|Läser flera filer
+Sv|Batch_Progress|{0} av {1}
+Sv|Batch_DoneAll|Läste {0}.
+Sv|Batch_Cancelled|Stoppades efter {0} av {1}.
+Sv|Batch_ItemFailed|Kunde inte läsas: {0}
+Sv|Batch_ItemEmpty|(ingen text)
+Sv|Batch_Save|Spara…
+Sv|Batch_CopyAll|Kopiera allt
+Sv|Batch_Separate|Spara varje objekt som en egen fil
+Sv|Batch_SavedFolder|Sparade {0} filer i {1}.
+Sv|Batch_TooLongForBox|Läste {0} objekt. Texten är för lång för att visas här — den finns i filen du sparade.
+Sv|Common_Cancel|Avbryt
+Sv|News_130_1|Historiken överlever nu en omstart och har fått en sökruta. Bara texten behålls — i alternativen kan du tömma den eller stänga av den.
+Sv|News_130_2|Ctrl+S sparar den igenkända texten som en oformaterad text- eller Markdown-fil.
+Sv|News_130_3|Öppna eller släpp flera filer på en gång, eller läs en hel PDF, och spara alltihop som en fil eller en per objekt.
+Da|Tip_PdfAll|Læs alle sider
+Da|Tip_SaveText|Gem teksten i en fil (Ctrl+S)
+Da|History_SearchPlaceholder|Søg i resultaterne
+Da|History_NoMatch|Ingen resultater matcher.
+Da|History_Off|Historikken er slået fra i indstillingerne.
+Da|History_Clear|Ryd historikken
+Da|History_CopyItem|Kopiér denne tekst
+Da|History_DeleteItem|Slet denne post
+Da|Setting_KeepHistory|Behold historikken mellem sessioner
+Da|Setting_KeepHistory_Desc|Beholder de seneste 200 resultater, så de stadig er der efter en genstart. Kun teksten gemmes, aldrig billederne, i en fil der tilhører Glyfo på denne enhed. Slår du det fra, slettes filen, og listen tømmes med det samme.
+Da|Status_NothingToSave|Der er ingen tekst at gemme.
+Da|Status_TextSaved|Teksten er gemt som {0}.
+Da|Status_TextSaveFailed|Teksten kunne ikke gemmes: {0}
+Da|Status_HistoryCleared|Historikken er ryddet.
+Da|Source_Batch|{0} filer
+Da|Source_PdfAll|{0}, alle sider
+Da|FileType_Text|Almindelig tekst
+Da|FileType_Markdown|Markdown
+Da|Batch_Title|Læser flere filer
+Da|Batch_Progress|{0} af {1}
+Da|Batch_DoneAll|Læste {0}.
+Da|Batch_Cancelled|Stoppet efter {0} af {1}.
+Da|Batch_ItemFailed|Kunne ikke læses: {0}
+Da|Batch_ItemEmpty|(ingen tekst)
+Da|Batch_Save|Gem…
+Da|Batch_CopyAll|Kopiér alt
+Da|Batch_Separate|Gem hvert element som sin egen fil
+Da|Batch_SavedFolder|Gemte {0} filer i {1}.
+Da|Batch_TooLongForBox|Læste {0} elementer. Teksten er for lang til at blive vist her — den er i den fil, du gemte.
+Da|Common_Cancel|Annuller
+Da|News_130_1|Historikken overlever nu en genstart og har fået et søgefelt. Kun teksten beholdes — i indstillingerne kan den tømmes eller slås fra.
+Da|News_130_2|Ctrl+S gemmer den genkendte tekst som en almindelig tekst- eller Markdown-fil.
+Da|News_130_3|Åbn eller træk flere filer ad gangen, eller læs en hel PDF, og gem det hele som én fil eller én pr. element.
+Nb|Tip_PdfAll|Les alle sider
+Nb|Tip_SaveText|Lagre teksten til en fil (Ctrl+S)
+Nb|History_SearchPlaceholder|Søk i resultatene
+Nb|History_NoMatch|Ingen resultater samsvarer.
+Nb|History_Off|Historikken er slått av i alternativene.
+Nb|History_Clear|Tøm historikken
+Nb|History_CopyItem|Kopier denne teksten
+Nb|History_DeleteItem|Slett denne oppføringen
+Nb|Setting_KeepHistory|Behold historikken mellom økter
+Nb|Setting_KeepHistory_Desc|Beholder de siste 200 resultatene, slik at de fortsatt er der etter en omstart. Bare teksten lagres, aldri bildene, i en fil som hører til Glyfo på denne enheten. Slår du det av, slettes filen og listen tømmes umiddelbart.
+Nb|Status_NothingToSave|Det er ingen tekst å lagre.
+Nb|Status_TextSaved|Teksten er lagret som {0}.
+Nb|Status_TextSaveFailed|Teksten kunne ikke lagres: {0}
+Nb|Status_HistoryCleared|Historikken er tømt.
+Nb|Source_Batch|{0} filer
+Nb|Source_PdfAll|{0}, alle sider
+Nb|FileType_Text|Ren tekst
+Nb|FileType_Markdown|Markdown
+Nb|Batch_Title|Leser flere filer
+Nb|Batch_Progress|{0} av {1}
+Nb|Batch_DoneAll|Leste {0}.
+Nb|Batch_Cancelled|Stoppet etter {0} av {1}.
+Nb|Batch_ItemFailed|Kunne ikke leses: {0}
+Nb|Batch_ItemEmpty|(ingen tekst)
+Nb|Batch_Save|Lagre…
+Nb|Batch_CopyAll|Kopier alt
+Nb|Batch_Separate|Lagre hvert element som sin egen fil
+Nb|Batch_SavedFolder|Lagret {0} filer i {1}.
+Nb|Batch_TooLongForBox|Leste {0} elementer. Teksten er for lang til å vises her — den ligger i filen du lagret.
+Nb|Common_Cancel|Avbryt
+Nb|News_130_1|Historikken overlever nå en omstart, og den har fått et søkefelt. Bare teksten beholdes — i alternativene kan den tømmes eller slås av.
+Nb|News_130_2|Ctrl+S lagrer den gjenkjente teksten som en ren tekst- eller Markdown-fil.
+Nb|News_130_3|Åpne eller slipp flere filer om gangen, eller les en hel PDF, og lagre alt som én fil eller én per element.
+Fi|Tip_PdfAll|Lue kaikki sivut
+Fi|Tip_SaveText|Tallenna teksti tiedostoon (Ctrl+S)
+Fi|History_SearchPlaceholder|Hae tuloksista
+Fi|History_NoMatch|Mikään tulos ei vastaa hakua.
+Fi|History_Off|Historia on poistettu käytöstä asetuksissa.
+Fi|History_Clear|Tyhjennä historia
+Fi|History_CopyItem|Kopioi tämä teksti
+Fi|History_DeleteItem|Poista tämä merkintä
+Fi|Setting_KeepHistory|Säilytä historia istuntojen välillä
+Fi|Setting_KeepHistory_Desc|Säilyttää 200 viimeisintä tulosta, joten ne ovat tallella uudelleenkäynnistyksen jälkeenkin. Vain teksti tallennetaan, ei koskaan kuvia, tiedostoon joka kuuluu Glyfolle tällä laitteella. Tämän poistaminen käytöstä poistaa tiedoston ja tyhjentää luettelon heti.
+Fi|Status_NothingToSave|Tallennettavaa tekstiä ei ole.
+Fi|Status_TextSaved|Teksti tallennettiin nimellä {0}.
+Fi|Status_TextSaveFailed|Tekstiä ei voitu tallentaa: {0}
+Fi|Status_HistoryCleared|Historia tyhjennetty.
+Fi|Source_Batch|{0} tiedostoa
+Fi|Source_PdfAll|{0}, kaikki sivut
+Fi|FileType_Text|Pelkkä teksti
+Fi|FileType_Markdown|Markdown
+Fi|Batch_Title|Luetaan useita tiedostoja
+Fi|Batch_Progress|{0} / {1}
+Fi|Batch_DoneAll|Luettu {0}.
+Fi|Batch_Cancelled|Pysäytetty kohdassa {0} / {1}.
+Fi|Batch_ItemFailed|Ei voitu lukea: {0}
+Fi|Batch_ItemEmpty|(ei tekstiä)
+Fi|Batch_Save|Tallenna…
+Fi|Batch_CopyAll|Kopioi kaikki
+Fi|Batch_Separate|Tallenna jokainen kohde omaksi tiedostokseen
+Fi|Batch_SavedFolder|Tallennettiin {0} tiedostoa kansioon {1}.
+Fi|Batch_TooLongForBox|Luettiin {0} kohdetta. Teksti on liian pitkä näytettäväksi tässä — se on tallentamassasi tiedostossa.
+Fi|Common_Cancel|Peruuta
+Fi|News_130_1|Historia säilyy nyt uudelleenkäynnistyksen yli, ja sille on hakukenttä. Vain teksti säilytetään — asetuksista sen voi tyhjentää tai poistaa käytöstä.
+Fi|News_130_2|Ctrl+S tallentaa tunnistetun tekstin pelkkänä tekstinä tai Markdown-tiedostona.
+Fi|News_130_3|Avaa tai pudota useita tiedostoja kerralla tai lue koko PDF, ja tallenna kaikki yhteen tiedostoon tai yksi kohde per tiedosto.
+Id|Tip_PdfAll|Baca semua halaman
+Id|Tip_SaveText|Simpan teks ke berkas (Ctrl+S)
+Id|History_SearchPlaceholder|Cari di hasil
+Id|History_NoMatch|Tidak ada hasil yang cocok.
+Id|History_Off|Riwayat dimatikan di Opsi.
+Id|History_Clear|Bersihkan riwayat
+Id|History_CopyItem|Salin teks ini
+Id|History_DeleteItem|Hapus entri ini
+Id|Setting_KeepHistory|Simpan riwayat antar sesi
+Id|Setting_KeepHistory_Desc|Menyimpan 200 hasil terakhir sehingga tetap ada setelah dimulai ulang. Hanya teks yang disimpan, tidak pernah gambar, dalam berkas milik Glyfo di perangkat ini. Mematikannya akan menghapus berkas itu dan mengosongkan daftar seketika.
+Id|Status_NothingToSave|Tidak ada teks untuk disimpan.
+Id|Status_TextSaved|Teks disimpan sebagai {0}.
+Id|Status_TextSaveFailed|Teks tidak dapat disimpan: {0}
+Id|Status_HistoryCleared|Riwayat dibersihkan.
+Id|Source_Batch|{0} berkas
+Id|Source_PdfAll|{0}, semua halaman
+Id|FileType_Text|Teks biasa
+Id|FileType_Markdown|Markdown
+Id|Batch_Title|Membaca beberapa berkas
+Id|Batch_Progress|{0} dari {1}
+Id|Batch_DoneAll|{0} dibaca.
+Id|Batch_Cancelled|Dihentikan setelah {0} dari {1}.
+Id|Batch_ItemFailed|Tidak dapat dibaca: {0}
+Id|Batch_ItemEmpty|(tidak ada teks)
+Id|Batch_Save|Simpan…
+Id|Batch_CopyAll|Salin semua
+Id|Batch_Separate|Simpan setiap item sebagai berkas tersendiri
+Id|Batch_SavedFolder|{0} berkas disimpan ke {1}.
+Id|Batch_TooLongForBox|{0} item dibaca. Teksnya terlalu panjang untuk ditampilkan di sini — ada di berkas yang baru Anda simpan.
+Id|Common_Cancel|Batal
+Id|News_130_1|Riwayat kini bertahan setelah dimulai ulang, dan ada kotak pencarian untuknya. Hanya teks yang disimpan — di Opsi riwayat bisa dikosongkan atau dimatikan.
+Id|News_130_2|Ctrl+S menyimpan teks hasil pengenalan sebagai berkas teks biasa atau Markdown.
+Id|News_130_3|Buka atau seret beberapa berkas sekaligus, atau baca satu PDF penuh, lalu simpan semuanya sebagai satu berkas atau satu berkas per item.
+Ms|Tip_PdfAll|Baca semua halaman
+Ms|Tip_SaveText|Simpan teks ke fail (Ctrl+S)
+Ms|History_SearchPlaceholder|Cari dalam keputusan
+Ms|History_NoMatch|Tiada keputusan yang sepadan.
+Ms|History_Off|Sejarah dimatikan dalam Pilihan.
+Ms|History_Clear|Kosongkan sejarah
+Ms|History_CopyItem|Salin teks ini
+Ms|History_DeleteItem|Padam entri ini
+Ms|Setting_KeepHistory|Simpan sejarah antara sesi
+Ms|Setting_KeepHistory_Desc|Menyimpan 200 keputusan terakhir supaya ia masih ada selepas dimulakan semula. Hanya teks disimpan, tidak sekali-kali imej, dalam fail milik Glyfo pada peranti ini. Mematikannya akan memadam fail itu dan mengosongkan senarai serta-merta.
+Ms|Status_NothingToSave|Tiada teks untuk disimpan.
+Ms|Status_TextSaved|Teks disimpan sebagai {0}.
+Ms|Status_TextSaveFailed|Teks tidak dapat disimpan: {0}
+Ms|Status_HistoryCleared|Sejarah dikosongkan.
+Ms|Source_Batch|{0} fail
+Ms|Source_PdfAll|{0}, semua halaman
+Ms|FileType_Text|Teks biasa
+Ms|FileType_Markdown|Markdown
+Ms|Batch_Title|Membaca beberapa fail
+Ms|Batch_Progress|{0} daripada {1}
+Ms|Batch_DoneAll|{0} dibaca.
+Ms|Batch_Cancelled|Dihentikan selepas {0} daripada {1}.
+Ms|Batch_ItemFailed|Tidak dapat dibaca: {0}
+Ms|Batch_ItemEmpty|(tiada teks)
+Ms|Batch_Save|Simpan…
+Ms|Batch_CopyAll|Salin semua
+Ms|Batch_Separate|Simpan setiap item sebagai fail tersendiri
+Ms|Batch_SavedFolder|{0} fail disimpan ke {1}.
+Ms|Batch_TooLongForBox|{0} item dibaca. Teksnya terlalu panjang untuk dipaparkan di sini — ia ada dalam fail yang baru anda simpan.
+Ms|Common_Cancel|Batal
+Ms|News_130_1|Sejarah kini kekal selepas dimulakan semula, dan ada kotak carian untuknya. Hanya teks disimpan — dalam Pilihan ia boleh dikosongkan atau dimatikan.
+Ms|News_130_2|Ctrl+S menyimpan teks yang dikenali sebagai fail teks biasa atau Markdown.
+Ms|News_130_3|Buka atau seret beberapa fail sekaligus, atau baca satu PDF penuh, kemudian simpan semuanya sebagai satu fail atau satu fail bagi setiap item.
+Fil|Tip_PdfAll|Basahin ang lahat ng pahina
+Fil|Tip_SaveText|I-save ang teksto sa isang file (Ctrl+S)
+Fil|History_SearchPlaceholder|Maghanap sa mga resulta
+Fil|History_NoMatch|Walang resultang tumutugma.
+Fil|History_Off|Naka-off ang kasaysayan sa Mga Opsyon.
+Fil|History_Clear|I-clear ang kasaysayan
+Fil|History_CopyItem|Kopyahin ang tekstong ito
+Fil|History_DeleteItem|Tanggalin ang entry na ito
+Fil|Setting_KeepHistory|Panatilihin ang kasaysayan sa pagitan ng mga session
+Fil|Setting_KeepHistory_Desc|Pinapanatili ang huling 200 resulta para naroon pa rin ang mga ito pagkatapos mag-restart. Ang teksto lang ang nakaimbak, hindi kailanman ang mga larawan, sa isang file na pag-aari ng Glyfo sa device na ito. Kapag ito ay ini-off, buburahin ang file na iyon at agad na mauubos ang listahan.
+Fil|Status_NothingToSave|Walang tekstong mase-save.
+Fil|Status_TextSaved|Na-save ang teksto bilang {0}.
+Fil|Status_TextSaveFailed|Hindi na-save ang teksto: {0}
+Fil|Status_HistoryCleared|Na-clear ang kasaysayan.
+Fil|Source_Batch|{0} na file
+Fil|Source_PdfAll|{0}, lahat ng pahina
+Fil|FileType_Text|Payak na teksto
+Fil|FileType_Markdown|Markdown
+Fil|Batch_Title|Binabasa ang ilang file
+Fil|Batch_Progress|{0} sa {1}
+Fil|Batch_DoneAll|Nabasa ang {0}.
+Fil|Batch_Cancelled|Huminto pagkatapos ng {0} sa {1}.
+Fil|Batch_ItemFailed|Hindi mabasa: {0}
+Fil|Batch_ItemEmpty|(walang teksto)
+Fil|Batch_Save|I-save…
+Fil|Batch_CopyAll|Kopyahin lahat
+Fil|Batch_Separate|I-save ang bawat isa bilang sarili nitong file
+Fil|Batch_SavedFolder|Na-save ang {0} na file sa {1}.
+Fil|Batch_TooLongForBox|Nabasa ang {0} na item. Masyadong mahaba ang teksto para ipakita rito — nasa file na na-save mo ito.
+Fil|Common_Cancel|Kanselahin
+Fil|News_130_1|Nabubuhay na ngayon ang kasaysayan pagkatapos mag-restart, at may kahon na para hanapin ito. Teksto lang ang itinatago — sa Mga Opsyon maaari itong ubusin o i-off.
+Fil|News_130_2|Ini-save ng Ctrl+S ang nakilalang teksto bilang payak na teksto o Markdown na file.
+Fil|News_130_3|Magbukas o mag-drop ng ilang file nang sabay, o basahin ang buong PDF, at i-save ang lahat bilang isang file o isa bawat item.
+Vi|Tip_PdfAll|Đọc tất cả các trang
+Vi|Tip_SaveText|Lưu văn bản vào tệp (Ctrl+S)
+Vi|History_SearchPlaceholder|Tìm trong kết quả
+Vi|History_NoMatch|Không có kết quả nào khớp.
+Vi|History_Off|Lịch sử đã tắt trong Tùy chọn.
+Vi|History_Clear|Xóa lịch sử
+Vi|History_CopyItem|Sao chép văn bản này
+Vi|History_DeleteItem|Xóa mục này
+Vi|Setting_KeepHistory|Giữ lịch sử giữa các phiên
+Vi|Setting_KeepHistory_Desc|Giữ 200 kết quả gần nhất để chúng vẫn còn sau khi khởi động lại. Chỉ văn bản được lưu, không bao giờ lưu ảnh, trong một tệp thuộc về Glyfo trên thiết bị này. Tắt tùy chọn này sẽ xóa tệp đó và làm trống danh sách ngay lập tức.
+Vi|Status_NothingToSave|Không có văn bản để lưu.
+Vi|Status_TextSaved|Đã lưu văn bản thành {0}.
+Vi|Status_TextSaveFailed|Không thể lưu văn bản: {0}
+Vi|Status_HistoryCleared|Đã xóa lịch sử.
+Vi|Source_Batch|{0} tệp
+Vi|Source_PdfAll|{0}, tất cả các trang
+Vi|FileType_Text|Văn bản thuần
+Vi|FileType_Markdown|Markdown
+Vi|Batch_Title|Đang đọc nhiều tệp
+Vi|Batch_Progress|{0} trên {1}
+Vi|Batch_DoneAll|Đã đọc {0}.
+Vi|Batch_Cancelled|Đã dừng sau {0} trên {1}.
+Vi|Batch_ItemFailed|Không thể đọc: {0}
+Vi|Batch_ItemEmpty|(không có văn bản)
+Vi|Batch_Save|Lưu…
+Vi|Batch_CopyAll|Sao chép tất cả
+Vi|Batch_Separate|Lưu từng mục thành tệp riêng
+Vi|Batch_SavedFolder|Đã lưu {0} tệp vào {1}.
+Vi|Batch_TooLongForBox|Đã đọc {0} mục. Văn bản quá dài để hiển thị ở đây — nó nằm trong tệp bạn vừa lưu.
+Vi|Common_Cancel|Hủy
+Vi|News_130_1|Lịch sử giờ vẫn còn sau khi khởi động lại, và có ô tìm kiếm cho nó. Chỉ văn bản được giữ — trong Tùy chọn có thể xóa hoặc tắt.
+Vi|News_130_2|Ctrl+S lưu văn bản đã nhận dạng thành tệp văn bản thuần hoặc Markdown.
+Vi|News_130_3|Mở hoặc kéo thả nhiều tệp cùng lúc, hoặc đọc trọn một tệp PDF, rồi lưu tất cả thành một tệp hoặc mỗi mục một tệp.
+Th|Tip_PdfAll|อ่านทุกหน้า
+Th|Tip_SaveText|บันทึกข้อความเป็นไฟล์ (Ctrl+S)
+Th|History_SearchPlaceholder|ค้นหาในผลลัพธ์
+Th|History_NoMatch|ไม่มีผลลัพธ์ที่ตรงกัน
+Th|History_Off|ปิดประวัติไว้ในตัวเลือก
+Th|History_Clear|ล้างประวัติ
+Th|History_CopyItem|คัดลอกข้อความนี้
+Th|History_DeleteItem|ลบรายการนี้
+Th|Setting_KeepHistory|เก็บประวัติข้ามเซสชัน
+Th|Setting_KeepHistory_Desc|เก็บผลลัพธ์ล่าสุด 200 รายการ เพื่อให้ยังอยู่หลังเริ่มโปรแกรมใหม่ เก็บเฉพาะข้อความ ไม่เก็บรูปภาพ ไว้ในไฟล์ของ Glyfo บนอุปกรณ์นี้ การปิดตัวเลือกนี้จะลบไฟล์นั้นและล้างรายการทันที
+Th|Status_NothingToSave|ไม่มีข้อความให้บันทึก
+Th|Status_TextSaved|บันทึกข้อความเป็น {0} แล้ว
+Th|Status_TextSaveFailed|บันทึกข้อความไม่ได้: {0}
+Th|Status_HistoryCleared|ล้างประวัติแล้ว
+Th|Source_Batch|{0} ไฟล์
+Th|Source_PdfAll|{0} ทุกหน้า
+Th|FileType_Text|ข้อความธรรมดา
+Th|FileType_Markdown|Markdown
+Th|Batch_Title|กำลังอ่านหลายไฟล์
+Th|Batch_Progress|{0} จาก {1}
+Th|Batch_DoneAll|อ่านแล้ว {0} รายการ
+Th|Batch_Cancelled|หยุดหลังจาก {0} จาก {1}
+Th|Batch_ItemFailed|อ่านไม่ได้: {0}
+Th|Batch_ItemEmpty|(ไม่มีข้อความ)
+Th|Batch_Save|บันทึก…
+Th|Batch_CopyAll|คัดลอกทั้งหมด
+Th|Batch_Separate|บันทึกแต่ละรายการเป็นไฟล์แยก
+Th|Batch_SavedFolder|บันทึก {0} ไฟล์ไปที่ {1} แล้ว
+Th|Batch_TooLongForBox|อ่านแล้ว {0} รายการ ข้อความยาวเกินกว่าจะแสดงที่นี่ — อยู่ในไฟล์ที่คุณเพิ่งบันทึก
+Th|Common_Cancel|ยกเลิก
+Th|News_130_1|ตอนนี้ประวัติอยู่ต่อได้แม้เริ่มโปรแกรมใหม่ และมีช่องค้นหาให้ด้วย เก็บเฉพาะข้อความ — ในตัวเลือกจะล้างหรือปิดก็ได้
+Th|News_130_2|Ctrl+S บันทึกข้อความที่อ่านได้เป็นไฟล์ข้อความธรรมดาหรือ Markdown
+Th|News_130_3|เปิดหรือลากหลายไฟล์พร้อมกัน หรืออ่าน PDF ทั้งเล่ม แล้วบันทึกทั้งหมดเป็นไฟล์เดียวหรือไฟล์ละรายการ
+Hi|Tip_PdfAll|सभी पृष्ठ पढ़ें
+Hi|Tip_SaveText|पाठ को फ़ाइल में सहेजें (Ctrl+S)
+Hi|History_SearchPlaceholder|परिणामों में खोजें
+Hi|History_NoMatch|कोई परिणाम मेल नहीं खाता।
+Hi|History_Off|इतिहास विकल्पों में बंद है।
+Hi|History_Clear|इतिहास साफ़ करें
+Hi|History_CopyItem|यह पाठ कॉपी करें
+Hi|History_DeleteItem|यह प्रविष्टि हटाएँ
+Hi|Setting_KeepHistory|सत्रों के बीच इतिहास रखें
+Hi|Setting_KeepHistory_Desc|पिछले 200 परिणाम रखता है ताकि वे पुनरारंभ के बाद भी मौजूद रहें। केवल पाठ संग्रहीत होता है, चित्र कभी नहीं, इस उपकरण पर Glyfo की एक फ़ाइल में। इसे बंद करने पर वह फ़ाइल हट जाती है और सूची तुरंत खाली हो जाती है।
+Hi|Status_NothingToSave|सहेजने के लिए कोई पाठ नहीं है।
+Hi|Status_TextSaved|पाठ {0} के रूप में सहेजा गया।
+Hi|Status_TextSaveFailed|पाठ सहेजा नहीं जा सका: {0}
+Hi|Status_HistoryCleared|इतिहास साफ़ कर दिया गया।
+Hi|Source_Batch|{0} फ़ाइलें
+Hi|Source_PdfAll|{0}, सभी पृष्ठ
+Hi|FileType_Text|सादा पाठ
+Hi|FileType_Markdown|Markdown
+Hi|Batch_Title|कई फ़ाइलें पढ़ी जा रही हैं
+Hi|Batch_Progress|{1} में से {0}
+Hi|Batch_DoneAll|{0} पढ़े गए।
+Hi|Batch_Cancelled|{1} में से {0} के बाद रोका गया।
+Hi|Batch_ItemFailed|पढ़ा नहीं जा सका: {0}
+Hi|Batch_ItemEmpty|(कोई पाठ नहीं)
+Hi|Batch_Save|सहेजें…
+Hi|Batch_CopyAll|सभी कॉपी करें
+Hi|Batch_Separate|हर एक को अलग फ़ाइल में सहेजें
+Hi|Batch_SavedFolder|{0} फ़ाइलें {1} में सहेजी गईं।
+Hi|Batch_TooLongForBox|{0} आइटम पढ़े गए। पाठ इतना लंबा है कि यहाँ नहीं दिखाया जा सकता — वह उस फ़ाइल में है जो आपने सहेजी।
+Hi|Common_Cancel|रद्द करें
+Hi|News_130_1|इतिहास अब पुनरारंभ के बाद भी बना रहता है, और उसके लिए खोज बॉक्स भी है। केवल पाठ रखा जाता है — विकल्पों में उसे खाली या बंद किया जा सकता है।
+Hi|News_130_2|Ctrl+S पहचाने गए पाठ को सादा पाठ या Markdown फ़ाइल के रूप में सहेजता है।
+Hi|News_130_3|एक साथ कई फ़ाइलें खोलें या खींचकर छोड़ें, या पूरा PDF पढ़ें, और सब कुछ एक फ़ाइल में या प्रति आइटम एक फ़ाइल में सहेजें।
+Bn|Tip_PdfAll|সব পৃষ্ঠা পড়ুন
+Bn|Tip_SaveText|লেখা ফাইলে সংরক্ষণ করুন (Ctrl+S)
+Bn|History_SearchPlaceholder|ফলাফলে খুঁজুন
+Bn|History_NoMatch|কোনো ফলাফল মেলেনি।
+Bn|History_Off|ইতিহাস বিকল্পে বন্ধ করা আছে।
+Bn|History_Clear|ইতিহাস মুছুন
+Bn|History_CopyItem|এই লেখা কপি করুন
+Bn|History_DeleteItem|এই এন্ট্রি মুছুন
+Bn|Setting_KeepHistory|সেশনের মাঝে ইতিহাস রাখুন
+Bn|Setting_KeepHistory_Desc|সাম্প্রতিক ২০০টি ফলাফল রাখে, যাতে পুনরায় চালুর পরেও সেগুলো থাকে। কেবল লেখাই সংরক্ষিত হয়, ছবি কখনো নয়, এই ডিভাইসে Glyfo-র একটি ফাইলে। এটি বন্ধ করলে সেই ফাইল মুছে যায় এবং তালিকা সঙ্গে সঙ্গে খালি হয়ে যায়।
+Bn|Status_NothingToSave|সংরক্ষণ করার মতো কোনো লেখা নেই।
+Bn|Status_TextSaved|লেখা {0} নামে সংরক্ষিত হয়েছে।
+Bn|Status_TextSaveFailed|লেখা সংরক্ষণ করা যায়নি: {0}
+Bn|Status_HistoryCleared|ইতিহাস মুছে ফেলা হয়েছে।
+Bn|Source_Batch|{0}টি ফাইল
+Bn|Source_PdfAll|{0}, সব পৃষ্ঠা
+Bn|FileType_Text|সাধারণ লেখা
+Bn|FileType_Markdown|Markdown
+Bn|Batch_Title|একাধিক ফাইল পড়া হচ্ছে
+Bn|Batch_Progress|{1}-এর মধ্যে {0}
+Bn|Batch_DoneAll|{0}টি পড়া হয়েছে।
+Bn|Batch_Cancelled|{1}-এর মধ্যে {0}টির পরে থামানো হয়েছে।
+Bn|Batch_ItemFailed|পড়া যায়নি: {0}
+Bn|Batch_ItemEmpty|(কোনো লেখা নেই)
+Bn|Batch_Save|সংরক্ষণ…
+Bn|Batch_CopyAll|সব কপি করুন
+Bn|Batch_Separate|প্রতিটি আলাদা ফাইলে সংরক্ষণ করুন
+Bn|Batch_SavedFolder|{0}টি ফাইল {1}-এ সংরক্ষিত হয়েছে।
+Bn|Batch_TooLongForBox|{0}টি আইটেম পড়া হয়েছে। লেখাটি এখানে দেখানোর পক্ষে বড্ড লম্বা — এটি আপনার সংরক্ষণ করা ফাইলে আছে।
+Bn|Common_Cancel|বাতিল
+Bn|News_130_1|ইতিহাস এখন পুনরায় চালুর পরেও টিকে থাকে, আর এটি খোঁজার বাক্সও আছে। কেবল লেখাই রাখা হয় — বিকল্পে এটি খালি করা বা বন্ধ করা যায়।
+Bn|News_130_2|Ctrl+S দিয়ে চেনা লেখা সাধারণ লেখা বা Markdown ফাইল হিসেবে সংরক্ষণ করা যায়।
+Bn|News_130_3|একসঙ্গে একাধিক ফাইল খুলুন বা টেনে আনুন, কিংবা পুরো PDF পড়ুন, তারপর সবকিছু একটি ফাইলে বা প্রতিটির জন্য একটি ফাইলে সংরক্ষণ করুন।
+Ar|Tip_PdfAll|قراءة كل الصفحات
+Ar|Tip_SaveText|حفظ النص في ملف (Ctrl+S)
+Ar|History_SearchPlaceholder|البحث في النتائج
+Ar|History_NoMatch|لا توجد نتيجة مطابقة.
+Ar|History_Off|السجل معطل في الخيارات.
+Ar|History_Clear|مسح السجل
+Ar|History_CopyItem|نسخ هذا النص
+Ar|History_DeleteItem|حذف هذا العنصر
+Ar|Setting_KeepHistory|الاحتفاظ بالسجل بين الجلسات
+Ar|Setting_KeepHistory_Desc|يحتفظ بآخر 200 نتيجة لتظل موجودة بعد إعادة التشغيل. يُحفظ النص فقط، ولا تُحفظ الصور أبدًا، في ملف يخص Glyfo على هذا الجهاز. إيقاف هذا يحذف ذلك الملف ويفرغ القائمة فورًا.
+Ar|Status_NothingToSave|لا يوجد نص لحفظه.
+Ar|Status_TextSaved|تم حفظ النص باسم {0}.
+Ar|Status_TextSaveFailed|تعذر حفظ النص: {0}
+Ar|Status_HistoryCleared|تم مسح السجل.
+Ar|Source_Batch|{0} ملفات
+Ar|Source_PdfAll|{0}، كل الصفحات
+Ar|FileType_Text|نص عادي
+Ar|FileType_Markdown|Markdown
+Ar|Batch_Title|قراءة عدة ملفات
+Ar|Batch_Progress|{0} من {1}
+Ar|Batch_DoneAll|تمت قراءة {0}.
+Ar|Batch_Cancelled|توقف بعد {0} من {1}.
+Ar|Batch_ItemFailed|تعذرت القراءة: {0}
+Ar|Batch_ItemEmpty|(لا يوجد نص)
+Ar|Batch_Save|حفظ…
+Ar|Batch_CopyAll|نسخ الكل
+Ar|Batch_Separate|حفظ كل عنصر في ملف مستقل
+Ar|Batch_SavedFolder|تم حفظ {0} ملفات في {1}.
+Ar|Batch_TooLongForBox|تمت قراءة {0} عنصرًا. النص أطول من أن يُعرض هنا — إنه في الملف الذي حفظته.
+Ar|Common_Cancel|إلغاء
+Ar|News_130_1|أصبح السجل يبقى بعد إعادة التشغيل، وله الآن مربع بحث. يُحفظ النص فقط — ويمكن إفراغه أو إيقافه من الخيارات.
+Ar|News_130_2|يحفظ Ctrl+S النص المتعرف عليه كملف نص عادي أو Markdown.
+Ar|News_130_3|افتح أو أفلت عدة ملفات دفعة واحدة، أو اقرأ ملف PDF كاملًا، ثم احفظ الكل في ملف واحد أو ملف لكل عنصر.
+He|Tip_PdfAll|קריאת כל העמודים
+He|Tip_SaveText|שמירת הטקסט לקובץ (Ctrl+S)
+He|History_SearchPlaceholder|חיפוש בתוצאות
+He|History_NoMatch|אין תוצאה תואמת.
+He|History_Off|ההיסטוריה כבויה באפשרויות.
+He|History_Clear|ניקוי ההיסטוריה
+He|History_CopyItem|העתקת הטקסט הזה
+He|History_DeleteItem|מחיקת רשומה זו
+He|Setting_KeepHistory|שמירת ההיסטוריה בין הפעלות
+He|Setting_KeepHistory_Desc|שומר את 200 התוצאות האחרונות כך שהן עדיין שם אחרי הפעלה מחדש. רק הטקסט נשמר, לעולם לא התמונות, בקובץ ששייך ל-Glyfo במכשיר הזה. כיבוי האפשרות מוחק את הקובץ ומרוקן את הרשימה מיד.
+He|Status_NothingToSave|אין טקסט לשמור.
+He|Status_TextSaved|הטקסט נשמר בשם {0}.
+He|Status_TextSaveFailed|לא ניתן היה לשמור את הטקסט: {0}
+He|Status_HistoryCleared|ההיסטוריה נוקתה.
+He|Source_Batch|{0} קבצים
+He|Source_PdfAll|{0}, כל העמודים
+He|FileType_Text|טקסט פשוט
+He|FileType_Markdown|Markdown
+He|Batch_Title|קריאת כמה קבצים
+He|Batch_Progress|{0} מתוך {1}
+He|Batch_DoneAll|נקראו {0}.
+He|Batch_Cancelled|נעצר אחרי {0} מתוך {1}.
+He|Batch_ItemFailed|לא ניתן היה לקרוא: {0}
+He|Batch_ItemEmpty|(אין טקסט)
+He|Batch_Save|שמירה…
+He|Batch_CopyAll|העתקת הכול
+He|Batch_Separate|שמירת כל פריט כקובץ נפרד
+He|Batch_SavedFolder|{0} קבצים נשמרו אל {1}.
+He|Batch_TooLongForBox|נקראו {0} פריטים. הטקסט ארוך מכדי להציגו כאן — הוא בקובץ ששמרת.
+He|Common_Cancel|ביטול
+He|News_130_1|ההיסטוריה שורדת עכשיו הפעלה מחדש, ויש לה תיבת חיפוש. רק הטקסט נשמר — באפשרויות אפשר לרוקן אותה או לכבות אותה.
+He|News_130_2|Ctrl+S שומר את הטקסט שזוהה כקובץ טקסט פשוט או Markdown.
+He|News_130_3|אפשר לפתוח או לגרור כמה קבצים בבת אחת, או לקרוא קובץ PDF שלם, ולשמור הכול כקובץ אחד או קובץ לכל פריט.
+Fa|Tip_PdfAll|خواندن همهٔ صفحه‌ها
+Fa|Tip_SaveText|ذخیرهٔ متن در یک پرونده (Ctrl+S)
+Fa|History_SearchPlaceholder|جست‌وجو در نتیجه‌ها
+Fa|History_NoMatch|هیچ نتیجه‌ای مطابقت ندارد.
+Fa|History_Off|تاریخچه در گزینه‌ها خاموش است.
+Fa|History_Clear|پاک کردن تاریخچه
+Fa|History_CopyItem|رونوشت این متن
+Fa|History_DeleteItem|حذف این مورد
+Fa|Setting_KeepHistory|نگه‌داشتن تاریخچه بین نشست‌ها
+Fa|Setting_KeepHistory_Desc|۲۰۰ نتیجهٔ آخر را نگه می‌دارد تا پس از راه‌اندازی دوباره هم باشند. فقط متن ذخیره می‌شود، هرگز تصویرها، در پرونده‌ای که روی این دستگاه متعلق به Glyfo است. خاموش کردن این گزینه آن پرونده را حذف می‌کند و فهرست را بی‌درنگ خالی می‌کند.
+Fa|Status_NothingToSave|متنی برای ذخیره نیست.
+Fa|Status_TextSaved|متن با نام {0} ذخیره شد.
+Fa|Status_TextSaveFailed|متن ذخیره نشد: {0}
+Fa|Status_HistoryCleared|تاریخچه پاک شد.
+Fa|Source_Batch|{0} پرونده
+Fa|Source_PdfAll|{0}، همهٔ صفحه‌ها
+Fa|FileType_Text|متن ساده
+Fa|FileType_Markdown|Markdown
+Fa|Batch_Title|خواندن چند پرونده
+Fa|Batch_Progress|{0} از {1}
+Fa|Batch_DoneAll|{0} خوانده شد.
+Fa|Batch_Cancelled|پس از {0} از {1} متوقف شد.
+Fa|Batch_ItemFailed|خوانده نشد: {0}
+Fa|Batch_ItemEmpty|(بدون متن)
+Fa|Batch_Save|ذخیره…
+Fa|Batch_CopyAll|رونوشت همه
+Fa|Batch_Separate|ذخیرهٔ هر مورد در پروندهٔ جداگانه
+Fa|Batch_SavedFolder|{0} پرونده در {1} ذخیره شد.
+Fa|Batch_TooLongForBox|{0} مورد خوانده شد. متن طولانی‌تر از آن است که اینجا نشان داده شود — در پرونده‌ای است که ذخیره کردید.
+Fa|Common_Cancel|لغو
+Fa|News_130_1|تاریخچه اکنون پس از راه‌اندازی دوباره هم می‌ماند و جعبهٔ جست‌وجو دارد. فقط متن نگه داشته می‌شود — در گزینه‌ها می‌توان آن را خالی یا خاموش کرد.
+Fa|News_130_2|Ctrl+S متن شناسایی‌شده را به‌صورت پروندهٔ متن ساده یا Markdown ذخیره می‌کند.
+Fa|News_130_3|چند پرونده را یک‌جا باز کنید یا رها کنید، یا یک PDF کامل را بخوانید، و همه را در یک پرونده یا هر مورد در یک پرونده ذخیره کنید.

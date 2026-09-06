@@ -5,8 +5,8 @@
 # Add-Strings.ps1 appends at the end of the table, which is right for a block that belongs together
 # (the About page, the release notes). This script exists for the other case: a handful of unrelated
 # keys that each belong beside an existing one, so that a translator reading the table finds the new
-# tooltip among the tooltips and the new status line among the status lines. Appending all thirteen
-# to the bottom would have been less work and a worse file.
+# tooltip among the tooltips and the new status line among the status lines. Appending the whole
+# batch to the bottom would have been less work and a worse file.
 #
 # Same reason as Add-Strings.ps1 for the split into two files: PowerShell 5.1 reads a BOM-less .ps1
 # as ANSI on this machine, so every non-Latin translation would be mojibake before the script was
@@ -18,8 +18,8 @@
 # the English needed rewording first.
 #
 # Where each key goes is decided here, not in the payload: the anchors are a property of the table's
-# layout, which is the same in all thirty-three files, and repeating them on 429 lines of payload
-# would be 429 chances to disagree.
+# layout, which is the same in all thirty-three files, and repeating them on every payload line
+# would be one chance per line to disagree.
 #
 # Re-running is NOT safe. A key that is already present is inserted a second time and the table stops
 # compiling with a duplicate-key error, which is the loud failure this would rather have than a
@@ -33,18 +33,24 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-if (-not $Payload) { $Payload = "$PSScriptRoot\strings-120.txt" }
+if (-not $Payload) { $Payload = "$PSScriptRoot\strings-130.txt" }
 if (-not $Services) { $Services = "$PSScriptRoot\..\Glyfo\Services" }
 
 # Anchor -> the keys that follow it. Insertion is after the anchor line, except for $BeforeAnchor
 # below: the release notes are listed newest first, so a new version's notes go above the old ones.
 $After = [ordered]@{
-    'Setting_RepairNumbers_Desc' = @('Setting_WatchClipboard', 'Setting_WatchClipboard_Desc')
-    'Tip_ActualSize'             = @('Tip_PdfPrev', 'Tip_PdfNext', 'Action_Open', 'Action_Mail', 'Action_Call', 'Action_Search')
-    'Status_ScanFailed'          = @('Status_PdfFailed', 'Status_LaunchFailed')
+    'Tip_PdfNext'                = @('Tip_PdfAll')
+    'Tip_CopyText'               = @('Tip_SaveText')
+    'History_EmptyPreview'       = @('History_SearchPlaceholder', 'History_NoMatch', 'History_Off', 'History_Clear', 'History_CopyItem', 'History_DeleteItem')
+    'Setting_WatchClipboard_Desc' = @('Setting_KeepHistory', 'Setting_KeepHistory_Desc')
+    'Status_NothingToCopy'       = @('Status_NothingToSave', 'Status_TextSaved', 'Status_TextSaveFailed')
+    'Status_HistoryLoaded'       = @('Status_HistoryCleared')
+    'Source_Codes'               = @('Source_Batch', 'Source_PdfAll')
+    'FileType_Image'             = @('FileType_Text', 'FileType_Markdown', 'Batch_Title', 'Batch_Progress', 'Batch_DoneAll', 'Batch_Cancelled', 'Batch_ItemFailed', 'Batch_ItemEmpty', 'Batch_Save', 'Batch_CopyAll', 'Batch_Separate', 'Batch_SavedFolder', 'Batch_TooLongForBox')
+    'Common_Close'               = @('Common_Cancel')
 }
-$BeforeAnchor = 'News_110_1'
-$BeforeKeys = @('News_120_1', 'News_120_2', 'News_120_3')
+$BeforeAnchor = 'News_120_1'
+$BeforeKeys = @('News_130_1', 'News_130_2', 'News_130_3')
 
 $text = [IO.File]::ReadAllText((Resolve-Path $Payload), [Text.Encoding]::UTF8).TrimStart([char]0xFEFF)
 
