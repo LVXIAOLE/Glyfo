@@ -29,6 +29,7 @@ internal static partial class Strings
         ["Tip_ActualSize"] = "Actual pixel size",
         ["Tip_PdfPrev"] = "Previous page",
         ["Tip_PdfNext"] = "Next page",
+        ["Tip_PdfAll"] = "Read every page",
 
         // Smart actions. Verbs, because they are what the button does — the button's own label is
         // the address it found.
@@ -169,10 +170,25 @@ internal static partial class Strings
         ["Source_FullScreen"] = "Full screen",
         ["Source_Region"] = "Screen region",
         ["Source_Codes"] = "{0} (codes)",
+        ["Source_Batch"] = "{0} files",
+        ["Source_PdfAll"] = "{0}, all pages",
 
         ["FileType_Image"] = "{0} image",
         ["FileType_Text"] = "Plain text",
         ["FileType_Markdown"] = "Markdown",
+
+        // Reading several files, or every page of one
+        ["Batch_Title"] = "Reading several files",
+        ["Batch_Progress"] = "{0} of {1}",
+        ["Batch_DoneAll"] = "Read {0}.",
+        ["Batch_Cancelled"] = "Stopped after {0} of {1}.",
+        ["Batch_ItemFailed"] = "Could not be read: {0}",
+        ["Batch_ItemEmpty"] = "(no text)",
+        ["Batch_Save"] = "Save…",
+        ["Batch_CopyAll"] = "Copy all",
+        ["Batch_Separate"] = "Save each one as its own file",
+        ["Batch_SavedFolder"] = "Saved {0} files to {1}.",
+        ["Batch_TooLongForBox"] = "Read {0} items. The text is too long to show here — it is in the file you saved.",
 
         // Region-capture overlay
         ["Region_Hint"] = "Drag to select an area　·　Esc or right-click to cancel",
@@ -192,6 +208,7 @@ internal static partial class Strings
         ["About_Source"] = "Source code on GitHub",
         ["About_Privacy"] = "Privacy policy",
         ["Common_Close"] = "Close",
+        ["Common_Cancel"] = "Cancel",
         ["News_Title"] = "What's new",
         ["News_120_1"] = "Take a screenshot with Win+Shift+S and Glyfo reads it for you, then leaves the text on the clipboard. Off until you turn it on, in Settings.",
         ["News_120_2"] = "PDFs open like images now, a page at a time.",

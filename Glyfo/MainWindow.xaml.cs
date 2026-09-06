@@ -374,6 +374,7 @@ public sealed partial class MainWindow : Window
 
         SetTip(PdfPrevButton, Loc.Get("Tip_PdfPrev"));
         SetTip(PdfNextButton, Loc.Get("Tip_PdfNext"));
+        SetTip(PdfAllButton, Loc.Get("Tip_PdfAll"));
 
         // The chips are built in code and carry their verb in the tooltip, so there is nothing to
         // reassign — they have to be made again. Clearing the cache is what forces that.
@@ -623,14 +624,23 @@ public sealed partial class MainWindow : Window
 
             InitializeWithWindow.Initialize(picker, _hwnd);
 
-            var file = await picker.PickSingleFileAsync();
-            if (file is null)
+            // Multiple, not single, so the one rule holds everywhere: one file opens, several read
+            // in a batch. Adding a second button for it would have made picking three files a
+            // different gesture from dropping three files, for no gain.
+            var files = await picker.PickMultipleFilesAsync();
+            if (files is null || files.Count == 0)
             {
                 return;
             }
 
-            await OpenFileAsync(file);
-            SetStatus(Loc.Get("Status_Loaded", file.Name), InfoBarSeverity.Success);
+            if (files.Count > 1)
+            {
+                await RunBatchOverFilesAsync(files);
+                return;
+            }
+
+            await OpenFileAsync(files[0]);
+            SetStatus(Loc.Get("Status_Loaded", files[0].Name), InfoBarSeverity.Success);
         }
         catch (Exception ex)
         {
@@ -731,14 +741,19 @@ public sealed partial class MainWindow : Window
             if (e.DataView.Contains(StandardDataFormats.StorageItems))
             {
                 var items = await e.DataView.GetStorageItemsAsync();
-                foreach (var item in items)
+                var files = SupportedFiles(items);
+
+                if (files.Count > 1)
                 {
-                    if (item is StorageFile file && IsSupportedFile(file.Name))
-                    {
-                        await OpenFileAsync(file);
-                        SetStatus(Loc.Get("Status_Loaded", file.Name), InfoBarSeverity.Success);
-                        return;
-                    }
+                    await RunBatchOverFilesAsync(files);
+                    return;
+                }
+
+                if (files.Count == 1)
+                {
+                    await OpenFileAsync(files[0]);
+                    SetStatus(Loc.Get("Status_Loaded", files[0].Name), InfoBarSeverity.Success);
+                    return;
                 }
             }
 
@@ -765,19 +780,25 @@ public sealed partial class MainWindow : Window
     /// Opens an image handed over by Explorer's "Open with", and reads it.
     /// </summary>
     /// <remarks>
-    /// Only the first image is taken. The window shows one image beside its text; queueing a
-    /// multi-selection would need a batch mode that does not exist, and picking one silently is
-    /// less confusing than opening several windows.
+    /// A multi-selection reads as a batch, the same as dropping the same files on the window: the
+    /// window shows one image beside its text, so several of them have nowhere to go except through
+    /// the batch dialog.
     /// </remarks>
     public async Task OpenActivatedFilesAsync(IReadOnlyList<IStorageItem> items)
     {
-        foreach (var item in items)
+        var files = SupportedFiles(items);
+
+        if (files.Count > 1)
         {
-            if (item is StorageFile file && IsSupportedFile(file.Name))
-            {
-                await OpenExternalAsync(() => OpenFileAsync(file), file.Name, file.Name);
-                return;
-            }
+            ShowFromTray();
+            await RunBatchOverFilesAsync(files);
+            return;
+        }
+
+        if (files.Count == 1)
+        {
+            await OpenExternalAsync(() => OpenFileAsync(files[0]), files[0].Name, files[0].Name);
+            return;
         }
 
         ShowFromTray();
@@ -1302,6 +1323,172 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    // ---------------------------------------------------------------- batch
+
+    /// <summary>
+    /// Longest merged text that still goes into the result box and the history.
+    /// </summary>
+    /// <remarks>
+    /// One threshold covering two separate hazards, because they arrive together. A <c>TextBox</c>
+    /// holding two hundred pages of text makes the window unusable long before it runs out of
+    /// memory; and a single history entry that large would eat most of the store's budget and push
+    /// out everything else. Past this the text lives in the file that was just saved, which is
+    /// where someone reading two hundred pages wanted it anyway.
+    /// </remarks>
+    private const int MaxInlineTextLength = 100_000;
+
+    /// <summary>The files in a drop or an activation this app can actually read, in the order given.</summary>
+    private static List<StorageFile> SupportedFiles(IReadOnlyList<IStorageItem> items)
+    {
+        var files = new List<StorageFile>();
+
+        foreach (var item in items)
+        {
+            if (item is StorageFile file && IsSupportedFile(file.Name))
+            {
+                files.Add(file);
+            }
+        }
+
+        return files;
+    }
+
+    /// <summary>
+    /// Reads a set of files, expanding any PDF among them into its pages.
+    /// </summary>
+    /// <remarks>
+    /// Every source is opened as a stream rather than by path. Files arriving from a drop or the
+    /// share sheet need not have a path this process can reopen, and the stream route works for all
+    /// of them — including PDF pages, which never touch the disk at all.
+    /// </remarks>
+    private async Task RunBatchOverFilesAsync(IReadOnlyList<StorageFile> files)
+    {
+        var sources = new List<BatchSource>();
+
+        foreach (var file in files)
+        {
+            if (!IsPdf(file.Name))
+            {
+                sources.Add(new BatchSource(file.Name, async () =>
+                {
+                    using var stream = await file.OpenReadAsync();
+                    return await ImageLoader.LoadAsync(stream);
+                }));
+
+                continue;
+            }
+
+            PdfSource pdf;
+            try
+            {
+                pdf = await PdfSource.OpenAsync(file);
+            }
+            catch (Exception ex)
+            {
+                // Encrypted or malformed. One unreadable document should not cancel the other
+                // nineteen files, so it becomes a failed entry like any other.
+                Trace.Write($"batch PDF '{file.Name}'", ex);
+                sources.Add(new BatchSource(file.Name, () => throw new InvalidOperationException(Loc.Get("Status_PdfFailed"), ex)));
+                continue;
+            }
+
+            var baseName = Path.GetFileNameWithoutExtension(pdf.Name);
+            for (uint index = 0; index < pdf.PageCount; index++)
+            {
+                var page = index;
+                sources.Add(new BatchSource($"{baseName} p{page + 1}", async () =>
+                {
+                    using var stream = await pdf.RenderAsync(page);
+                    return await ImageLoader.LoadAsync(stream);
+                }));
+            }
+        }
+
+        await RunBatchAsync(sources, Loc.Get("Source_Batch", files.Count));
+    }
+
+    /// <summary>Reads every page of the open document, without disturbing the page on screen.</summary>
+    private async void PdfAllClick(object sender, RoutedEventArgs e)
+    {
+        if (_pdf is null)
+        {
+            return;
+        }
+
+        var pdf = _pdf;
+        var baseName = Path.GetFileNameWithoutExtension(pdf.Name);
+        var sources = new List<BatchSource>((int)pdf.PageCount);
+
+        for (uint index = 0; index < pdf.PageCount; index++)
+        {
+            var page = index;
+            sources.Add(new BatchSource($"{baseName} p{page + 1}", async () =>
+            {
+                using var stream = await pdf.RenderAsync(page);
+                return await ImageLoader.LoadAsync(stream);
+            }));
+        }
+
+        await RunBatchAsync(sources, Loc.Get("Source_PdfAll", pdf.Name));
+    }
+
+    /// <summary>
+    /// Runs the batch dialog and decides what to do with what it produced.
+    /// </summary>
+    private async Task RunBatchAsync(IReadOnlyList<BatchSource> sources, string sourceLabel)
+    {
+        if (_isBusy || sources.Count == 0)
+        {
+            return;
+        }
+
+        if (LanguageComboBox.SelectedItem is not OcrOption option)
+        {
+            if (_isHidden)
+            {
+                ShowFromTray();
+            }
+
+            ShowLanguagePackGuidance();
+            return;
+        }
+
+        SetBusy(true);
+        try
+        {
+            var entries = await AppDialogs.ShowBatchAsync(
+                RootGrid.XamlRoot, _hwnd, sources, option.Engine, NullIfEmpty(option.LanguageTag));
+
+            if (entries.Count == 0)
+            {
+                return;
+            }
+
+            var merged = BatchRunner.Merge(entries, markdown: false);
+
+            if (merged.Length > MaxInlineTextLength)
+            {
+                SetStatus(Loc.Get("Batch_TooLongForBox", entries.Count), InfoBarSeverity.Informational);
+                return;
+            }
+
+            ResultTextBox.Text = merged;
+            MatchVoiceToText(merged);
+            AddHistoryItem(sourceLabel, merged, null);
+            NoteSuccessfulRecognition();
+
+            SetStatus(Loc.Get("Batch_DoneAll", entries.Count), InfoBarSeverity.Success);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(Loc.Get("Status_RecognizeFailed", ex.Message), InfoBarSeverity.Error);
+        }
+        finally
+        {
+            SetBusy(false);
+        }
+    }
+
     private async void ScanBarcodeClick(object sender, RoutedEventArgs e)
     {
         if (_isBusy || !HasImage())
@@ -1430,36 +1617,13 @@ public sealed partial class MainWindow : Window
                 return;
             }
 
-            await WriteTextFileAsync(target, ResultTextBox.Text);
+            await TextFile.WriteAsync(target, ResultTextBox.Text);
             SetStatus(Loc.Get("Status_TextSaved", target.Name), InfoBarSeverity.Success);
         }
         catch (Exception ex)
         {
             SetStatus(Loc.Get("Status_TextSaveFailed", ex.Message), InfoBarSeverity.Error);
         }
-    }
-
-    /// <summary>
-    /// Writes text out the way the file's own extension expects to be read.
-    /// </summary>
-    /// <remarks>
-    /// A TextBox holds bare LF for its line breaks, which Notepad has only understood since 2018 and
-    /// which plenty of older Windows tools still render as one long line; so the breaks are put back
-    /// to CRLF first.
-    ///
-    /// The byte-order mark goes on .txt and not on .md, because they are read by different things. A
-    /// plain text file is opened by whatever the user has, and on Windows that guesses the encoding
-    /// from the first bytes — without the mark, anything non-ASCII comes out as mojibake. Markdown
-    /// is read by tools that assume UTF-8 already, several of which will show the mark as stray
-    /// characters at the top of the document.
-    /// </remarks>
-    private static async Task WriteTextFileAsync(StorageFile file, string text)
-    {
-        var normalized = text.Replace("\r\n", "\n").Replace('\r', '\n').Replace("\n", "\r\n");
-        var markdown = string.Equals(Path.GetExtension(file.Name), ".md", StringComparison.OrdinalIgnoreCase);
-        var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: !markdown);
-
-        await FileIO.WriteBytesAsync(file, encoding.GetPreamble().Concat(encoding.GetBytes(normalized)).ToArray());
     }
 
     private static bool CopyTextToClipboard(string text) => CopyTextToClipboard(text, out _);

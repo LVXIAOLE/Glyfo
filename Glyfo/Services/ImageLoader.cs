@@ -49,6 +49,20 @@ public static class ImageLoader
         }
 
         using var stream = await FileRandomAccessStream.OpenAsync(path, FileAccessMode.Read);
+        return await LoadAsync(stream);
+    }
+
+    /// <summary>
+    /// Decodes whatever an already-open stream holds, with the same size handling as the path
+    /// version. The caller keeps ownership of the stream.
+    /// </summary>
+    /// <remarks>
+    /// Split out for the batch path over a PDF: <see cref="PdfSource.RenderAsync"/> hands back an
+    /// in-memory stream, and going through the path version would mean writing every page of a
+    /// long document to disk and reading it straight back.
+    /// </remarks>
+    public static async Task<SoftwareBitmap> LoadAsync(IRandomAccessStream stream)
+    {
         var decoder = await BitmapDecoder.CreateAsync(stream);
 
         var (width, height) = FitToEngineLimits((int)decoder.PixelWidth, (int)decoder.PixelHeight);
