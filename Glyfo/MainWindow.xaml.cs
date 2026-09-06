@@ -159,6 +159,11 @@ public sealed partial class MainWindow : Window
     /// <summary>Lets the close through instead of hiding it; only the tray's Exit item sets it.</summary>
     private bool _exitRequested;
 
+    /// <summary>
+    /// Set by the About link in settings, which has to close that dialog before its own can open.
+    /// </summary>
+    private bool _aboutRequested;
+
     // Guards against the handlers of controls this code is itself repopulating: rebuilding the
     // language pickers raises SelectionChanged, and acting on that would persist a value the user
     // never chose.
@@ -332,7 +337,11 @@ public sealed partial class MainWindow : Window
         UpdateHistoryEmptyText();
         SetTip(SettingsButton, Loc.Get("Tip_Settings"));
 
-        SettingsHeaderText.Text = Loc.Get("Settings_Header");
+        SettingsDialog.Title = Loc.Get("Settings_Header");
+        SettingsDialog.CloseButtonText = Loc.Get("Common_Close");
+        SettingsGroupGeneral.Text = Loc.Get("Setting_Group_General");
+        SettingsGroupRecognition.Text = Loc.Get("Setting_Group_Recognition");
+        SettingsGroupPrivacy.Text = Loc.Get("Setting_Group_Privacy");
         StartupToggle.Header = Loc.Get("Setting_Startup");
         StartupToggle.OnContent = Loc.Get("Common_On");
         StartupToggle.OffContent = Loc.Get("Common_Off");
@@ -393,9 +402,10 @@ public sealed partial class MainWindow : Window
     /// Mirrors the layout for Arabic, Hebrew and Persian.
     /// </summary>
     /// <remarks>
-    /// The flyouts are set separately because their content lives in a popup rather than under
-    /// <c>RootGrid</c>, so it never inherits the change. The title bar is deliberately left running
-    /// left to right: the caption buttons stay on the window's right whatever the content does, and
+    /// The flyouts and the settings dialog are set separately because their content lives in a popup
+    /// rather than under <c>RootGrid</c>, so it never inherits the change. The title bar is
+    /// deliberately left running left to right: the caption buttons stay on the window's right
+    /// whatever the content does, and
     /// mirroring that row would slide the app name underneath them.
     /// </remarks>
     private void ApplyFlowDirection()
@@ -405,7 +415,7 @@ public sealed partial class MainWindow : Window
         RootGrid.FlowDirection = flow;
         AppTitleBar.FlowDirection = FlowDirection.LeftToRight;
         HistoryFlyoutRoot.FlowDirection = flow;
-        SettingsFlyoutRoot.FlowDirection = flow;
+        SettingsDialog.FlowDirection = flow;
         RatingTip.FlowDirection = flow;
 
         // The chips are laid out left to right by a StackPanel, so this is what puts the first
@@ -1926,7 +1936,6 @@ public sealed partial class MainWindow : Window
             Trace.Write("StartupTask.GetAsync", ex);
             StartupToggle.Visibility = Visibility.Collapsed;
             StartupDescription.Visibility = Visibility.Collapsed;
-            StartupSeparator.Visibility = Visibility.Collapsed;
         }
     }
 
@@ -2762,15 +2771,32 @@ public sealed partial class MainWindow : Window
         }
     }
 
-    // ------------------------------------------------------- about, release notes, rating
+    // ------------------------------------------------------- settings, about, notes, rating
 
-    private async void AboutClick(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// Opens the settings dialog, and then About if that is what was asked for on the way out.
+    /// </summary>
+    /// <remarks>
+    /// About cannot simply be opened from inside: WinUI refuses to show a second
+    /// <see cref="ContentDialog"/> over an open one. The link therefore closes this dialog and
+    /// leaves a note, which is answered here — the same shape as the rating link inside About.
+    /// </remarks>
+    private async void SettingsClick(object sender, RoutedEventArgs e)
     {
-        // The dialog dims the whole window, and the settings flyout would sit lit up on top of the
-        // dimming layer — flyouts are in a popup of their own, above it.
-        SettingsButton.Flyout?.Hide();
+        _aboutRequested = false;
+        await AppDialogs.ShowGuardedAsync(SettingsDialog, RootGrid.XamlRoot);
 
-        await AppDialogs.ShowAboutAsync(RootGrid.XamlRoot, _hwnd);
+        if (_aboutRequested)
+        {
+            _aboutRequested = false;
+            await AppDialogs.ShowAboutAsync(RootGrid.XamlRoot, _hwnd);
+        }
+    }
+
+    private void AboutClick(object sender, RoutedEventArgs e)
+    {
+        _aboutRequested = true;
+        SettingsDialog.Hide();
     }
 
     /// <summary>

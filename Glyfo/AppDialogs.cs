@@ -36,6 +36,37 @@ internal static class AppDialogs
     /// </summary>
     private static bool _isOpen;
 
+    /// <summary>
+    /// Shows a dialog declared elsewhere — the settings page — under the same single-open guard as
+    /// the ones built here, and with the two properties a dialog cannot inherit.
+    /// </summary>
+    /// <remarks>
+    /// The guard has to be shared rather than duplicated: the release notes open by themselves a
+    /// few seconds after launch, which is exactly when someone is likely to be reaching for the
+    /// settings button. Returns <see cref="ContentDialogResult.None"/> without showing anything
+    /// when another dialog already has the screen.
+    /// </remarks>
+    public static async Task<ContentDialogResult> ShowGuardedAsync(ContentDialog dialog, XamlRoot root)
+    {
+        if (_isOpen)
+        {
+            return ContentDialogResult.None;
+        }
+
+        dialog.XamlRoot = root;
+        dialog.FlowDirection = Loc.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
+        _isOpen = true;
+        try
+        {
+            return await dialog.ShowAsync();
+        }
+        finally
+        {
+            _isOpen = false;
+        }
+    }
+
     /// <summary>Shows "About Glyfo", with the version and the four links worth having.</summary>
     public static Task ShowAboutAsync(XamlRoot root, IntPtr hwnd) =>
         ShowAsync(root, hwnd, whatsNew: null);

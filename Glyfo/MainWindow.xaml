@@ -402,86 +402,11 @@
                         </Flyout>
                     </Button.Flyout>
                 </Button>
-                <Button x:Name="SettingsButton">
+                <!-- A dialog rather than a flyout since 1.3.0: the options outgrew the space above
+                     the button, and shortcuts and theme were about to make it worse. The content
+                     itself is declared below, at the end of the root grid. -->
+                <Button x:Name="SettingsButton" Click="SettingsClick">
                     <SymbolIcon Symbol="Setting" />
-                    <Button.Flyout>
-                        <Flyout Placement="Top">
-                            <!-- Scrolls because the option descriptions are long and there are now
-                                 five of them: at 150% on a 1080p screen the unscrolled panel is
-                                 taller than the space above the button. -->
-                            <ScrollViewer MaxHeight="520"
-                                          VerticalScrollBarVisibility="Auto"
-                                          HorizontalScrollMode="Disabled">
-                                <StackPanel x:Name="SettingsFlyoutRoot" Width="320" Spacing="4">
-                                    <TextBlock x:Name="SettingsHeaderText"
-                                               Style="{StaticResource BodyStrongTextBlockStyle}"
-                                               Margin="0,0,0,4" />
-                                    <ComboBox x:Name="UiLanguageComboBox"
-                                              HorizontalAlignment="Stretch"
-                                              DisplayMemberPath="DisplayName"
-                                              SelectionChanged="UiLanguageSelectionChanged" />
-                                    <Border Height="1" Margin="0,10"
-                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                                    <ToggleSwitch x:Name="StartupToggle"
-                                                  Toggled="StartupToggled" />
-                                    <TextBlock x:Name="StartupDescription"
-                                               Style="{StaticResource CaptionTextBlockStyle}"
-                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               TextWrapping="Wrap" />
-                                    <Border x:Name="StartupSeparator" Height="1" Margin="0,10"
-                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                                    <ToggleSwitch x:Name="CloseToTrayToggle"
-                                                  Toggled="CloseToTrayToggled" />
-                                    <TextBlock x:Name="CloseToTrayDescription"
-                                               Style="{StaticResource CaptionTextBlockStyle}"
-                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               TextWrapping="Wrap" />
-                                    <Border Height="1" Margin="0,10"
-                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                                    <ToggleSwitch x:Name="RepairVersionsToggle"
-                                                  Toggled="RepairVersionsToggled" />
-                                    <TextBlock x:Name="RepairVersionsDescription"
-                                               Style="{StaticResource CaptionTextBlockStyle}"
-                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               TextWrapping="Wrap" />
-                                    <Border Height="1" Margin="0,10"
-                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                                    <ToggleSwitch x:Name="WatchClipboardToggle"
-                                                  Toggled="WatchClipboardToggled" />
-                                    <!-- Two sentences, and both have to stay. The first says the
-                                         copied picture is replaced by its text, which is the one
-                                         surprising thing this does; the second says the picture
-                                         never leaves the machine, which is what anyone reading
-                                         "watches your clipboard" wants to know next. -->
-                                    <TextBlock x:Name="WatchClipboardDescription"
-                                               Style="{StaticResource CaptionTextBlockStyle}"
-                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               TextWrapping="Wrap" />
-                                    <Border Height="1" Margin="0,10"
-                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                                    <ToggleSwitch x:Name="KeepHistoryToggle"
-                                                  Toggled="KeepHistoryToggled" />
-                                    <!-- Says what is stored, what is not, and what turning it off
-                                         does. The third part matters as much as the first: a switch
-                                         that only stopped future writes would leave what is already
-                                         on disk behind, which is not what anyone reaching for it
-                                         means. -->
-                                    <TextBlock x:Name="KeepHistoryDescription"
-                                               Style="{StaticResource CaptionTextBlockStyle}"
-                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               TextWrapping="Wrap" />
-                                    <Border Height="1" Margin="0,10"
-                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                                    <!-- Only an entry point, not the content: the panel above is
-                                         already taller than the space it opens into, and version,
-                                         links and rating belong in a dialog anyway. -->
-                                    <HyperlinkButton x:Name="AboutButton"
-                                                     Margin="-12,0,-12,0"
-                                                     Click="AboutClick" />
-                                </StackPanel>
-                            </ScrollViewer>
-                        </Flyout>
-                    </Button.Flyout>
                 </Button>
             </StackPanel>
 
@@ -526,5 +451,88 @@
                      PreferredPlacement="Top"
                      ActionButtonClick="RatingTipAction"
                      CloseButtonClick="RatingTipClose" />
+
+        <!-- Declared in the tree rather than built in code, unlike the dialogs in AppDialogs: these
+             controls are the ones ApplyLanguage already writes to by name, and the whole point of
+             moving them out of the flyout was to change nothing but the container. A ContentDialog's
+             template is collapsed until ShowAsync, so sitting in the grid's first cell costs
+             nothing; its children are real from InitializeComponent onwards, which is what lets
+             ApplyLanguage reach them long before the dialog is first opened. -->
+        <ContentDialog x:Name="SettingsDialog" DefaultButton="Close">
+            <ScrollViewer MaxHeight="560"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollMode="Disabled">
+                <StackPanel x:Name="SettingsDialogRoot" Width="400" Spacing="4">
+                    <TextBlock x:Name="SettingsGroupGeneral"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"
+                               Margin="0,0,0,6" />
+                    <ComboBox x:Name="UiLanguageComboBox"
+                              HorizontalAlignment="Stretch"
+                              DisplayMemberPath="DisplayName"
+                              SelectionChanged="UiLanguageSelectionChanged" />
+                    <ToggleSwitch x:Name="StartupToggle"
+                                  Margin="0,10,0,0"
+                                  Toggled="StartupToggled" />
+                    <TextBlock x:Name="StartupDescription"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" />
+                    <ToggleSwitch x:Name="CloseToTrayToggle"
+                                  Margin="0,10,0,0"
+                                  Toggled="CloseToTrayToggled" />
+                    <TextBlock x:Name="CloseToTrayDescription"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" />
+
+                    <Border Height="1" Margin="0,18,0,0"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                    <TextBlock x:Name="SettingsGroupRecognition"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"
+                               Margin="0,14,0,6" />
+                    <ToggleSwitch x:Name="RepairVersionsToggle"
+                                  Toggled="RepairVersionsToggled" />
+                    <TextBlock x:Name="RepairVersionsDescription"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" />
+
+                    <Border Height="1" Margin="0,18,0,0"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                    <TextBlock x:Name="SettingsGroupPrivacy"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"
+                               Margin="0,14,0,6" />
+                    <ToggleSwitch x:Name="WatchClipboardToggle"
+                                  Toggled="WatchClipboardToggled" />
+                    <!-- Two sentences, and both have to stay. The first says the copied picture is
+                         replaced by its text, which is the one surprising thing this does; the
+                         second says the picture never leaves the machine, which is what anyone
+                         reading "watches your clipboard" wants to know next. -->
+                    <TextBlock x:Name="WatchClipboardDescription"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" />
+                    <ToggleSwitch x:Name="KeepHistoryToggle"
+                                  Margin="0,10,0,0"
+                                  Toggled="KeepHistoryToggled" />
+                    <!-- Says what is stored, what is not, and what turning it off does. The third
+                         part matters as much as the first: a switch that only stopped future writes
+                         would leave what is already on disk behind, which is not what anyone
+                         reaching for it means. -->
+                    <TextBlock x:Name="KeepHistoryDescription"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" />
+
+                    <Border Height="1" Margin="0,18,0,0"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                    <!-- Only an entry point, not the content: version, links and rating are their
+                         own dialog, and this one cannot open a second on top of itself. -->
+                    <HyperlinkButton x:Name="AboutButton"
+                                     Margin="-12,8,-12,0"
+                                     Click="AboutClick" />
+                </StackPanel>
+            </ScrollViewer>
+        </ContentDialog>
     </Grid>
 </Window>
