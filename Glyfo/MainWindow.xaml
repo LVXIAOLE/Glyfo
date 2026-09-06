@@ -207,6 +207,15 @@
                                         <KeyboardAccelerator Modifiers="Control,Shift" Key="C" />
                                     </Button.KeyboardAccelerators>
                                 </Button>
+                                <!-- Ctrl+S for the text and Ctrl+Shift+S for the picture, which is
+                                     the right way round: the text is what the app is for, and the
+                                     picture is what it was read from. -->
+                                <Button x:Name="SaveTextButton" Click="SaveTextClick">
+                                    <SymbolIcon Symbol="Save" />
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator Modifiers="Control" Key="S" />
+                                    </Button.KeyboardAccelerators>
+                                </Button>
                                 <Button x:Name="RemoveLineBreaksButton" Click="RemoveLineBreaksClick" />
                                 <Button x:Name="RemoveSpacesButton" Click="RemoveSpacesClick" />
                             </StackPanel>

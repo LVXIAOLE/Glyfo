@@ -43,6 +43,7 @@ internal static partial class Strings
         ["Tip_Speak"] = "Read the text aloud",
         ["Tip_StopSpeak"] = "Stop reading",
         ["Tip_CopyText"] = "Copy the text (Ctrl+Shift+C)",
+        ["Tip_SaveText"] = "Save the text to a file (Ctrl+S)",
         ["Btn_RemoveLineBreaks"] = "Unwrap",
         ["Tip_RemoveLineBreaks"] = "Merge hard line breaks back into paragraphs",
         ["Btn_RemoveSpaces"] = "No spaces",
@@ -120,6 +121,9 @@ internal static partial class Strings
         ["Status_Translated"] = "Translated into {0}, on this device, with no network access.",
         ["Status_TranslateFailed"] = "Translation failed: {0}",
         ["Status_NothingToCopy"] = "There is no text to copy.",
+        ["Status_NothingToSave"] = "There is no text to save.",
+        ["Status_TextSaved"] = "Text saved as {0}.",
+        ["Status_TextSaveFailed"] = "Could not save the text: {0}",
         ["Status_TextCopied"] = "Text copied to the clipboard.",
         ["Status_CopyFailed"] = "Could not copy the text: {0}",
         ["Status_NothingToSpeak"] = "There is no text to read aloud.",
@@ -167,6 +171,8 @@ internal static partial class Strings
         ["Source_Codes"] = "{0} (codes)",
 
         ["FileType_Image"] = "{0} image",
+        ["FileType_Text"] = "Plain text",
+        ["FileType_Markdown"] = "Markdown",
 
         // Region-capture overlay
         ["Region_Hint"] = "Drag to select an area　·　Esc or right-click to cancel",

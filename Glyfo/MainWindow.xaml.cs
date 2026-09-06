@@ -14,6 +14,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
@@ -301,6 +302,7 @@ public sealed partial class MainWindow : Window
         SetTip(SpeakButton, Loc.Get("Tip_Speak"));
         SetTip(StopSpeakButton, Loc.Get("Tip_StopSpeak"));
         SetTip(CopyTextButton, Loc.Get("Tip_CopyText"));
+        SetTip(SaveTextButton, Loc.Get("Tip_SaveText"));
         RemoveLineBreaksButton.Content = Loc.Get("Btn_RemoveLineBreaks");
         SetTip(RemoveLineBreaksButton, Loc.Get("Tip_RemoveLineBreaks"));
         RemoveSpacesButton.Content = Loc.Get("Btn_RemoveSpaces");
@@ -1391,6 +1393,73 @@ public sealed partial class MainWindow : Window
         {
             SetStatus(Loc.Get("Status_CopyFailed", error), InfoBarSeverity.Error);
         }
+    }
+
+    /// <summary>
+    /// Writes the result box to a file the user picks.
+    /// </summary>
+    /// <remarks>
+    /// Until now the only thing that could be saved was the picture, which is the input. Anything
+    /// longer than a paste — a scanned page, a whole PDF — had to be copied out through the
+    /// clipboard one bufferful at a time.
+    /// </remarks>
+    private async void SaveTextClick(object sender, RoutedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(ResultTextBox.Text))
+        {
+            SetStatus(Loc.Get("Status_NothingToSave"), InfoBarSeverity.Warning);
+            return;
+        }
+
+        try
+        {
+            var picker = new FileSavePicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+                SuggestedFileName = Path.GetFileNameWithoutExtension(_currentImageName) is { Length: > 0 } name
+                    ? name
+                    : "Glyfo"
+            };
+            picker.FileTypeChoices.Add(Loc.Get("FileType_Text"), new[] { ".txt" });
+            picker.FileTypeChoices.Add(Loc.Get("FileType_Markdown"), new[] { ".md" });
+            InitializeWithWindow.Initialize(picker, _hwnd);
+
+            var target = await picker.PickSaveFileAsync();
+            if (target is null)
+            {
+                return;
+            }
+
+            await WriteTextFileAsync(target, ResultTextBox.Text);
+            SetStatus(Loc.Get("Status_TextSaved", target.Name), InfoBarSeverity.Success);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(Loc.Get("Status_TextSaveFailed", ex.Message), InfoBarSeverity.Error);
+        }
+    }
+
+    /// <summary>
+    /// Writes text out the way the file's own extension expects to be read.
+    /// </summary>
+    /// <remarks>
+    /// A TextBox holds bare LF for its line breaks, which Notepad has only understood since 2018 and
+    /// which plenty of older Windows tools still render as one long line; so the breaks are put back
+    /// to CRLF first.
+    ///
+    /// The byte-order mark goes on .txt and not on .md, because they are read by different things. A
+    /// plain text file is opened by whatever the user has, and on Windows that guesses the encoding
+    /// from the first bytes — without the mark, anything non-ASCII comes out as mojibake. Markdown
+    /// is read by tools that assume UTF-8 already, several of which will show the mark as stray
+    /// characters at the top of the document.
+    /// </remarks>
+    private static async Task WriteTextFileAsync(StorageFile file, string text)
+    {
+        var normalized = text.Replace("\r\n", "\n").Replace('\r', '\n').Replace("\n", "\r\n");
+        var markdown = string.Equals(Path.GetExtension(file.Name), ".md", StringComparison.OrdinalIgnoreCase);
+        var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: !markdown);
+
+        await FileIO.WriteBytesAsync(file, encoding.GetPreamble().Concat(encoding.GetBytes(normalized)).ToArray());
     }
 
     private static bool CopyTextToClipboard(string text) => CopyTextToClipboard(text, out _);
