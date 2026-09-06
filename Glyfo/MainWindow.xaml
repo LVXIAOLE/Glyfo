@@ -487,6 +487,56 @@
 
                     <Border Height="1" Margin="0,18,0,0"
                             Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                    <TextBlock x:Name="SettingsGroupHotkeys"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"
+                               Margin="0,14,0,6" />
+                    <!-- The button is the value: it shows the combination registered right now, and
+                         pressing it records over that one in place. A label reading "Alt+Z" with an
+                         "Edit" button beside it would say the same thing in twice the width, and
+                         recording in a second dialog is not open to us — WinUI will not stack one
+                         ContentDialog on another, and this panel is now itself a dialog. -->
+                    <Grid ColumnSpacing="12" Margin="0,2,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="HotkeyRegionLabel"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                        <Button x:Name="HotkeyRegionButton"
+                                Grid.Column="1"
+                                MinWidth="150"
+                                Click="HotkeyRegionClick"
+                                PreviewKeyDown="HotkeyRecordKeyDown"
+                                LostFocus="HotkeyRecordLostFocus" />
+                    </Grid>
+                    <Grid ColumnSpacing="12" Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="HotkeyFullLabel"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                        <Button x:Name="HotkeyFullButton"
+                                Grid.Column="1"
+                                MinWidth="150"
+                                Click="HotkeyFullClick"
+                                PreviewKeyDown="HotkeyRecordKeyDown"
+                                LostFocus="HotkeyRecordLostFocus" />
+                    </Grid>
+                    <TextBlock x:Name="HotkeyHint"
+                               Margin="0,8,0,0"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" />
+                    <HyperlinkButton x:Name="ResetHotkeysButton"
+                                     Margin="0,4,0,0"
+                                     Padding="0,4,0,4"
+                                     Click="ResetHotkeysClick" />
+
+                    <Border Height="1" Margin="0,18,0,0"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
                     <TextBlock x:Name="SettingsGroupRecognition"
                                Style="{StaticResource BodyStrongTextBlockStyle}"
                                Margin="0,14,0,6" />

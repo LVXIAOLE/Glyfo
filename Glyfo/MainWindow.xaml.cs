@@ -34,19 +34,9 @@ public sealed partial class MainWindow : Window
     private const int FullHotkeyId = 9001;
     private const int RegionHotkeyId = 9002;
     private const uint WmHotkey = 0x0312;
-    private const uint ModAlt = 0x0001;
-    private const uint ModControl = 0x0002;
-    private const uint ModShift = 0x0004;
-    private const uint VkG = 0x47;
-    private const uint VkR = 0x52;
-    private const uint VkZ = 0x5A;
 
-    /// <summary>
-    /// The full-screen shortcut, spelled out for the capture menu. Not translated and not built
-    /// from the registration: it has no fallback combination the way the region one does, and the
-    /// capture tooltip has been naming it unconditionally since 1.0.
-    /// </summary>
-    private const string FullScreenHotkeyText = "Ctrl+Shift+R";
+    /// <summary>Stands in for a shortcut that is not registered, on the buttons that show one.</summary>
+    private const string NoHotkeyText = "—";
 
     private const int SmCxscreen = 0;
     private const int SmCyscreen = 1;
@@ -143,11 +133,20 @@ public sealed partial class MainWindow : Window
     private PdfSource? _pdf;
     private uint _pdfPageIndex;
 
-    /// <summary>Which shortcut region capture ended up on; folded into the button's tooltip.</summary>
-    private string _captureHotkeyText = string.Empty;
+    /// <summary>
+    /// The two shortcuts as actually registered — empty when the combination was already taken.
+    /// </summary>
+    /// <remarks>
+    /// What is registered, not what is stored: the two differ exactly when another app owns the
+    /// user's choice, and every label in the app names these so that nothing ever advertises a key
+    /// that does nothing.
+    /// </remarks>
+    private Hotkey _regionHotkey;
+    private Hotkey _fullHotkey;
 
-    /// <summary>False when every candidate shortcut was already taken by another app.</summary>
-    private bool _hotkeyAvailable;
+    /// <summary>The settings button currently listening for a combination, if any.</summary>
+    private Button? _recordingButton;
+    private bool _recordingRegion;
 
     private bool _autoFit = true;
     private bool _isBusy;
@@ -317,17 +316,11 @@ public sealed partial class MainWindow : Window
         OpenLabel.Text = Loc.Get("Btn_OpenFile");
         SetTip(OpenButton, Loc.Get("Tip_OpenFile"));
         CaptureLabel.Text = Loc.Get("Btn_Capture");
-        SetTip(CaptureButton, Loc.Get("Tip_Capture", _captureHotkeyText));
 
         // The same two entries the tray menu offers, under the same names: they do the same thing,
         // and a second wording for it would only invite the reader to look for a difference.
         CaptureRegionItem.Text = Loc.Get("Tray_CaptureRegion");
         CaptureFullScreenItem.Text = Loc.Get("Tray_CaptureFullScreen");
-
-        // Blank when both combinations are taken, rather than the sentence that says so: this slot
-        // is for a key name, and the tooltip already explains the situation in full.
-        CaptureRegionItem.KeyboardAcceleratorTextOverride = _hotkeyAvailable ? _captureHotkeyText : string.Empty;
-        CaptureFullScreenItem.KeyboardAcceleratorTextOverride = FullScreenHotkeyText;
         PasteLabel.Text = Loc.Get("Btn_Paste");
         SetTip(PasteButton, Loc.Get("Tip_Paste"));
         HistoryLabel.Text = Loc.Get("Btn_History");
@@ -340,8 +333,22 @@ public sealed partial class MainWindow : Window
         SettingsDialog.Title = Loc.Get("Settings_Header");
         SettingsDialog.CloseButtonText = Loc.Get("Common_Close");
         SettingsGroupGeneral.Text = Loc.Get("Setting_Group_General");
+        SettingsGroupHotkeys.Text = Loc.Get("Setting_Group_Hotkeys");
         SettingsGroupRecognition.Text = Loc.Get("Setting_Group_Recognition");
         SettingsGroupPrivacy.Text = Loc.Get("Setting_Group_Privacy");
+        HotkeyRegionLabel.Text = Loc.Get("Setting_Hotkey_Region");
+        HotkeyFullLabel.Text = Loc.Get("Setting_Hotkey_Full");
+        HotkeyHint.Text = Loc.Get("Hotkey_RecordHint");
+        ResetHotkeysButton.Content = Loc.Get("Btn_ResetHotkeys");
+        // The tooltip only, not SetTip: these two buttons carry the combination as their content,
+        // and an automation name would hide it from a screen reader behind the instruction.
+        ToolTipService.SetToolTip(HotkeyRegionButton, Loc.Get("Btn_ChangeHotkey"));
+        ToolTipService.SetToolTip(HotkeyFullButton, Loc.Get("Btn_ChangeHotkey"));
+
+        // Everything that names a combination goes through one place: the capture tooltip, both
+        // menu accelerators, the tray and the two settings rows all depend on the language and on
+        // what actually registered at once, and either can change without the other.
+        RefreshHotkeyLabels();
         StartupToggle.Header = Loc.Get("Setting_Startup");
         StartupToggle.OnContent = Loc.Get("Common_On");
         StartupToggle.OffContent = Loc.Get("Common_Off");
@@ -2546,7 +2553,7 @@ public sealed partial class MainWindow : Window
     /// </remarks>
     private void InitializeTray()
     {
-        _tray = new TrayIcon(_hwnd) { HotkeyText = _captureHotkeyText };
+        _tray = new TrayIcon(_hwnd) { HotkeyText = RegionHotkeyText };
 
         _tray.OpenRequested += (_, _) => _dispatcherQueue.TryEnqueue(ShowFromTray);
         _tray.CaptureRegionRequested += (_, _) =>
@@ -2731,7 +2738,7 @@ public sealed partial class MainWindow : Window
             if (shown < MaxTrayHints)
             {
                 AppSettings.Current.TrayHintCount = shown + 1;
-                Toasts.ShowMinimizedToTray(_captureHotkeyText);
+                Toasts.ShowMinimizedToTray(RegionHotkeyText);
             }
         });
     }
@@ -2746,7 +2753,7 @@ public sealed partial class MainWindow : Window
     /// </remarks>
     private async Task AnnounceStartupAsync()
     {
-        if (!_hotkeyAvailable)
+        if (_regionHotkey.IsEmpty)
         {
             await Task.Delay(StartupHintDelayMs);
             if (!_isClosed)
@@ -2767,7 +2774,7 @@ public sealed partial class MainWindow : Window
 
         if (!_isClosed)
         {
-            Toasts.ShowStartupHint(_captureHotkeyText);
+            Toasts.ShowStartupHint(RegionHotkeyText);
         }
     }
 
@@ -2785,6 +2792,14 @@ public sealed partial class MainWindow : Window
     {
         _aboutRequested = false;
         await AppDialogs.ShowGuardedAsync(SettingsDialog, RootGrid.XamlRoot);
+
+        // Losing focus normally ends a recording, and dismissing the dialog does move focus. This
+        // is the backstop for the paths where it does not, because the cost of missing one is that
+        // the app runs on with no capture shortcut registered at all until it is restarted.
+        if (_recordingButton is not null)
+        {
+            EndRecording();
+        }
 
         if (_aboutRequested)
         {
@@ -2912,23 +2927,238 @@ public sealed partial class MainWindow : Window
 
     // ---------------------------------------------------------------- hotkeys
 
+    /// <summary>The region shortcut for prose — the sentence that says so when there is none.</summary>
+    private string RegionHotkeyText =>
+        _regionHotkey.IsEmpty ? Loc.Get("Hotkey_Unavailable") : _regionHotkey.ToString();
+
+    /// <summary>
+    /// Takes both capture shortcuts, from settings where the user has chosen one and from the
+    /// built-in defaults where they have not.
+    /// </summary>
+    /// <remarks>
+    /// Safe to call again at any time — it releases both ids first — which is what lets a shortcut
+    /// be changed without restarting, and what puts them back after the recorder has borrowed them.
+    /// Both registrations are kept this time: a combination another app already owns comes back
+    /// empty, and the labels are built from these two fields rather than from the request, so
+    /// nothing can end up advertising a key that does nothing.
+    /// </remarks>
     private void RegisterHotkeys()
     {
-        RegisterHotKey(_hwnd, FullHotkeyId, ModControl | ModShift, VkR);
+        UnregisterHotKey(_hwnd, FullHotkeyId);
+        UnregisterHotKey(_hwnd, RegionHotkeyId);
 
-        // Alt+Z is the shortcut users coming from other capture tools reach for first; if another
-        // app already owns it, fall back rather than leaving region capture without a hotkey at all.
-        _hotkeyAvailable = true;
-        _captureHotkeyText =
-            RegisterHotKey(_hwnd, RegionHotkeyId, ModAlt, VkZ) ? "Alt+Z"
-            : RegisterHotKey(_hwnd, RegionHotkeyId, ModControl | ModShift, VkG) ? "Ctrl+Shift+G"
-            : Unavailable();
+        var chosenFull = AppSettings.Current.FullHotkey;
+        _fullHotkey = Take(FullHotkeyId, chosenFull.IsUsable ? chosenFull : Hotkey.FullDefault);
 
-        string Unavailable()
+        // Alt+Z is what users coming from other capture tools reach for first; if another app
+        // already owns it, fall back rather than leave region capture without a shortcut at all.
+        // The fallback is for the default only: a combination the user typed in on purpose is not
+        // something to quietly swap out from under them.
+        var chosenRegion = AppSettings.Current.RegionHotkey;
+        if (chosenRegion.IsUsable)
         {
-            _hotkeyAvailable = false;
-            return Loc.Get("Hotkey_Unavailable");
+            _regionHotkey = Take(RegionHotkeyId, chosenRegion);
         }
+        else
+        {
+            _regionHotkey = Take(RegionHotkeyId, Hotkey.RegionDefault);
+            if (_regionHotkey.IsEmpty)
+            {
+                _regionHotkey = Take(RegionHotkeyId, Hotkey.RegionFallback);
+            }
+        }
+
+        Hotkey Take(int id, Hotkey key) =>
+            RegisterHotKey(_hwnd, id, key.Modifiers, key.Key) ? key : default;
+    }
+
+    /// <summary>Writes the two live combinations into every place that names one.</summary>
+    private void RefreshHotkeyLabels()
+    {
+        SetTip(CaptureButton, _fullHotkey.IsEmpty
+            ? Loc.Get("Tip_CaptureRegionOnly", RegionHotkeyText)
+            : Loc.Get("Tip_CaptureKeys", RegionHotkeyText, _fullHotkey.ToString()));
+
+        // Blank when the combination is taken, rather than the sentence that says so: this slot is
+        // for a key name, and the tooltip already explains the situation in full.
+        CaptureRegionItem.KeyboardAcceleratorTextOverride = _regionHotkey.ToString();
+        CaptureFullScreenItem.KeyboardAcceleratorTextOverride = _fullHotkey.ToString();
+
+        HotkeyRegionButton.Content = _regionHotkey.IsEmpty ? NoHotkeyText : _regionHotkey.ToString();
+        HotkeyFullButton.Content = _fullHotkey.IsEmpty ? NoHotkeyText : _fullHotkey.ToString();
+
+        // Null on the first pass: the language is applied before the tray icon exists.
+        if (_tray is not null)
+        {
+            _tray.HotkeyText = RegionHotkeyText;
+            _tray.Refresh();
+        }
+    }
+
+    private void HotkeyRegionClick(object sender, RoutedEventArgs e) => BeginRecording(HotkeyRegionButton, region: true);
+
+    private void HotkeyFullClick(object sender, RoutedEventArgs e) => BeginRecording(HotkeyFullButton, region: false);
+
+    /// <summary>
+    /// Turns one of the two buttons into a listener for the next combination.
+    /// </summary>
+    /// <remarks>
+    /// Both registrations come down for the duration, and that is not tidiness. The system swallows
+    /// a combination it has registered — it never reaches the focused window's input queue — so
+    /// with Alt+Z still held, pressing Alt+Z here would open the capture overlay instead of being
+    /// recorded, and the one shortcut the user most wants to change would be the one they could
+    /// never type.
+    /// </remarks>
+    private void BeginRecording(Button button, bool region)
+    {
+        UnregisterHotKey(_hwnd, FullHotkeyId);
+        UnregisterHotKey(_hwnd, RegionHotkeyId);
+
+        _recordingButton = button;
+        _recordingRegion = region;
+        button.Content = Loc.Get("Btn_RecordingHotkey");
+        button.Focus(FocusState.Programmatic);
+    }
+
+    /// <summary>Stops listening and puts the pair back, from whatever settings now hold.</summary>
+    private void EndRecording()
+    {
+        _recordingButton = null;
+        RegisterHotkeys();
+        RefreshHotkeyLabels();
+    }
+
+    /// <summary>
+    /// Reads the combination off the keyboard while a button is listening.
+    /// </summary>
+    /// <remarks>
+    /// The modifiers are asked for rather than taken from the event, because the event only ever
+    /// carries one key. The non-modifier key is the one that ends the recording, and it is
+    /// guaranteed to arrive: it is the modifiers that route oddly, not it. Every key is marked
+    /// handled so that Space and Enter do not reach the button underneath and Enter does not close
+    /// the dialog.
+    /// </remarks>
+    private void HotkeyRecordKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+    {
+        if (_recordingButton is null)
+        {
+            return;
+        }
+
+        e.Handled = true;
+        var vk = (uint)e.Key;
+
+        if (e.Key == Windows.System.VirtualKey.Escape)
+        {
+            EndRecording();
+            return;
+        }
+
+        if (Hotkey.IsModifierKey(vk))
+        {
+            return;
+        }
+
+        var candidate = new Hotkey(CurrentModifiers(), vk);
+        if (!candidate.IsUsable)
+        {
+            // Still listening: a rejected key is almost always a slip, and dropping out of
+            // recording would make the user click the button again to try the one they meant.
+            SetStatus(Loc.Get("Hotkey_NeedModifier"), InfoBarSeverity.Warning);
+            return;
+        }
+
+        ApplyRecordedHotkey(candidate);
+    }
+
+    private void HotkeyRecordLostFocus(object sender, RoutedEventArgs e)
+    {
+        if (ReferenceEquals(_recordingButton, sender))
+        {
+            EndRecording();
+        }
+    }
+
+    /// <summary>
+    /// Stores the recorded combination, then keeps it only if it could actually be registered.
+    /// </summary>
+    /// <remarks>
+    /// Trying to take it is the only test there is: nothing will say whether another application
+    /// already owns a combination without attempting to take it away. So the value is written,
+    /// registered through the ordinary path, and rolled back when what came out is not what went
+    /// in — leaving the settings showing a shortcut that is not live would be the worse failure.
+    /// </remarks>
+    private void ApplyRecordedHotkey(Hotkey key)
+    {
+        var region = _recordingRegion;
+        var previous = region ? AppSettings.Current.RegionHotkey : AppSettings.Current.FullHotkey;
+
+        if (region)
+        {
+            AppSettings.Current.RegionHotkey = key;
+        }
+        else
+        {
+            AppSettings.Current.FullHotkey = key;
+        }
+
+        EndRecording();
+
+        if ((region ? _regionHotkey : _fullHotkey) == key)
+        {
+            return;
+        }
+
+        if (region)
+        {
+            AppSettings.Current.RegionHotkey = previous;
+        }
+        else
+        {
+            AppSettings.Current.FullHotkey = previous;
+        }
+
+        EndRecording();
+        SetStatus(Loc.Get("Hotkey_Taken", key.ToString()), InfoBarSeverity.Warning);
+    }
+
+    private void ResetHotkeysClick(object sender, RoutedEventArgs e)
+    {
+        AppSettings.Current.RegionHotkey = default;
+        AppSettings.Current.FullHotkey = default;
+        EndRecording();
+    }
+
+    /// <summary>
+    /// Which of Ctrl, Alt and Shift are down at this instant.
+    /// </summary>
+    /// <remarks>
+    /// Asked of the input system rather than read off the key event, which reports the one key it
+    /// is about and nothing else.
+    /// </remarks>
+    private static uint CurrentModifiers()
+    {
+        uint modifiers = 0;
+        if (IsDown(Windows.System.VirtualKey.Control))
+        {
+            modifiers |= Hotkey.ModControl;
+        }
+
+        if (IsDown(Windows.System.VirtualKey.Menu))
+        {
+            modifiers |= Hotkey.ModAlt;
+        }
+
+        if (IsDown(Windows.System.VirtualKey.Shift))
+        {
+            modifiers |= Hotkey.ModShift;
+        }
+
+        return modifiers;
+
+        static bool IsDown(Windows.System.VirtualKey key) =>
+            (Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(key)
+                & Windows.UI.Core.CoreVirtualKeyStates.Down) != 0;
     }
 
     private IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)

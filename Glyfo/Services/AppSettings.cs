@@ -25,6 +25,10 @@ public sealed class AppSettings
     private const string RatingPromptDoneKey = "RatingPromptDone";
     private const string WatchClipboardKey = "WatchClipboard";
     private const string KeepHistoryKey = "KeepHistory";
+    private const string RegionHotkeyModsKey = "RegionHotkeyMods";
+    private const string RegionHotkeyVkKey = "RegionHotkeyVk";
+    private const string FullHotkeyModsKey = "FullHotkeyMods";
+    private const string FullHotkeyVkKey = "FullHotkeyVk";
 
     /// <summary>
     /// Keys that already existed in 1.0.x. Their presence is what tells an upgrade apart from a
@@ -210,6 +214,38 @@ public sealed class AppSettings
     {
         get => GetBool(KeepHistoryKey, true);
         set => SetBool(KeepHistoryKey, value);
+    }
+
+    /// <summary>
+    /// The shortcut chosen for region capture, empty when the user has never chosen one.
+    /// </summary>
+    /// <remarks>
+    /// Empty rather than the built-in default, because "never chosen" has to stay distinguishable
+    /// from "chose Alt+Z". The Alt+Z to Ctrl+Shift+G fallback is the right answer for a default
+    /// nobody picked and the wrong one for a key somebody typed in on purpose: silently moving a
+    /// user's own shortcut is worse than telling them it did not take.
+    /// </remarks>
+    public Hotkey RegionHotkey
+    {
+        get => new((uint)GetInt(RegionHotkeyModsKey, 0), (uint)GetInt(RegionHotkeyVkKey, 0));
+        set
+        {
+            SetInt(RegionHotkeyModsKey, (int)value.Modifiers);
+            SetInt(RegionHotkeyVkKey, (int)value.Key);
+        }
+    }
+
+    /// <summary>
+    /// The shortcut chosen for full-screen capture, empty when the user has never chosen one.
+    /// </summary>
+    public Hotkey FullHotkey
+    {
+        get => new((uint)GetInt(FullHotkeyModsKey, 0), (uint)GetInt(FullHotkeyVkKey, 0));
+        set
+        {
+            SetInt(FullHotkeyModsKey, (int)value.Modifiers);
+            SetInt(FullHotkeyVkKey, (int)value.Key);
+        }
     }
 
     /// <summary>
