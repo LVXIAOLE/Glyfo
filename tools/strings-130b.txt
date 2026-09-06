@@ -1,0 +1,1344 @@
+Ar|Rotate_Right|تدوير لليمين. استخدم السهم لمزيد من الخيارات.
+Ar|Rotate_Left|تدوير لليسار
+Ar|Rotate_180|قلب رأسًا على عقب
+Ar|Rotate_Deskew|تقويم تلقائي
+Ar|Rotate_Reset|العودة إلى الأصل
+Ar|Text_Stats|{0} كلمة
+Ar|Text_Chars|{0} حرف
+Ar|Find_Placeholder|بحث في النص
+Ar|Tip_Find|بحث في النص (Ctrl+F)
+Ar|Find_Count|{0} من {1}
+Ar|Find_NoMatch|غير موجود
+Ar|Tip_FindPrev|النتيجة السابقة (Shift+Enter)
+Ar|Tip_FindNext|النتيجة التالية (Enter)
+Ar|Tip_FindClose|إغلاق شريط البحث (Esc)
+Ar|Tip_CaptureKeys|حدد منطقة من الشاشة واقرأ نصها ({0}). اضغط {1} لالتقاط الشاشة كاملة.
+Ar|Tip_CaptureRegionOnly|حدد منطقة من الشاشة واقرأ نصها ({0}).
+Ar|Setting_Group_General|عام
+Ar|Setting_Group_Hotkeys|اختصارات
+Ar|Setting_Group_Recognition|التعرف على النص
+Ar|Setting_Group_Privacy|الخصوصية
+Ar|Setting_Hotkey_Region|التقاط منطقة
+Ar|Setting_Hotkey_Full|التقاط الشاشة كاملة
+Ar|Btn_ChangeHotkey|انقر ثم اضغط التركيبة التي تريدها
+Ar|Btn_RecordingHotkey|اضغط تركيبة مفاتيح…
+Ar|Btn_ResetHotkeys|إعادة تعيين الاختصارين
+Ar|Hotkey_RecordHint|اضغط Esc للإلغاء. تظل الاختصارات تعمل بينما يكون Glyfo في منطقة الإشعارات.
+Ar|Hotkey_NeedModifier|يحتاج الاختصار إلى Ctrl أو Alt مع حرف أو رقم أو مفتاح وظيفي.
+Ar|Hotkey_Taken|{0} مستخدم بالفعل في تطبيق آخر. لا يزال الاختصار السابق ساريًا.
+Ar|Setting_Theme|المظهر
+Ar|Theme_System|اتباع إعداد Windows
+Ar|Theme_Light|فاتح
+Ar|Theme_Dark|داكن
+Ar|Status_Deskewed|تم التقويم بمقدار {0}°.
+Ar|Status_DeskewNone|هذه الصفحة مستقيمة بالفعل.
+Ar|Status_RotateFailed|تعذر تدوير الصورة: {0}
+Ar|Welcome_Title|مرحبًا بك في Glyfo
+Ar|Welcome_1|اضغط {0} في أي مكان في Windows لتحديد مربع حول نص وقراءته.
+Ar|Welcome_2|أو أفلت صورة أو ملف PDF على النافذة، أو الصق صورة، أو افتح ملفًا.
+Ar|Welcome_3|يُحفظ كل ما تقرأه في السجل، ويمكن البحث فيه أو حفظه أو مسحه. ولا يغادر هذا الجهاز أبدًا.
+Ar|Welcome_Start|لنبدأ
+Ar|News_130_4|اختر اختصارات الالتقاط التي تناسبك، وستفتح النافذة بالحجم والموضع اللذين تركتها عليهما.
+Ar|News_130_5|قوّم صورة مائلة، وابحث في النص بـ Ctrl+F، واختر مظهرًا فاتحًا أو داكنًا.
+Bn|Rotate_Right|ডানে ঘোরান। আরও অপশনের জন্য তিরচিহ্নে ক্লিক করুন।
+Bn|Rotate_Left|বাঁয়ে ঘোরান
+Bn|Rotate_180|উল্টো করুন
+Bn|Rotate_Deskew|স্বয়ংক্রিয়ভাবে সোজা করুন
+Bn|Rotate_Reset|আসল ছবিতে ফিরে যান
+Bn|Text_Stats|{0}টি শব্দ
+Bn|Text_Chars|{0}টি অক্ষর
+Bn|Find_Placeholder|লেখার মধ্যে খুঁজুন
+Bn|Tip_Find|লেখার মধ্যে খুঁজুন (Ctrl+F)
+Bn|Find_Count|{1}টির মধ্যে {0}
+Bn|Find_NoMatch|পাওয়া যায়নি
+Bn|Tip_FindPrev|আগের মিল (Shift+Enter)
+Bn|Tip_FindNext|পরের মিল (Enter)
+Bn|Tip_FindClose|খোঁজার বার বন্ধ করুন (Esc)
+Bn|Tip_CaptureKeys|স্ক্রিনের একটি অংশ বেছে নিয়ে তার লেখা পড়ুন ({0})। পুরো স্ক্রিনের জন্য {1} চাপুন।
+Bn|Tip_CaptureRegionOnly|স্ক্রিনের একটি অংশ বেছে নিয়ে তার লেখা পড়ুন ({0})।
+Bn|Setting_Group_General|সাধারণ
+Bn|Setting_Group_Hotkeys|শর্টকাট
+Bn|Setting_Group_Recognition|লেখা শনাক্তকরণ
+Bn|Setting_Group_Privacy|গোপনীয়তা
+Bn|Setting_Hotkey_Region|একটি অংশ ক্যাপচার করুন
+Bn|Setting_Hotkey_Full|পুরো স্ক্রিন ক্যাপচার করুন
+Bn|Btn_ChangeHotkey|ক্লিক করে যে কি-সমন্বয় চান সেটি চাপুন
+Bn|Btn_RecordingHotkey|একটি কি-সমন্বয় চাপুন…
+Bn|Btn_ResetHotkeys|দুটি শর্টকাটই আগের অবস্থায় ফেরান
+Bn|Hotkey_RecordHint|বাতিল করতে Esc চাপুন। Glyfo নোটিফিকেশন এলাকায় থাকলেও শর্টকাটগুলো কাজ করে।
+Bn|Hotkey_NeedModifier|শর্টকাটে Ctrl বা Alt এবং সঙ্গে একটি অক্ষর, সংখ্যা বা ফাংশন কি লাগবে।
+Bn|Hotkey_Taken|{0} ইতিমধ্যেই অন্য একটি অ্যাপ ব্যবহার করছে। আগের শর্টকাটটিই বহাল আছে।
+Bn|Setting_Theme|চেহারা
+Bn|Theme_System|Windows অনুসরণ করুন
+Bn|Theme_Light|হালকা
+Bn|Theme_Dark|গাঢ়
+Bn|Status_Deskewed|{0}° সোজা করা হয়েছে।
+Bn|Status_DeskewNone|এই পাতাটি আগে থেকেই সোজা আছে।
+Bn|Status_RotateFailed|ছবিটি ঘোরানো গেল না: {0}
+Bn|Welcome_Title|Glyfo-তে স্বাগতম
+Bn|Welcome_1|Windows-এর যেকোনো জায়গায় {0} চেপে লেখার চারপাশে একটি বাক্স টেনে সেটি পড়ে নিন।
+Bn|Welcome_2|অথবা উইন্ডোতে ছবি বা PDF ছেড়ে দিন, পেস্ট করুন, কিংবা ফাইল খুলুন।
+Bn|Welcome_3|আপনি যা পড়েন সবই ইতিহাসে জমা থাকে এবং তাতে খোঁজা, সংরক্ষণ বা মুছে ফেলা যায়। এটি কখনও এই ডিভাইস ছাড়ে না।
+Bn|Welcome_Start|শুরু করুন
+Bn|News_130_4|নিজের পছন্দের ক্যাপচার শর্টকাট বেছে নিন, আর উইন্ডো যেখানে যেভাবে রেখেছিলেন সেভাবেই খুলবে।
+Bn|News_130_5|বাঁকা ছবি সোজা করুন, Ctrl+F দিয়ে লেখায় খুঁজুন, আর হালকা বা গাঢ় চেহারা বেছে নিন।
+Cs|Rotate_Right|Otočit doprava. Další možnosti najdete pod šipkou.
+Cs|Rotate_Left|Otočit doleva
+Cs|Rotate_180|Otočit vzhůru nohama
+Cs|Rotate_Deskew|Automaticky narovnat
+Cs|Rotate_Reset|Zpět na originál
+Cs|Text_Stats|{0} slov
+Cs|Text_Chars|{0} znaků
+Cs|Find_Placeholder|Najít v textu
+Cs|Tip_Find|Najít v textu (Ctrl+F)
+Cs|Find_Count|{0} z {1}
+Cs|Find_NoMatch|Nenalezeno
+Cs|Tip_FindPrev|Předchozí výskyt (Shift+Enter)
+Cs|Tip_FindNext|Další výskyt (Enter)
+Cs|Tip_FindClose|Zavřít vyhledávání (Esc)
+Cs|Tip_CaptureKeys|Vyberte část obrazovky a přečtěte z ní text ({0}). Celou obrazovku zachytíte klávesou {1}.
+Cs|Tip_CaptureRegionOnly|Vyberte část obrazovky a přečtěte z ní text ({0}).
+Cs|Setting_Group_General|Obecné
+Cs|Setting_Group_Hotkeys|Zkratky
+Cs|Setting_Group_Recognition|Rozpoznávání
+Cs|Setting_Group_Privacy|Soukromí
+Cs|Setting_Hotkey_Region|Zachytit výřez
+Cs|Setting_Hotkey_Full|Zachytit celou obrazovku
+Cs|Btn_ChangeHotkey|Klepněte a stiskněte požadovanou kombinaci
+Cs|Btn_RecordingHotkey|Stiskněte kombinaci…
+Cs|Btn_ResetHotkeys|Obnovit obě zkratky
+Cs|Hotkey_RecordHint|Zrušíte klávesou Esc. Zkratky fungují i tehdy, když je Glyfo v oznamovací oblasti.
+Cs|Hotkey_NeedModifier|Zkratka potřebuje Ctrl nebo Alt a k tomu písmeno, číslici nebo funkční klávesu.
+Cs|Hotkey_Taken|{0} už používá jiná aplikace. Nadále platí předchozí zkratka.
+Cs|Setting_Theme|Vzhled
+Cs|Theme_System|Podle Windows
+Cs|Theme_Light|Světlý
+Cs|Theme_Dark|Tmavý
+Cs|Status_Deskewed|Narovnáno o {0}°.
+Cs|Status_DeskewNone|Tahle stránka už rovná je.
+Cs|Status_RotateFailed|Obrázek se nepodařilo otočit: {0}
+Cs|Welcome_Title|Vítá vás Glyfo
+Cs|Welcome_1|Stiskněte {0} kdekoli ve Windows, obtáhněte rámečkem text a Glyfo ho přečte.
+Cs|Welcome_2|Nebo na okno přetáhněte obrázek či PDF, vložte ho ze schránky, případně otevřete soubor.
+Cs|Welcome_3|Všechno přečtené se ukládá do historie, kde se dá hledat, ukládat i mazat. Ze zařízení nic neodchází.
+Cs|Welcome_Start|Začít
+Cs|News_130_4|Zkratky pro zachytávání si nastavíte podle sebe a okno se otevře tam a tak, jak jste ho nechali.
+Cs|News_130_5|Narovnejte pokřivenou fotku, hledejte v textu pomocí Ctrl+F a vyberte si světlý nebo tmavý vzhled.
+Da|Rotate_Right|Rotér mod højre. Flere muligheder under pilen.
+Da|Rotate_Left|Rotér mod venstre
+Da|Rotate_180|Vend på hovedet
+Da|Rotate_Deskew|Ret op automatisk
+Da|Rotate_Reset|Tilbage til originalen
+Da|Text_Stats|{0} ord
+Da|Text_Chars|{0} tegn
+Da|Find_Placeholder|Find i teksten
+Da|Tip_Find|Find i teksten (Ctrl+F)
+Da|Find_Count|{0} af {1}
+Da|Find_NoMatch|Ikke fundet
+Da|Tip_FindPrev|Forrige forekomst (Shift+Enter)
+Da|Tip_FindNext|Næste forekomst (Enter)
+Da|Tip_FindClose|Luk søgefeltet (Esc)
+Da|Tip_CaptureKeys|Vælg et område af skærmen, og læs teksten i det ({0}). Tryk {1} for hele skærmen.
+Da|Tip_CaptureRegionOnly|Vælg et område af skærmen, og læs teksten i det ({0}).
+Da|Setting_Group_General|Generelt
+Da|Setting_Group_Hotkeys|Genveje
+Da|Setting_Group_Recognition|Genkendelse
+Da|Setting_Group_Privacy|Privatliv
+Da|Setting_Hotkey_Region|Tag et område
+Da|Setting_Hotkey_Full|Tag hele skærmen
+Da|Btn_ChangeHotkey|Klik, og tryk så den kombination du vil have
+Da|Btn_RecordingHotkey|Tryk en kombination…
+Da|Btn_ResetHotkeys|Nulstil begge genveje
+Da|Hotkey_RecordHint|Tryk Esc for at annullere. Genvejene virker også, når Glyfo ligger i meddelelsesområdet.
+Da|Hotkey_NeedModifier|En genvej skal bruge Ctrl eller Alt plus et bogstav, et tal eller en funktionstast.
+Da|Hotkey_Taken|{0} er allerede optaget af et andet program. Den hidtidige genvej gælder stadig.
+Da|Setting_Theme|Udseende
+Da|Theme_System|Følg Windows
+Da|Theme_Light|Lyst
+Da|Theme_Dark|Mørkt
+Da|Status_Deskewed|Rettet op med {0}°.
+Da|Status_DeskewNone|Siden er allerede lige.
+Da|Status_RotateFailed|Billedet kunne ikke roteres: {0}
+Da|Welcome_Title|Velkommen til Glyfo
+Da|Welcome_1|Tryk {0} hvor som helst i Windows, træk en ramme om noget tekst, og få den læst.
+Da|Welcome_2|Eller træk et billede eller en PDF ind i vinduet, indsæt et, eller åbn en fil.
+Da|Welcome_3|Alt hvad du læser, gemmes i historikken og kan søges frem, gemmes eller ryddes. Det forlader aldrig denne enhed.
+Da|Welcome_Start|Kom i gang
+Da|News_130_4|Vælg dine egne genveje til skærmklip, og vinduet åbner, hvor og som du forlod det.
+Da|News_130_5|Ret et skævt foto op, søg i teksten med Ctrl+F, og vælg et lyst eller mørkt udseende.
+De|Rotate_Right|Nach rechts drehen. Mehr über den Pfeil.
+De|Rotate_Left|Nach links drehen
+De|Rotate_180|Auf den Kopf stellen
+De|Rotate_Deskew|Automatisch gerade richten
+De|Rotate_Reset|Zurück zum Original
+De|Text_Stats|{0} Wörter
+De|Text_Chars|{0} Zeichen
+De|Find_Placeholder|Im Text suchen
+De|Tip_Find|Im Text suchen (Strg+F)
+De|Find_Count|{0} von {1}
+De|Find_NoMatch|Nicht gefunden
+De|Tip_FindPrev|Vorheriger Treffer (Umschalt+Eingabe)
+De|Tip_FindNext|Nächster Treffer (Eingabe)
+De|Tip_FindClose|Suchleiste schließen (Esc)
+De|Tip_CaptureKeys|Einen Bildschirmbereich auswählen und den Text darin lesen ({0}). Für den ganzen Bildschirm {1} drücken.
+De|Tip_CaptureRegionOnly|Einen Bildschirmbereich auswählen und den Text darin lesen ({0}).
+De|Setting_Group_General|Allgemein
+De|Setting_Group_Hotkeys|Tastenkürzel
+De|Setting_Group_Recognition|Texterkennung
+De|Setting_Group_Privacy|Datenschutz
+De|Setting_Hotkey_Region|Bereich aufnehmen
+De|Setting_Hotkey_Full|Ganzen Bildschirm aufnehmen
+De|Btn_ChangeHotkey|Klicken und dann die gewünschte Tastenkombination drücken
+De|Btn_RecordingHotkey|Tastenkombination drücken…
+De|Btn_ResetHotkeys|Beide Tastenkürzel zurücksetzen
+De|Hotkey_RecordHint|Mit Esc abbrechen. Die Tastenkürzel funktionieren auch, während Glyfo im Infobereich liegt.
+De|Hotkey_NeedModifier|Ein Tastenkürzel braucht Strg oder Alt und dazu einen Buchstaben, eine Ziffer oder eine Funktionstaste.
+De|Hotkey_Taken|{0} ist schon von einer anderen App belegt. Es gilt weiterhin das bisherige Tastenkürzel.
+De|Setting_Theme|Darstellung
+De|Theme_System|Wie in Windows
+De|Theme_Light|Hell
+De|Theme_Dark|Dunkel
+De|Status_Deskewed|Um {0}° gerade gerichtet.
+De|Status_DeskewNone|Diese Seite ist bereits gerade.
+De|Status_RotateFailed|Das Bild konnte nicht gedreht werden: {0}
+De|Welcome_Title|Willkommen bei Glyfo
+De|Welcome_1|Drücken Sie überall in Windows {0}, ziehen Sie einen Rahmen um einen Text, und Glyfo liest ihn.
+De|Welcome_2|Oder ziehen Sie ein Bild oder ein PDF auf das Fenster, fügen Sie eines ein, oder öffnen Sie eine Datei.
+De|Welcome_3|Alles Gelesene bleibt im Verlauf und lässt sich durchsuchen, speichern oder löschen. Es verlässt dieses Gerät nie.
+De|Welcome_Start|Los geht es
+De|News_130_4|Legen Sie Ihre eigenen Tastenkürzel für Aufnahmen fest, und das Fenster öffnet sich wieder so und dort, wie Sie es verlassen haben.
+De|News_130_5|Richten Sie ein schiefes Foto gerade, suchen Sie mit Strg+F im Text, und wählen Sie zwischen hellem und dunklem Aussehen.
+El|Rotate_Right|Περιστροφή δεξιά. Περισσότερα από το βέλος.
+El|Rotate_Left|Περιστροφή αριστερά
+El|Rotate_180|Αναποδογύρισμα
+El|Rotate_Deskew|Αυτόματο ίσιωμα
+El|Rotate_Reset|Επιστροφή στο πρωτότυπο
+El|Text_Stats|{0} λέξεις
+El|Text_Chars|{0} χαρακτήρες
+El|Find_Placeholder|Αναζήτηση στο κείμενο
+El|Tip_Find|Αναζήτηση στο κείμενο (Ctrl+F)
+El|Find_Count|{0} από {1}
+El|Find_NoMatch|Δεν βρέθηκε
+El|Tip_FindPrev|Προηγούμενο αποτέλεσμα (Shift+Enter)
+El|Tip_FindNext|Επόμενο αποτέλεσμα (Enter)
+El|Tip_FindClose|Κλείσιμο της γραμμής αναζήτησης (Esc)
+El|Tip_CaptureKeys|Επιλέξτε μια περιοχή της οθόνης και διαβάστε το κείμενό της ({0}). Πατήστε {1} για ολόκληρη την οθόνη.
+El|Tip_CaptureRegionOnly|Επιλέξτε μια περιοχή της οθόνης και διαβάστε το κείμενό της ({0}).
+El|Setting_Group_General|Γενικά
+El|Setting_Group_Hotkeys|Συντομεύσεις
+El|Setting_Group_Recognition|Αναγνώριση
+El|Setting_Group_Privacy|Απόρρητο
+El|Setting_Hotkey_Region|Λήψη περιοχής
+El|Setting_Hotkey_Full|Λήψη ολόκληρης της οθόνης
+El|Btn_ChangeHotkey|Κάντε κλικ και μετά πατήστε τον συνδυασμό που θέλετε
+El|Btn_RecordingHotkey|Πατήστε έναν συνδυασμό…
+El|Btn_ResetHotkeys|Επαναφορά και των δύο συντομεύσεων
+El|Hotkey_RecordHint|Πατήστε Esc για ακύρωση. Οι συντομεύσεις λειτουργούν και όσο το Glyfo βρίσκεται στην περιοχή ειδοποιήσεων.
+El|Hotkey_NeedModifier|Μια συντόμευση χρειάζεται Ctrl ή Alt μαζί με ένα γράμμα, έναν αριθμό ή ένα πλήκτρο λειτουργίας.
+El|Hotkey_Taken|Ο συνδυασμός {0} χρησιμοποιείται ήδη από άλλη εφαρμογή. Παραμένει σε ισχύ η προηγούμενη συντόμευση.
+El|Setting_Theme|Εμφάνιση
+El|Theme_System|Όπως τα Windows
+El|Theme_Light|Ανοιχτό
+El|Theme_Dark|Σκούρο
+El|Status_Deskewed|Ισιώθηκε κατά {0}°.
+El|Status_DeskewNone|Αυτή η σελίδα είναι ήδη ίσια.
+El|Status_RotateFailed|Δεν ήταν δυνατή η περιστροφή της εικόνας: {0}
+El|Welcome_Title|Καλώς ορίσατε στο Glyfo
+El|Welcome_1|Πατήστε {0} οπουδήποτε στα Windows, σύρετε ένα πλαίσιο γύρω από κάποιο κείμενο και διαβάστε το.
+El|Welcome_2|Ή αφήστε μια εικόνα ή ένα PDF στο παράθυρο, επικολλήστε μία, ή ανοίξτε ένα αρχείο.
+El|Welcome_3|Ό,τι διαβάζετε φυλάσσεται στο ιστορικό και μπορείτε να το αναζητήσετε, να το αποθηκεύσετε ή να το σβήσετε. Δεν φεύγει ποτέ από αυτή τη συσκευή.
+El|Welcome_Start|Ας ξεκινήσουμε
+El|News_130_4|Ορίστε δικές σας συντομεύσεις για τη λήψη, και το παράθυρο ανοίγει εκεί και όπως το αφήσατε.
+El|News_130_5|Ισιώστε μια στραβή φωτογραφία, αναζητήστε στο κείμενο με Ctrl+F και διαλέξτε ανοιχτή ή σκούρα εμφάνιση.
+Es|Rotate_Right|Girar a la derecha. Más opciones en la flecha.
+Es|Rotate_Left|Girar a la izquierda
+Es|Rotate_180|Poner del revés
+Es|Rotate_Deskew|Enderezar automáticamente
+Es|Rotate_Reset|Volver al original
+Es|Text_Stats|{0} palabras
+Es|Text_Chars|{0} caracteres
+Es|Find_Placeholder|Buscar en el texto
+Es|Tip_Find|Buscar en el texto (Ctrl+F)
+Es|Find_Count|{0} de {1}
+Es|Find_NoMatch|No se encontró
+Es|Tip_FindPrev|Coincidencia anterior (Mayús+Intro)
+Es|Tip_FindNext|Coincidencia siguiente (Intro)
+Es|Tip_FindClose|Cerrar la barra de búsqueda (Esc)
+Es|Tip_CaptureKeys|Selecciona una zona de la pantalla y lee su texto ({0}). Pulsa {1} para la pantalla completa.
+Es|Tip_CaptureRegionOnly|Selecciona una zona de la pantalla y lee su texto ({0}).
+Es|Setting_Group_General|General
+Es|Setting_Group_Hotkeys|Atajos
+Es|Setting_Group_Recognition|Reconocimiento
+Es|Setting_Group_Privacy|Privacidad
+Es|Setting_Hotkey_Region|Capturar una zona
+Es|Setting_Hotkey_Full|Capturar toda la pantalla
+Es|Btn_ChangeHotkey|Haz clic y pulsa la combinación que quieras
+Es|Btn_RecordingHotkey|Pulsa una combinación…
+Es|Btn_ResetHotkeys|Restablecer los dos atajos
+Es|Hotkey_RecordHint|Pulsa Esc para cancelar. Los atajos siguen funcionando mientras Glyfo está en el área de notificación.
+Es|Hotkey_NeedModifier|Un atajo necesita Ctrl o Alt y además una letra, un número o una tecla de función.
+Es|Hotkey_Taken|{0} ya lo usa otra aplicación. Sigue vigente el atajo anterior.
+Es|Setting_Theme|Apariencia
+Es|Theme_System|Seguir a Windows
+Es|Theme_Light|Claro
+Es|Theme_Dark|Oscuro
+Es|Status_Deskewed|Enderezado {0}°.
+Es|Status_DeskewNone|Esta página ya está derecha.
+Es|Status_RotateFailed|No se pudo girar la imagen: {0}
+Es|Welcome_Title|Te damos la bienvenida a Glyfo
+Es|Welcome_1|Pulsa {0} en cualquier parte de Windows, dibuja un recuadro alrededor de un texto y léelo.
+Es|Welcome_2|O arrastra una imagen o un PDF a la ventana, pega una, o abre un archivo.
+Es|Welcome_3|Todo lo que leas se guarda en el historial, donde puedes buscarlo, guardarlo o borrarlo. Nunca sale de este dispositivo.
+Es|Welcome_Start|Empezar
+Es|News_130_4|Elige tus propios atajos de captura, y la ventana se abre donde y como la dejaste.
+Es|News_130_5|Endereza una foto torcida, busca en el texto con Ctrl+F y elige un aspecto claro u oscuro.
+Fa|Rotate_Right|چرخش به راست. برای گزینه‌های بیشتر روی پیکان بزنید.
+Fa|Rotate_Left|چرخش به چپ
+Fa|Rotate_180|وارونه کردن
+Fa|Rotate_Deskew|صاف کردن خودکار
+Fa|Rotate_Reset|بازگشت به تصویر اصلی
+Fa|Text_Stats|{0} واژه
+Fa|Text_Chars|{0} نویسه
+Fa|Find_Placeholder|جست‌وجو در متن
+Fa|Tip_Find|جست‌وجو در متن (Ctrl+F)
+Fa|Find_Count|{0} از {1}
+Fa|Find_NoMatch|پیدا نشد
+Fa|Tip_FindPrev|مورد قبلی (Shift+Enter)
+Fa|Tip_FindNext|مورد بعدی (Enter)
+Fa|Tip_FindClose|بستن نوار جست‌وجو (Esc)
+Fa|Tip_CaptureKeys|بخشی از صفحه را انتخاب کنید و متنش را بخوانید ({0}). برای کل صفحه {1} را بزنید.
+Fa|Tip_CaptureRegionOnly|بخشی از صفحه را انتخاب کنید و متنش را بخوانید ({0}).
+Fa|Setting_Group_General|عمومی
+Fa|Setting_Group_Hotkeys|میان‌برها
+Fa|Setting_Group_Recognition|تشخیص متن
+Fa|Setting_Group_Privacy|حریم خصوصی
+Fa|Setting_Hotkey_Region|گرفتن یک ناحیه
+Fa|Setting_Hotkey_Full|گرفتن کل صفحه
+Fa|Btn_ChangeHotkey|کلیک کنید و سپس ترکیب دلخواه را بزنید
+Fa|Btn_RecordingHotkey|یک ترکیب کلید بزنید…
+Fa|Btn_ResetHotkeys|بازنشانی هر دو میان‌بر
+Fa|Hotkey_RecordHint|برای لغو Esc را بزنید. میان‌برها وقتی Glyfo در ناحیه اعلان است هم کار می‌کنند.
+Fa|Hotkey_NeedModifier|هر میان‌بر به Ctrl یا Alt به‌همراه یک حرف، رقم یا کلید تابعی نیاز دارد.
+Fa|Hotkey_Taken|{0} را برنامه دیگری گرفته است. میان‌بر قبلی همچنان برقرار است.
+Fa|Setting_Theme|ظاهر
+Fa|Theme_System|هماهنگ با Windows
+Fa|Theme_Light|روشن
+Fa|Theme_Dark|تیره
+Fa|Status_Deskewed|به اندازه {0}° صاف شد.
+Fa|Status_DeskewNone|این صفحه از قبل صاف است.
+Fa|Status_RotateFailed|چرخاندن تصویر ممکن نشد: {0}
+Fa|Welcome_Title|به Glyfo خوش آمدید
+Fa|Welcome_1|هر جای Windows که بودید {0} را بزنید، دور متنی کادر بکشید و آن را بخوانید.
+Fa|Welcome_2|یا تصویر یا PDF را روی پنجره رها کنید، تصویری را بچسبانید، یا فایلی را باز کنید.
+Fa|Welcome_3|هر چه می‌خوانید در تاریخچه می‌ماند و می‌توان در آن جست‌وجو کرد، ذخیره کرد یا پاکش کرد. هرگز از این دستگاه بیرون نمی‌رود.
+Fa|Welcome_Start|شروع کنیم
+Fa|News_130_4|میان‌برهای گرفتن تصویر را خودتان انتخاب کنید، و پنجره همان‌جا و همان‌طور که رهایش کردید باز می‌شود.
+Fa|News_130_5|عکس کج را صاف کنید، با Ctrl+F در متن جست‌وجو کنید، و ظاهر روشن یا تیره را برگزینید.
+Fi|Rotate_Right|Kierrä oikealle. Lisää vaihtoehtoja nuolen takana.
+Fi|Rotate_Left|Kierrä vasemmalle
+Fi|Rotate_180|Käännä ylösalaisin
+Fi|Rotate_Deskew|Suorista automaattisesti
+Fi|Rotate_Reset|Takaisin alkuperäiseen
+Fi|Text_Stats|{0} sanaa
+Fi|Text_Chars|{0} merkkiä
+Fi|Find_Placeholder|Etsi tekstistä
+Fi|Tip_Find|Etsi tekstistä (Ctrl+F)
+Fi|Find_Count|{0}/{1}
+Fi|Find_NoMatch|Ei löytynyt
+Fi|Tip_FindPrev|Edellinen osuma (Vaihto+Enter)
+Fi|Tip_FindNext|Seuraava osuma (Enter)
+Fi|Tip_FindClose|Sulje hakupalkki (Esc)
+Fi|Tip_CaptureKeys|Valitse alue näytöltä ja lue sen teksti ({0}). Koko näytön saat painamalla {1}.
+Fi|Tip_CaptureRegionOnly|Valitse alue näytöltä ja lue sen teksti ({0}).
+Fi|Setting_Group_General|Yleiset
+Fi|Setting_Group_Hotkeys|Pikanäppäimet
+Fi|Setting_Group_Recognition|Tunnistus
+Fi|Setting_Group_Privacy|Tietosuoja
+Fi|Setting_Hotkey_Region|Kaappaa alue
+Fi|Setting_Hotkey_Full|Kaappaa koko näyttö
+Fi|Btn_ChangeHotkey|Napsauta ja paina haluamaasi näppäinyhdistelmää
+Fi|Btn_RecordingHotkey|Paina näppäinyhdistelmää…
+Fi|Btn_ResetHotkeys|Palauta molemmat pikanäppäimet
+Fi|Hotkey_RecordHint|Peruuta painamalla Esc. Pikanäppäimet toimivat myös silloin, kun Glyfo on ilmaisinalueella.
+Fi|Hotkey_NeedModifier|Pikanäppäin tarvitsee Ctrl- tai Alt-näppäimen ja lisäksi kirjaimen, numeron tai funktionäppäimen.
+Fi|Hotkey_Taken|{0} on jo toisen sovelluksen käytössä. Aiempi pikanäppäin on yhä voimassa.
+Fi|Setting_Theme|Ulkoasu
+Fi|Theme_System|Windowsin mukaan
+Fi|Theme_Light|Vaalea
+Fi|Theme_Dark|Tumma
+Fi|Status_Deskewed|Suoristettu {0}°.
+Fi|Status_DeskewNone|Tämä sivu on jo suorassa.
+Fi|Status_RotateFailed|Kuvaa ei voitu kiertää: {0}
+Fi|Welcome_Title|Tervetuloa Glyfoon
+Fi|Welcome_1|Paina {0} missä tahansa Windowsissa, rajaa teksti laatikolla ja lue se.
+Fi|Welcome_2|Tai pudota kuva tai PDF ikkunaan, liitä kuva leikepöydältä tai avaa tiedosto.
+Fi|Welcome_3|Kaikki lukemasi säilyy historiassa, josta sitä voi hakea, tallentaa tai tyhjentää. Se ei koskaan poistu tästä laitteesta.
+Fi|Welcome_Start|Aloitetaan
+Fi|News_130_4|Valitse omat pikanäppäimesi kaappaukselle, ja ikkuna avautuu siihen paikkaan ja kokoon, mihin sen jätit.
+Fi|News_130_5|Suorista vino valokuva, etsi tekstistä Ctrl+F:llä ja valitse vaalea tai tumma ulkoasu.
+Fil|Rotate_Right|Iikot pakanan. Gamitin ang arrow para sa iba pa.
+Fil|Rotate_Left|Iikot pakaliwa
+Fil|Rotate_180|Ibaligtad
+Fil|Rotate_Deskew|Awtomatikong ituwid
+Fil|Rotate_Reset|Balik sa orihinal
+Fil|Text_Stats|{0} salita
+Fil|Text_Chars|{0} karakter
+Fil|Find_Placeholder|Maghanap sa teksto
+Fil|Tip_Find|Maghanap sa teksto (Ctrl+F)
+Fil|Find_Count|{0} ng {1}
+Fil|Find_NoMatch|Hindi nakita
+Fil|Tip_FindPrev|Nakaraang tugma (Shift+Enter)
+Fil|Tip_FindNext|Susunod na tugma (Enter)
+Fil|Tip_FindClose|Isara ang search bar (Esc)
+Fil|Tip_CaptureKeys|Pumili ng bahagi ng screen at basahin ang teksto nito ({0}). Pindutin ang {1} para sa buong screen.
+Fil|Tip_CaptureRegionOnly|Pumili ng bahagi ng screen at basahin ang teksto nito ({0}).
+Fil|Setting_Group_General|Pangkalahatan
+Fil|Setting_Group_Hotkeys|Mga shortcut
+Fil|Setting_Group_Recognition|Pagkilala ng teksto
+Fil|Setting_Group_Privacy|Privacy
+Fil|Setting_Hotkey_Region|Kumuha ng bahagi
+Fil|Setting_Hotkey_Full|Kunin ang buong screen
+Fil|Btn_ChangeHotkey|I-click, tapos pindutin ang kombinasyong gusto mo
+Fil|Btn_RecordingHotkey|Pindutin ang isang kombinasyon…
+Fil|Btn_ResetHotkeys|I-reset ang dalawang shortcut
+Fil|Hotkey_RecordHint|Pindutin ang Esc para kanselahin. Gumagana pa rin ang mga shortcut habang nasa notification area ang Glyfo.
+Fil|Hotkey_NeedModifier|Kailangan ng shortcut ang Ctrl o Alt, kasama ang isang letra, numero o function key.
+Fil|Hotkey_Taken|Ginagamit na ng ibang app ang {0}. Nananatili ang dating shortcut.
+Fil|Setting_Theme|Hitsura
+Fil|Theme_System|Sundan ang Windows
+Fil|Theme_Light|Maliwanag
+Fil|Theme_Dark|Madilim
+Fil|Status_Deskewed|Naituwid nang {0}°.
+Fil|Status_DeskewNone|Tuwid na ang pahinang ito.
+Fil|Status_RotateFailed|Hindi maiikot ang larawan: {0}
+Fil|Welcome_Title|Maligayang pagdating sa Glyfo
+Fil|Welcome_1|Pindutin ang {0} kahit saan sa Windows, gumuhit ng kahon sa palibot ng teksto, at babasahin ito.
+Fil|Welcome_2|O i-drop ang larawan o PDF sa window, mag-paste, o magbukas ng file.
+Fil|Welcome_3|Naiimbak sa History ang lahat ng nabasa mo at puwedeng hanapin, i-save o burahin. Hindi ito umaalis sa device na ito.
+Fil|Welcome_Start|Magsimula
+Fil|News_130_4|Pumili ng sarili mong shortcut sa pagkuha, at bubukas ang window kung saan at kung paano mo ito iniwan.
+Fil|News_130_5|Ituwid ang baluktot na litrato, maghanap sa teksto gamit ang Ctrl+F, at pumili ng maliwanag o madilim na hitsura.
+Fr|Rotate_Right|Pivoter vers la droite. Plus d’options sous la flèche.
+Fr|Rotate_Left|Pivoter vers la gauche
+Fr|Rotate_180|Retourner
+Fr|Rotate_Deskew|Redresser automatiquement
+Fr|Rotate_Reset|Revenir à l’original
+Fr|Text_Stats|{0} mots
+Fr|Text_Chars|{0} caractères
+Fr|Find_Placeholder|Rechercher dans le texte
+Fr|Tip_Find|Rechercher dans le texte (Ctrl+F)
+Fr|Find_Count|{0} sur {1}
+Fr|Find_NoMatch|Introuvable
+Fr|Tip_FindPrev|Occurrence précédente (Maj+Entrée)
+Fr|Tip_FindNext|Occurrence suivante (Entrée)
+Fr|Tip_FindClose|Fermer la barre de recherche (Échap)
+Fr|Tip_CaptureKeys|Sélectionnez une zone de l’écran et lisez son texte ({0}). Appuyez sur {1} pour tout l’écran.
+Fr|Tip_CaptureRegionOnly|Sélectionnez une zone de l’écran et lisez son texte ({0}).
+Fr|Setting_Group_General|Général
+Fr|Setting_Group_Hotkeys|Raccourcis
+Fr|Setting_Group_Recognition|Reconnaissance
+Fr|Setting_Group_Privacy|Confidentialité
+Fr|Setting_Hotkey_Region|Capturer une zone
+Fr|Setting_Hotkey_Full|Capturer tout l’écran
+Fr|Btn_ChangeHotkey|Cliquez, puis appuyez sur la combinaison souhaitée
+Fr|Btn_RecordingHotkey|Appuyez sur une combinaison…
+Fr|Btn_ResetHotkeys|Réinitialiser les deux raccourcis
+Fr|Hotkey_RecordHint|Appuyez sur Échap pour annuler. Les raccourcis restent actifs même lorsque Glyfo est dans la zone de notification.
+Fr|Hotkey_NeedModifier|Un raccourci a besoin de Ctrl ou Alt, plus une lettre, un chiffre ou une touche de fonction.
+Fr|Hotkey_Taken|{0} est déjà utilisé par une autre application. Le raccourci précédent reste en vigueur.
+Fr|Setting_Theme|Apparence
+Fr|Theme_System|Suivre Windows
+Fr|Theme_Light|Clair
+Fr|Theme_Dark|Sombre
+Fr|Status_Deskewed|Redressé de {0}°.
+Fr|Status_DeskewNone|Cette page est déjà droite.
+Fr|Status_RotateFailed|Impossible de faire pivoter l’image : {0}
+Fr|Welcome_Title|Bienvenue dans Glyfo
+Fr|Welcome_1|Appuyez sur {0} n’importe où dans Windows, tracez un cadre autour d’un texte et lisez-le.
+Fr|Welcome_2|Ou déposez une image ou un PDF sur la fenêtre, collez-en un, ou ouvrez un fichier.
+Fr|Welcome_3|Tout ce que vous lisez est conservé dans l’historique, où vous pouvez le rechercher, l’enregistrer ou l’effacer. Rien ne quitte cet appareil.
+Fr|Welcome_Start|Commencer
+Fr|News_130_4|Choisissez vos propres raccourcis de capture, et la fenêtre se rouvre là où et comme vous l’avez laissée.
+Fr|News_130_5|Redressez une photo de travers, recherchez dans le texte avec Ctrl+F et choisissez une apparence claire ou sombre.
+He|Rotate_Right|סובב ימינה. אפשרויות נוספות בחץ.
+He|Rotate_Left|סובב שמאלה
+He|Rotate_180|הפוך על הראש
+He|Rotate_Deskew|יישור אוטומטי
+He|Rotate_Reset|חזרה למקור
+He|Text_Stats|{0} מילים
+He|Text_Chars|{0} תווים
+He|Find_Placeholder|חיפוש בטקסט
+He|Tip_Find|חיפוש בטקסט (Ctrl+F)
+He|Find_Count|{0} מתוך {1}
+He|Find_NoMatch|לא נמצא
+He|Tip_FindPrev|התוצאה הקודמת (Shift+Enter)
+He|Tip_FindNext|התוצאה הבאה (Enter)
+He|Tip_FindClose|סגירת שורת החיפוש (Esc)
+He|Tip_CaptureKeys|בחר אזור במסך וקרא את הטקסט שבו ({0}). למסך המלא הקש {1}.
+He|Tip_CaptureRegionOnly|בחר אזור במסך וקרא את הטקסט שבו ({0}).
+He|Setting_Group_General|כללי
+He|Setting_Group_Hotkeys|קיצורי מקשים
+He|Setting_Group_Recognition|זיהוי טקסט
+He|Setting_Group_Privacy|פרטיות
+He|Setting_Hotkey_Region|צילום אזור
+He|Setting_Hotkey_Full|צילום המסך כולו
+He|Btn_ChangeHotkey|לחץ ואז הקש על הצירוף הרצוי
+He|Btn_RecordingHotkey|הקש צירוף מקשים…
+He|Btn_ResetHotkeys|איפוס שני הקיצורים
+He|Hotkey_RecordHint|הקש Esc לביטול. הקיצורים ממשיכים לפעול גם כאשר Glyfo נמצא באזור ההודעות.
+He|Hotkey_NeedModifier|קיצור דורש Ctrl או Alt, ובנוסף אות, ספרה או מקש פונקציה.
+He|Hotkey_Taken|{0} כבר תפוס על ידי יישום אחר. הקיצור הקודם עדיין בתוקף.
+He|Setting_Theme|מראה
+He|Theme_System|בהתאם ל-Windows
+He|Theme_Light|בהיר
+He|Theme_Dark|כהה
+He|Status_Deskewed|יושר ב-{0}°.
+He|Status_DeskewNone|העמוד הזה כבר ישר.
+He|Status_RotateFailed|לא ניתן לסובב את התמונה: {0}
+He|Welcome_Title|ברוכים הבאים ל-Glyfo
+He|Welcome_1|הקש {0} בכל מקום ב-Windows, סמן מלבן סביב טקסט וקרא אותו.
+He|Welcome_2|או גרור תמונה או קובץ PDF אל החלון, הדבק תמונה, או פתח קובץ.
+He|Welcome_3|כל מה שאתה קורא נשמר בהיסטוריה, וניתן לחפש בו, לשמור אותו או למחוק אותו. הוא לעולם לא עוזב את המכשיר הזה.
+He|Welcome_Start|נתחיל
+He|News_130_4|בחר קיצורי מקשים משלך לצילום, והחלון ייפתח במקום ובגודל שבהם השארת אותו.
+He|News_130_5|יישר תמונה עקומה, חפש בטקסט עם Ctrl+F, ובחר מראה בהיר או כהה.
+Hi|Rotate_Right|दाएँ घुमाएँ। और विकल्पों के लिए तीर पर क्लिक करें।
+Hi|Rotate_Left|बाएँ घुमाएँ
+Hi|Rotate_180|उलटा कर दें
+Hi|Rotate_Deskew|अपने आप सीधा करें
+Hi|Rotate_Reset|मूल छवि पर लौटें
+Hi|Text_Stats|{0} शब्द
+Hi|Text_Chars|{0} वर्ण
+Hi|Find_Placeholder|टेक्स्ट में ढूँढें
+Hi|Tip_Find|टेक्स्ट में ढूँढें (Ctrl+F)
+Hi|Find_Count|{1} में से {0}
+Hi|Find_NoMatch|नहीं मिला
+Hi|Tip_FindPrev|पिछला मिलान (Shift+Enter)
+Hi|Tip_FindNext|अगला मिलान (Enter)
+Hi|Tip_FindClose|खोज पट्टी बंद करें (Esc)
+Hi|Tip_CaptureKeys|स्क्रीन का कोई हिस्सा चुनें और उसका टेक्स्ट पढ़ें ({0})। पूरी स्क्रीन के लिए {1} दबाएँ।
+Hi|Tip_CaptureRegionOnly|स्क्रीन का कोई हिस्सा चुनें और उसका टेक्स्ट पढ़ें ({0})।
+Hi|Setting_Group_General|सामान्य
+Hi|Setting_Group_Hotkeys|शॉर्टकट
+Hi|Setting_Group_Recognition|टेक्स्ट पहचान
+Hi|Setting_Group_Privacy|गोपनीयता
+Hi|Setting_Hotkey_Region|एक हिस्सा कैप्चर करें
+Hi|Setting_Hotkey_Full|पूरी स्क्रीन कैप्चर करें
+Hi|Btn_ChangeHotkey|क्लिक करें, फिर मनचाहा कुंजी संयोजन दबाएँ
+Hi|Btn_RecordingHotkey|कोई संयोजन दबाएँ…
+Hi|Btn_ResetHotkeys|दोनों शॉर्टकट रीसेट करें
+Hi|Hotkey_RecordHint|रद्द करने के लिए Esc दबाएँ। Glyfo के सूचना क्षेत्र में रहते हुए भी शॉर्टकट काम करते रहते हैं।
+Hi|Hotkey_NeedModifier|शॉर्टकट में Ctrl या Alt के साथ कोई अक्षर, अंक या फ़ंक्शन कुंजी होनी चाहिए।
+Hi|Hotkey_Taken|{0} पहले से किसी दूसरे ऐप के पास है। पिछला शॉर्टकट ही लागू है।
+Hi|Setting_Theme|रूप-रंग
+Hi|Theme_System|Windows के अनुसार
+Hi|Theme_Light|हल्का
+Hi|Theme_Dark|गहरा
+Hi|Status_Deskewed|{0}° सीधा किया गया।
+Hi|Status_DeskewNone|यह पृष्ठ पहले से सीधा है।
+Hi|Status_RotateFailed|छवि घुमाई नहीं जा सकी: {0}
+Hi|Welcome_Title|Glyfo में आपका स्वागत है
+Hi|Welcome_1|Windows में कहीं भी {0} दबाएँ, किसी टेक्स्ट के चारों ओर बॉक्स खींचें और उसे पढ़ लें।
+Hi|Welcome_2|या विंडो पर कोई चित्र या PDF छोड़ें, चिपकाएँ, या कोई फ़ाइल खोलें।
+Hi|Welcome_3|आपका पढ़ा हुआ सब कुछ इतिहास में रहता है और उसमें खोजा, सहेजा या मिटाया जा सकता है। यह कभी इस डिवाइस से बाहर नहीं जाता।
+Hi|Welcome_Start|शुरू करें
+Hi|News_130_4|कैप्चर के शॉर्टकट अपनी पसंद के चुनें, और विंडो वहीं और वैसी ही खुलेगी जैसी आपने छोड़ी थी।
+Hi|News_130_5|टेढ़ी तस्वीर सीधी करें, Ctrl+F से टेक्स्ट में खोजें, और हल्का या गहरा रूप चुनें।
+Hu|Rotate_Right|Forgatás jobbra. További lehetőségek a nyílnál.
+Hu|Rotate_Left|Forgatás balra
+Hu|Rotate_180|Fejjel lefelé fordítás
+Hu|Rotate_Deskew|Automatikus kiegyenesítés
+Hu|Rotate_Reset|Vissza az eredetihez
+Hu|Text_Stats|{0} szó
+Hu|Text_Chars|{0} karakter
+Hu|Find_Placeholder|Keresés a szövegben
+Hu|Tip_Find|Keresés a szövegben (Ctrl+F)
+Hu|Find_Count|{0} / {1}
+Hu|Find_NoMatch|Nincs találat
+Hu|Tip_FindPrev|Előző találat (Shift+Enter)
+Hu|Tip_FindNext|Következő találat (Enter)
+Hu|Tip_FindClose|Keresősáv bezárása (Esc)
+Hu|Tip_CaptureKeys|Jelöljön ki egy képernyőrészletet, és olvassa ki a szövegét ({0}). A teljes képernyőhöz nyomja meg a(z) {1} billentyűt.
+Hu|Tip_CaptureRegionOnly|Jelöljön ki egy képernyőrészletet, és olvassa ki a szövegét ({0}).
+Hu|Setting_Group_General|Általános
+Hu|Setting_Group_Hotkeys|Billentyűparancsok
+Hu|Setting_Group_Recognition|Felismerés
+Hu|Setting_Group_Privacy|Adatvédelem
+Hu|Setting_Hotkey_Region|Részlet rögzítése
+Hu|Setting_Hotkey_Full|Teljes képernyő rögzítése
+Hu|Btn_ChangeHotkey|Kattintson, majd nyomja le a kívánt kombinációt
+Hu|Btn_RecordingHotkey|Nyomjon le egy kombinációt…
+Hu|Btn_ResetHotkeys|Mindkét billentyűparancs visszaállítása
+Hu|Hotkey_RecordHint|A megszakításhoz nyomja meg az Esc billentyűt. A billentyűparancsok akkor is működnek, amikor a Glyfo az értesítési területen van.
+Hu|Hotkey_NeedModifier|A billentyűparancshoz Ctrl vagy Alt kell, mellé pedig egy betű, egy számjegy vagy egy funkcióbillentyű.
+Hu|Hotkey_Taken|A(z) {0} kombinációt már egy másik alkalmazás használja. A korábbi billentyűparancs marad érvényben.
+Hu|Setting_Theme|Megjelenés
+Hu|Theme_System|Windows szerint
+Hu|Theme_Light|Világos
+Hu|Theme_Dark|Sötét
+Hu|Status_Deskewed|{0}°-kal kiegyenesítve.
+Hu|Status_DeskewNone|Ez az oldal már egyenes.
+Hu|Status_RotateFailed|A képet nem sikerült elforgatni: {0}
+Hu|Welcome_Title|Üdvözli a Glyfo
+Hu|Welcome_1|Nyomja meg a(z) {0} billentyűt bárhol a Windowsban, húzzon keretet egy szöveg köré, és olvassa ki.
+Hu|Welcome_2|Vagy húzzon egy képet vagy PDF-et az ablakra, illesszen be egyet, esetleg nyisson meg egy fájlt.
+Hu|Welcome_3|Minden kiolvasott szöveg az előzményekben marad, ahol kereshető, menthető és törölhető. Az eszközt soha nem hagyja el.
+Hu|Welcome_Start|Kezdjük
+Hu|News_130_4|Saját billentyűparancsokat választhat a rögzítéshez, az ablak pedig ott és úgy nyílik meg, ahogyan hagyta.
+Hu|News_130_5|Egyenesítsen ki egy ferde fényképet, keressen a szövegben a Ctrl+F billentyűkkel, és válasszon világos vagy sötét megjelenést.
+Id|Rotate_Right|Putar ke kanan. Pilihan lain ada di panah.
+Id|Rotate_Left|Putar ke kiri
+Id|Rotate_180|Balik terbalik
+Id|Rotate_Deskew|Luruskan otomatis
+Id|Rotate_Reset|Kembali ke aslinya
+Id|Text_Stats|{0} kata
+Id|Text_Chars|{0} karakter
+Id|Find_Placeholder|Cari dalam teks
+Id|Tip_Find|Cari dalam teks (Ctrl+F)
+Id|Find_Count|{0} dari {1}
+Id|Find_NoMatch|Tidak ditemukan
+Id|Tip_FindPrev|Hasil sebelumnya (Shift+Enter)
+Id|Tip_FindNext|Hasil berikutnya (Enter)
+Id|Tip_FindClose|Tutup bilah pencarian (Esc)
+Id|Tip_CaptureKeys|Pilih sebagian layar lalu baca teksnya ({0}). Tekan {1} untuk seluruh layar.
+Id|Tip_CaptureRegionOnly|Pilih sebagian layar lalu baca teksnya ({0}).
+Id|Setting_Group_General|Umum
+Id|Setting_Group_Hotkeys|Pintasan
+Id|Setting_Group_Recognition|Pengenalan teks
+Id|Setting_Group_Privacy|Privasi
+Id|Setting_Hotkey_Region|Tangkap sebagian layar
+Id|Setting_Hotkey_Full|Tangkap seluruh layar
+Id|Btn_ChangeHotkey|Klik, lalu tekan kombinasi yang Anda inginkan
+Id|Btn_RecordingHotkey|Tekan sebuah kombinasi…
+Id|Btn_ResetHotkeys|Setel ulang kedua pintasan
+Id|Hotkey_RecordHint|Tekan Esc untuk membatalkan. Pintasan tetap bekerja selama Glyfo berada di area notifikasi.
+Id|Hotkey_NeedModifier|Pintasan memerlukan Ctrl atau Alt, ditambah sebuah huruf, angka, atau tombol fungsi.
+Id|Hotkey_Taken|{0} sudah dipakai aplikasi lain. Pintasan sebelumnya masih berlaku.
+Id|Setting_Theme|Tampilan
+Id|Theme_System|Ikuti Windows
+Id|Theme_Light|Terang
+Id|Theme_Dark|Gelap
+Id|Status_Deskewed|Diluruskan {0}°.
+Id|Status_DeskewNone|Halaman ini sudah lurus.
+Id|Status_RotateFailed|Gambar tidak bisa diputar: {0}
+Id|Welcome_Title|Selamat datang di Glyfo
+Id|Welcome_1|Tekan {0} di mana saja dalam Windows, tarik kotak mengelilingi teks, lalu bacalah.
+Id|Welcome_2|Atau jatuhkan gambar atau PDF ke jendela ini, tempel satu, atau buka sebuah berkas.
+Id|Welcome_3|Semua yang Anda baca tersimpan di Riwayat dan bisa dicari, disimpan, atau dihapus. Semuanya tidak pernah meninggalkan perangkat ini.
+Id|Welcome_Start|Mulai
+Id|News_130_4|Pilih pintasan tangkapan layar Anda sendiri, dan jendela terbuka di tempat dan ukuran seperti saat Anda tinggalkan.
+Id|News_130_5|Luruskan foto yang miring, cari dalam teks dengan Ctrl+F, dan pilih tampilan terang atau gelap.
+It|Rotate_Right|Ruota a destra. Altre opzioni sotto la freccia.
+It|Rotate_Left|Ruota a sinistra
+It|Rotate_180|Capovolgi
+It|Rotate_Deskew|Raddrizza automaticamente
+It|Rotate_Reset|Torna all’originale
+It|Text_Stats|{0} parole
+It|Text_Chars|{0} caratteri
+It|Find_Placeholder|Cerca nel testo
+It|Tip_Find|Cerca nel testo (Ctrl+F)
+It|Find_Count|{0} di {1}
+It|Find_NoMatch|Non trovato
+It|Tip_FindPrev|Risultato precedente (Maiusc+Invio)
+It|Tip_FindNext|Risultato successivo (Invio)
+It|Tip_FindClose|Chiudi la barra di ricerca (Esc)
+It|Tip_CaptureKeys|Seleziona una parte dello schermo e leggine il testo ({0}). Premi {1} per tutto lo schermo.
+It|Tip_CaptureRegionOnly|Seleziona una parte dello schermo e leggine il testo ({0}).
+It|Setting_Group_General|Generale
+It|Setting_Group_Hotkeys|Scorciatoie
+It|Setting_Group_Recognition|Riconoscimento
+It|Setting_Group_Privacy|Privacy
+It|Setting_Hotkey_Region|Cattura una parte
+It|Setting_Hotkey_Full|Cattura tutto lo schermo
+It|Btn_ChangeHotkey|Fai clic, poi premi la combinazione che vuoi
+It|Btn_RecordingHotkey|Premi una combinazione…
+It|Btn_ResetHotkeys|Ripristina entrambe le scorciatoie
+It|Hotkey_RecordHint|Premi Esc per annullare. Le scorciatoie continuano a funzionare anche quando Glyfo è nell’area di notifica.
+It|Hotkey_NeedModifier|Una scorciatoia richiede Ctrl o Alt, più una lettera, una cifra o un tasto funzione.
+It|Hotkey_Taken|{0} è già usata da un’altra app. Resta valida la scorciatoia precedente.
+It|Setting_Theme|Aspetto
+It|Theme_System|Come Windows
+It|Theme_Light|Chiaro
+It|Theme_Dark|Scuro
+It|Status_Deskewed|Raddrizzata di {0}°.
+It|Status_DeskewNone|Questa pagina è già dritta.
+It|Status_RotateFailed|Non è stato possibile ruotare l’immagine: {0}
+It|Welcome_Title|Benvenuto in Glyfo
+It|Welcome_1|Premi {0} ovunque in Windows, traccia un riquadro attorno a un testo e leggilo.
+It|Welcome_2|Oppure trascina un’immagine o un PDF sulla finestra, incollane uno, o apri un file.
+It|Welcome_3|Tutto ciò che leggi resta nella cronologia, dove puoi cercarlo, salvarlo o cancellarlo. Non lascia mai questo dispositivo.
+It|Welcome_Start|Iniziamo
+It|News_130_4|Scegli le tue scorciatoie per la cattura, e la finestra si riapre dove e come l’hai lasciata.
+It|News_130_5|Raddrizza una foto storta, cerca nel testo con Ctrl+F e scegli un aspetto chiaro o scuro.
+Ja|Rotate_Right|右に回転します。その他は矢印から。
+Ja|Rotate_Left|左に回転
+Ja|Rotate_180|上下を逆にする
+Ja|Rotate_Deskew|自動で傾きを直す
+Ja|Rotate_Reset|元の画像に戻す
+Ja|Text_Stats|{0} 語
+Ja|Text_Chars|{0} 文字
+Ja|Find_Placeholder|テキスト内を検索
+Ja|Tip_Find|テキスト内を検索 (Ctrl+F)
+Ja|Find_Count|{1} 件中 {0} 件目
+Ja|Find_NoMatch|見つかりません
+Ja|Tip_FindPrev|前の一致 (Shift+Enter)
+Ja|Tip_FindNext|次の一致 (Enter)
+Ja|Tip_FindClose|検索バーを閉じる (Esc)
+Ja|Tip_CaptureKeys|画面の一部を選んで文字を読み取ります ({0})。画面全体は {1} です。
+Ja|Tip_CaptureRegionOnly|画面の一部を選んで文字を読み取ります ({0})。
+Ja|Setting_Group_General|全般
+Ja|Setting_Group_Hotkeys|ショートカット
+Ja|Setting_Group_Recognition|文字認識
+Ja|Setting_Group_Privacy|プライバシー
+Ja|Setting_Hotkey_Region|範囲を取り込む
+Ja|Setting_Hotkey_Full|画面全体を取り込む
+Ja|Btn_ChangeHotkey|クリックしてから、使いたいキーの組み合わせを押してください
+Ja|Btn_RecordingHotkey|キーの組み合わせを押してください…
+Ja|Btn_ResetHotkeys|両方のショートカットを既定に戻す
+Ja|Hotkey_RecordHint|Esc でキャンセルします。Glyfo が通知領域にあるときもショートカットは動きます。
+Ja|Hotkey_NeedModifier|ショートカットには Ctrl か Alt と、英字・数字・ファンクションキーのいずれかが必要です。
+Ja|Hotkey_Taken|{0} は他のアプリが使用中です。これまでのショートカットがそのまま有効です。
+Ja|Setting_Theme|外観
+Ja|Theme_System|Windows に合わせる
+Ja|Theme_Light|ライト
+Ja|Theme_Dark|ダーク
+Ja|Status_Deskewed|{0}° 傾きを直しました。
+Ja|Status_DeskewNone|このページはすでにまっすぐです。
+Ja|Status_RotateFailed|画像を回転できませんでした: {0}
+Ja|Welcome_Title|Glyfo へようこそ
+Ja|Welcome_1|Windows のどこででも {0} を押し、文字のまわりを枠で囲めば読み取れます。
+Ja|Welcome_2|画像や PDF をウィンドウにドロップしたり、貼り付けたり、ファイルを開いたりもできます。
+Ja|Welcome_3|読み取った内容は履歴に残り、検索・保存・消去ができます。この端末から出ることはありません。
+Ja|Welcome_Start|はじめる
+Ja|News_130_4|取り込みのショートカットを自分で決められるようになり、ウィンドウは前回の位置と大きさで開きます。
+Ja|News_130_5|傾いた写真をまっすぐにし、Ctrl+F で文字を検索し、ライトかダークの外観を選べます。
+Ko|Rotate_Right|오른쪽으로 회전합니다. 나머지는 화살표에 있습니다.
+Ko|Rotate_Left|왼쪽으로 회전
+Ko|Rotate_180|위아래 뒤집기
+Ko|Rotate_Deskew|자동으로 기울기 보정
+Ko|Rotate_Reset|원본으로 되돌리기
+Ko|Text_Stats|{0}개 단어
+Ko|Text_Chars|{0}자
+Ko|Find_Placeholder|텍스트에서 찾기
+Ko|Tip_Find|텍스트에서 찾기 (Ctrl+F)
+Ko|Find_Count|{1}개 중 {0}번째
+Ko|Find_NoMatch|찾지 못했습니다
+Ko|Tip_FindPrev|이전 항목 (Shift+Enter)
+Ko|Tip_FindNext|다음 항목 (Enter)
+Ko|Tip_FindClose|검색 창 닫기 (Esc)
+Ko|Tip_CaptureKeys|화면의 일부를 선택해 그 안의 글자를 읽습니다 ({0}). 화면 전체는 {1} 입니다.
+Ko|Tip_CaptureRegionOnly|화면의 일부를 선택해 그 안의 글자를 읽습니다 ({0}).
+Ko|Setting_Group_General|일반
+Ko|Setting_Group_Hotkeys|바로 가기 키
+Ko|Setting_Group_Recognition|문자 인식
+Ko|Setting_Group_Privacy|개인 정보
+Ko|Setting_Hotkey_Region|영역 캡처
+Ko|Setting_Hotkey_Full|화면 전체 캡처
+Ko|Btn_ChangeHotkey|클릭한 다음 원하는 키 조합을 누르세요
+Ko|Btn_RecordingHotkey|키 조합을 누르세요…
+Ko|Btn_ResetHotkeys|두 바로 가기 키 모두 기본값으로
+Ko|Hotkey_RecordHint|취소하려면 Esc를 누르세요. Glyfo가 알림 영역에 있어도 바로 가기 키는 계속 작동합니다.
+Ko|Hotkey_NeedModifier|바로 가기 키에는 Ctrl 또는 Alt와 함께 문자, 숫자, 기능 키 중 하나가 필요합니다.
+Ko|Hotkey_Taken|{0} 조합은 다른 앱이 이미 쓰고 있습니다. 이전 바로 가기 키가 그대로 유지됩니다.
+Ko|Setting_Theme|모양
+Ko|Theme_System|Windows 설정 따르기
+Ko|Theme_Light|밝게
+Ko|Theme_Dark|어둡게
+Ko|Status_Deskewed|{0}° 만큼 바로잡았습니다.
+Ko|Status_DeskewNone|이 페이지는 이미 반듯합니다.
+Ko|Status_RotateFailed|이미지를 회전할 수 없습니다: {0}
+Ko|Welcome_Title|Glyfo를 시작합니다
+Ko|Welcome_1|Windows 어디서든 {0} 을 누르고 글자 주위를 상자로 끌면 바로 읽어 줍니다.
+Ko|Welcome_2|창에 그림이나 PDF를 끌어다 놓거나, 붙여넣거나, 파일을 열어도 됩니다.
+Ko|Welcome_3|읽은 내용은 모두 기록에 남아 검색하고 저장하고 지울 수 있습니다. 이 기기를 벗어나지 않습니다.
+Ko|Welcome_Start|시작하기
+Ko|News_130_4|캡처 바로 가기 키를 직접 정할 수 있고, 창은 지난번 두었던 자리와 크기로 열립니다.
+Ko|News_130_5|비뚤어진 사진을 바로잡고, Ctrl+F로 글자를 찾고, 밝은 모양과 어두운 모양 중에서 고르세요.
+Ms|Rotate_Right|Putar ke kanan. Pilihan lain di bawah anak panah.
+Ms|Rotate_Left|Putar ke kiri
+Ms|Rotate_180|Terbalikkan
+Ms|Rotate_Deskew|Luruskan secara automatik
+Ms|Rotate_Reset|Kembali kepada asal
+Ms|Text_Stats|{0} perkataan
+Ms|Text_Chars|{0} aksara
+Ms|Find_Placeholder|Cari dalam teks
+Ms|Tip_Find|Cari dalam teks (Ctrl+F)
+Ms|Find_Count|{0} daripada {1}
+Ms|Find_NoMatch|Tidak dijumpai
+Ms|Tip_FindPrev|Padanan sebelumnya (Shift+Enter)
+Ms|Tip_FindNext|Padanan seterusnya (Enter)
+Ms|Tip_FindClose|Tutup bar carian (Esc)
+Ms|Tip_CaptureKeys|Pilih sebahagian skrin dan baca teksnya ({0}). Tekan {1} untuk seluruh skrin.
+Ms|Tip_CaptureRegionOnly|Pilih sebahagian skrin dan baca teksnya ({0}).
+Ms|Setting_Group_General|Umum
+Ms|Setting_Group_Hotkeys|Pintasan
+Ms|Setting_Group_Recognition|Pengecaman teks
+Ms|Setting_Group_Privacy|Privasi
+Ms|Setting_Hotkey_Region|Tangkap sebahagian skrin
+Ms|Setting_Hotkey_Full|Tangkap seluruh skrin
+Ms|Btn_ChangeHotkey|Klik, kemudian tekan gabungan kekunci yang anda mahu
+Ms|Btn_RecordingHotkey|Tekan satu gabungan kekunci…
+Ms|Btn_ResetHotkeys|Tetapkan semula kedua-dua pintasan
+Ms|Hotkey_RecordHint|Tekan Esc untuk batal. Pintasan tetap berfungsi semasa Glyfo berada di kawasan pemberitahuan.
+Ms|Hotkey_NeedModifier|Pintasan memerlukan Ctrl atau Alt, berserta satu huruf, angka atau kekunci fungsi.
+Ms|Hotkey_Taken|{0} sudah digunakan oleh aplikasi lain. Pintasan terdahulu masih berkuat kuasa.
+Ms|Setting_Theme|Rupa
+Ms|Theme_System|Ikut Windows
+Ms|Theme_Light|Cerah
+Ms|Theme_Dark|Gelap
+Ms|Status_Deskewed|Diluruskan sebanyak {0}°.
+Ms|Status_DeskewNone|Halaman ini memang sudah lurus.
+Ms|Status_RotateFailed|Gambar tidak dapat diputar: {0}
+Ms|Welcome_Title|Selamat datang ke Glyfo
+Ms|Welcome_1|Tekan {0} di mana-mana dalam Windows, seret kotak di sekeliling teks, dan ia akan dibaca.
+Ms|Welcome_2|Atau lepaskan gambar atau PDF pada tetingkap, tampal satu, atau buka fail.
+Ms|Welcome_3|Segala yang anda baca disimpan dalam Sejarah dan boleh dicari, disimpan atau dikosongkan. Ia tidak pernah meninggalkan peranti ini.
+Ms|Welcome_Start|Mula
+Ms|News_130_4|Pilih pintasan tangkapan anda sendiri, dan tetingkap akan dibuka di tempat dan saiz seperti anda tinggalkan.
+Ms|News_130_5|Luruskan foto yang senget, cari dalam teks dengan Ctrl+F, dan pilih rupa cerah atau gelap.
+Nb|Rotate_Right|Roter mot høyre. Flere valg under pilen.
+Nb|Rotate_Left|Roter mot venstre
+Nb|Rotate_180|Snu opp ned
+Nb|Rotate_Deskew|Rett opp automatisk
+Nb|Rotate_Reset|Tilbake til originalen
+Nb|Text_Stats|{0} ord
+Nb|Text_Chars|{0} tegn
+Nb|Find_Placeholder|Søk i teksten
+Nb|Tip_Find|Søk i teksten (Ctrl+F)
+Nb|Find_Count|{0} av {1}
+Nb|Find_NoMatch|Ikke funnet
+Nb|Tip_FindPrev|Forrige treff (Shift+Enter)
+Nb|Tip_FindNext|Neste treff (Enter)
+Nb|Tip_FindClose|Lukk søkefeltet (Esc)
+Nb|Tip_CaptureKeys|Velg et område av skjermen og les teksten i det ({0}). Trykk {1} for hele skjermen.
+Nb|Tip_CaptureRegionOnly|Velg et område av skjermen og les teksten i det ({0}).
+Nb|Setting_Group_General|Generelt
+Nb|Setting_Group_Hotkeys|Snarveier
+Nb|Setting_Group_Recognition|Gjenkjenning
+Nb|Setting_Group_Privacy|Personvern
+Nb|Setting_Hotkey_Region|Ta et område
+Nb|Setting_Hotkey_Full|Ta hele skjermen
+Nb|Btn_ChangeHotkey|Klikk, og trykk så tastekombinasjonen du vil ha
+Nb|Btn_RecordingHotkey|Trykk en tastekombinasjon…
+Nb|Btn_ResetHotkeys|Tilbakestill begge snarveiene
+Nb|Hotkey_RecordHint|Trykk Esc for å avbryte. Snarveiene virker også mens Glyfo ligger i varslingsområdet.
+Nb|Hotkey_NeedModifier|En snarvei trenger Ctrl eller Alt, pluss en bokstav, et tall eller en funksjonstast.
+Nb|Hotkey_Taken|{0} er allerede opptatt av et annet program. Den forrige snarveien gjelder fortsatt.
+Nb|Setting_Theme|Utseende
+Nb|Theme_System|Følg Windows
+Nb|Theme_Light|Lyst
+Nb|Theme_Dark|Mørkt
+Nb|Status_Deskewed|Rettet opp {0}°.
+Nb|Status_DeskewNone|Denne siden er allerede rett.
+Nb|Status_RotateFailed|Bildet kunne ikke roteres: {0}
+Nb|Welcome_Title|Velkommen til Glyfo
+Nb|Welcome_1|Trykk {0} hvor som helst i Windows, dra en ramme rundt en tekst, og få den lest.
+Nb|Welcome_2|Eller slipp et bilde eller en PDF på vinduet, lim inn et, eller åpne en fil.
+Nb|Welcome_3|Alt du leser, blir liggende i loggen og kan søkes fram, lagres eller tømmes. Det forlater aldri denne enheten.
+Nb|Welcome_Start|Kom i gang
+Nb|News_130_4|Velg dine egne snarveier for skjermklipp, og vinduet åpnes der og slik du forlot det.
+Nb|News_130_5|Rett opp et skjevt bilde, søk i teksten med Ctrl+F, og velg lyst eller mørkt utseende.
+Nl|Rotate_Right|Naar rechts draaien. Meer onder de pijl.
+Nl|Rotate_Left|Naar links draaien
+Nl|Rotate_180|Ondersteboven zetten
+Nl|Rotate_Deskew|Automatisch rechtzetten
+Nl|Rotate_Reset|Terug naar het origineel
+Nl|Text_Stats|{0} woorden
+Nl|Text_Chars|{0} tekens
+Nl|Find_Placeholder|Zoeken in de tekst
+Nl|Tip_Find|Zoeken in de tekst (Ctrl+F)
+Nl|Find_Count|{0} van {1}
+Nl|Find_NoMatch|Niet gevonden
+Nl|Tip_FindPrev|Vorig resultaat (Shift+Enter)
+Nl|Tip_FindNext|Volgend resultaat (Enter)
+Nl|Tip_FindClose|Zoekbalk sluiten (Esc)
+Nl|Tip_CaptureKeys|Selecteer een deel van het scherm en lees de tekst erin ({0}). Druk op {1} voor het hele scherm.
+Nl|Tip_CaptureRegionOnly|Selecteer een deel van het scherm en lees de tekst erin ({0}).
+Nl|Setting_Group_General|Algemeen
+Nl|Setting_Group_Hotkeys|Sneltoetsen
+Nl|Setting_Group_Recognition|Tekstherkenning
+Nl|Setting_Group_Privacy|Privacy
+Nl|Setting_Hotkey_Region|Een deel vastleggen
+Nl|Setting_Hotkey_Full|Het hele scherm vastleggen
+Nl|Btn_ChangeHotkey|Klik en druk daarna op de gewenste toetsencombinatie
+Nl|Btn_RecordingHotkey|Druk op een combinatie…
+Nl|Btn_ResetHotkeys|Beide sneltoetsen herstellen
+Nl|Hotkey_RecordHint|Druk op Esc om te annuleren. De sneltoetsen blijven werken terwijl Glyfo in het systeemvak zit.
+Nl|Hotkey_NeedModifier|Een sneltoets heeft Ctrl of Alt nodig, plus een letter, een cijfer of een functietoets.
+Nl|Hotkey_Taken|{0} is al in gebruik bij een andere app. De vorige sneltoets blijft gelden.
+Nl|Setting_Theme|Weergave
+Nl|Theme_System|Windows volgen
+Nl|Theme_Light|Licht
+Nl|Theme_Dark|Donker
+Nl|Status_Deskewed|{0}° rechtgezet.
+Nl|Status_DeskewNone|Deze pagina staat al recht.
+Nl|Status_RotateFailed|De afbeelding kon niet worden gedraaid: {0}
+Nl|Welcome_Title|Welkom bij Glyfo
+Nl|Welcome_1|Druk overal in Windows op {0}, trek een kader om een tekst heen en lees hem uit.
+Nl|Welcome_2|Of sleep een afbeelding of pdf op het venster, plak er een, of open een bestand.
+Nl|Welcome_3|Alles wat je uitleest blijft in de geschiedenis staan en is doorzoekbaar, op te slaan en te wissen. Het verlaat dit apparaat nooit.
+Nl|Welcome_Start|Aan de slag
+Nl|News_130_4|Kies je eigen sneltoetsen voor het vastleggen, en het venster opent waar en zoals je het achterliet.
+Nl|News_130_5|Zet een scheve foto recht, zoek in de tekst met Ctrl+F en kies een lichte of donkere weergave.
+Pl|Rotate_Right|Obróć w prawo. Więcej pod strzałką.
+Pl|Rotate_Left|Obróć w lewo
+Pl|Rotate_180|Obróć do góry nogami
+Pl|Rotate_Deskew|Wyprostuj automatycznie
+Pl|Rotate_Reset|Powrót do oryginału
+Pl|Text_Stats|Słowa: {0}
+Pl|Text_Chars|Znaki: {0}
+Pl|Find_Placeholder|Znajdź w tekście
+Pl|Tip_Find|Znajdź w tekście (Ctrl+F)
+Pl|Find_Count|{0} z {1}
+Pl|Find_NoMatch|Nie znaleziono
+Pl|Tip_FindPrev|Poprzednie wystąpienie (Shift+Enter)
+Pl|Tip_FindNext|Następne wystąpienie (Enter)
+Pl|Tip_FindClose|Zamknij pasek wyszukiwania (Esc)
+Pl|Tip_CaptureKeys|Zaznacz fragment ekranu i odczytaj z niego tekst ({0}). Cały ekran przechwycisz klawiszem {1}.
+Pl|Tip_CaptureRegionOnly|Zaznacz fragment ekranu i odczytaj z niego tekst ({0}).
+Pl|Setting_Group_General|Ogólne
+Pl|Setting_Group_Hotkeys|Skróty klawiszowe
+Pl|Setting_Group_Recognition|Rozpoznawanie
+Pl|Setting_Group_Privacy|Prywatność
+Pl|Setting_Hotkey_Region|Przechwyć fragment
+Pl|Setting_Hotkey_Full|Przechwyć cały ekran
+Pl|Btn_ChangeHotkey|Kliknij, a potem naciśnij wybraną kombinację
+Pl|Btn_RecordingHotkey|Naciśnij kombinację…
+Pl|Btn_ResetHotkeys|Przywróć oba skróty
+Pl|Hotkey_RecordHint|Naciśnij Esc, aby anulować. Skróty działają także wtedy, gdy Glyfo siedzi w obszarze powiadomień.
+Pl|Hotkey_NeedModifier|Skrót wymaga klawisza Ctrl lub Alt oraz litery, cyfry albo klawisza funkcyjnego.
+Pl|Hotkey_Taken|Kombinacja {0} jest już zajęta przez inną aplikację. Nadal obowiązuje poprzedni skrót.
+Pl|Setting_Theme|Wygląd
+Pl|Theme_System|Jak w systemie Windows
+Pl|Theme_Light|Jasny
+Pl|Theme_Dark|Ciemny
+Pl|Status_Deskewed|Wyprostowano o {0}°.
+Pl|Status_DeskewNone|Ta strona jest już prosta.
+Pl|Status_RotateFailed|Nie udało się obrócić obrazu: {0}
+Pl|Welcome_Title|Witamy w Glyfo
+Pl|Welcome_1|Naciśnij {0} w dowolnym miejscu w systemie Windows, obrysuj ramką jakiś tekst, a zostanie on odczytany.
+Pl|Welcome_2|Albo upuść obraz lub plik PDF na okno, wklej obraz ze schowka, czy otwórz plik.
+Pl|Welcome_3|Wszystko, co odczytasz, zostaje w historii, którą można przeszukiwać, zapisywać i czyścić. Nigdy nie opuszcza tego urządzenia.
+Pl|Welcome_Start|Zaczynajmy
+Pl|News_130_4|Skróty do przechwytywania wybierasz samodzielnie, a okno otwiera się w tym samym miejscu i rozmiarze co poprzednio.
+Pl|News_130_5|Wyprostuj przekrzywione zdjęcie, przeszukaj tekst skrótem Ctrl+F i wybierz jasny albo ciemny wygląd.
+Pt|Rotate_Right|Girar para a direita. Mais opções na seta.
+Pt|Rotate_Left|Girar para a esquerda
+Pt|Rotate_180|Virar de cabeça para baixo
+Pt|Rotate_Deskew|Endireitar automaticamente
+Pt|Rotate_Reset|Voltar ao original
+Pt|Text_Stats|{0} palavras
+Pt|Text_Chars|{0} caracteres
+Pt|Find_Placeholder|Localizar no texto
+Pt|Tip_Find|Localizar no texto (Ctrl+F)
+Pt|Find_Count|{0} de {1}
+Pt|Find_NoMatch|Não encontrado
+Pt|Tip_FindPrev|Ocorrência anterior (Shift+Enter)
+Pt|Tip_FindNext|Próxima ocorrência (Enter)
+Pt|Tip_FindClose|Fechar a barra de pesquisa (Esc)
+Pt|Tip_CaptureKeys|Selecione uma parte da tela e leia o texto dela ({0}). Pressione {1} para a tela inteira.
+Pt|Tip_CaptureRegionOnly|Selecione uma parte da tela e leia o texto dela ({0}).
+Pt|Setting_Group_General|Geral
+Pt|Setting_Group_Hotkeys|Atalhos
+Pt|Setting_Group_Recognition|Reconhecimento
+Pt|Setting_Group_Privacy|Privacidade
+Pt|Setting_Hotkey_Region|Capturar uma parte
+Pt|Setting_Hotkey_Full|Capturar a tela inteira
+Pt|Btn_ChangeHotkey|Clique e depois pressione a combinação que você quiser
+Pt|Btn_RecordingHotkey|Pressione uma combinação…
+Pt|Btn_ResetHotkeys|Restaurar os dois atalhos
+Pt|Hotkey_RecordHint|Pressione Esc para cancelar. Os atalhos continuam funcionando enquanto o Glyfo está na área de notificação.
+Pt|Hotkey_NeedModifier|Um atalho precisa de Ctrl ou Alt, mais uma letra, um número ou uma tecla de função.
+Pt|Hotkey_Taken|{0} já está sendo usado por outro aplicativo. O atalho anterior continua valendo.
+Pt|Setting_Theme|Aparência
+Pt|Theme_System|Seguir o Windows
+Pt|Theme_Light|Claro
+Pt|Theme_Dark|Escuro
+Pt|Status_Deskewed|Endireitado em {0}°.
+Pt|Status_DeskewNone|Esta página já está reta.
+Pt|Status_RotateFailed|Não foi possível girar a imagem: {0}
+Pt|Welcome_Title|Boas-vindas ao Glyfo
+Pt|Welcome_1|Pressione {0} em qualquer lugar do Windows, desenhe um retângulo em volta de um texto e leia-o.
+Pt|Welcome_2|Ou solte uma imagem ou um PDF na janela, cole uma imagem, ou abra um arquivo.
+Pt|Welcome_3|Tudo o que você lê fica no histórico e pode ser pesquisado, salvo ou apagado. Nunca sai deste dispositivo.
+Pt|Welcome_Start|Começar
+Pt|News_130_4|Escolha seus próprios atalhos de captura, e a janela abre onde e como você a deixou.
+Pt|News_130_5|Endireite uma foto torta, pesquise no texto com Ctrl+F e escolha uma aparência clara ou escura.
+Ro|Rotate_Right|Rotește spre dreapta. Mai multe sub săgeată.
+Ro|Rotate_Left|Rotește spre stânga
+Ro|Rotate_180|Întoarce cu susul în jos
+Ro|Rotate_Deskew|Îndreaptă automat
+Ro|Rotate_Reset|Înapoi la original
+Ro|Text_Stats|{0} cuvinte
+Ro|Text_Chars|{0} caractere
+Ro|Find_Placeholder|Caută în text
+Ro|Tip_Find|Caută în text (Ctrl+F)
+Ro|Find_Count|{0} din {1}
+Ro|Find_NoMatch|Nu a fost găsit
+Ro|Tip_FindPrev|Rezultatul anterior (Shift+Enter)
+Ro|Tip_FindNext|Rezultatul următor (Enter)
+Ro|Tip_FindClose|Închide bara de căutare (Esc)
+Ro|Tip_CaptureKeys|Selectează o parte din ecran și citește textul din ea ({0}). Apasă {1} pentru tot ecranul.
+Ro|Tip_CaptureRegionOnly|Selectează o parte din ecran și citește textul din ea ({0}).
+Ro|Setting_Group_General|General
+Ro|Setting_Group_Hotkeys|Scurtături
+Ro|Setting_Group_Recognition|Recunoaștere
+Ro|Setting_Group_Privacy|Confidențialitate
+Ro|Setting_Hotkey_Region|Captează o parte
+Ro|Setting_Hotkey_Full|Captează tot ecranul
+Ro|Btn_ChangeHotkey|Dă clic, apoi apasă combinația dorită
+Ro|Btn_RecordingHotkey|Apasă o combinație…
+Ro|Btn_ResetHotkeys|Resetează ambele scurtături
+Ro|Hotkey_RecordHint|Apasă Esc pentru a renunța. Scurtăturile funcționează și cât timp Glyfo stă în zona de notificare.
+Ro|Hotkey_NeedModifier|O scurtătură are nevoie de Ctrl sau Alt, plus o literă, o cifră sau o tastă funcțională.
+Ro|Hotkey_Taken|{0} este deja folosită de altă aplicație. Rămâne valabilă scurtătura anterioară.
+Ro|Setting_Theme|Aspect
+Ro|Theme_System|Ca în Windows
+Ro|Theme_Light|Luminos
+Ro|Theme_Dark|Întunecat
+Ro|Status_Deskewed|Îndreptat cu {0}°.
+Ro|Status_DeskewNone|Pagina aceasta este deja dreaptă.
+Ro|Status_RotateFailed|Imaginea nu a putut fi rotită: {0}
+Ro|Welcome_Title|Bine ai venit în Glyfo
+Ro|Welcome_1|Apasă {0} oriunde în Windows, trage un dreptunghi în jurul unui text și citește-l.
+Ro|Welcome_2|Sau lasă o imagine ori un PDF peste fereastră, lipește o imagine, sau deschide un fișier.
+Ro|Welcome_3|Tot ce citești rămâne în istoric și poate fi căutat, salvat sau șters. Nu părăsește niciodată acest dispozitiv.
+Ro|Welcome_Start|Să începem
+Ro|News_130_4|Îți alegi singur scurtăturile de captură, iar fereastra se deschide unde și cum ai lăsat-o.
+Ro|News_130_5|Îndreaptă o fotografie strâmbă, caută în text cu Ctrl+F și alege un aspect luminos sau întunecat.
+Ru|Rotate_Right|Повернуть вправо. Остальное — под стрелкой.
+Ru|Rotate_Left|Повернуть влево
+Ru|Rotate_180|Перевернуть
+Ru|Rotate_Deskew|Выровнять автоматически
+Ru|Rotate_Reset|Вернуть исходное
+Ru|Text_Stats|Слов: {0}
+Ru|Text_Chars|Знаков: {0}
+Ru|Find_Placeholder|Поиск в тексте
+Ru|Tip_Find|Поиск в тексте (Ctrl+F)
+Ru|Find_Count|{0} из {1}
+Ru|Find_NoMatch|Не найдено
+Ru|Tip_FindPrev|Предыдущее совпадение (Shift+Enter)
+Ru|Tip_FindNext|Следующее совпадение (Enter)
+Ru|Tip_FindClose|Закрыть строку поиска (Esc)
+Ru|Tip_CaptureKeys|Выделите часть экрана и прочитайте текст на ней ({0}). Весь экран — клавиша {1}.
+Ru|Tip_CaptureRegionOnly|Выделите часть экрана и прочитайте текст на ней ({0}).
+Ru|Setting_Group_General|Общие
+Ru|Setting_Group_Hotkeys|Сочетания клавиш
+Ru|Setting_Group_Recognition|Распознавание
+Ru|Setting_Group_Privacy|Конфиденциальность
+Ru|Setting_Hotkey_Region|Снимок области
+Ru|Setting_Hotkey_Full|Снимок всего экрана
+Ru|Btn_ChangeHotkey|Нажмите, а затем нажмите нужное сочетание
+Ru|Btn_RecordingHotkey|Нажмите сочетание клавиш…
+Ru|Btn_ResetHotkeys|Сбросить оба сочетания
+Ru|Hotkey_RecordHint|Esc — отмена. Сочетания работают и тогда, когда Glyfo свёрнут в область уведомлений.
+Ru|Hotkey_NeedModifier|Сочетанию нужен Ctrl или Alt, а к нему буква, цифра или функциональная клавиша.
+Ru|Hotkey_Taken|{0} уже занято другим приложением. Прежнее сочетание остаётся в силе.
+Ru|Setting_Theme|Оформление
+Ru|Theme_System|Как в Windows
+Ru|Theme_Light|Светлое
+Ru|Theme_Dark|Тёмное
+Ru|Status_Deskewed|Выровнено на {0}°.
+Ru|Status_DeskewNone|Эта страница и так ровная.
+Ru|Status_RotateFailed|Не удалось повернуть изображение: {0}
+Ru|Welcome_Title|Добро пожаловать в Glyfo
+Ru|Welcome_1|Нажмите {0} в любом месте Windows, обведите текст рамкой — и он будет прочитан.
+Ru|Welcome_2|Либо перетащите на окно картинку или PDF, вставьте изображение, либо откройте файл.
+Ru|Welcome_3|Всё прочитанное остаётся в журнале: по нему можно искать, его можно сохранить или очистить. Устройство он не покидает.
+Ru|Welcome_Start|Начать
+Ru|News_130_4|Сочетания клавиш для снимков теперь выбираете вы, а окно открывается там же и таким же, каким вы его оставили.
+Ru|News_130_5|Выровняйте перекошенный снимок, ищите по тексту через Ctrl+F и выберите светлое или тёмное оформление.
+Sv|Rotate_Right|Rotera åt höger. Fler val under pilen.
+Sv|Rotate_Left|Rotera åt vänster
+Sv|Rotate_180|Vänd upp och ned
+Sv|Rotate_Deskew|Räta upp automatiskt
+Sv|Rotate_Reset|Tillbaka till originalet
+Sv|Text_Stats|{0} ord
+Sv|Text_Chars|{0} tecken
+Sv|Find_Placeholder|Sök i texten
+Sv|Tip_Find|Sök i texten (Ctrl+F)
+Sv|Find_Count|{0} av {1}
+Sv|Find_NoMatch|Hittades inte
+Sv|Tip_FindPrev|Föregående träff (Skift+Retur)
+Sv|Tip_FindNext|Nästa träff (Retur)
+Sv|Tip_FindClose|Stäng sökfältet (Esc)
+Sv|Tip_CaptureKeys|Markera en del av skärmen och läs texten i den ({0}). Tryck {1} för hela skärmen.
+Sv|Tip_CaptureRegionOnly|Markera en del av skärmen och läs texten i den ({0}).
+Sv|Setting_Group_General|Allmänt
+Sv|Setting_Group_Hotkeys|Kortkommandon
+Sv|Setting_Group_Recognition|Textigenkänning
+Sv|Setting_Group_Privacy|Sekretess
+Sv|Setting_Hotkey_Region|Fånga ett område
+Sv|Setting_Hotkey_Full|Fånga hela skärmen
+Sv|Btn_ChangeHotkey|Klicka och tryck sedan den kombination du vill ha
+Sv|Btn_RecordingHotkey|Tryck en kombination…
+Sv|Btn_ResetHotkeys|Återställ båda kortkommandona
+Sv|Hotkey_RecordHint|Tryck Esc för att avbryta. Kortkommandona fungerar även när Glyfo ligger i meddelandefältet.
+Sv|Hotkey_NeedModifier|Ett kortkommando behöver Ctrl eller Alt, plus en bokstav, en siffra eller en funktionstangent.
+Sv|Hotkey_Taken|{0} används redan av ett annat program. Det tidigare kortkommandot gäller fortfarande.
+Sv|Setting_Theme|Utseende
+Sv|Theme_System|Följ Windows
+Sv|Theme_Light|Ljust
+Sv|Theme_Dark|Mörkt
+Sv|Status_Deskewed|Upprätad med {0}°.
+Sv|Status_DeskewNone|Den här sidan är redan rak.
+Sv|Status_RotateFailed|Bilden kunde inte roteras: {0}
+Sv|Welcome_Title|Välkommen till Glyfo
+Sv|Welcome_1|Tryck {0} var som helst i Windows, dra en ruta runt en text och läs av den.
+Sv|Welcome_2|Eller släpp en bild eller en PDF på fönstret, klistra in en, eller öppna en fil.
+Sv|Welcome_3|Allt du läser av sparas i historiken och går att söka i, spara eller rensa. Det lämnar aldrig den här enheten.
+Sv|Welcome_Start|Kom igång
+Sv|News_130_4|Välj dina egna kortkommandon för skärmklipp, och fönstret öppnas där och som du lämnade det.
+Sv|News_130_5|Räta upp ett snett foto, sök i texten med Ctrl+F och välj ett ljust eller mörkt utseende.
+Th|Rotate_Right|หมุนไปทางขวา ตัวเลือกอื่นอยู่ที่ลูกศร
+Th|Rotate_Left|หมุนไปทางซ้าย
+Th|Rotate_180|กลับหัว
+Th|Rotate_Deskew|ดัดให้ตรงอัตโนมัติ
+Th|Rotate_Reset|กลับไปเป็นภาพต้นฉบับ
+Th|Text_Stats|{0} คำ
+Th|Text_Chars|{0} ตัวอักษร
+Th|Find_Placeholder|ค้นหาในข้อความ
+Th|Tip_Find|ค้นหาในข้อความ (Ctrl+F)
+Th|Find_Count|{0} จาก {1}
+Th|Find_NoMatch|ไม่พบ
+Th|Tip_FindPrev|รายการก่อนหน้า (Shift+Enter)
+Th|Tip_FindNext|รายการถัดไป (Enter)
+Th|Tip_FindClose|ปิดแถบค้นหา (Esc)
+Th|Tip_CaptureKeys|เลือกพื้นที่บนหน้าจอแล้วอ่านข้อความในนั้น ({0}) กด {1} เพื่อจับภาพทั้งหน้าจอ
+Th|Tip_CaptureRegionOnly|เลือกพื้นที่บนหน้าจอแล้วอ่านข้อความในนั้น ({0})
+Th|Setting_Group_General|ทั่วไป
+Th|Setting_Group_Hotkeys|แป้นลัด
+Th|Setting_Group_Recognition|การอ่านข้อความ
+Th|Setting_Group_Privacy|ความเป็นส่วนตัว
+Th|Setting_Hotkey_Region|จับภาพเฉพาะบางส่วน
+Th|Setting_Hotkey_Full|จับภาพทั้งหน้าจอ
+Th|Btn_ChangeHotkey|คลิก แล้วกดชุดปุ่มที่ต้องการ
+Th|Btn_RecordingHotkey|กดชุดปุ่ม…
+Th|Btn_ResetHotkeys|คืนค่าแป้นลัดทั้งสอง
+Th|Hotkey_RecordHint|กด Esc เพื่อยกเลิก แป้นลัดยังทำงานได้แม้ Glyfo อยู่ในพื้นที่แจ้งเตือน
+Th|Hotkey_NeedModifier|แป้นลัดต้องมี Ctrl หรือ Alt พร้อมกับตัวอักษร ตัวเลข หรือปุ่มฟังก์ชัน
+Th|Hotkey_Taken|{0} ถูกแอปอื่นใช้อยู่แล้ว แป้นลัดเดิมยังใช้งานได้ตามเดิม
+Th|Setting_Theme|ลักษณะที่ปรากฏ
+Th|Theme_System|ตามการตั้งค่า Windows
+Th|Theme_Light|สว่าง
+Th|Theme_Dark|มืด
+Th|Status_Deskewed|ดัดให้ตรงแล้ว {0}°
+Th|Status_DeskewNone|หน้านี้ตรงอยู่แล้ว
+Th|Status_RotateFailed|หมุนภาพไม่สำเร็จ: {0}
+Th|Welcome_Title|ยินดีต้อนรับสู่ Glyfo
+Th|Welcome_1|กด {0} ที่ไหนก็ได้ใน Windows ลากกรอบรอบข้อความ แล้วอ่านข้อความนั้นได้เลย
+Th|Welcome_2|หรือจะลากรูปภาพหรือไฟล์ PDF มาวางบนหน้าต่าง วางจากคลิปบอร์ด หรือเปิดไฟล์ก็ได้
+Th|Welcome_3|ทุกอย่างที่อ่านได้จะถูกเก็บไว้ในประวัติ ค้นหา บันทึก หรือล้างทิ้งได้ และไม่เคยออกจากเครื่องนี้
+Th|Welcome_Start|เริ่มใช้งาน
+Th|News_130_4|เลือกแป้นลัดสำหรับจับภาพได้เอง และหน้าต่างจะเปิดขึ้นที่ตำแหน่งและขนาดเดิมที่คุณทิ้งไว้
+Th|News_130_5|ดัดภาพถ่ายที่เอียงให้ตรง ค้นหาในข้อความด้วย Ctrl+F และเลือกลักษณะสว่างหรือมืดได้
+Tr|Rotate_Right|Sağa döndür. Diğerleri okun altında.
+Tr|Rotate_Left|Sola döndür
+Tr|Rotate_180|Baş aşağı çevir
+Tr|Rotate_Deskew|Otomatik olarak düzelt
+Tr|Rotate_Reset|Özgün görüntüye dön
+Tr|Text_Stats|{0} sözcük
+Tr|Text_Chars|{0} karakter
+Tr|Find_Placeholder|Metinde ara
+Tr|Tip_Find|Metinde ara (Ctrl+F)
+Tr|Find_Count|{1} sonuçtan {0}.
+Tr|Find_NoMatch|Bulunamadı
+Tr|Tip_FindPrev|Önceki sonuç (Shift+Enter)
+Tr|Tip_FindNext|Sonraki sonuç (Enter)
+Tr|Tip_FindClose|Arama çubuğunu kapat (Esc)
+Tr|Tip_CaptureKeys|Ekranın bir bölümünü seçip içindeki metni okuyun ({0}). Ekranın tamamı için {1} tuşuna basın.
+Tr|Tip_CaptureRegionOnly|Ekranın bir bölümünü seçip içindeki metni okuyun ({0}).
+Tr|Setting_Group_General|Genel
+Tr|Setting_Group_Hotkeys|Kısayollar
+Tr|Setting_Group_Recognition|Metin tanıma
+Tr|Setting_Group_Privacy|Gizlilik
+Tr|Setting_Hotkey_Region|Bir bölümü yakala
+Tr|Setting_Hotkey_Full|Ekranın tamamını yakala
+Tr|Btn_ChangeHotkey|Tıklayın, sonra istediğiniz tuş birleşimine basın
+Tr|Btn_RecordingHotkey|Bir tuş birleşimine basın…
+Tr|Btn_ResetHotkeys|Her iki kısayolu da sıfırla
+Tr|Hotkey_RecordHint|Vazgeçmek için Esc tuşuna basın. Glyfo bildirim alanındayken de kısayollar çalışmaya devam eder.
+Tr|Hotkey_NeedModifier|Bir kısayol için Ctrl ya da Alt ile birlikte bir harf, rakam veya işlev tuşu gerekir.
+Tr|Hotkey_Taken|{0} birleşimini başka bir uygulama kullanıyor. Önceki kısayol geçerli olmayı sürdürüyor.
+Tr|Setting_Theme|Görünüm
+Tr|Theme_System|Windows ile aynı
+Tr|Theme_Light|Açık
+Tr|Theme_Dark|Koyu
+Tr|Status_Deskewed|{0}° düzeltildi.
+Tr|Status_DeskewNone|Bu sayfa zaten düz.
+Tr|Status_RotateFailed|Görüntü döndürülemedi: {0}
+Tr|Welcome_Title|Glyfo uygulamasına hoş geldiniz
+Tr|Welcome_1|Windows içinde herhangi bir yerde {0} tuşlarına basın, bir metnin çevresine kutu çizin ve okuyun.
+Tr|Welcome_2|Ya da pencereye bir resim veya PDF bırakın, bir resim yapıştırın, veya bir dosya açın.
+Tr|Welcome_3|Okuduğunuz her şey geçmişte kalır; arayabilir, kaydedebilir veya silebilirsiniz. Bu aygıttan hiç çıkmaz.
+Tr|Welcome_Start|Başlayalım
+Tr|News_130_4|Yakalama kısayollarını kendiniz seçin; pencere de bıraktığınız yerde ve boyutta açılsın.
+Tr|News_130_5|Eğri bir fotoğrafı düzeltin, metinde Ctrl+F ile arama yapın ve açık ya da koyu bir görünüm seçin.
+Uk|Rotate_Right|Повернути праворуч. Решта — під стрілкою.
+Uk|Rotate_Left|Повернути ліворуч
+Uk|Rotate_180|Перевернути
+Uk|Rotate_Deskew|Вирівняти автоматично
+Uk|Rotate_Reset|Повернути оригінал
+Uk|Text_Stats|Слів: {0}
+Uk|Text_Chars|Знаків: {0}
+Uk|Find_Placeholder|Пошук у тексті
+Uk|Tip_Find|Пошук у тексті (Ctrl+F)
+Uk|Find_Count|{0} з {1}
+Uk|Find_NoMatch|Не знайдено
+Uk|Tip_FindPrev|Попередній збіг (Shift+Enter)
+Uk|Tip_FindNext|Наступний збіг (Enter)
+Uk|Tip_FindClose|Закрити рядок пошуку (Esc)
+Uk|Tip_CaptureKeys|Виділіть частину екрана й прочитайте текст на ній ({0}). Увесь екран — клавіша {1}.
+Uk|Tip_CaptureRegionOnly|Виділіть частину екрана й прочитайте текст на ній ({0}).
+Uk|Setting_Group_General|Загальні
+Uk|Setting_Group_Hotkeys|Сполучення клавіш
+Uk|Setting_Group_Recognition|Розпізнавання
+Uk|Setting_Group_Privacy|Конфіденційність
+Uk|Setting_Hotkey_Region|Знімок ділянки
+Uk|Setting_Hotkey_Full|Знімок усього екрана
+Uk|Btn_ChangeHotkey|Натисніть, а тоді натисніть потрібне сполучення
+Uk|Btn_RecordingHotkey|Натисніть сполучення клавіш…
+Uk|Btn_ResetHotkeys|Скинути обидва сполучення
+Uk|Hotkey_RecordHint|Esc — скасувати. Сполучення працюють і тоді, коли Glyfo згорнуто в область сповіщень.
+Uk|Hotkey_NeedModifier|Сполученню потрібен Ctrl або Alt, а до нього літера, цифра чи функціональна клавіша.
+Uk|Hotkey_Taken|{0} вже зайняте іншим застосунком. Чинним лишається попереднє сполучення.
+Uk|Setting_Theme|Оформлення
+Uk|Theme_System|Як у Windows
+Uk|Theme_Light|Світле
+Uk|Theme_Dark|Темне
+Uk|Status_Deskewed|Вирівняно на {0}°.
+Uk|Status_DeskewNone|Ця сторінка й так рівна.
+Uk|Status_RotateFailed|Не вдалося повернути зображення: {0}
+Uk|Welcome_Title|Ласкаво просимо до Glyfo
+Uk|Welcome_1|Натисніть {0} будь-де у Windows, обведіть текст рамкою — і його буде прочитано.
+Uk|Welcome_2|Або перетягніть на вікно зображення чи PDF, вставте картинку, чи відкрийте файл.
+Uk|Welcome_3|Усе прочитане лишається в журналі: у ньому можна шукати, його можна зберегти чи очистити. Пристрою воно не покидає.
+Uk|Welcome_Start|Почати
+Uk|News_130_4|Сполучення клавіш для знімків тепер обираєте ви, а вікно відкривається там і таким, яким ви його залишили.
+Uk|News_130_5|Вирівняйте перекошене фото, шукайте в тексті через Ctrl+F і виберіть світле чи темне оформлення.
+Vi|Rotate_Right|Xoay sang phải. Xem thêm ở mũi tên.
+Vi|Rotate_Left|Xoay sang trái
+Vi|Rotate_180|Lộn ngược
+Vi|Rotate_Deskew|Tự động chỉnh thẳng
+Vi|Rotate_Reset|Trở về ảnh gốc
+Vi|Text_Stats|{0} từ
+Vi|Text_Chars|{0} ký tự
+Vi|Find_Placeholder|Tìm trong văn bản
+Vi|Tip_Find|Tìm trong văn bản (Ctrl+F)
+Vi|Find_Count|{0} trên {1}
+Vi|Find_NoMatch|Không tìm thấy
+Vi|Tip_FindPrev|Kết quả trước (Shift+Enter)
+Vi|Tip_FindNext|Kết quả kế tiếp (Enter)
+Vi|Tip_FindClose|Đóng thanh tìm kiếm (Esc)
+Vi|Tip_CaptureKeys|Chọn một vùng màn hình rồi đọc chữ trong đó ({0}). Nhấn {1} để lấy toàn màn hình.
+Vi|Tip_CaptureRegionOnly|Chọn một vùng màn hình rồi đọc chữ trong đó ({0}).
+Vi|Setting_Group_General|Chung
+Vi|Setting_Group_Hotkeys|Phím tắt
+Vi|Setting_Group_Recognition|Nhận dạng chữ
+Vi|Setting_Group_Privacy|Quyền riêng tư
+Vi|Setting_Hotkey_Region|Chụp một vùng
+Vi|Setting_Hotkey_Full|Chụp toàn màn hình
+Vi|Btn_ChangeHotkey|Bấm vào đây rồi nhấn tổ hợp phím bạn muốn
+Vi|Btn_RecordingHotkey|Hãy nhấn một tổ hợp phím…
+Vi|Btn_ResetHotkeys|Đặt lại cả hai phím tắt
+Vi|Hotkey_RecordHint|Nhấn Esc để hủy. Phím tắt vẫn hoạt động khi Glyfo nằm trong khay thông báo.
+Vi|Hotkey_NeedModifier|Phím tắt cần có Ctrl hoặc Alt, kèm theo một chữ cái, chữ số hay phím chức năng.
+Vi|Hotkey_Taken|{0} đã bị một ứng dụng khác chiếm. Phím tắt trước đó vẫn còn hiệu lực.
+Vi|Setting_Theme|Giao diện
+Vi|Theme_System|Theo Windows
+Vi|Theme_Light|Sáng
+Vi|Theme_Dark|Tối
+Vi|Status_Deskewed|Đã chỉnh thẳng {0}°.
+Vi|Status_DeskewNone|Trang này vốn đã thẳng.
+Vi|Status_RotateFailed|Không xoay được ảnh: {0}
+Vi|Welcome_Title|Chào mừng bạn đến với Glyfo
+Vi|Welcome_1|Nhấn {0} ở bất cứ đâu trong Windows, kéo một khung quanh đoạn chữ và đọc nó ra.
+Vi|Welcome_2|Hoặc thả một ảnh hay tệp PDF vào cửa sổ, dán một ảnh, hay mở một tệp.
+Vi|Welcome_3|Mọi thứ bạn đọc được đều nằm trong Lịch sử, có thể tìm, lưu hoặc xóa. Nó không bao giờ rời khỏi thiết bị này.
+Vi|Welcome_Start|Bắt đầu
+Vi|News_130_4|Tự chọn phím tắt chụp màn hình, và cửa sổ mở lại đúng chỗ và đúng kích thước bạn đã để.
+Vi|News_130_5|Chỉnh thẳng tấm ảnh chụp nghiêng, tìm trong văn bản bằng Ctrl+F, và chọn giao diện sáng hoặc tối.
+ZhHans|Rotate_Right|向右旋转。更多选项见箭头。
+ZhHans|Rotate_Left|向左旋转
+ZhHans|Rotate_180|上下颠倒
+ZhHans|Rotate_Deskew|自动纠正倾斜
+ZhHans|Rotate_Reset|回到原图
+ZhHans|Text_Stats|{0} 词
+ZhHans|Text_Chars|{0} 字符
+ZhHans|Find_Placeholder|在文本中查找
+ZhHans|Tip_Find|在文本中查找 (Ctrl+F)
+ZhHans|Find_Count|第 {0} / {1} 个
+ZhHans|Find_NoMatch|未找到
+ZhHans|Tip_FindPrev|上一个匹配 (Shift+Enter)
+ZhHans|Tip_FindNext|下一个匹配 (Enter)
+ZhHans|Tip_FindClose|关闭查找栏 (Esc)
+ZhHans|Tip_CaptureKeys|框选屏幕上的一块区域并识别其中文字（{0}）。整屏请按 {1}。
+ZhHans|Tip_CaptureRegionOnly|框选屏幕上的一块区域并识别其中文字（{0}）。
+ZhHans|Setting_Group_General|常规
+ZhHans|Setting_Group_Hotkeys|快捷键
+ZhHans|Setting_Group_Recognition|文字识别
+ZhHans|Setting_Group_Privacy|隐私
+ZhHans|Setting_Hotkey_Region|截取一块区域
+ZhHans|Setting_Hotkey_Full|截取整个屏幕
+ZhHans|Btn_ChangeHotkey|点击后按下想要的组合键
+ZhHans|Btn_RecordingHotkey|请按下组合键…
+ZhHans|Btn_ResetHotkeys|两个快捷键都恢复默认
+ZhHans|Hotkey_RecordHint|按 Esc 取消。Glyfo 缩到通知区域时，快捷键照常可用。
+ZhHans|Hotkey_NeedModifier|快捷键需要 Ctrl 或 Alt，再加一个字母、数字或功能键。
+ZhHans|Hotkey_Taken|{0} 已被其他程序占用，仍沿用原来的快捷键。
+ZhHans|Setting_Theme|外观
+ZhHans|Theme_System|跟随 Windows
+ZhHans|Theme_Light|浅色
+ZhHans|Theme_Dark|深色
+ZhHans|Status_Deskewed|已纠正 {0}° 的倾斜。
+ZhHans|Status_DeskewNone|这一页本来就是正的。
+ZhHans|Status_RotateFailed|无法旋转图片：{0}
+ZhHans|Welcome_Title|欢迎使用 Glyfo
+ZhHans|Welcome_1|在 Windows 的任何地方按 {0}，框住一段文字就能把它读出来。
+ZhHans|Welcome_2|也可以把图片或 PDF 拖进窗口、直接粘贴，或者打开一个文件。
+ZhHans|Welcome_3|识别过的内容都留在历史记录里，可以搜索、另存或清空。它始终不离开这台设备。
+ZhHans|Welcome_Start|开始使用
+ZhHans|News_130_4|截图快捷键可以自己定，窗口也会按上次关闭时的位置和大小打开。
+ZhHans|News_130_5|拍歪的照片可以一键摆正，Ctrl+F 能在文字里查找，界面还能选浅色或深色。
+ZhHant|Rotate_Right|向右旋轉。更多選項見箭頭。
+ZhHant|Rotate_Left|向左旋轉
+ZhHant|Rotate_180|上下顛倒
+ZhHant|Rotate_Deskew|自動校正傾斜
+ZhHant|Rotate_Reset|回到原圖
+ZhHant|Text_Stats|{0} 詞
+ZhHant|Text_Chars|{0} 字元
+ZhHant|Find_Placeholder|在文字中尋找
+ZhHant|Tip_Find|在文字中尋找 (Ctrl+F)
+ZhHant|Find_Count|第 {0} / {1} 個
+ZhHant|Find_NoMatch|找不到
+ZhHant|Tip_FindPrev|上一個相符項 (Shift+Enter)
+ZhHant|Tip_FindNext|下一個相符項 (Enter)
+ZhHant|Tip_FindClose|關閉尋找列 (Esc)
+ZhHant|Tip_CaptureKeys|框選螢幕上的一塊區域並辨識其中文字（{0}）。整個螢幕請按 {1}。
+ZhHant|Tip_CaptureRegionOnly|框選螢幕上的一塊區域並辨識其中文字（{0}）。
+ZhHant|Setting_Group_General|一般
+ZhHant|Setting_Group_Hotkeys|快速鍵
+ZhHant|Setting_Group_Recognition|文字辨識
+ZhHant|Setting_Group_Privacy|隱私權
+ZhHant|Setting_Hotkey_Region|擷取一塊區域
+ZhHant|Setting_Hotkey_Full|擷取整個螢幕
+ZhHant|Btn_ChangeHotkey|按一下之後，按下想要的組合鍵
+ZhHant|Btn_RecordingHotkey|請按下組合鍵…
+ZhHant|Btn_ResetHotkeys|兩個快速鍵都還原成預設值
+ZhHant|Hotkey_RecordHint|按 Esc 取消。Glyfo 縮到通知區域時，快速鍵照樣可用。
+ZhHant|Hotkey_NeedModifier|快速鍵需要 Ctrl 或 Alt，再加一個字母、數字或功能鍵。
+ZhHant|Hotkey_Taken|{0} 已被其他程式佔用，仍沿用原本的快速鍵。
+ZhHant|Setting_Theme|外觀
+ZhHant|Theme_System|跟隨 Windows
+ZhHant|Theme_Light|淺色
+ZhHant|Theme_Dark|深色
+ZhHant|Status_Deskewed|已校正 {0}° 的傾斜。
+ZhHant|Status_DeskewNone|這一頁本來就是正的。
+ZhHant|Status_RotateFailed|無法旋轉圖片：{0}
+ZhHant|Welcome_Title|歡迎使用 Glyfo
+ZhHant|Welcome_1|在 Windows 的任何地方按 {0}，框住一段文字就能把它讀出來。
+ZhHant|Welcome_2|也可以把圖片或 PDF 拖進視窗、直接貼上，或者開啟一個檔案。
+ZhHant|Welcome_3|辨識過的內容都留在歷程記錄裡，可以搜尋、另存或清空。它始終不離開這台裝置。
+ZhHant|Welcome_Start|開始使用
+ZhHant|News_130_4|擷取快速鍵可以自己決定，視窗也會照上次關閉時的位置和大小開啟。
+ZhHant|News_130_5|拍歪的照片可以一鍵擺正，Ctrl+F 能在文字裡尋找，介面還能選淺色或深色。
