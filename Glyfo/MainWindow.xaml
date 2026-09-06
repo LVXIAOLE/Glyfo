@@ -215,6 +215,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -227,6 +228,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <ComboBox x:Name="VoiceComboBox"
@@ -235,7 +237,16 @@
                                       SelectionChanged="VoiceSelectionChanged"
                                       DisplayMemberPath="DisplayName" />
 
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                            <!-- Empty until there is text, so an idle window does not read "0 words".
+                                 Trimmed rather than wrapped: at the minimum window width this column
+                                 is the one with the least to lose. -->
+                            <TextBlock x:Name="TextStatsText"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6">
                                 <Button x:Name="SpeakButton" Click="SpeakClick">
                                     <SymbolIcon Symbol="Play" />
                                 </Button>
@@ -267,23 +278,69 @@
                         </Grid>
                     </Border>
 
+                    <!-- Between the toolbar and the text, and only there when it is asked for: a
+                         search box on screen at all times would cost a line of the result to
+                         something most pages never need. -->
+                    <Border x:Name="FindBar"
+                            Grid.Row="1"
+                            Style="{StaticResource CardToolbarStyle}"
+                            BorderThickness="0,0,0,1"
+                            Visibility="Collapsed">
+                        <Grid ColumnSpacing="6" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="FindBox"
+                                     TextChanged="FindTextChanged"
+                                     KeyDown="FindBoxKeyDown" />
+                            <TextBlock x:Name="FindCountText"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                                <!-- Chevrons by glyph, because the Symbol enum has no pair of
+                                     plain up and down arrows and Download would read as a verb. -->
+                                <Button x:Name="FindPrevButton" Click="FindPrevClick">
+                                    <FontIcon Glyph="&#xE70E;" FontSize="14" />
+                                </Button>
+                                <Button x:Name="FindNextButton" Click="FindNextClick">
+                                    <FontIcon Glyph="&#xE70D;" FontSize="14" />
+                                </Button>
+                                <Button x:Name="FindCloseButton" Click="FindCloseClick">
+                                    <SymbolIcon Symbol="Cancel" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- SelectionHighlightColorWhenNotFocused is not decoration: while you are typing
+                         in the find box the text box does not have focus, and without it every jump
+                         would land on a selection nobody can see. -->
                     <TextBox x:Name="ResultTextBox"
-                             Grid.Row="1"
+                             Grid.Row="2"
                              AcceptsReturn="True"
                              TextWrapping="Wrap"
                              IsSpellCheckEnabled="False"
                              BorderThickness="0"
                              Background="Transparent"
                              Padding="10"
+                             SelectionHighlightColorWhenNotFocused="{ThemeResource TextControlSelectionHighlightColor}"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
                              TextChanged="ResultTextChanged"
-                             SelectionChanged="ResultSelectionChanged" />
+                             SelectionChanged="ResultSelectionChanged">
+                        <TextBox.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="F" Invoked="FindAccelerator" />
+                        </TextBox.KeyboardAccelerators>
+                    </TextBox>
 
                     <!-- Below the text, not above it: you read the address before you decide to
                          open it. Hidden entirely when there is nothing to act on, so an ordinary
                          page of prose does not grow an empty strip. -->
                     <Border x:Name="ActionsBar"
-                            Grid.Row="2"
+                            Grid.Row="3"
                             Style="{StaticResource CardToolbarStyle}"
                             BorderThickness="0,1,0,0"
                             Visibility="Collapsed">
@@ -503,6 +560,10 @@
                               HorizontalAlignment="Stretch"
                               DisplayMemberPath="DisplayName"
                               SelectionChanged="UiLanguageSelectionChanged" />
+                    <ComboBox x:Name="ThemeComboBox"
+                              Margin="0,10,0,0"
+                              HorizontalAlignment="Stretch"
+                              SelectionChanged="ThemeSelectionChanged" />
                     <ToggleSwitch x:Name="StartupToggle"
                                   Margin="0,10,0,0"
                                   Toggled="StartupToggled" />

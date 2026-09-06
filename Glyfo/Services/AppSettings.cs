@@ -34,6 +34,7 @@ public sealed class AppSettings
     private const string RegionHotkeyVkKey = "RegionHotkeyVk";
     private const string FullHotkeyModsKey = "FullHotkeyMods";
     private const string FullHotkeyVkKey = "FullHotkeyVk";
+    private const string ThemeKey = "Theme";
 
     /// <summary>
     /// Keys that already existed in 1.0.x. Their presence is what tells an upgrade apart from a
@@ -61,6 +62,31 @@ public sealed class AppSettings
             // No package identity — keep the settings for this run only.
             _store = null;
         }
+
+        HasEarlierState = ReadHasEarlierState();
+    }
+
+    private bool ReadHasEarlierState()
+    {
+        try
+        {
+            if (_store is not null)
+            {
+                foreach (var key in LegacyKeys)
+                {
+                    if (_store.Values.ContainsKey(key))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // Unreadable store. Treating it as a fresh install only costs one set of notes.
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -293,6 +319,21 @@ public sealed class AppSettings
     }
 
     /// <summary>
+    /// Light, dark, or an empty string to follow Windows.
+    /// </summary>
+    /// <remarks>
+    /// Stored as the name of an <c>ElementTheme</c> rather than as a number, so that a value written
+    /// by one version still means the same thing to the next one however the enum is reordered.
+    /// Empty is the default and, as with <see cref="UiLanguage"/>, a real value rather than a missing
+    /// one: it means the app keeps following the system setting.
+    /// </remarks>
+    public string Theme
+    {
+        get => GetString(ThemeKey, string.Empty);
+        set => SetString(ThemeKey, value);
+    }
+
+    /// <summary>
     /// Whether this install has been used before the release-notes feature existed.
     /// </summary>
     /// <remarks>
@@ -300,32 +341,16 @@ public sealed class AppSettings
     /// which has nothing new to be told about, and an upgrade from 1.0.x, which is exactly the
     /// audience the notes are for. Nothing distinguishes them except the settings 1.0.x already
     /// wrote, so those are what gets asked.
+    ///
+    /// Answered once, in the constructor, and not recomputed. It has to be: the window restores its
+    /// switches by assigning <c>IsOn</c>, each assignment raises <c>Toggled</c>, and each handler
+    /// writes the value it just read straight back — putting two of these very keys into the store
+    /// before the first frame. Asked later the answer is therefore always yes, which made a fresh
+    /// install indistinguishable from a 1.0.x upgrade and left the first-run branch unreachable.
+    /// Reading it here is safe because this runs on the first touch of <see cref="Current"/>, and
+    /// the first touch is always a read.
     /// </remarks>
-    public bool HasEarlierState
-    {
-        get
-        {
-            try
-            {
-                if (_store is not null)
-                {
-                    foreach (var key in LegacyKeys)
-                    {
-                        if (_store.Values.ContainsKey(key))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // Unreadable store. Treating it as a fresh install only costs one set of notes.
-            }
-
-            return false;
-        }
-    }
+    public bool HasEarlierState { get; }
 
     private bool GetBool(string key, bool fallback)
     {

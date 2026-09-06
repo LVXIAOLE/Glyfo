@@ -67,6 +67,65 @@ internal static class AppDialogs
         }
     }
 
+    /// <summary>
+    /// Shows the three things worth knowing before the first picture, and nothing else.
+    /// </summary>
+    /// <remarks>
+    /// Takes the place of the release notes on a first-ever install, so the two can never both
+    /// appear — there is no "what changed" for someone who has just arrived. Three lines rather than
+    /// a tour: everything here is also discoverable from the window itself, and this only shortens
+    /// the walk to it.
+    /// </remarks>
+    public static async Task ShowWelcomeAsync(XamlRoot root, string regionHotkey)
+    {
+        if (_isOpen)
+        {
+            return;
+        }
+
+        var panel = new StackPanel { Spacing = 14, Width = 340 };
+        panel.Children.Add(Row(Symbol.Camera, Loc.Get("Welcome_1", regionHotkey)));
+        panel.Children.Add(Row(Symbol.Paste, Loc.Get("Welcome_2")));
+        panel.Children.Add(Row(Symbol.Clock, Loc.Get("Welcome_3")));
+
+        var dialog = new ContentDialog
+        {
+            XamlRoot = root,
+            FlowDirection = Loc.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
+            Title = Loc.Get("Welcome_Title"),
+            Content = panel,
+            CloseButtonText = Loc.Get("Welcome_Start"),
+            DefaultButton = ContentDialogButton.Close,
+        };
+
+        _isOpen = true;
+        try
+        {
+            await dialog.ShowAsync();
+        }
+        finally
+        {
+            _isOpen = false;
+        }
+
+        static FrameworkElement Row(Symbol symbol, string text)
+        {
+            var row = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
+
+            // SymbolIcon rather than a FontIcon with a glyph literal: the symbol is checked by the
+            // compiler, and a mistyped glyph shows up as an empty box only once it is on screen.
+            row.Children.Add(new SymbolIcon(symbol) { VerticalAlignment = VerticalAlignment.Top });
+            row.Children.Add(new TextBlock
+            {
+                Text = text,
+                TextWrapping = TextWrapping.Wrap,
+                Width = 296,
+            });
+
+            return row;
+        }
+    }
+
     /// <summary>Shows "About Glyfo", with the version and the four links worth having.</summary>
     public static Task ShowAboutAsync(XamlRoot root, IntPtr hwnd) =>
         ShowAsync(root, hwnd, whatsNew: null);

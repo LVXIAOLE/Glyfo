@@ -55,6 +55,17 @@ internal static partial class Strings
         ["Btn_RemoveSpaces"] = "No spaces",
         ["Tip_RemoveSpaces"] = "Remove every space, for Chinese, Japanese and Korean",
         ["Result_Placeholder"] = "The recognized text appears here, and can be edited.",
+        // Shown beside the voice picker, in a column that gives way first when the window is narrow,
+        // so the visible half is the count and the characters live in its tooltip.
+        ["Text_Stats"] = "{0} words",
+        ["Text_Chars"] = "{0} characters",
+        ["Find_Placeholder"] = "Find in the text",
+        ["Tip_Find"] = "Find in the text (Ctrl+F)",
+        ["Find_Count"] = "{0} of {1}",
+        ["Find_NoMatch"] = "Not found",
+        ["Tip_FindPrev"] = "Previous match (Shift+Enter)",
+        ["Tip_FindNext"] = "Next match (Enter)",
+        ["Tip_FindClose"] = "Close the search bar (Esc)",
 
         // Action bar
         ["Btn_OpenFile"] = "File",
@@ -93,6 +104,10 @@ internal static partial class Strings
         ["Hotkey_Taken"] = "{0} is already taken by another app. The previous shortcut is still in use.",
         ["Setting_UiLanguage"] = "App language",
         ["Lang_SystemDefault"] = "System default",
+        ["Setting_Theme"] = "Appearance",
+        ["Theme_System"] = "Follow Windows",
+        ["Theme_Light"] = "Light",
+        ["Theme_Dark"] = "Dark",
         ["Setting_RepairNumbers"] = "Fix l and I inside numbers",
         ["Setting_RepairNumbers_Desc"] = "Recognizers routinely read v1.6.5 as vl.6.5. When this is on, an l or I becomes a 1 only where a separator and a digit sit beside it, so html5 and IPv6 are left alone. When it is off, the engine's own reading is kept exactly as it came back.",
         ["Setting_WatchClipboard"] = "Read pictures I copy",
@@ -232,6 +247,13 @@ internal static partial class Strings
         ["About_Privacy"] = "Privacy policy",
         ["Common_Close"] = "Close",
         ["Common_Cancel"] = "Cancel",
+        // The welcome page, shown once instead of the notes on a brand-new install. The first line
+        // names the shortcut that actually registered, which is why it takes a placeholder.
+        ["Welcome_Title"] = "Welcome to Glyfo",
+        ["Welcome_1"] = "Press {0} anywhere in Windows to drag a box around some text and read it.",
+        ["Welcome_2"] = "Or drop a picture or a PDF on the window, paste one, or open a file.",
+        ["Welcome_3"] = "Everything you read is kept in History and can be searched, saved or cleared. It never leaves this device.",
+        ["Welcome_Start"] = "Get started",
         ["News_Title"] = "What's new",
         ["News_130_1"] = "The history survives a restart now, and there is a box to search it. Only the text is kept — Options can empty it or turn it off.",
         ["News_130_2"] = "Ctrl+S saves the recognized text as a plain text or Markdown file.",

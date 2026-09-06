@@ -183,6 +183,19 @@ public sealed partial class MainWindow : Window
     private bool _suppressVoiceChange;
     private bool _suppressStartupToggle;
     private bool _suppressKeepHistoryToggle;
+    private bool _suppressThemeChange;
+
+    /// <summary>
+    /// Set while the find bar is moving the caret, so that stepping through matches does not rebuild
+    /// the action chips on every jump.
+    /// </summary>
+    private bool _suppressSelectionAction;
+
+    /// <summary>Where every match of the current search term starts, in order.</summary>
+    private readonly List<int> _findHits = new();
+
+    /// <summary>Which of <see cref="_findHits"/> is selected, or -1 when there is nothing to step to.</summary>
+    private int _findIndex = -1;
 
     /// <summary>Set once the user picks a voice by hand, after which recognition stops choosing one.</summary>
     private bool _voicePinned;
@@ -204,7 +217,10 @@ public sealed partial class MainWindow : Window
         SetTitleBar(AppTitleBar);
 
         // Set before the Toggled handler can matter — assigning IsOn raises it, and writing the
-        // stored value straight back is harmless.
+        // stored value straight back leaves each switch where it was. It does not leave the store
+        // where it was, though: two of these keys are ones AppSettings.HasEarlierState reads to tell
+        // a fresh install from a 1.0.x upgrade, so by the time anything asks, the answer has already
+        // been spoiled. That is why it is answered in the AppSettings constructor rather than here.
         RepairVersionsToggle.IsOn = AppSettings.Current.RepairVersionNumbers;
         CloseToTrayToggle.IsOn = AppSettings.Current.CloseToTray;
         WatchClipboardToggle.IsOn = AppSettings.Current.WatchClipboard;
@@ -255,6 +271,7 @@ public sealed partial class MainWindow : Window
         CleanupOldTempFiles();
         InitializeVoices();
         InitializeStartupToggle();
+        ApplyTheme();
         ApplyLanguage();
 
         _engines.OptionsChanged += (_, _) => _dispatcherQueue.TryEnqueue(() =>
@@ -291,6 +308,7 @@ public sealed partial class MainWindow : Window
     {
         ApplyFlowDirection();
         BuildUiLanguagePicker();
+        BuildThemePicker();
 
         PreviewPlaceholderText.Text = Loc.Get("Preview_Placeholder");
 
@@ -321,6 +339,17 @@ public sealed partial class MainWindow : Window
         RemoveSpacesButton.Content = Loc.Get("Btn_RemoveSpaces");
         SetTip(RemoveSpacesButton, Loc.Get("Tip_RemoveSpaces"));
         ResultTextBox.PlaceholderText = Loc.Get("Result_Placeholder");
+
+        FindBox.PlaceholderText = Loc.Get("Find_Placeholder");
+        SetTip(FindBox, Loc.Get("Tip_Find"));
+        SetTip(FindPrevButton, Loc.Get("Tip_FindPrev"));
+        SetTip(FindNextButton, Loc.Get("Tip_FindNext"));
+        SetTip(FindCloseButton, Loc.Get("Tip_FindClose"));
+
+        // Both of these read a count out of the string table, so they are wrong the moment the
+        // language changes and have to be written again rather than left as they are.
+        RefreshFindCount();
+        RefreshTextStats();
 
         OpenLabel.Text = Loc.Get("Btn_OpenFile");
         SetTip(OpenButton, Loc.Get("Tip_OpenFile"));
@@ -455,6 +484,81 @@ public sealed partial class MainWindow : Window
         {
             item.FlowDirection = flow;
         }
+    }
+
+    /// <summary>
+    /// Puts the window into the light or dark theme the user chose, or leaves it following Windows.
+    /// </summary>
+    /// <remarks>
+    /// <c>Application.RequestedTheme</c> can only be set before the first window exists and throws
+    /// afterwards, so the choice is expressed as an <see cref="ElementTheme"/> on the tree instead.
+    /// One assignment is enough, and only because it is the window's own content: the theme is
+    /// resolved from the root of the XamlRoot, which is what carries it across the popup boundary
+    /// into the dialogs and flyouts. <see cref="ApplyFlowDirection"/> has to name each of those
+    /// separately, and the difference between the two is a genuine one rather than an oversight.
+    ///
+    /// The region-capture window is left alone deliberately. It is a frozen screenshot under a fixed
+    /// black scrim with white text on it, and there is no theme resource anywhere in it to follow.
+    /// </remarks>
+    private void ApplyTheme()
+    {
+        RootGrid.RequestedTheme = AppSettings.Current.Theme switch
+        {
+            "Light" => ElementTheme.Light,
+            "Dark" => ElementTheme.Dark,
+            _ => ElementTheme.Default,
+        };
+    }
+
+    private void BuildThemePicker()
+    {
+        // Rebuilt rather than relabelled for the same reason as the language picker: every item's
+        // text comes from the string table, so none of them survives a language change. The stored
+        // value rides along in the Tag, which keeps the three items in step with the three names
+        // AppSettings understands without a parallel array to get out of order.
+        var stored = AppSettings.Current.Theme;
+        var items = new[]
+        {
+            (Tag: string.Empty, Text: Loc.Get("Theme_System")),
+            (Tag: "Light", Text: Loc.Get("Theme_Light")),
+            (Tag: "Dark", Text: Loc.Get("Theme_Dark")),
+        };
+
+        _suppressThemeChange = true;
+        try
+        {
+            ThemeComboBox.Items.Clear();
+            var selected = 0;
+
+            for (var index = 0; index < items.Length; index++)
+            {
+                ThemeComboBox.Items.Add(new ComboBoxItem { Content = items[index].Text, Tag = items[index].Tag });
+                if (string.Equals(items[index].Tag, stored, StringComparison.Ordinal))
+                {
+                    selected = index;
+                }
+            }
+
+            ThemeComboBox.SelectedIndex = selected;
+        }
+        finally
+        {
+            _suppressThemeChange = false;
+        }
+
+        ThemeComboBox.Header = Loc.Get("Setting_Theme");
+        SetTip(ThemeComboBox, Loc.Get("Setting_Theme"));
+    }
+
+    private void ThemeSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_suppressThemeChange || ThemeComboBox.SelectedItem is not ComboBoxItem { Tag: string tag })
+        {
+            return;
+        }
+
+        AppSettings.Current.Theme = tag;
+        ApplyTheme();
     }
 
     /// <summary>
@@ -1811,6 +1915,245 @@ public sealed partial class MainWindow : Window
         ResultTextBox.Text = TextTools.RemoveSpaces(ResultTextBox.Text);
     }
 
+    // ---------------------------------------------------------------- find, and how much text
+
+    /// <summary>Longer than this and the selection was a paragraph, not a search term.</summary>
+    private const int MaxFindSeed = 60;
+
+    private void FindAccelerator(
+        Microsoft.UI.Xaml.Input.KeyboardAccelerator sender,
+        Microsoft.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs args)
+    {
+        args.Handled = true;
+        OpenFindBar();
+    }
+
+    /// <summary>
+    /// Shows the bar and puts the caret in it, seeded with whatever was selected.
+    /// </summary>
+    /// <remarks>
+    /// Seeding from the selection is what makes the second press of Ctrl+F useful: you have found
+    /// the word once, selected it, and want the next one. A multi-line selection is skipped because
+    /// it is a passage somebody highlighted to read, not a term.
+    /// </remarks>
+    private void OpenFindBar()
+    {
+        var selection = ResultTextBox.SelectedText;
+        if (selection.Length is > 0 and <= MaxFindSeed && selection.IndexOf('\n') < 0)
+        {
+            FindBox.Text = selection;
+        }
+
+        FindBar.Visibility = Visibility.Visible;
+        FindBox.Focus(FocusState.Programmatic);
+        FindBox.SelectAll();
+
+        FindMatches(keepPosition: false);
+    }
+
+    private void FindCloseClick(object sender, RoutedEventArgs e) => CloseFindBar();
+
+    private void CloseFindBar()
+    {
+        FindBar.Visibility = Visibility.Collapsed;
+        _findHits.Clear();
+        _findIndex = -1;
+
+        // The last match stays selected on purpose — it is usually the thing you were about to copy.
+        ResultTextBox.Focus(FocusState.Programmatic);
+    }
+
+    private void FindTextChanged(object sender, TextChangedEventArgs e) => FindMatches(keepPosition: false);
+
+    private void FindBoxKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case Windows.System.VirtualKey.Escape:
+                e.Handled = true;
+                CloseFindBar();
+                break;
+
+            // Enter walks forward, Shift+Enter back, which is what every other find bar does and
+            // what the hands of anyone who has used one will try first.
+            case Windows.System.VirtualKey.Enter:
+                e.Handled = true;
+                StepFind(IsShiftDown() ? -1 : 1);
+                break;
+        }
+    }
+
+    private void FindPrevClick(object sender, RoutedEventArgs e) => StepFind(-1);
+
+    private void FindNextClick(object sender, RoutedEventArgs e) => StepFind(1);
+
+    /// <summary>
+    /// Walks the whole text once and records where every match starts.
+    /// </summary>
+    /// <param name="keepPosition">
+    /// True when the text changed under an unchanged search term, which should leave the reader
+    /// where they were rather than throwing them back to the first match.
+    /// </param>
+    private void FindMatches(bool keepPosition)
+    {
+        var previous = keepPosition ? _findIndex : 0;
+
+        _findHits.Clear();
+
+        var needle = FindBox.Text;
+        var haystack = ResultTextBox.Text;
+
+        if (needle.Length > 0)
+        {
+            // Non-overlapping, which is what "3 of 12" has to mean for the count to match what the
+            // eye sees: "aa" occurs twice in "aaaa", not three times.
+            var at = haystack.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
+            while (at >= 0)
+            {
+                _findHits.Add(at);
+                var next = at + needle.Length;
+                at = next < haystack.Length
+                    ? haystack.IndexOf(needle, next, StringComparison.OrdinalIgnoreCase)
+                    : -1;
+            }
+        }
+
+        _findIndex = _findHits.Count == 0 ? -1 : Math.Clamp(previous, 0, _findHits.Count - 1);
+
+        SelectCurrentMatch();
+        RefreshFindCount();
+    }
+
+    private void StepFind(int direction)
+    {
+        if (_findHits.Count == 0)
+        {
+            return;
+        }
+
+        // Wraps rather than stopping at the ends: a find bar that goes quiet at the last match makes
+        // the reader work out where they are before they can carry on.
+        _findIndex = (_findIndex + direction + _findHits.Count) % _findHits.Count;
+
+        SelectCurrentMatch();
+        RefreshFindCount();
+    }
+
+    private void SelectCurrentMatch()
+    {
+        if (_findIndex < 0 || _findIndex >= _findHits.Count)
+        {
+            return;
+        }
+
+        // Suppressed, not merely tolerated: without this every step rebuilds the chip row, and the
+        // Search chip would follow the match around while the reader is trying to look at the text.
+        _suppressSelectionAction = true;
+        try
+        {
+            ResultTextBox.Select(_findHits[_findIndex], FindBox.Text.Length);
+        }
+        finally
+        {
+            _suppressSelectionAction = false;
+        }
+    }
+
+    private void RefreshFindCount()
+    {
+        FindCountText.Text = FindBox.Text.Length == 0
+            ? string.Empty
+            : _findHits.Count == 0
+                ? Loc.Get("Find_NoMatch")
+                : Loc.Get("Find_Count", _findIndex + 1, _findHits.Count);
+
+        FindPrevButton.IsEnabled = _findHits.Count > 0;
+        FindNextButton.IsEnabled = _findHits.Count > 0;
+    }
+
+    private static bool IsShiftDown() =>
+        (Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(Windows.System.VirtualKey.Shift)
+            & Windows.UI.Core.CoreVirtualKeyStates.Down) != 0;
+
+    private void RefreshTextStats()
+    {
+        var text = ResultTextBox.Text;
+
+        // Blank rather than "0 words": an empty result pane already says there is nothing there, and
+        // a zero beside it only adds a number to read.
+        TextStatsText.Text = text.Length == 0 ? string.Empty : Loc.Get("Text_Stats", CountWords(text));
+        ToolTipService.SetToolTip(
+            TextStatsText,
+            text.Length == 0 ? null : Loc.Get("Text_Chars", text.Length));
+    }
+
+    /// <summary>
+    /// Counts words the way a reader would, in a string that may be in any script.
+    /// </summary>
+    /// <remarks>
+    /// Runs between whitespace, except that each ideograph and each kana counts on its own. Chinese
+    /// and Japanese are written without spaces between words, so the run rule alone would report a
+    /// full page of either as a single word. The CJK punctuation block separates like a space
+    /// without counting as anything, which keeps a sentence from gaining a word per full stop; Latin
+    /// punctuation is deliberately left inside its run, so "don't" stays one word.
+    /// </remarks>
+    internal static int CountWords(string text)
+    {
+        var words = 0;
+        var inRun = false;
+
+        foreach (var ch in text)
+        {
+            if (IsStandaloneCharacter(ch))
+            {
+                words++;
+                inRun = false;
+                continue;
+            }
+
+            if (char.IsWhiteSpace(ch) || IsCjkPunctuation(ch))
+            {
+                inRun = false;
+                continue;
+            }
+
+            if (!inRun)
+            {
+                words++;
+                inRun = true;
+            }
+        }
+
+        return words;
+    }
+
+    private static bool IsStandaloneCharacter(char ch) =>
+        ch is >= '\u3040' and <= '\u30FF'    // hiragana and katakana
+           or >= '\u3400' and <= '\u4DBF'    // CJK unified ideographs, extension A
+           or >= '\u4E00' and <= '\u9FFF'    // CJK unified ideographs
+           or >= '\uF900' and <= '\uFAFF';   // compatibility ideographs
+
+    // Hangul is not in the list above and must not be: Korean is written with spaces between its
+    // words, so the ordinary run rule is already the right one for it.
+
+    /// <summary>Punctuation that separates without counting, in the scripts written without spaces.</summary>
+    /// <remarks>
+    /// Two blocks, and both are needed: the first holds the full stop and the brackets, but the
+    /// comma, the colon and the question and exclamation marks are all fullwidth forms in the
+    /// second. With only the first block a Chinese sentence gained a word at every comma.
+    ///
+    /// The fullwidth ranges are the punctuation ones only. The gaps between them are the fullwidth
+    /// digits and letters, which are ordinary characters that have to keep counting as text.
+    /// Curly quotes are left out for the same reason as the Latin apostrophe: they hold "don't"
+    /// together rather than splitting it.
+    /// </remarks>
+    private static bool IsCjkPunctuation(char ch) =>
+        ch is >= '\u3000' and <= '\u303F'    // CJK symbols and punctuation
+           or >= '\uFF01' and <= '\uFF0F'    // fullwidth ! through /
+           or >= '\uFF1A' and <= '\uFF20'    // fullwidth : through @
+           or >= '\uFF3B' and <= '\uFF40'    // fullwidth [ through `
+           or >= '\uFF5B' and <= '\uFF65';   // fullwidth { onward, and the halfwidth CJK marks
+
     // ---------------------------------------------------------------- smart actions
 
     /// <summary>The actions the bar is currently showing, so an unchanged list is not rebuilt.</summary>
@@ -1824,10 +2167,29 @@ public sealed partial class MainWindow : Window
     /// up assigning to <c>ResultTextBox.Text</c>, so listening here covers every one of them
     /// instead of six separate call sites that could each be forgotten.
     /// </remarks>
-    private void ResultTextChanged(object sender, TextChangedEventArgs e) => RefreshSmartActions();
+    private void ResultTextChanged(object sender, TextChangedEventArgs e)
+    {
+        RefreshSmartActions();
+        RefreshTextStats();
+
+        // Only while the bar is up: recomputing a search nobody is running would walk the whole
+        // text on every keystroke for a result nothing is going to read.
+        if (FindBar.Visibility == Visibility.Visible)
+        {
+            FindMatches(keepPosition: true);
+        }
+    }
 
     /// <summary>The Search button only exists while something is selected, so it tracks selection.</summary>
-    private void ResultSelectionChanged(object sender, RoutedEventArgs e) => RefreshSelectionAction();
+    private void ResultSelectionChanged(object sender, RoutedEventArgs e)
+    {
+        if (_suppressSelectionAction)
+        {
+            return;
+        }
+
+        RefreshSelectionAction();
+    }
 
     /// <summary>
     /// Rebuilds the row of buttons under the text.
@@ -3068,11 +3430,15 @@ public sealed partial class MainWindow : Window
         Version? lastSeen = Version.TryParse(stored, out var parsed) ? parsed : null;
 
         // Nothing stored and nothing else stored either: this is a first-ever install, which has no
-        // "what changed" to be told about. Record where it came in so the next update does.
+        // "what changed" to be told about — it gets the welcome instead. Recording the version here
+        // is what makes that a one-off and what makes the next update show the notes.
         if (lastSeen is null && !AppSettings.Current.HasEarlierState)
         {
-            Trace.Write($"release notes skipped: first install, marking {ProductInfo.Current}");
+            Trace.Write($"first install: welcome, marking {ProductInfo.Current}");
             AppSettings.Current.LastSeenVersion = ProductInfo.Current.ToString();
+
+            _interrupted = true;
+            await AppDialogs.ShowWelcomeAsync(RootGrid.XamlRoot, RegionHotkeyText);
             return;
         }
 
