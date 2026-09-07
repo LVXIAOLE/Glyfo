@@ -281,8 +281,14 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
         result = await TryRescaledPassAsync(engine, bitmap, result);
 
         // The recognizer that actually ran, not the tag that was asked for: auto mode picks its own
-        // and an unavailable tag silently falls back to the profile engine.
-        return new OcrResult(BuildText(result.Lines, ProfileFor(engine)), null, DisplayName);
+        // and an unavailable tag silently falls back to the profile engine. Named the same way the
+        // language picker names it, and for the same reason (see GetAvailableLanguages): in its own
+        // language, so the status bar reads the same whatever the interface is set to.
+        return new OcrResult(
+            BuildText(result.Lines, ProfileFor(engine)),
+            null,
+            DisplayName,
+            engine.RecognizerLanguage.NativeName);
     }
 
     private async Task<WinOcrEngine> GetEngineAsync(string? languageTag)

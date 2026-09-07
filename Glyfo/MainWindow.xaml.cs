@@ -1548,9 +1548,18 @@ public sealed partial class MainWindow : Window
 
             ResultTextBox.Text = result.Text;
 
+            // The engine names itself; the recognizer says which language pack answered. Worth
+            // spending the room on because automatic mode chooses that for itself — without it a
+            // wrong choice is indistinguishable from a bad read, and the user has nothing to act
+            // on. Composed here rather than in a new string key: it is two proper names and a
+            // separator, which is the same in every language.
+            var engineName = result.RecognizerName is null
+                ? result.EngineName
+                : $"{result.EngineName} · {result.RecognizerName}";
+
             if (string.IsNullOrWhiteSpace(result.Text))
             {
-                SetStatus(Loc.Get("Status_NoText", result.EngineName), InfoBarSeverity.Warning);
+                SetStatus(Loc.Get("Status_NoText", engineName), InfoBarSeverity.Warning);
 
                 if (UserIsElsewhere)
                 {
@@ -1563,14 +1572,15 @@ public sealed partial class MainWindow : Window
 
                 SetStatus(
                     result.MeanConfidence is null
-                        ? Loc.Get("Status_Done", result.EngineName)
+                        ? Loc.Get("Status_Done", engineName)
                         : Loc.Get(
                             "Status_DoneConfidence",
-                            result.EngineName,
+                            engineName,
                             Math.Round(result.MeanConfidence.Value * 100)),
                     InfoBarSeverity.Success);
 
-                AddHistoryItem(sourceLabel ?? _currentImageName, result.Text, result.MeanConfidence);
+                AddHistoryItem(
+                    sourceLabel ?? _currentImageName, result.Text, result.MeanConfidence, result.RecognizerName);
                 NoteSuccessfulRecognition();
 
                 // Two separate questions, and they only look like one. Where the text goes is asked
@@ -2650,14 +2660,15 @@ public sealed partial class MainWindow : Window
         HistoryListView.SelectedItem = null;
     }
 
-    private void AddHistoryItem(string source, string text, float? confidence)
+    private void AddHistoryItem(string source, string text, float? confidence, string? recognizer = null)
     {
         _history.Insert(0, new HistoryItem
         {
             Timestamp = DateTimeOffset.Now,
             Source = source,
             Text = text,
-            Confidence = confidence
+            Confidence = confidence,
+            Recognizer = recognizer
         });
 
         while (_history.Count > HistoryStore.MaxItems)
@@ -2700,7 +2711,10 @@ public sealed partial class MainWindow : Window
     /// </summary>
     private static bool Matches(HistoryItem item, string query) =>
         item.Text.Contains(query, StringComparison.CurrentCultureIgnoreCase)
-        || item.Source.Contains(query, StringComparison.CurrentCultureIgnoreCase);
+        || item.Source.Contains(query, StringComparison.CurrentCultureIgnoreCase)
+        // Searchable because it is on the row: typing what is written there and getting nothing
+        // back is the kind of small lie that makes a search box stop being trusted.
+        || (item.Recognizer?.Contains(query, StringComparison.CurrentCultureIgnoreCase) ?? false);
 
     /// <summary>
     /// Shows the right one of three "nothing here" messages, or none at all.
