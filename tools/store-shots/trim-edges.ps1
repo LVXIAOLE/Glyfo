@@ -1,16 +1,16 @@
 # The outermost pixel ring of a Windows 11 window is a semi-transparent frame border, so a screen
 # capture of DWM's extended frame bounds paints it blended with whatever was behind — the desktop.
-# On these shots that shows up as a one-pixel hairline of wallpaper colour down the left and right
-# sides and across the top: sampled #2F4A9A, #3F4349, #B7703F against a #E9F9EF window.
+# On these shots that shows up as a one-pixel hairline of wallpaper colour around all four sides:
+# sampled #2F4A9A, #3F4349, #B7703F against a #E9F9EF window.
 #
-# Rather than re-run the capture, each of those three lines is overwritten with the line just inside
+# Rather than re-run the capture, each of those four lines is overwritten with the line just inside
 # it. The corners are left alone: there the rounded clip already blended the ring into the backdrop,
 # and squaring them off would be worse than the hairline.
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 
 # Every shot in this batch was framed identically — shoot.ps1 printed "frame 168,70 1584x892" for
-# all five — so the window rect is fixed rather than detected.
+# all seven — so the window rect is fixed rather than detected.
 $L = 168; $T = 70; $W = 1584; $H = 892
 $R = $L + $W - 1          # 1751
 $B = $T + $H - 1          # 961
@@ -28,6 +28,13 @@ foreach ($file in Get-ChildItem $out -Filter '*.png' | Sort-Object Name) {
     for ($y = $T + $Corner; $y -le $B - $Corner; $y++) {
         $bmp.SetPixel($L, $y, $bmp.GetPixel($L + 1, $y))
         $bmp.SetPixel($R, $y, $bmp.GetPixel($R - 1, $y))
+    }
+    # The bottom line has the same hairline and was missed on the first batch: the window's bottom
+    # edge sits over the desktop like the other three, and magnifying 01's lower-left corner showed
+    # the wallpaper coming through as tan speckles under the File/Capture row. It is repaired last so
+    # it picks up the already-corrected left and right pixels of the line above it.
+    for ($x = $L + $Corner; $x -le $R - $Corner; $x++) {
+        $bmp.SetPixel($x, $B, $bmp.GetPixel($x, $B - 1))
     }
 
     $bmp.Save($file.FullName, [Drawing.Imaging.ImageFormat]::Png)

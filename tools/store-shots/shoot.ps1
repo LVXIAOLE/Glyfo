@@ -114,27 +114,32 @@ public static class Win {
 $UIA = [System.Windows.Automation.AutomationElement]
 
 # ------------------------------------------------------------------ activation
-function Get-GlyfoProgId {
+function Get-GlyfoProgId([string]$Extension) {
     # The progid is generated from the package identity, so it is looked up rather than written in:
-    # it changes if the identity ever does.
-    $key = Get-ItemProperty 'HKCU:\Software\Classes\.png\OpenWithProgids' -ErrorAction Stop
+    # it changes if the identity ever does. Looked up per extension, because the shell registers a
+    # separate progid for each one the manifest claims.
+    $key = Get-ItemProperty "HKCU:\Software\Classes\$Extension\OpenWithProgids" -ErrorAction Stop
     foreach ($name in $key.PSObject.Properties.Name) {
         if ($name -notlike 'AppX*') { continue }
         $aumid = (Get-ItemProperty "HKCU:\Software\Classes\$name\Application" -ErrorAction SilentlyContinue).AppUserModelID
         if ($aumid -like 'LVLE.Glyfo*') { return $name }
     }
-    throw 'No Glyfo progid registered for .png — is the package installed?'
+    throw "No Glyfo progid registered for $Extension — is the package installed?"
 }
-$script:ProgId = Get-GlyfoProgId
+$script:ProgIds = @{}
 
 function Open-InGlyfo([string]$Path) {
     # Full-trust packaged apps are activated for files through the shell's DelegateExecute handler;
     # ShellExecuteEx with the progid is the only route that reaches it from a script.
+    $full = (Resolve-Path $Path).Path
+    $ext = [IO.Path]::GetExtension($full).ToLowerInvariant()
+    if (-not $script:ProgIds.ContainsKey($ext)) { $script:ProgIds[$ext] = Get-GlyfoProgId $ext }
+
     $info = New-Object Win+SHELLEXECUTEINFO
     $info.cbSize = [Runtime.InteropServices.Marshal]::SizeOf($info)
     $info.fMask = 0x00000001   # SEE_MASK_CLASSNAME
-    $info.lpFile = (Resolve-Path $Path).Path
-    $info.lpClass = $script:ProgId
+    $info.lpFile = $full
+    $info.lpClass = $script:ProgIds[$ext]
     $info.nShow = 5
     if (-not [Win]::ShellExecuteExW([ref]$info)) { throw "ShellExecuteEx failed for $Path" }
     # The launched instance asks the activating process for its arguments over RPC, so this one has
@@ -210,11 +215,94 @@ function Send-Esc {
     Start-Sleep -Milliseconds 600
 }
 
+function Send-Digits([string]$Digits) {
+    # Digits only, and typed rather than pushed in through ValuePattern: this goes through the same
+    # TextChanged the user's keystrokes would, and it leaves the caret where a person's would be.
+    # The virtual-key codes for 0-9 are the ASCII codes, which is why nothing wider is handled here.
+    foreach ($c in $Digits.ToCharArray()) {
+        if ($c -lt '0' -or $c -gt '9') { throw "Send-Digits takes digits only, got '$c'" }
+        $vk = [byte][char]$c
+        [Win]::keybd_event($vk, 0, 0, [UIntPtr]::Zero)
+        Start-Sleep -Milliseconds 40
+        [Win]::keybd_event($vk, 0, [Win]::KEYEVENTF_KEYUP, [UIntPtr]::Zero)
+        Start-Sleep -Milliseconds 90
+    }
+    Start-Sleep -Milliseconds 800
+}
+
+function Get-DialogCloseButton([IntPtr]$h) {
+    # "CloseButton" is the ContentDialog template's name for its close button -- and also the name
+    # the status bar's InfoBar gives to its dismiss "x", which is on screen most of the run. So the
+    # matches are filtered rather than taking the first one.
+    $window = $UIA::FromHandle($h)
+    $cond = New-Object Windows.Automation.PropertyCondition (
+        [Windows.Automation.AutomationElement]::AutomationIdProperty, 'CloseButton')
+    $walker = [Windows.Automation.TreeWalker]::ControlViewWalker
+    foreach ($el in $window.FindAll([Windows.Automation.TreeScope]::Descendants, $cond)) {
+        $parent = $walker.GetParent($el)
+        if ($parent -and $parent.Current.AutomationId -eq 'StatusBar') { continue }
+        return $el
+    }
+    return $null
+}
+
+function Test-DialogOpen([IntPtr]$h) {
+    # An open ContentDialog puts a Popup the size of the window into the tree -- the layer that dims
+    # everything behind it. The dialog's own content sits in a second Popup that reports IsOffscreen
+    # even while it is plainly on screen, so the dimming layer is the one to ask. Flyouts and combo
+    # drop-downs are Popups too, hence the width test: none of them come close to filling the window.
+    $window = $UIA::FromHandle($h)
+    $cond = New-Object Windows.Automation.PropertyCondition (
+        [Windows.Automation.AutomationElement]::ControlTypeProperty, [Windows.Automation.ControlType]::Window)
+    $bounds = Get-Bounds $h
+    $wide = ($bounds.R - $bounds.L) * 0.8
+    foreach ($popup in $window.FindAll([Windows.Automation.TreeScope]::Descendants, $cond)) {
+        if (-not $popup.Current.IsOffscreen -and $popup.Current.BoundingRectangle.Width -ge $wide) {
+            return $true
+        }
+    }
+    return $false
+}
+
+function Close-Dialog([IntPtr]$h) {
+    # Esc is what a person would press, but it is delivered to whatever holds focus, and changing
+    # the interface language rebuilds the whole dialog underneath it -- after which the key went
+    # nowhere and the dialog stayed up for the rest of the run. Invoking the button is addressed at
+    # the dialog itself, and the result is checked rather than assumed.
+    for ($i = 0; $i -lt 6; $i++) {
+        if (-not (Test-DialogOpen $h)) { return }
+        $btn = Get-DialogCloseButton $h
+        $ip = $null
+        if (-not $btn) { Send-Esc; Start-Sleep -Milliseconds 900; continue }
+        if ($btn.TryGetCurrentPattern([Windows.Automation.InvokePattern]::Pattern, [ref]$ip)) {
+            $ip.Invoke()
+        } else {
+            Send-Esc
+        }
+        Start-Sleep -Milliseconds 900
+    }
+    throw 'A dialog would not close'
+}
+
+function Wait-Element([IntPtr]$h, [string]$AutomationId, [int]$Seconds = 90) {
+    # A collapsed element is absent from the UI Automation tree, so "this one has appeared" is a
+    # real signal rather than a guess at how long something takes.
+    for ($i = 0; $i -lt ($Seconds * 2); $i++) {
+        if (Find-Element $h $AutomationId) { return }
+        Start-Sleep -Milliseconds 500
+    }
+    throw "Timed out waiting for '$AutomationId'"
+}
+
 function Get-ComboValue([IntPtr]$h, [string]$AutomationId) {
     $el = Find-Element $h $AutomationId
     if (-not $el) { return $null }
     $vp = $null
-    if ($el.TryGetCurrentPattern([Windows.Automation.ValuePattern]::Pattern, [ref]$vp)) { return $vp.Current.Value }
+    # A non-editable ComboBox still offers ValuePattern, and it answers with an empty string -- so
+    # the value has to be non-empty to be believed, or the selection below is never consulted.
+    if ($el.TryGetCurrentPattern([Windows.Automation.ValuePattern]::Pattern, [ref]$vp) -and $vp.Current.Value) {
+        return $vp.Current.Value
+    }
     $sel = $null
     if ($el.TryGetCurrentPattern([Windows.Automation.SelectionPattern]::Pattern, [ref]$sel)) {
         $items = $sel.Current.GetSelection()
@@ -259,6 +347,64 @@ function Select-Combo([IntPtr]$h, [string]$AutomationId, [string]$Pattern) {
     Start-Sleep -Milliseconds 900
     if ($ec.Current.ExpandCollapseState -eq [Windows.Automation.ExpandCollapseState]::Expanded) { $ec.Collapse() }
     Start-Sleep -Milliseconds 400
+    "  $AutomationId -> $($target.Current.Name)"
+}
+
+function Get-ComboItems([IntPtr]$h, [string]$AutomationId) {
+    # Rows are realised only while the popup is open, so both reading and writing a ComboBox has to
+    # expand it first. The caller gets the element back too, to collapse it when it is done.
+    $el = Find-Element $h $AutomationId
+    if (-not $el) { throw "No combo '$AutomationId'" }
+    $ec = $null
+    if (-not $el.TryGetCurrentPattern([Windows.Automation.ExpandCollapsePattern]::Pattern, [ref]$ec)) {
+        throw "'$AutomationId' cannot be expanded"
+    }
+    $ec.Expand()
+    Start-Sleep -Milliseconds 700
+    $cond = New-Object Windows.Automation.PropertyCondition (
+        [Windows.Automation.AutomationElement]::ControlTypeProperty,
+        [Windows.Automation.ControlType]::ListItem)
+    @{ Expand = $ec; Items = $el.FindAll([Windows.Automation.TreeScope]::Descendants, $cond) }
+}
+
+function Close-Combo($Expand) {
+    if ($Expand.Current.ExpandCollapseState -eq [Windows.Automation.ExpandCollapseState]::Expanded) {
+        $Expand.Collapse()
+    }
+    Start-Sleep -Milliseconds 400
+}
+
+function Get-ComboIndex([IntPtr]$h, [string]$AutomationId) {
+    # The interface language is restored by position rather than by name: the list is rebuilt in the
+    # new language every time it changes, so "System default" read at the start no longer matches
+    # anything by the end of the run. The order is the same list every time, so the index survives.
+    $c = Get-ComboItems $h $AutomationId
+    $found = -1
+    for ($i = 0; $i -lt $c.Items.Count; $i++) {
+        $si = $null
+        if ($c.Items[$i].TryGetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern, [ref]$si) -and
+            $si.Current.IsSelected) {
+            $found = $i
+            break
+        }
+    }
+    Close-Combo $c.Expand
+    # Write-Host rather than an ordinary string: this function's return value is the index, and a
+    # second object on the pipeline would come back to the caller as part of it.
+    Write-Host "  $AutomationId is at index $found ($(if ($found -ge 0) { $c.Items[$found].Current.Name }))"
+    $found
+}
+
+function Select-ComboIndex([IntPtr]$h, [string]$AutomationId, [int]$Index) {
+    $c = Get-ComboItems $h $AutomationId
+    if ($Index -lt 0 -or $Index -ge $c.Items.Count) {
+        Close-Combo $c.Expand
+        throw "Index $Index is outside '$AutomationId' ($($c.Items.Count) items)"
+    }
+    $target = $c.Items[$Index]
+    $target.GetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern).Select()
+    Start-Sleep -Milliseconds 900
+    Close-Combo $c.Expand
     "  $AutomationId -> $($target.Current.Name)"
 }
 
@@ -317,7 +463,15 @@ function New-RoundedPath([int]$X, [int]$Y, [int]$W, [int]$H, [int]$R) {
     return $p
 }
 
-function Save-Shot([IntPtr]$h, [string]$Name) {
+function Save-Shot([IntPtr]$h, [string]$Name, [switch]$WithDialog) {
+    # A ContentDialog left open silently ruins every later shot: it dims the window and covers the
+    # middle of it, and the run carries on because nothing throws. That is exactly what happened
+    # once -- four shots taken through the settings dialog -- so the two shots that are meant to
+    # show a dialog say so, and any other one that finds one on screen stops the run.
+    if (-not $WithDialog -and (Test-DialogOpen $h)) {
+        throw "A dialog is on screen; '$Name' would be taken over it"
+    }
+
     $r = Get-Bounds $h
     $w = $r.R - $r.L; $ht = $r.B - $r.T
 
@@ -392,16 +546,18 @@ try {
     Start-Sleep -Seconds 10
     Set-Frame $h
 
-    $originalUi = Get-ComboValue $h 'UiLanguageComboBox'
     $originalOcr = Get-ComboValue $h 'LanguageComboBox'
     $originalVoice = Get-ComboValue $h 'VoiceComboBox'
-    "interface was '$originalUi', recognition was '$originalOcr', voice was '$originalVoice'"
+    "recognition was '$originalOcr', voice was '$originalVoice'"
 
     # The listing's default language is English and these images are reused for every listing, so
-    # the interface goes into English for the run and is put back at the end.
+    # the interface goes into English for the run and is put back at the end. The interface picker
+    # lives inside the settings dialog, so it can only be read with the dialog open -- reading it
+    # from outside quietly returned nothing, which is why the restore at the end used to be skipped.
     Click-Element $h 'SettingsButton'
+    $originalUi = Get-ComboIndex $h 'UiLanguageComboBox'
     Select-Combo $h 'UiLanguageComboBox' '^English'
-    Send-Esc
+    Close-Dialog $h
     Set-Frame $h
 
     function Set-Voice([string]$Pattern) {
@@ -442,8 +598,38 @@ try {
     Move-CursorAway $h
     if (Should '03-qr-and-barcodes') { Save-Shot $h '03-qr-and-barcodes' }
 
+    # The PDF comes after the three images and before the history shot, so that by the time the
+    # history is opened it holds a mix of pictures and PDF pages — which is what makes searching it
+    # worth showing at all.
+    "opening report-4471.pdf"
+    Open-InGlyfo (Join-Path $src 'report-4471.pdf')
+    Set-Frame $h
+    Wait-ForIdle $h
+    Move-CursorAway $h
+    if (Should '06-pdf-pages') { Save-Shot $h '06-pdf-pages' }
+
+    if (Should '07-batch') {
+        # "Read every page" is the one route into the batch dialog that starts from a file already
+        # open, so it needs no file picker driven from a script. It is also a real batch: three
+        # pages, read one after another, into the same merged result.
+        Click-Element $h 'PdfAllButton'
+        # "Save each one as its own file" is hidden while the run is going and shown the moment
+        # there is something to save, so its arrival in the tree is the run finishing.
+        Wait-Element $h 'BatchSeparate'
+        Start-Sleep -Seconds 1
+        Move-CursorAway $h
+        Save-Shot $h '07-batch' -WithDialog
+        Close-Dialog $h
+        Start-Sleep -Seconds 2
+    }
+
     if (Should '04-history') {
         Click-Element $h 'HistoryButton'
+        # A part number that is on the crate label and all through the PDF, so the filtered list
+        # shows the same string found in a photograph and in a document — which is the point of
+        # keeping the history in the first place.
+        Click-Element $h 'HistorySearchBox'
+        Send-Digits '4471'
         Move-CursorAway $h
         Save-Shot $h '04-history'
         Send-Esc
@@ -452,17 +638,17 @@ try {
     if (Should '05-settings') {
         Click-Element $h 'SettingsButton'
         Move-CursorAway $h
-        Save-Shot $h '05-settings'
-        Send-Esc
+        Save-Shot $h '05-settings' -WithDialog
+        Close-Dialog $h
     }
 
     # Put the app back the way it was found.
     if ($originalVoice) { Set-Voice ([Regex]::Escape($originalVoice)) }
     if ($originalOcr) { Select-Combo $h 'LanguageComboBox' ([Regex]::Escape($originalOcr)) }
-    if ($originalUi) {
+    if ($originalUi -ge 0) {
         Click-Element $h 'SettingsButton'
-        Select-Combo $h 'UiLanguageComboBox' ([Regex]::Escape($originalUi))
-        Send-Esc
+        Select-ComboIndex $h 'UiLanguageComboBox' $originalUi
+        Close-Dialog $h
     }
 }
 finally {

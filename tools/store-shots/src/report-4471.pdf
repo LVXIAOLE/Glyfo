@@ -1,0 +1,86 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 9 0 R /F2 10 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 894 >>
+stream
+BT /F2 22 Tf 72 720 Td (Acceptance report - crate 4471-B) Tj ET
+BT /F1 13 Tf 72 674 Td (Forty humidity loggers, rev C, received 14 March. This report covers the) Tj ET
+BT /F1 13 Tf 72 652 Td (incoming check: enclosure, power rail, and a four-hour soak against the) Tj ET
+BT /F1 13 Tf 72 630 Td (reference meter in bay 2.) Tj ET
+BT /F1 13 Tf 72 596 Td (Packing was intact and the desiccant sachets were still blue. Two units) Tj ET
+BT /F1 13 Tf 72 574 Td (had scuffed lids, cosmetic only, and are noted here so that they are not) Tj ET
+BT /F1 13 Tf 72 552 Td (raised again at the outgoing check.) Tj ET
+BT /F1 13 Tf 72 518 Td (One unit, serial 4471-B-17, would not enumerate over USB until the cable) Tj ET
+BT /F1 13 Tf 72 496 Td (was reseated. It has been kept in the batch but is flagged on page 3.) Tj ET
+BT /F1 13 Tf 72 462 Td (All firmware reported v1.6.5. No unit needed reflashing.) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 9 0 R /F2 10 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 889 >>
+stream
+BT /F2 22 Tf 72 720 Td (Measurements) Tj ET
+BT /F1 13 Tf 72 674 Td (Soak conditions: 22.4 C, 45 %RH nominal, four hours, chamber door shut) Tj ET
+BT /F1 13 Tf 72 652 Td (throughout. Readings sampled every 30 seconds and averaged per minute.) Tj ET
+BT /F1 13 Tf 72 618 Td (Drift over the soak, worst unit    1.1 %RH) Tj ET
+BT /F1 13 Tf 72 596 Td (Drift over the soak, median        0.4 %RH) Tj ET
+BT /F1 13 Tf 72 574 Td (Settling time after power-up       3 min 50 s) Tj ET
+BT /F1 13 Tf 72 552 Td (Rail under radio transmit          3.11 V) Tj ET
+BT /F1 13 Tf 72 530 Td (Units outside the 2 %RH band       0 of 40) Tj ET
+BT /F1 13 Tf 72 496 Td (The settling figure is the reason the logger discards its first 240) Tj ET
+BT /F1 13 Tf 72 474 Td (seconds. Nothing in this batch settled slower than that, so the discard) Tj ET
+BT /F1 13 Tf 72 452 Td (window can stay where it is for now.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 9 0 R /F2 10 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 890 >>
+stream
+BT /F2 22 Tf 72 720 Td (Findings and next steps) Tj ET
+BT /F1 13 Tf 72 674 Td (1. Serial 4471-B-17 enumerated only after the cable was reseated. Retest) Tj ET
+BT /F1 13 Tf 72 652 Td (   with a known good cable before it ships. If it repeats, the connector) Tj ET
+BT /F1 13 Tf 72 630 Td (   is the suspect, not the board.) Tj ET
+BT /F1 13 Tf 72 596 Td (2. The 3.3 V rail sags to 3.11 V while the radio transmits. No reset was) Tj ET
+BT /F1 13 Tf 72 574 Td (   seen in four hours, but the margin is thinner than the schematic) Tj ET
+BT /F1 13 Tf 72 552 Td (   suggests and should be measured again at low temperature.) Tj ET
+BT /F1 13 Tf 72 518 Td (3. Nothing in the log tells a genuine flat line from a stuck bus. A) Tj ET
+BT /F1 13 Tf 72 496 Td (   heartbeat counter is proposed for the next revision.) Tj ET
+BT /F1 13 Tf 72 462 Td (Batch accepted. Recheck 4471-B-17 before dispatch.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000264 00000 n 
+0000001209 00000 n 
+0000001346 00000 n 
+0000002286 00000 n 
+0000002423 00000 n 
+0000003364 00000 n 
+0000003461 00000 n 
+trailer
+<< /Size 11 /Root 1 0 R >>
+startxref
+3564
+%%EOF

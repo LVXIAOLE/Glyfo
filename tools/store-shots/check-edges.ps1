@@ -1,9 +1,9 @@
-# Confirms the frame repair took: samples the outermost window pixel on the left, right and top of
-# each finished shot and flags anything with a strong red/blue imbalance, which is what desktop
+# Confirms the frame repair took: samples the outermost window pixel on all four sides of each
+# finished shot and flags anything with a strong red/blue imbalance, which is what desktop
 # bleeding through the translucent frame border looked like (#2F4A9A, #B7703F) against the app's
 # near-neutral chrome.
 Add-Type -AssemblyName System.Drawing
-$L = 168; $R = 1751; $T = 70
+$L = 168; $R = 1751; $T = 70; $B = 961
 
 foreach ($file in Get-ChildItem (Join-Path $PSScriptRoot 'out') -Filter '*.png' | Sort-Object Name) {
     $img = [Drawing.Image]::FromFile($file.FullName)
@@ -17,8 +17,10 @@ foreach ($file in Get-ChildItem (Join-Path $PSScriptRoot 'out') -Filter '*.png' 
         }
     }
     foreach ($x in 300, 600, 900, 1200, 1500) {
-        $c = $bmp.GetPixel($x, $T)
-        if ([Math]::Abs($c.R - $c.B) -gt 24) { $bad++ }
+        foreach ($y in $T, $B) {
+            $c = $bmp.GetPixel($x, $y)
+            if ([Math]::Abs($c.R - $c.B) -gt 24) { $bad++ }
+        }
     }
     "{0,-26} {1}x{2}  suspect edge pixels: {3}" -f $file.Name, $bmp.Width, $bmp.Height, $bad
     $bmp.Dispose()

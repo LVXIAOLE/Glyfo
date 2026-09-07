@@ -152,4 +152,146 @@ $g.Dispose()
 $bmp.Save((Join-Path $out 'label-codes.png'), [Drawing.Imaging.ImageFormat]::Png)
 $bmp.Dispose()
 
+# ---------------------------------------------------------------- 4. a three-page PDF
+# Written out byte by byte rather than produced by a library, because there is no PDF writer on this
+# machine that is not a whole install: no Word, no LaTeX, and printing to "Microsoft Print to PDF"
+# cannot be driven headlessly. A PDF with nothing in it but Helvetica text is small enough to build
+# by hand -- ten objects and an offset table -- and the format has not moved since 1.4.
+#
+# Two shots need it. The PDF one shows the page bar, which is the only visible proof the app reads
+# PDFs at all; the batch one is taken by pressing "read every page", which is the one route to the
+# batch dialog that starts from a single file and so needs no file picker driven from a script.
+#
+# Everything below is ASCII on purpose. The xref offsets are byte offsets, so one multi-byte
+# character anywhere above them would move every entry and the file would not open -- and the check
+# at the end of this section is there because a broken xref fails silently in some readers and
+# loudly in Windows' own, which is the one that matters here.
+
+function ConvertTo-PdfText([string]$Text) {
+    if ($Text -cmatch '[^\x20-\x7E]') { throw "Non-ASCII in PDF text: $Text" }
+    $Text -replace '\\', '\\' -replace '\(', '\(' -replace '\)', '\)'
+}
+
+function New-PdfContent([string]$Title, [string[]]$Body) {
+    # 612x792 is US Letter in points, and the app renders a page at 2.5x, so 13pt body text arrives
+    # at the recognizer about 32 px tall -- comfortably above where accuracy starts to fall off.
+    $lines = @("BT /F2 22 Tf 72 720 Td ($(ConvertTo-PdfText $Title)) Tj ET")
+    $y = 674
+    foreach ($line in $Body) {
+        if ($line -eq '') { $y -= 12; continue }
+        $lines += "BT /F1 13 Tf 72 $y Td ($(ConvertTo-PdfText $line)) Tj ET"
+        $y -= 22
+    }
+    $lines -join "`n"
+}
+
+$pages = @(
+    @{ Title = 'Acceptance report - crate 4471-B'
+       Body = @(
+        'Forty humidity loggers, rev C, received 14 March. This report covers the',
+        'incoming check: enclosure, power rail, and a four-hour soak against the',
+        'reference meter in bay 2.',
+        '',
+        'Packing was intact and the desiccant sachets were still blue. Two units',
+        'had scuffed lids, cosmetic only, and are noted here so that they are not',
+        'raised again at the outgoing check.',
+        '',
+        'One unit, serial 4471-B-17, would not enumerate over USB until the cable',
+        'was reseated. It has been kept in the batch but is flagged on page 3.',
+        '',
+        'All firmware reported v1.6.5. No unit needed reflashing.')
+    },
+    @{ Title = 'Measurements'
+       Body = @(
+        'Soak conditions: 22.4 C, 45 %RH nominal, four hours, chamber door shut',
+        'throughout. Readings sampled every 30 seconds and averaged per minute.',
+        '',
+        'Drift over the soak, worst unit    1.1 %RH',
+        'Drift over the soak, median        0.4 %RH',
+        'Settling time after power-up       3 min 50 s',
+        'Rail under radio transmit          3.11 V',
+        'Units outside the 2 %RH band       0 of 40',
+        '',
+        'The settling figure is the reason the logger discards its first 240',
+        'seconds. Nothing in this batch settled slower than that, so the discard',
+        'window can stay where it is for now.')
+    },
+    @{ Title = 'Findings and next steps'
+       Body = @(
+        '1. Serial 4471-B-17 enumerated only after the cable was reseated. Retest',
+        '   with a known good cable before it ships. If it repeats, the connector',
+        '   is the suspect, not the board.',
+        '',
+        '2. The 3.3 V rail sags to 3.11 V while the radio transmits. No reset was',
+        '   seen in four hours, but the margin is thinner than the schematic',
+        '   suggests and should be measured again at low temperature.',
+        '',
+        '3. Nothing in the log tells a genuine flat line from a stuck bus. A',
+        '   heartbeat counter is proposed for the next revision.',
+        '',
+        'Batch accepted. Recheck 4471-B-17 before dispatch.')
+    }
+)
+
+# Objects 1 and 2 are the catalogue and the page tree; then a page and its content stream per page;
+# then the two fonts. The order is fixed because the numbers are written into the tree above.
+$objects = @()
+$pageIds = @()
+for ($i = 0; $i -lt $pages.Count; $i++) { $pageIds += 3 + $i * 2 }
+$fontRegular = 3 + $pages.Count * 2
+$fontBold = $fontRegular + 1
+
+$objects += "<< /Type /Catalog /Pages 2 0 R >>"
+$objects += "<< /Type /Pages /Kids [$(($pageIds | ForEach-Object { "$_ 0 R" }) -join ' ')] /Count $($pages.Count) >>"
+for ($i = 0; $i -lt $pages.Count; $i++) {
+    $page = $pages[$i]
+    $id = $pageIds[$i]
+    $objects += "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] " +
+        "/Resources << /Font << /F1 $fontRegular 0 R /F2 $fontBold 0 R >> >> /Contents $($id + 1) 0 R >>"
+    $stream = New-PdfContent $page.Title $page.Body
+    $objects += "<< /Length $($stream.Length) >>`nstream`n$stream`nendstream"
+}
+$objects += "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>"
+$objects += "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"
+
+$header = "%PDF-1.4`n"
+$body = ''
+$offsets = @()
+$at = $header.Length
+foreach ($i in 0..($objects.Count - 1)) {
+    $offsets += $at
+    $chunk = "$($i + 1) 0 obj`n$($objects[$i])`nendobj`n"
+    $body += $chunk
+    $at += $chunk.Length
+}
+
+# Every xref entry is exactly twenty bytes, free list entry included. Readers seek by multiplying,
+# so a line one byte short breaks every object after it rather than just itself.
+$xref = "xref`n0 $($objects.Count + 1)`n0000000000 65535 f `n"
+foreach ($offset in $offsets) { $xref += ('{0:D10} 00000 n ' -f $offset) + "`n" }
+$pdfText = $header + $body + $xref +
+    "trailer`n<< /Size $($objects.Count + 1) /Root 1 0 R >>`nstartxref`n$at`n%%EOF`n"
+
+$pdfPath = Join-Path $out 'report-4471.pdf'
+[IO.File]::WriteAllBytes($pdfPath, [Text.Encoding]::ASCII.GetBytes($pdfText))
+
+# Opened with the same component the app opens it with, so "it renders here" and "it renders in
+# Glyfo" are the same claim. A hand-built file that no reader accepts is worse than no file at all,
+# because the failure would otherwise show up halfway through a screenshot run.
+Add-Type -AssemblyName System.Runtime.WindowsRuntime
+$null = [Windows.Data.Pdf.PdfDocument, Windows.Foundation.UniversalApiContract, ContentType=WindowsRuntime]
+$null = [Windows.Storage.StorageFile, Windows.Foundation.UniversalApiContract, ContentType=WindowsRuntime]
+$asTask = ([System.WindowsRuntimeSystemExtensions].GetMethods() | Where-Object {
+    $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 -and
+    $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncOperation`1' })[0]
+function Await($operation, [Type]$resultType) {
+    $task = $asTask.MakeGenericMethod($resultType).Invoke($null, @($operation))
+    [void]$task.Wait(-1)
+    $task.Result
+}
+$file = Await ([Windows.Storage.StorageFile]::GetFileFromPathAsync($pdfPath)) ([Windows.Storage.StorageFile])
+$doc = Await ([Windows.Data.Pdf.PdfDocument]::LoadFromFileAsync($file)) ([Windows.Data.Pdf.PdfDocument])
+if ($doc.PageCount -ne $pages.Count) { throw "PDF reports $($doc.PageCount) pages, expected $($pages.Count)" }
+"report-4471.pdf opens: $($doc.PageCount) pages, first page $($doc.GetPage(0).Size.Width)x$($doc.GetPage(0).Size.Height)"
+
 Get-ChildItem $out | Select-Object Name, Length | Format-Table -AutoSize
