@@ -10,8 +10,9 @@ internal readonly record struct OcrToken(string Text, double Left, double Right,
 /// <summary>How much of the recognizer's output <see cref="TextLayout"/> is allowed to second-guess.</summary>
 /// <param name="TrustWordBoundaries">
 /// True when the recognizer splits at word boundaries, which every Latin-script recognizer does.
-/// Then each boundary between two words simply is a space, and none of the gap measuring or
-/// punctuation binding below applies — those exist purely to undo CJK recognizer artifacts.
+/// Then each boundary between two words simply is a space, and the gap measuring below does not
+/// apply — it exists purely to undo CJK recognizer artifacts. One binding rule still does, for the
+/// one shape a Latin recognizer splits that is not a space; see <see cref="TextLayout.JoinLine"/>.
 /// </param>
 /// <param name="RepairNumbers">
 /// Whether to rewrite letters that are really digits inside a number. User-switchable, because it
@@ -101,6 +102,22 @@ internal static class TextLayout
     {
         var left = previous.Text[^1];
         var right = next.Text[0];
+
+        // A token opening with a separator and then a digit is the tail of a dotted number, and no
+        // script writes a space in front of one. Decided before the branch below because that branch
+        // is right about every other boundary and wrong about exactly this one: measured on rendered
+        // English at 20pt, the recognizer hands back "vl" and ".6.5" as two words six pixels apart,
+        // where its real word gaps on the same line are ten and eleven. Joined with a space the run
+        // stops being alphanumeric, so RepairDigitRuns never looks inside it — which meant the
+        // version-number repair, the reason that code exists, could not fire on English at all.
+        //
+        // Deliberately narrower than IsClosingPunctuation below, which would also bind ";" and "!"
+        // and so break French, where those take a space in front of them.
+        if (next.Text.Length >= 2 && IsSeparator(right) && char.IsAsciiDigit(next.Text[1]) &&
+            char.IsAsciiLetterOrDigit(left))
+        {
+            return false;
+        }
 
         // The recognizer split these two apart, and a Latin-script recognizer only does that at a
         // space. Guessing again from the geometry can only lose information it already has.

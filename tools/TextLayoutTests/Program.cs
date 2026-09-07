@@ -46,6 +46,22 @@ internal static class Program
         Check("O2", "O2", "O2");
         Check("H2O", "H2O", "H2O");
 
+        // Two-token cases: what the English recognizer actually hands back. Measured word boxes from
+        // a 20pt Segoe UI render of "Release v1.6.5 shipped on 2026-09-08 with IPv6 and html5."
+        CheckTokens("english version split in two",
+            new[] { T("vl", 113, 136), T(".6.5", 142, 181) }, "v1.6.5");
+        CheckTokens("english date split in two",
+            new[] { T("2026", 331, 400), T("-09-08", 402, 471) }, "2026-09-08");
+
+        // The boundaries either side of it are real spaces and stay spaces.
+        CheckTokens("ordinary words", new[] { T("with", 479, 529), T("IPv6", 539, 586) }, "with IPv6");
+        CheckTokens("sentence period as its own token",
+            new[] { T("dog", 500, 540), T(".", 542, 552) }, "dog .");
+        CheckTokens("french spaced semicolon",
+            new[] { T("oui", 100, 140), T(";", 148, 154) }, "oui ;");
+        CheckTokens("minus between numbers",
+            new[] { T("5", 100, 112), T("-", 120, 130), T("3", 138, 150) }, "5 - 3");
+
         // The whole thing hangs off the user's switch.
         Check("greek omicron with repair off", S('2', Omicron, '2', '6'), S('2', Omicron, '2', '6'), repair: false);
         Check("greek iota with repair off", S('v', Iota, '.', '6', '.', '5'), S('v', Iota, '.', '6', '.', '5'), repair: false);
@@ -65,6 +81,29 @@ internal static class Program
         return builder.ToString();
     }
 
+    private static OcrToken T(string text, double left, double right) => new(text, left, right, 20);
+
+    /// <summary>The multi-token path, where JoinLine has to decide each boundary for itself.</summary>
+    private static void CheckTokens(string name, IReadOnlyList<OcrToken> tokens, string expected)
+    {
+        var options = new TextLayoutOptions(
+            TrustWordBoundaries: true,
+            RepairNumbers: true,
+            NormalizeFullwidth: false,
+            RightToLeft: false,
+            SpaceGapRatio: 0.30);
+
+        Report(name, string.Join('|', Texts(tokens)), TextLayout.JoinLine(tokens, options), expected);
+    }
+
+    private static IEnumerable<string> Texts(IReadOnlyList<OcrToken> tokens)
+    {
+        foreach (var token in tokens)
+        {
+            yield return token.Text;
+        }
+    }
+
     private static void Check(string name, string input, string expected, bool repair = true)
     {
         // One token carrying the whole line: JoinLine then does nothing but Repair, which is the
@@ -78,7 +117,11 @@ internal static class Program
             RightToLeft: false,
             SpaceGapRatio: 0.30);
 
-        var actual = TextLayout.JoinLine(tokens, options);
+        Report(name, input, TextLayout.JoinLine(tokens, options), expected);
+    }
+
+    private static void Report(string name, string input, string actual, string expected)
+    {
         var ok = actual == expected;
         if (!ok)
         {
