@@ -1,0 +1,6 @@
+# The screenshot harness's sample PDF is written by hand and happens to be pure ASCII, so Git's
+# content sniffing calls it text -- and with core.autocrlf=true a fresh checkout on Windows would
+# rewrite every newline in it. That would move every byte in the file, and a PDF's xref table is a
+# list of byte offsets, so the checked-out copy would no longer open. Marked binary so it is stored
+# and restored unchanged.
+*.pdf binary
