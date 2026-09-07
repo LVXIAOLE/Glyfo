@@ -17,7 +17,25 @@ internal readonly record struct OcrToken(string Text, double Left, double Right,
 /// Whether to rewrite letters that are really digits inside a number. User-switchable, because it
 /// is the one step that substitutes a character the recognizer actually identified.
 /// </param>
-internal readonly record struct TextLayoutOptions(bool TrustWordBoundaries, bool RepairNumbers);
+/// <param name="NormalizeFullwidth">
+/// Whether the recognizer has fullwidth punctuation in its repertoire and so can return "v1．6．5".
+/// Used to travel with <paramref name="TrustWordBoundaries"/> inverted, which left Korean falling
+/// between the two: it is written with spaces, so its boundaries are trustworthy, yet it emits
+/// fullwidth forms all the same. Two questions, two flags.
+/// </param>
+/// <param name="RightToLeft">
+/// Which way words run, for the gap arithmetic in <see cref="TextLayout.JoinLine"/>.
+/// </param>
+/// <param name="SpaceGapRatio">
+/// Gap, as a fraction of line height, above which a boundary counts as a space. Only consulted when
+/// <paramref name="TrustWordBoundaries"/> is false.
+/// </param>
+internal readonly record struct TextLayoutOptions(
+    bool TrustWordBoundaries,
+    bool RepairNumbers,
+    bool NormalizeFullwidth,
+    bool RightToLeft,
+    double SpaceGapRatio);
 
 /// <summary>
 /// Rebuilds a line of text from the words a recognizer produced.
@@ -40,12 +58,13 @@ internal readonly record struct TextLayoutOptions(bool TrustWordBoundaries, bool
 /// type — below the threshold, so "fox jumps" came back as "foxjumps". And there is nothing to
 /// decide in the first place: a Latin recognizer already splits at word boundaries, so every
 /// boundary it reports is a space. Hence <see cref="TextLayoutOptions.TrustWordBoundaries"/>.
+///
+/// Which of those two worlds a line belongs to, and where the 30% sits, now come from
+/// <see cref="ScriptProfiles"/> rather than from a constant here: the numbers above were measured on
+/// two writing systems and were being applied to every writing system.
 /// </remarks>
 internal static class TextLayout
 {
-    /// <summary>Gap, as a fraction of line height, above which a boundary counts as a space.</summary>
-    private const double SpaceGapRatio = 0.30;
-
     public static string JoinLine(IReadOnlyList<OcrToken> tokens, TextLayoutOptions options)
     {
         var lineHeight = 0.0;
@@ -65,7 +84,7 @@ internal static class TextLayout
                 continue;
             }
 
-            if (havePrevious && NeedsSpace(previous, token, lineHeight, options.TrustWordBoundaries))
+            if (havePrevious && NeedsSpace(previous, token, lineHeight, options))
             {
                 builder.Append(' ');
             }
@@ -78,14 +97,14 @@ internal static class TextLayout
         return Repair(builder.ToString(), options);
     }
 
-    private static bool NeedsSpace(OcrToken previous, OcrToken next, double lineHeight, bool trustWordBoundaries)
+    private static bool NeedsSpace(OcrToken previous, OcrToken next, double lineHeight, TextLayoutOptions options)
     {
         var left = previous.Text[^1];
         var right = next.Text[0];
 
         // The recognizer split these two apart, and a Latin-script recognizer only does that at a
         // space. Guessing again from the geometry can only lose information it already has.
-        if (trustWordBoundaries)
+        if (options.TrustWordBoundaries)
         {
             return true;
         }
@@ -111,7 +130,14 @@ internal static class TextLayout
             return true;
         }
 
-        return next.Left - previous.Right >= SpaceGapRatio * lineHeight;
+        // In a right-to-left script the second word sits to the left of the first, so the same
+        // subtraction the other way round. No effect today — every right-to-left recognizer Windows
+        // ships is a spaced one and leaves above — but a line mixing Arabic with CJK does reach here.
+        var gap = options.RightToLeft
+            ? previous.Left - next.Right
+            : next.Left - previous.Right;
+
+        return gap >= options.SpaceGapRatio * lineHeight;
     }
 
     /// <summary>
@@ -136,7 +162,7 @@ internal static class TextLayout
         // A Latin recognizer has no fullwidth forms to emit, so running the normalizer over its
         // output could only do harm — it would rewrite a legitimate em dash in "pre—post" as a
         // hyphen.
-        if (!options.TrustWordBoundaries)
+        if (options.NormalizeFullwidth)
         {
             NormalizePunctuation(chars);
         }

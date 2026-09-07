@@ -21,15 +21,6 @@ public static class ImageLoader
     /// </summary>
     private const int MinDimension = 64;
 
-    /// <summary>
-    /// Word height, in pixels, that the recognizers are comfortable with. Body text in a
-    /// 100%-scaled screenshot is roughly half of this, which is where most misreads come from.
-    /// </summary>
-    private const double TargetWordHeight = 28;
-
-    /// <summary>Below this measured word height, a second pass at a larger size pays for itself.</summary>
-    private const double RescaleThreshold = 20;
-
     private const double MaxRescale = 4.0;
 
     /// <summary>A smaller enlargement than this does not change the outcome; skip the extra pass.</summary>
@@ -128,8 +119,19 @@ public static class ImageLoader
     /// 100%-scaled screenshot of body text gives them. Upscaling before the first pass would be
     /// both wasteful (most photos and scans are already large enough) and blind, so the first pass
     /// measures the real glyph size and only then decides.
+    ///
+    /// Where "roughly 20px" falls is the caller's to say, because it was measured on English and
+    /// Chinese and there is no reason a Devanagari or Korean recognizer should give out at the same
+    /// height. See <see cref="ScriptProfile.RescaleThreshold"/>. Everything below the threshold
+    /// test — the quartile, the three ceilings — is about pixels and memory rather than writing
+    /// systems, and stays put.
     /// </remarks>
-    public static double SuggestUpscale(int pixelWidth, int pixelHeight, IReadOnlyList<double> wordHeights)
+    public static double SuggestUpscale(
+        int pixelWidth,
+        int pixelHeight,
+        IReadOnlyList<double> wordHeights,
+        double rescaleThreshold,
+        double targetWordHeight)
     {
         var usable = wordHeights.Where(height => height > 0).OrderBy(height => height).ToList();
 
@@ -157,12 +159,12 @@ public static class ImageLoader
             // median did, and it is the more robust of the two against stray punctuation boxes
             // (a recognized "." measures 4-8px and drags a median down).
             var tall = usable[(usable.Count * 3) / 4];
-            if (tall >= RescaleThreshold)
+            if (tall >= rescaleThreshold)
             {
                 return 1;
             }
 
-            scale = TargetWordHeight / tall;
+            scale = targetWordHeight / tall;
         }
 
         scale = Math.Min(scale, MaxRescale);

@@ -67,7 +67,7 @@ public sealed class WindowsAiOcrEngine : IOcrEngine
     /// This is the payoff of <c>RecognizedWord.MatchConfidence</c>: unlike the built-in engine,
     /// which has to guess from covered area which of two answers is better, here the recognizer
     /// says so directly. The second pass costs roughly one more inference, so it only runs when the
-    /// first pass gives a reason to — see <see cref="RetryConfidence"/>.
+    /// first pass gives a reason to — see <see cref="ShouldRetry"/>.
     /// </remarks>
     public async Task<OcrResult> RecognizeAsync(SoftwareBitmap bitmap, string? languageTag)
     {
@@ -79,10 +79,19 @@ public sealed class WindowsAiOcrEngine : IOcrEngine
         var challenger = Array.Empty<ScoredWord>();
         var challengerScale = 1.0;
 
-        if (ShouldRetry(first))
+        // The catch-all profile, which carries exactly the constants this method used to have inline.
+        // Reading the script off the first pass with ScriptProfiles.ForText is the point of having
+        // profiles at all, but it changes what comes out, so it lands with the measured numbers.
+        var profile = ScriptProfiles.ForScript(WritingScript.Unknown);
+
+        if (ShouldRetry(first, profile))
         {
             var scale = ImageLoader.SuggestUpscale(
-                bitmap.PixelWidth, bitmap.PixelHeight, first.Words.Select(WordHeight).ToList());
+                bitmap.PixelWidth,
+                bitmap.PixelHeight,
+                first.Words.Select(WordHeight).ToList(),
+                profile.RescaleThreshold,
+                profile.TargetWordHeight);
 
             if (scale > 1)
             {
@@ -116,11 +125,16 @@ public sealed class WindowsAiOcrEngine : IOcrEngine
         return new OcrResult(text, ConfidenceMerge.MeanConfidence(best.Words), DisplayName);
     }
 
-    /// <summary>Mean confidence below which the recognizer is unsure enough to be worth a retry.</summary>
-    private const float RetryConfidence = 0.80f;
-
-    private static bool ShouldRetry(Pass pass) =>
-        pass.Words.Length == 0 || ConfidenceMerge.MeanConfidence(pass.Words) < RetryConfidence;
+    /// <summary>
+    /// Whether the first pass was unsure enough to be worth a second, enlarged one.
+    /// </summary>
+    /// <remarks>
+    /// The bar belongs to the writing system rather than to the engine. A recognizer choosing among
+    /// thousands of Han characters cannot report the confidence a Latin one does on twenty-six, so a
+    /// single figure has to be either too high for one or too low for the other.
+    /// </remarks>
+    private static bool ShouldRetry(Pass pass, ScriptProfile profile) =>
+        pass.Words.Length == 0 || ConfidenceMerge.MeanConfidence(pass.Words) < profile.RetryConfidence;
 
     /// <summary>One recognition pass, flattened into shapes the arbitration logic can compare.</summary>
     private readonly record struct Pass(IReadOnlyList<IReadOnlyList<ScoredWord>> Lines, ScoredWord[] Words)
@@ -184,16 +198,20 @@ public sealed class WindowsAiOcrEngine : IOcrEngine
     /// script itself and does not report what it found. So the decision is made per line from the
     /// characters that came back: a line with no CJK in it, and no fullwidth punctuation, cannot
     /// have been split anywhere but at a space.
+    ///
+    /// Still per line, and still from the characters rather than from the whole result: reading the
+    /// script off everything at once is the better answer — a lone English line inside a Chinese
+    /// document currently gets different treatment from the lines above and below it — but it is a
+    /// change in output, and belongs with the rest of the per-script work rather than in a refactor.
     /// </remarks>
     private static string BuildLine(IReadOnlyList<ScoredWord> words)
     {
-        var options = new TextLayoutOptions(
-            TrustWordBoundaries: !words.Any(word => word.Text.Any(TextLayout.IsCjk)),
-            RepairNumbers: AppSettings.Current.RepairVersionNumbers);
+        var profile = ScriptProfiles.ForScript(
+            words.Any(word => word.Text.Any(TextLayout.IsCjk)) ? WritingScript.Han : WritingScript.Latin);
 
         return TextLayout.JoinLine(
             words.Select(word => new OcrToken(word.Text, word.Left, word.Right, word.Bottom - word.Top)).ToList(),
-            options);
+            profile.ToLayoutOptions(AppSettings.Current.RepairVersionNumbers));
     }
 
     public void Dispose()

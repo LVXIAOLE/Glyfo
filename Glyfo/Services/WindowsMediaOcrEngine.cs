@@ -194,7 +194,7 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
 
         // The recognizer that actually ran, not the tag that was asked for: auto mode picks its own
         // and an unavailable tag silently falls back to the profile engine.
-        return new OcrResult(BuildText(result.Lines, engine.RecognizerLanguage.LanguageTag), null, DisplayName);
+        return new OcrResult(BuildText(result.Lines, ProfileFor(engine)), null, DisplayName);
     }
 
     private async Task<WinOcrEngine> GetEngineAsync(string? languageTag)
@@ -282,7 +282,7 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
     private static async Task<WinOcrResult> TryRescaledPassAsync(
         WinOcrEngine engine, SoftwareBitmap bitmap, WinOcrResult first)
     {
-        var scale = SuggestRescale(bitmap, first);
+        var scale = SuggestRescale(bitmap, first, ProfileFor(engine));
         if (scale <= 1)
         {
             return first;
@@ -304,11 +304,13 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
         }
     }
 
-    private static double SuggestRescale(SoftwareBitmap bitmap, WinOcrResult result) =>
+    private static double SuggestRescale(SoftwareBitmap bitmap, WinOcrResult result, ScriptProfile profile) =>
         ImageLoader.SuggestUpscale(
             bitmap.PixelWidth,
             bitmap.PixelHeight,
-            result.Lines.SelectMany(line => line.Words).Select(word => word.BoundingRect.Height).ToList());
+            result.Lines.SelectMany(line => line.Words).Select(word => word.BoundingRect.Height).ToList(),
+            profile.RescaleThreshold,
+            profile.TargetWordHeight);
 
     private static int WordCount(WinOcrResult result) => result.Lines.Sum(line => line.Words.Count);
 
@@ -348,22 +350,20 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
     /// Joins recognized lines, using rules appropriate to the script the recognizer was built for.
     /// </summary>
     /// <remarks>
-    /// The tag selects the ruleset, not the spacing of individual boundaries — an earlier version
-    /// used it the second way ("Chinese recognizer, so join everything tight") and got mixed
+    /// The profile selects the ruleset, not the spacing of individual boundaries — an earlier
+    /// version used it the second way ("Chinese recognizer, so join everything tight") and got mixed
     /// Chinese-and-English lines wrong in both directions. A CJK recognizer still goes through
-    /// <see cref="TextLayout"/>'s gap measuring, which handles those mixed lines correctly. What
-    /// the tag settles is whether that machinery should run at all: for a Latin recognizer it has
+    /// <see cref="TextLayout"/>'s gap measuring, which handles those mixed lines correctly. What the
+    /// profile settles is whether that machinery should run at all: for a Latin recognizer it has
     /// nothing to add and measurably subtracts.
     /// </remarks>
-    private static string BuildText(IReadOnlyList<WinOcrLine> lines, string recognizerTag)
+    private static string BuildText(IReadOnlyList<WinOcrLine> lines, ScriptProfile profile)
     {
         var builder = new StringBuilder();
 
         // Read once per result, not once per line: the user cannot change it mid-recognition, and
         // a whole result built under two different rules would be incoherent.
-        var options = new TextLayoutOptions(
-            TrustWordBoundaries: !IsSpacelessScript(recognizerTag),
-            RepairNumbers: AppSettings.Current.RepairVersionNumbers);
+        var options = profile.ToLayoutOptions(AppSettings.Current.RepairVersionNumbers);
 
         foreach (var line in lines)
         {
@@ -387,23 +387,19 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
     }
 
     /// <summary>
-    /// Whether the recognizer's language is written without spaces between words, and so returns
-    /// several words where the text has one run. Chinese, Japanese and Thai; Korean is written with
-    /// spaces and behaves like the Latin recognizers.
+    /// The profile for whichever recognizer actually ran.
     /// </summary>
-    private static bool IsSpacelessScript(string? recognizerTag)
+    /// <remarks>
+    /// Windows answers both halves of this itself. Splitting the language tag at its first hyphen,
+    /// which is what this replaced, could not tell "sr-Cyrl" from "sr-Latn" and carried a branch for
+    /// Thai that no installable recognizer can ever reach.
+    /// </remarks>
+    private static ScriptProfile ProfileFor(WinOcrEngine engine)
     {
-        if (string.IsNullOrEmpty(recognizerTag))
-        {
-            // Unknown recognizer: keep the gap measuring, which is correct for every script even
-            // where it is unnecessary.
-            return true;
-        }
-
-        var primary = recognizerTag.Split('-')[0];
-        return primary.Equals("zh", StringComparison.OrdinalIgnoreCase)
-            || primary.Equals("ja", StringComparison.OrdinalIgnoreCase)
-            || primary.Equals("th", StringComparison.OrdinalIgnoreCase);
+        var language = engine.RecognizerLanguage;
+        return ScriptProfiles.ForScriptCode(
+            language.Script,
+            language.LayoutDirection == LanguageLayoutDirection.Rtl);
     }
 
     public void Dispose()
