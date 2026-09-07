@@ -50,16 +50,26 @@ way, and it is the single highest-volume query in the category, so dropping it i
 upside. Every term must describe something the app really does — Store Policy 10.1 is checked at
 certification.
 
-The same five PNGs go into every language listing — the Store does not share images between them, and
-none of the five has any text burned into it. Captions are per language; they are numbered below in
-upload order. The images are in `docs/store-screenshots/`; `tools/store-shots/` is what produced
-them, off the real packaged app.
+The same seven PNGs go into every language listing — the Store does not share images between them,
+and none of the seven has any text burned into it. Captions are per language. The images are in
+`docs/store-screenshots/`; `tools/store-shots/` is what produced them, off the real packaged app.
 
-The numbering below is the **shot** order, which is not the slot order any listing happens to be in.
-A listing's slots can be dragged around in the dashboard, and one has been: en-us shows the five as
-02, 05, 03, 04, 01. `Fill-ListingCsv.ps1` moves the image cells into shot order before it writes
-these captions, so the numbering here is what the CSV means and the dashboard's current arrangement
-is not something this file has to track.
+The numbering below is the **shot** order — `01-…` through `07-…`, the file names — which is not
+necessarily the slot order any listing is in. Slots can be dragged around in the dashboard, and have
+been. `Fill-ListingCsv.ps1` moves the image cells into shot order before it writes these captions,
+so the numbering here is what the CSV means and the dashboard's arrangement is not something this
+file has to track.
+
+What that reordering needs, and cannot get from the export, is en-us's own slot order. A screenshot
+cell is a dashboard URL ending in an asset id; there is no file name anywhere in it, and the type
+column says only "relative path (or URL to a Partner Center file)". So the export can say that two
+listings show *the same* image, and that is what places the other thirty-two — they carry en-us's
+asset ids — but nothing in it says *which* image that is. As long as en-us's assets are untouched
+the answer can be recovered from its captions, since those were typed next to them by hand; the
+moment en-us's PNGs are re-uploaded, every asset id is new, the captions stay behind in their old
+slots, and the pairing is gone from the file entirely. That is why `Fill-ListingCsv.ps1` takes
+`-EnSlotOrder`: it is one fact, it lives in the dashboard, and guessing it puts the QR caption under
+the settings dialog in thirty-three markets at once.
 
 Two things to keep true if this text is edited: the app makes no network connections, and
 translation exists only on Copilot+ PCs. Both are claims a certification reviewer can check, and
@@ -72,12 +82,12 @@ both are user-configurable, so the copy names Alt+Z as a starting point rather t
 The **What's new in this version** field is not part of the listing export and has no section here.
 Its copy, covering 1.2.0 and 1.3.0 together, is in `docs/store-release-notes.md`.
 
-Adding a sixth or seventh screenshot still has an ordering constraint, though not the one recorded
-here before: the export does carry `DesktopScreenshot1..30` and `DesktopScreenshotCaption1..30`, but
-slots 6 and up are empty in every language, and the image cells hold dashboard URLs rather than file
-names — there is nothing to write into slot 6 until the asset exists. So upload the new PNGs to
-en-us in the dashboard first, re-export, and only then raise the caption count here and the `5`
-literals in `Fill-ListingCsv.ps1`.
+Adding an eighth screenshot works the way the sixth and seventh did. The export carries
+`DesktopScreenshot1..30` and `DesktopScreenshotCaption1..30`, but a slot with nothing uploaded is
+empty in every language, and the image cells hold dashboard URLs rather than file names — there is
+nothing to write into slot 8 until the asset exists. So upload the new PNG to en-us in the dashboard
+first, re-export, then raise the caption count here and the `Shots` count in `Fill-ListingCsv.ps1`,
+and pass the dashboard's slot order as `-EnSlotOrder`.
 
 ---
 
@@ -169,10 +179,12 @@ No account, no telemetry, no advertising.
 ### 屏幕截图标题 — Screenshot captions
 
 1. `01-text-from-a-page.png` — Every recognized line appears beside the picture in reading order, ready to copy, read aloud, or unwrap back into paragraphs.
-2. `02-any-language.png` — Pick the recognition language from the packs Windows has installed — Chinese, Japanese and Korean included — or let Glyfo choose it.
+2. `02-any-language.png` — Pick the recognition language from the packs Windows has installed — Chinese, Japanese, Korean and Arabic among them — or let Glyfo choose it.
 3. `03-qr-and-barcodes.png` — QR codes and barcodes are read out of the same picture, so no separate scanner app is needed.
 4. `04-history.png` — Recent results stay in the history, so something you captured a few minutes ago is still one click away.
 5. `05-settings.png` — Interface language, starting with Windows, staying in the notification area, and the fix that keeps v1.6.5 from becoming vl.6.5.
+6. `06-pdf-pages.png` — A PDF opens page by page, and the page you are on is recognized straight away; the arrows walk through the rest of the document.
+7. `07-batch.png` — A whole document or a stack of pictures goes through in one run, saved as a single file or as one file per page.
 
 ### 搜索词 — Search terms
 
@@ -264,6 +276,8 @@ Glyfo 不进行任何网络连接。图片、识别出的文字、翻译结果�
 3. `03-qr-and-barcodes.png` — 二维码和条码从同一张图里一并读出，不用再装扫码工具。
 4. `04-history.png` — 最近的识别结果留在历史里，几分钟前截的那一张仍然一键可达。
 5. `05-settings.png` — 界面语言、开机自启、关闭后留在通知区域，以及那条让 v1.6.5 不被读成 vl.6.5 的修正。
+6. `06-pdf-pages.png` — PDF 按页打开，当前这一页立刻识别，翻页箭头把整份文档走完。
+7. `07-batch.png` — 整份文档或一叠图片一次跑完，可以合成一个文件，也可以一页存一个。
 
 ### 搜索词
 
@@ -355,6 +369,8 @@ Glyfo 不進行任何網路連線。圖片、辨識出的文字、翻譯結果�
 3. `03-qr-and-barcodes.png` — QR 碼和條碼從同一張圖裡一併讀出，不必再裝掃碼工具。
 4. `04-history.png` — 最近的辨識結果留在歷程記錄裡，幾分鐘前擷取的那一張仍然一鍵可達。
 5. `05-settings.png` — 介面語言、開機自動啟動、關閉後留在通知區域，以及那條讓 v1.6.5 不被讀成 vl.6.5 的修正。
+6. `06-pdf-pages.png` — PDF 按頁開啟，目前這一頁立刻辨識，翻頁箭頭把整份文件走完。
+7. `07-batch.png` — 整份文件或一疊圖片一次跑完，可以合成一個檔案，也可以一頁存一個。
 
 ### 搜尋詞
 
@@ -452,6 +468,8 @@ Glyfo はネットワークに接続しません。画像、認識したテキ�
 3. `03-qr-and-barcodes.png` — QR コードとバーコードは同じ画像からまとめて読み取ります。別途スキャナーアプリは要りません。
 4. `04-history.png` — 直近の結果は履歴に残るので、数分前に取り込んだものにもワンクリックで戻れます。
 5. `05-settings.png` — 表示言語、Windows と同時に起動、閉じても通知領域に常駐、そして v1.6.5 が vl.6.5 にならないための補正。
+6. `06-pdf-pages.png` — PDF はページ単位で開き、いま見ているページはすぐ認識されます。矢印で文書全体をたどれます。
+7. `07-batch.png` — 文書ひとまとめ、あるいは画像の束を一度に処理し、1 つのファイルにも、ページごとのファイルにも保存できます。
 
 ### 検索キーワード
 
@@ -551,6 +569,8 @@ Glyfo는 네트워크에 연결하지 않습니다. 이미지, 인식된 텍스�
 3. `03-qr-and-barcodes.png` — QR 코드와 바코드를 같은 이미지에서 함께 읽어냅니다. 별도의 스캐너 앱이 필요 없습니다.
 4. `04-history.png` — 최근 결과는 기록에 남아 있어 몇 분 전에 캡처한 것도 클릭 한 번이면 다시 꺼낼 수 있습니다.
 5. `05-settings.png` — 인터페이스 언어, Windows 시작 시 실행, 닫아도 알림 영역에 유지, 그리고 v1.6.5가 vl.6.5로 읽히지 않게 하는 보정.
+6. `06-pdf-pages.png` — PDF는 쪽 단위로 열리고 지금 보고 있는 쪽은 곧바로 인식됩니다. 화살표로 문서 전체를 넘길 수 있습니다.
+7. `07-batch.png` — 문서 한 편이나 이미지 여러 장을 한 번에 처리해 하나의 파일로, 또는 쪽마다 따로 저장합니다.
 
 ### 검색어
 
@@ -656,6 +676,8 @@ Ihren PC nicht. Kein Konto, keine Telemetrie, keine Werbung.
 3. `03-qr-and-barcodes.png` — QR-Codes und Barcodes werden aus demselben Bild gelesen; eine separate Scanner-App ist nicht nötig.
 4. `04-history.png` — Die letzten Ergebnisse bleiben im Verlauf, sodass eine Aufnahme von vor ein paar Minuten weiterhin einen Klick entfernt ist.
 5. `05-settings.png` — Oberflächensprache, Start mit Windows, Verbleib im Infobereich und die Korrektur, die aus v1.6.5 kein vl.6.5 macht.
+6. `06-pdf-pages.png` — Ein PDF wird Seite für Seite geöffnet; die aktuelle Seite wird sofort erkannt, mit den Pfeilen geht es durch das restliche Dokument.
+7. `07-batch.png` — Ein ganzes Dokument oder ein Stapel Bilder läuft in einem Durchgang durch – gespeichert als eine Datei oder als eine Datei pro Seite.
 
 ### Suchbegriffe
 
@@ -764,6 +786,8 @@ jamais votre PC. Pas de compte, pas de télémétrie, pas de publicité.
 3. `03-qr-and-barcodes.png` — Les QR codes et les codes-barres sont lus dans la même image : aucune application de scan supplémentaire n'est nécessaire.
 4. `04-history.png` — Les résultats récents restent dans l'historique ; une capture faite il y a quelques minutes reste à un clic.
 5. `05-settings.png` — Langue de l'interface, démarrage avec Windows, maintien dans la zone de notification, et la correction qui évite que v1.6.5 devienne vl.6.5.
+6. `06-pdf-pages.png` — Un PDF s'ouvre page par page : celle que vous regardez est reconnue aussitôt, et les flèches parcourent le reste du document.
+7. `07-batch.png` — Un document entier ou une pile d'images passe en une seule fois, enregistré en un seul fichier ou en un fichier par page.
 
 ### Termes de recherche
 
@@ -865,6 +889,8 @@ salen de tu PC. Sin cuenta, sin telemetría y sin publicidad.
 3. `03-qr-and-barcodes.png` — Los códigos QR y de barras se leen de la misma imagen; no hace falta otra aplicación para escanear.
 4. `04-history.png` — Los resultados recientes quedan en el historial, así que una captura de hace unos minutos sigue a un clic de distancia.
 5. `05-settings.png` — Idioma de la interfaz, inicio con Windows, permanencia en el área de notificación y la corrección que evita que v1.6.5 se lea vl.6.5.
+6. `06-pdf-pages.png` — Un PDF se abre página a página: la que está a la vista se reconoce enseguida y las flechas recorren el resto del documento.
+7. `07-batch.png` — Un documento entero o un montón de imágenes pasa de una sola vez, guardado en un único archivo o en un archivo por página.
 
 ### Términos de búsqueda
 
@@ -966,6 +992,8 @@ conta, sem telemetria e sem publicidade.
 3. `03-qr-and-barcodes.png` — Códigos QR e de barras são lidos da mesma imagem; não é preciso outro aplicativo para escanear.
 4. `04-history.png` — Os resultados recentes ficam no histórico, então uma captura de alguns minutos atrás continua a um clique.
 5. `05-settings.png` — Idioma da interface, iniciar com o Windows, continuar na área de notificação e a correção que impede v1.6.5 de virar vl.6.5.
+6. `06-pdf-pages.png` — Um PDF abre página a página: a que está à vista é reconhecida na hora e as setas percorrem o resto do documento.
+7. `07-batch.png` — Um documento inteiro ou uma pilha de imagens passa de uma vez só, salvo em um único arquivo ou em um arquivo por página.
 
 ### Termos de pesquisa
 
@@ -1071,6 +1099,8 @@ Glyfo не устанавливает сетевых соединений. Из�
 3. `03-qr-and-barcodes.png` — QR-коды и штрихкоды считываются с того же изображения; отдельное приложение-сканер не нужно.
 4. `04-history.png` — Недавние результаты остаются в журнале, поэтому снимок, сделанный несколько минут назад, по-прежнему в одном клике.
 5. `05-settings.png` — Язык интерфейса, запуск вместе с Windows, работа в области уведомлений и исправление, из-за которого v1.6.5 не превращается в vl.6.5.
+6. `06-pdf-pages.png` — PDF открывается постранично: текущая страница распознаётся сразу, а стрелки проводят по всему остальному документу.
+7. `07-batch.png` — Целый документ или стопка изображений проходит за один заход и сохраняется одним файлом либо по файлу на страницу.
 
 ### Поисковые запросы
 
@@ -1176,6 +1206,8 @@ il tuo PC. Nessun account, nessuna telemetria, nessuna pubblicità.
 3. `03-qr-and-barcodes.png` — Codici QR e codici a barre vengono letti dalla stessa immagine: non serve un'altra app per la scansione.
 4. `04-history.png` — I risultati recenti restano nella cronologia, così una cattura di qualche minuto fa è ancora a un clic.
 5. `05-settings.png` — Lingua dell'interfaccia, avvio con Windows, permanenza nell'area di notifica e la correzione che evita che v1.6.5 diventi vl.6.5.
+6. `06-pdf-pages.png` — Un PDF si apre pagina per pagina: quella che hai davanti viene riconosciuta subito e le frecce percorrono il resto del documento.
+7. `07-batch.png` — Un intero documento o una pila di immagini passa in una sola volta, salvato in un unico file o in un file per pagina.
 
 ### Termini di ricerca
 
@@ -1280,6 +1312,8 @@ Twojego komputera. Bez konta, bez telemetrii, bez reklam.
 3. `03-qr-and-barcodes.png` — Kody QR i kreskowe są odczytywane z tego samego obrazu; osobna aplikacja do skanowania nie jest potrzebna.
 4. `04-history.png` — Ostatnie wyniki zostają w historii, więc zrzut sprzed kilku minut wciąż jest o jedno kliknięcie.
 5. `05-settings.png` — Język interfejsu, uruchamianie z Windows, pozostawanie w obszarze powiadomień i poprawka, dzięki której v1.6.5 nie staje się vl.6.5.
+6. `06-pdf-pages.png` — PDF otwiera się strona po stronie: ta na wierzchu zostaje odczytana od razu, a strzałki prowadzą przez resztę dokumentu.
+7. `07-batch.png` — Cały dokument albo stos obrazów przechodzi za jednym razem — zapisany jako jeden plik lub po pliku na stronę.
 
 ### Wyszukiwane hasła
 
@@ -1385,6 +1419,8 @@ nooit. Geen account, geen telemetrie, geen advertenties.
 3. `03-qr-and-barcodes.png` — QR-codes en streepjescodes worden uit dezelfde afbeelding gelezen; een aparte scan-app is niet nodig.
 4. `04-history.png` — Recente resultaten blijven in de geschiedenis staan, dus een opname van een paar minuten geleden is nog één klik weg.
 5. `05-settings.png` — Interfacetaal, meestarten met Windows, in het systeemvak blijven, en de correctie die voorkomt dat v1.6.5 vl.6.5 wordt.
+6. `06-pdf-pages.png` — Een pdf gaat pagina voor pagina open: de pagina die je ziet wordt meteen gelezen en met de pijlen loop je door de rest.
+7. `07-batch.png` — Een heel document of een stapel afbeeldingen gaat er in één keer doorheen, opgeslagen als één bestand of als één bestand per pagina.
 
 ### Zoektermen
 
@@ -1484,6 +1520,8 @@ počítač. Žádný účet, žádná telemetrie, žádná reklama.
 3. `03-qr-and-barcodes.png` — QR kódy a čárové kódy se čtou ze stejného obrázku; samostatná aplikace na skenování není potřeba.
 4. `04-history.png` — Poslední výsledky zůstávají v historii, takže snímek z doby před pár minutami je pořád jedno klepnutí daleko.
 5. `05-settings.png` — Jazyk rozhraní, spouštění s Windows, setrvání v oznamovací oblasti a oprava, díky které se z v1.6.5 nestane vl.6.5.
+6. `06-pdf-pages.png` — PDF se otevírá po stránkách: ta, kterou máte před sebou, se přečte hned a šipkami projdete zbytek dokumentu.
+7. `07-batch.png` — Celý dokument nebo hromádka obrázků projde na jeden zátah, uložená jako jeden soubor nebo jeden soubor na stránku.
 
 ### Hledané výrazy
 
@@ -1586,6 +1624,8 @@ Hesap yok, telemetri yok, reklam yok.
 3. `03-qr-and-barcodes.png` — QR kodları ve barkodlar aynı görselden okunur; ayrı bir tarayıcı uygulamasına gerek yoktur.
 4. `04-history.png` — Son sonuçlar geçmişte kalır; birkaç dakika önce aldığınız bir alıntı hâlâ bir tık uzağınızdadır.
 5. `05-settings.png` — Arayüz dili, Windows ile başlatma, kapatınca bildirim alanında kalma ve v1.6.5'in vl.6.5 olmasını engelleyen düzeltme.
+6. `06-pdf-pages.png` — PDF sayfa sayfa açılır: önünüzdeki sayfa hemen okunur, oklarla belgenin geri kalanını gezersiniz.
+7. `07-batch.png` — Bütün bir belge ya da bir yığın görsel tek seferde geçer; tek dosya olarak da, sayfa başına bir dosya olarak da kaydedilir.
 
 ### Arama terimleri
 
@@ -1687,6 +1727,8 @@ dator. Inget konto, ingen telemetri, inga annonser.
 3. `03-qr-and-barcodes.png` — QR-koder och streckkoder läses ur samma bild; någon separat skanningsapp behövs inte.
 4. `04-history.png` — De senaste resultaten ligger kvar i historiken, så en skärmbild från några minuter sedan är fortfarande ett klick bort.
 5. `05-settings.png` — Gränssnittsspråk, start med Windows, kvar i meddelandefältet, och rättelsen som hindrar v1.6.5 från att bli vl.6.5.
+6. `06-pdf-pages.png` — En pdf öppnas sida för sida: den du har framme läses av direkt, och pilarna tar dig genom resten av dokumentet.
+7. `07-batch.png` — Ett helt dokument eller en hög med bilder går igenom på en gång, sparat som en fil eller som en fil per sida.
 
 ### Söktermer
 
@@ -1787,6 +1829,8 @@ din pc. Ingen konto, ingen telemetri, ingen reklamer.
 3. `03-qr-and-barcodes.png` — QR-koder og stregkoder læses fra det samme billede; en separat scannerapp er ikke nødvendig.
 4. `04-history.png` — De seneste resultater bliver i historikken, så et udklip fra få minutter siden er stadig ét klik væk.
 5. `05-settings.png` — Sprog i brugerfladen, start med Windows, bliv i meddelelsesområdet, og rettelsen der forhindrer v1.6.5 i at blive til vl.6.5.
+6. `06-pdf-pages.png` — En pdf åbnes side for side: den, du har foran dig, læses med det samme, og pilene fører dig gennem resten af dokumentet.
+7. `07-batch.png` — Et helt dokument eller en stak billeder kører igennem på én gang, gemt som én fil eller som én fil pr. side.
 
 ### Søgetermer
 
@@ -1886,6 +1930,8 @@ PC-en din. Ingen konto, ingen telemetri, ingen annonser.
 3. `03-qr-and-barcodes.png` — QR-koder og strekkoder leses fra det samme bildet; en egen skanne-app er ikke nødvendig.
 4. `04-history.png` — De siste resultatene blir liggende i historikken, så et utklipp fra noen minutter siden er fortsatt ett klikk unna.
 5. `05-settings.png` — Språk i grensesnittet, start med Windows, bli i systemstatusfeltet, og rettelsen som hindrer v1.6.5 i å bli vl.6.5.
+6. `06-pdf-pages.png` — En pdf åpnes side for side: den du har foran deg leses med én gang, og pilene tar deg gjennom resten av dokumentet.
+7. `07-batch.png` — Et helt dokument eller en bunke bilder går gjennom på én gang, lagret som én fil eller som én fil per side.
 
 ### Søkeord
 
@@ -1988,6 +2034,8 @@ koskaan. Ei tiliä, ei telemetriaa, ei mainoksia.
 3. `03-qr-and-barcodes.png` — QR-koodit ja viivakoodit luetaan samasta kuvasta; erillistä skannaussovellusta ei tarvita.
 4. `04-history.png` — Viimeisimmät tulokset jäävät historiaan, joten muutaman minuutin takainen kaappaus on yhä yhden napsautuksen päässä.
 5. `05-settings.png` — Käyttöliittymän kieli, käynnistys Windowsin mukana, ilmoitusalueelle jääminen ja korjaus, joka estää v1.6.5:tä muuttumasta muotoon vl.6.5.
+6. `06-pdf-pages.png` — PDF avautuu sivu kerrallaan: edessä oleva sivu luetaan heti, ja nuolilla kuljet läpi loput asiakirjasta.
+7. `07-batch.png` — Kokonainen asiakirja tai kasa kuvia menee läpi yhdellä kertaa, tallennettuna yhteen tiedostoon tai sivu kerrallaan omiinsa.
 
 ### Hakutermit
 
@@ -2101,6 +2149,8 @@ koskaan. Ei tiliä, ei telemetriaa, ei mainoksia.
 3. `03-qr-and-barcodes.png` — Κωδικοί QR και barcode διαβάζονται από την ίδια εικόνα· δεν χρειάζεται ξεχωριστή εφαρμογή σάρωσης.
 4. `04-history.png` — Τα πρόσφατα αποτελέσματα μένουν στο ιστορικό, οπότε ένα απόκομμα λίγων λεπτών πριν είναι ακόμη ένα κλικ μακριά.
 5. `05-settings.png` — Γλώσσα περιβάλλοντος, εκκίνηση με τα Windows, παραμονή στην περιοχή ειδοποιήσεων και η διόρθωση που δεν αφήνει το v1.6.5 να γίνει vl.6.5.
+6. `06-pdf-pages.png` — Το PDF ανοίγει σελίδα-σελίδα: αυτή που βλέπετε αναγνωρίζεται αμέσως και τα βελάκια σάς πάνε στο υπόλοιπο έγγραφο.
+7. `07-batch.png` — Ένα ολόκληρο έγγραφο ή μια στοίβα εικόνες περνά με τη μία, αποθηκευμένο σε ένα αρχείο ή σε ένα αρχείο ανά σελίδα.
 
 ### Όροι αναζήτησης
 
@@ -2207,6 +2257,8 @@ hagyják el a gépedet. Nincs fiók, nincs telemetria, nincs hirdetés.
 3. `03-qr-and-barcodes.png` — A QR-kódok és a vonalkódok ugyanabból a képből olvashatók ki; külön szkennelő alkalmazásra nincs szükség.
 4. `04-history.png` — A legutóbbi eredmények az előzményekben maradnak, így egy néhány perccel ezelőtti felvétel még mindig egy kattintásnyira van.
 5. `05-settings.png` — A felület nyelve, indulás a Windowsszal, az értesítési területen maradás, és a javítás, amitől a v1.6.5 nem lesz vl.6.5.
+6. `06-pdf-pages.png` — A PDF oldalanként nyílik meg: az éppen látható oldalt rögtön felismeri, a nyilakkal pedig végigmész a dokumentumon.
+7. `07-batch.png` — Egy egész dokumentum vagy egy halom kép egy menetben fut le, egyetlen fájlba mentve vagy oldalanként külön fájlba.
 
 ### Keresési kifejezések
 
@@ -2312,6 +2364,8 @@ niciodată calculatorul. Fără cont, fără telemetrie, fără reclame.
 3. `03-qr-and-barcodes.png` — Codurile QR și codurile de bare se citesc din aceeași imagine; nu îți trebuie o aplicație separată de scanare.
 4. `04-history.png` — Rezultatele recente rămân în istoric, așa că o captură de acum câteva minute e tot la un clic distanță.
 5. `05-settings.png` — Limba interfeței, pornirea odată cu Windows, rămânerea în zona de notificare și corecția care nu lasă v1.6.5 să devină vl.6.5.
+6. `06-pdf-pages.png` — Un PDF se deschide pagină cu pagină: cea din față e citită pe loc, iar săgețile te poartă prin restul documentului.
+7. `07-batch.png` — Un document întreg sau un teanc de imagini trece dintr-o singură rulare, salvat într-un singur fișier sau câte unul pe pagină.
 
 ### Termeni de căutare
 
@@ -2415,6 +2469,8 @@ Glyfo не встановлює мережевих з'єднань. Зображ
 3. `03-qr-and-barcodes.png` — QR-коди та штрихкоди зчитуються з того самого зображення; окрема програма-сканер не потрібна.
 4. `04-history.png` — Останні результати лишаються в історії, тож знімок кількахвилинної давнини все ще за одне клацання.
 5. `05-settings.png` — Мова інтерфейсу, запуск разом із Windows, перебування в області сповіщень і виправлення, яке не дає v1.6.5 стати vl.6.5.
+6. `06-pdf-pages.png` — PDF відкривається посторінково: та сторінка, що перед вами, розпізнається одразу, а стрілки проводять рештою документа.
+7. `07-batch.png` — Цілий документ або стос зображень проходить за один раз і зберігається одним файлом чи по файлу на сторінку.
 
 ### Пошукові терміни
 
@@ -2515,6 +2571,8 @@ Không tài khoản, không thu thập dữ liệu, không quảng cáo.
 3. `03-qr-and-barcodes.png` — Mã QR và mã vạch được đọc từ chính tấm ảnh đó; không cần thêm ứng dụng quét riêng.
 4. `04-history.png` — Các kết quả gần đây nằm lại trong lịch sử, nên bản chụp vài phút trước vẫn chỉ cách một cú bấm.
 5. `05-settings.png` — Ngôn ngữ giao diện, khởi động cùng Windows, nằm lại ở khay thông báo, và phần sửa lỗi giữ cho v1.6.5 không thành vl.6.5.
+6. `06-pdf-pages.png` — PDF mở theo từng trang: trang đang xem được nhận dạng ngay, còn các mũi tên đưa bạn đi hết tài liệu.
+7. `07-batch.png` — Cả một tài liệu hay một xấp ảnh chạy xong trong một lượt, lưu thành một tệp duy nhất hoặc mỗi trang một tệp.
 
 ### Từ khoá tìm kiếm
 
@@ -2612,6 +2670,8 @@ Glyfo ไม่เปิดการเชื่อมต่อเครือ�
 3. `03-qr-and-barcodes.png` — คิวอาร์โค้ดและบาร์โค้ดถูกอ่านจากภาพเดียวกันนี้ ไม่ต้องหาแอปสแกนอีกตัว
 4. `04-history.png` — ผลลัพธ์ล่าสุดยังอยู่ในประวัติ ภาพที่จับไว้เมื่อไม่กี่นาทีก่อนจึงยังห่างแค่คลิกเดียว
 5. `05-settings.png` — ภาษาของหน้าตาโปรแกรม การเริ่มพร้อม Windows การอยู่ต่อในพื้นที่แจ้งเตือน และตัวแก้ที่กัน v1.6.5 ไม่ให้กลายเป็น vl.6.5
+6. `06-pdf-pages.png` — PDF เปิดทีละหน้า หน้าที่อยู่ตรงหน้าถูกอ่านทันที ส่วนลูกศรพาไล่ไปจนจบเอกสาร
+7. `07-batch.png` — ทั้งเอกสารหรือภาพทั้งกองผ่านในรอบเดียว จะรวมเป็นไฟล์เดียวหรือแยกไฟล์ต่อหน้าก็ได้
 
 ### คำค้นหา
 
@@ -2719,6 +2779,8 @@ dari PC Anda. Tanpa akun, tanpa telemetri, tanpa iklan.
 3. `03-qr-and-barcodes.png` — Kode QR dan kode batang dibaca dari gambar yang sama; aplikasi pemindai terpisah tidak diperlukan.
 4. `04-history.png` — Hasil terbaru tersimpan di riwayat, jadi tangkapan beberapa menit lalu masih berjarak satu klik.
 5. `05-settings.png` — Bahasa antarmuka, menyala bersama Windows, tinggal di area pemberitahuan, dan koreksi yang menjaga v1.6.5 tidak menjadi vl.6.5.
+6. `06-pdf-pages.png` — PDF terbuka per halaman: halaman yang sedang tampil langsung dibaca, dan panahnya membawa Anda menyusuri sisa dokumen.
+7. `07-batch.png` — Satu dokumen utuh atau setumpuk gambar lewat dalam sekali jalan, disimpan sebagai satu berkas atau satu berkas per halaman.
 
 ### Istilah pencarian
 
@@ -2827,6 +2889,8 @@ daripada PC anda. Tiada akaun, tiada telemetri, tiada iklan.
 3. `03-qr-and-barcodes.png` — Kod QR dan kod bar dibaca daripada imej yang sama; aplikasi pengimbas berasingan tidak diperlukan.
 4. `04-history.png` — Hasil terkini kekal dalam sejarah, jadi tangkapan beberapa minit lalu masih sejauh satu klik.
 5. `05-settings.png` — Bahasa antara muka, mula bersama Windows, kekal di kawasan pemberitahuan, dan pembetulan yang menghalang v1.6.5 daripada menjadi vl.6.5.
+6. `06-pdf-pages.png` — PDF dibuka halaman demi halaman: halaman yang di depan terus dibaca, dan anak panah membawa anda menyusuri baki dokumen.
+7. `07-batch.png` — Satu dokumen penuh atau setimbun imej lalu dalam sekali jalan, disimpan sebagai satu fail atau satu fail bagi setiap halaman.
 
 ### Istilah carian
 
@@ -2936,6 +3000,8 @@ ang nabasang teksto at ang mga salin. Walang account, walang telemetry, walang a
 3. `03-qr-and-barcodes.png` — Binabasa ang mga QR code at barcode mula sa parehong larawan; hindi na kailangan ng hiwalay na scanner app.
 4. `04-history.png` — Nananatili sa kasaysayan ang mga huling resulta, kaya isang click pa rin ang layo ng capture mula ilang minuto ang nakalipas.
 5. `05-settings.png` — Wika ng interface, pagbukas kasabay ng Windows, pananatili sa notification area, at ang pagwawastong pumipigil sa v1.6.5 na maging vl.6.5.
+6. `06-pdf-pages.png` — Bumubukas ang PDF nang pahina-pahina: agad nababasa ang nasa harap mo, at dadalhin ka ng mga arrow sa buong dokumento.
+7. `07-batch.png` — Isang buong dokumento o isang salansan ng larawan ang dumadaan sa isang takbo, na iniimbak bilang isang file o isang file kada pahina.
 
 ### Mga termino sa paghahanap
 
@@ -3037,6 +3103,8 @@ Glyfo कोई नेटवर्क कनेक्शन नहीं बन�
 3. `03-qr-and-barcodes.png` — QR कोड और बारकोड उसी तस्वीर से पढ़े जाते हैं; अलग से कोई स्कैनर ऐप नहीं चाहिए।
 4. `04-history.png` — हाल के नतीजे इतिहास में बने रहते हैं, इसलिए कुछ मिनट पहले लिया कैप्चर अब भी एक क्लिक की दूरी पर है।
 5. `05-settings.png` — इंटरफ़ेस की भाषा, Windows के साथ शुरू होना, सूचना क्षेत्र में बने रहना, और वह सुधार जो v1.6.5 को vl.6.5 बनने से रोकता है।
+6. `06-pdf-pages.png` — PDF पन्ना-दर-पन्ना खुलती है: सामने वाला पन्ना तुरंत पढ़ लिया जाता है, और तीर आपको बाकी दस्तावेज़ में ले जाते हैं।
+7. `07-batch.png` — पूरा दस्तावेज़ या तस्वीरों का ढेर एक ही बार में निपट जाता है — एक फ़ाइल में, या हर पन्ने की अलग फ़ाइल में।
 
 ### खोज शब्द
 
@@ -3139,6 +3207,8 @@ Glyfo কোনো নেটওয়ার্ক সংযোগ তৈরি �
 3. `03-qr-and-barcodes.png` — QR কোড আর বারকোড একই ছবি থেকেই পড়া হয়; আলাদা কোনো স্ক্যানার অ্যাপ লাগে না।
 4. `04-history.png` — সাম্প্রতিক ফলাফল ইতিহাসে থেকে যায়, তাই কয়েক মিনিট আগের ক্যাপচারটাও এখনও এক ক্লিক দূরে।
 5. `05-settings.png` — ইন্টারফেসের ভাষা, Windows-এর সঙ্গে চালু হওয়া, বিজ্ঞপ্তি এলাকায় থেকে যাওয়া, আর সেই সংশোধন যা v1.6.5-কে vl.6.5 হতে দেয় না।
+6. `06-pdf-pages.png` — PDF খোলে পাতা ধরে ধরে: সামনের পাতাটা সঙ্গে সঙ্গেই পড়া হয়ে যায়, আর তিরচিহ্ন দিয়ে বাকি নথিটা ঘুরে দেখা যায়।
+7. `07-batch.png` — গোটা একটা নথি বা ছবির এক গাদা এক দফাতেই হয়ে যায় — একটি ফাইলে, কিংবা পাতাপিছু আলাদা ফাইলে।
 
 ### অনুসন্ধানের শব্দ
 
@@ -3237,6 +3307,8 @@ Glyfo কোনো নেটওয়ার্ক সংযোগ তৈরি �
 3. `03-qr-and-barcodes.png` — تُقرأ رموز QR والباركود من الصورة نفسها؛ ولا حاجة إلى تطبيق مسح منفصل.
 4. `04-history.png` — تبقى النتائج الأخيرة في السجل، فتظل لقطة أخذتها قبل دقائق على بعد نقرة واحدة.
 5. `05-settings.png` — لغة الواجهة، والبدء مع Windows، والبقاء في منطقة الإعلام، والتصحيح الذي يمنع تحوّل v1.6.5 إلى vl.6.5.
+6. `06-pdf-pages.png` — يُفتح ملف PDF صفحةً صفحة: الصفحة التي أمامك يُتعرَّف عليها فورًا، والأسهم تنقلك في بقية المستند.
+7. `07-batch.png` — مستند كامل أو كومة صور تمرّ في دفعة واحدة، وتُحفَظ في ملف واحد أو في ملف لكل صفحة.
 
 ### مصطلحات البحث
 
@@ -3334,6 +3406,8 @@ Glyfo אינו יוצר חיבורי רשת. תמונות, טקסט שזוהה �
 3. `03-qr-and-barcodes.png` — קודי QR וברקודים נקראים מאותה תמונה עצמה; אין צורך באפליקציית סריקה נפרדת.
 4. `04-history.png` — התוצאות האחרונות נשארות בהיסטוריה, כך שצילום מלפני כמה דקות עדיין במרחק לחיצה אחת.
 5. `05-settings.png` — שפת הממשק, עלייה יחד עם Windows, הישארות באזור ההתראות, והתיקון שמונע מ‑v1.6.5 להפוך ל‑vl.6.5.
+6. `06-pdf-pages.png` — קובץ PDF נפתח עמוד אחר עמוד: העמוד שלפניך מזוהה מיד, והחצים מעבירים אותך בשאר המסמך.
+7. `07-batch.png` — מסמך שלם או ערימת תמונות עוברים בהרצה אחת, ונשמרים כקובץ אחד או כקובץ לכל עמוד.
 
 ### מונחי חיפוש
 
@@ -3440,6 +3514,8 @@ Glyfo هیچ اتصال شبکه‌ای برقرار نمی‌کند. تصویر
 3. `03-qr-and-barcodes.png` — کدهای QR و بارکد از همان تصویر خوانده می‌شوند؛ به برنامه‌ی اسکن جداگانه نیازی نیست.
 4. `04-history.png` — نتیجه‌های اخیر در تاریخچه می‌مانند، پس برداشتی از چند دقیقه پیش هنوز یک کلیک فاصله دارد.
 5. `05-settings.png` — زبان رابط کاربری، بالا آمدن همراه Windows، ماندن در ناحیه‌ی اعلان، و اصلاحی که نمی‌گذارد v1.6.5 به vl.6.5 تبدیل شود.
+6. `06-pdf-pages.png` — PDF صفحه‌به‌صفحه باز می‌شود: صفحه‌ای که پیش رویتان است بی‌درنگ شناسایی می‌شود و پیکان‌ها شما را در بقیه‌ی سند می‌گردانند.
+7. `07-batch.png` — یک سند کامل یا دسته‌ای از تصویرها در یک نوبت پردازش می‌شود؛ در یک فایل، یا برای هر صفحه یک فایل.
 
 ### عبارت‌های جست‌وجو
 

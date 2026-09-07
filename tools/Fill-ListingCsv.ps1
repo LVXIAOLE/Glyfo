@@ -20,9 +20,12 @@
 #                         and Partner Center may refuse to hand that asset to a different listing.
 #   *-filled-textonly.csv text only. Every image cell keeps the asset it already had, though not
 #                         necessarily in the slot it had it in — see the screenshot-slot section.
+#                         Captions past the number of images a listing actually has are left blank,
+#                         since a caption on an empty slot is untested against the importer.
 #
-# Import the first. If it is rejected over the screenshots or logos, import the second and upload the
-# five PNGs and three logos per language in the dashboard.
+# Import the first. If it is rejected over the screenshots or logos, import the second, upload the
+# seven PNGs and three logos per language in the dashboard in file-name order, then re-export and run
+# again to pick up the captions this file held back.
 
 [CmdletBinding()]
 param(
@@ -37,6 +40,11 @@ param(
     [int]$BatchSize,
     # Also fill en-us, zh-hant and zh-hans, the three that were typed into the dashboard by hand.
     [switch]$IncludeAuthored,
+    # Which shot sits in which of en-us's screenshot slots, as shot numbers in slot order:
+    # "2,5,3,4,1,6,7" means slot 1 shows 02-any-language.png and slot 5 shows 01-text-from-a-page.png.
+    # Read it off the dashboard. Everything else is placed relative to en-us, so this is the one fact
+    # the derivation below cannot always recover on its own — see the screenshot-slot section.
+    [string]$EnSlotOrder,
     # Added to the output file names, so two runs over the same export do not overwrite each other.
     [string]$Suffix
 )
@@ -97,6 +105,11 @@ $Authored = 'en-us', 'zh-hant', 'zh-hans'
 # Partner Center's own limits, checked below rather than trusted.
 $Limit = @{ ShortDescription = 1000; Description = 10000; Feature = 200; Caption = 200; SearchTerm = 30 }
 
+# How many PNGs the listing has. Raising this means uploading the new one to en-us first: the export
+# does carry thirty screenshot slots, but a cell holds a dashboard URL, so an empty slot has nothing
+# that can be written into it.
+$Shots = 7
+
 # ---------------------------------------------------------------- read the copy
 
 $md = [IO.File]::ReadAllText((Resolve-Path $Listing), [Text.Encoding]::UTF8) -split "`r?`n"
@@ -149,9 +162,9 @@ foreach ($key in @($copy.Keys)) {
     })
     $terms = @([regex]::Matches($b[4], '`([^`]+)`') | ForEach-Object { $_.Groups[1].Value.Trim() })
 
-    if ($features.Count -ne 10) { throw "$key : expected 10 features, found $($features.Count)" }
-    if ($captions.Count -ne 5)  { throw "$key : expected 5 captions, found $($captions.Count)" }
-    if ($terms.Count -ne 7)     { throw "$key : expected 7 search terms, found $($terms.Count)" }
+    if ($features.Count -ne 10)      { throw "$key : expected 10 features, found $($features.Count)" }
+    if ($captions.Count -ne $Shots)  { throw "$key : expected $Shots captions, found $($captions.Count)" }
+    if ($terms.Count -ne 7)          { throw "$key : expected 7 search terms, found $($terms.Count)" }
 
     $copy[$key] = @{
         ShortDescription = $b[0]
@@ -189,51 +202,52 @@ if ($Only) {
 "  English    : $(@($targets | Where-Object { -not $copy.ContainsKey($_) }) -join ' ')"
 ''
 
-$imageFields = @('DesktopScreenshot1', 'DesktopScreenshot2', 'DesktopScreenshot3', 'DesktopScreenshot4',
-                 'DesktopScreenshot5', 'StoreLogo300x300', 'StoreLogoOverride150x150', 'StoreLogoOverride71x71')
+$imageFields = @(1..$Shots | ForEach-Object { "DesktopScreenshot$_" }) +
+               @('StoreLogo300x300', 'StoreLogoOverride150x150', 'StoreLogoOverride71x71')
 
 $base = [IO.Path]::GetFileNameWithoutExtension($Path)
 
 # ---------------------------------------------------------------- screenshot slots
 
-# The five PNGs are the same five in every listing, but the slot each one sits in is not, and writing
+# The same PNGs go into every listing, but the slot each one sits in is not the same, and writing
 # captions from store-listing.md into a listing whose images are in a different order puts the
 # QR-code caption under the settings dialog. So the slot order is worked out first and the image
 # cells are moved to match, rather than the captions being bent to fit.
 #
-# Which slot holds which shot has to be answered two different ways, because the three hand-made
-# listings and the thirty machine-filled ones carry different evidence.
+# Nothing in the export names a file. A screenshot cell is a dashboard URL ending in an asset id,
+# and the column type is "relative path (or URL to a Partner Center file)" — no name, no dimensions,
+# nothing. So which shot is in a slot can only ever be answered relative to something else, and there
+# are exactly two somethings.
 #
-# en-us, zh-hant and zh-hans each own five uploaded PNGs and had their captions typed next to them in
-# the dashboard, so their captions are the record of the pairing: matching each live caption against
-# store-listing.md gives slot -> shot outright. Today that reads en-us as 02, 05, 03, 04, 01;
-# zh-hant as 01, 04, 02, 03, 05; zh-hans as 02, 03, 01, 04, 05.
+# The captions, for a listing whose captions were typed next to its images by hand. That is en-us,
+# zh-hant and zh-hans, and only while their captions have not gone stale: the caption belongs to the
+# slot, not to the image, so replacing the PNGs leaves the old captions sitting where they were and
+# the route silently keeps answering with the old order. It is also all-or-nothing — five live
+# captions cannot place seven slots.
 #
-# For the other thirty the captions prove nothing at all, and believing them is how this went wrong.
-# Earlier runs wrote captions in file order 01..05 while copying en-us's image cells slot for slot —
-# so a listing's captions say "01..05" whatever its images actually are, and en-us's own order
-# drifted between runs. The export bears this out: reading the asset ids rather than the captions,
-# de/ru/fr/ja/ar/bn/cs/da/el/fa/fi/fil/he/hi/hu are 1 2 3 4 5, id is 1 3 4 5 2, it/ko/ms are
-# 2 5 3 4 1, and nb/pl/sv/th/tr/uk/vi are 5 1 3 4 2. Twelve of those are mispaired in the dashboard
-# right now — caption 1 sitting under shot 5 for seven of them — and no caption comparison can see
-# it, because every one of those captions is exactly where the file said to put it.
+# The asset ids, for the thirty that were machine-filled from en-us and so carry en-us's own ids.
+# This one is inference-free while it works, and it stops working the moment en-us re-uploads: every
+# id is new, and the thirty still point at assets that match nothing.
 #
-# What those thirty do carry is en-us's own asset ids, so the asset id says which shot a cell holds
-# with no inference at all. That is the derivation used for them. It degrades to the caption route
-# when a listing has assets en-us does not (pt, es and ro were typed in by hand after the imports
-# kept failing, and uploaded their own copies), and anything neither route can settle is left alone
-# and reported.
+# Their captions prove nothing, and believing them is how this went wrong once already. Earlier runs
+# wrote captions in file order while copying en-us's image cells slot for slot, so a listing's
+# captions read 01..05 whatever its images actually were; a caption comparison returned the identity
+# and read as confirmation. Twelve listings were mispaired in the dashboard on that basis.
+#
+# Which leaves -EnSlotOrder: one fact, read off the dashboard, for the one listing everything else is
+# placed relative to. It is not a fallback for the caption route, it wins over it — a caption route
+# that has gone stale is worse than no route, because it is confident.
 function Get-SlotOrderByCaption($byField, $index, [string]$lang) {
     if (-not $copy.ContainsKey($lang)) { return $null }
     $wanted = $copy[$lang].Captions
-    $order = New-Object int[] 5
-    for ($s = 0; $s -lt 5; $s++) {
+    $order = New-Object int[] $Shots
+    for ($s = 0; $s -lt $Shots; $s++) {
         $live = $byField["DesktopScreenshotCaption$($s + 1)"][$index[$lang]]
         $k = [Array]::IndexOf($wanted, $live)
         if ($k -lt 0) { return $null }
         $order[$s] = $k
     }
-    if ((@($order | Sort-Object) -join ',') -ne '0,1,2,3,4') { return $null }
+    if ((@($order | Sort-Object) -join ',') -ne ((0..($Shots - 1)) -join ',')) { return $null }
     , $order
 }
 
@@ -245,14 +259,26 @@ function Get-AssetId([string]$url) {
 }
 
 function Get-SlotOrderByAsset($byField, $index, [string]$lang, $shotOfAsset) {
-    $order = New-Object int[] 5
-    for ($s = 0; $s -lt 5; $s++) {
+    $order = New-Object int[] $Shots
+    for ($s = 0; $s -lt $Shots; $s++) {
         $id = Get-AssetId $byField["DesktopScreenshot$($s + 1)"][$index[$lang]]
         if (-not $shotOfAsset.ContainsKey($id)) { return $null }
         $order[$s] = $shotOfAsset[$id]
     }
-    if ((@($order | Sort-Object) -join ',') -ne '0,1,2,3,4') { return $null }
+    if ((@($order | Sort-Object) -join ',') -ne ((0..($Shots - 1)) -join ',')) { return $null }
     , $order
+}
+
+# "2,5,3,4,1,6,7" -> 0-based shot per slot. Rejected unless it is a permutation of 1..$Shots, since a
+# typo here is otherwise indistinguishable from a deliberate reordering.
+$givenOrder = $null
+if ($EnSlotOrder) {
+    $n = @($EnSlotOrder -split '[,\s]+' | Where-Object { $_ } | ForEach-Object { [int]$_ })
+    if ((@($n | Sort-Object) -join ',') -ne ((1..$Shots) -join ',')) {
+        throw "-EnSlotOrder must be a permutation of 1..$Shots, got '$EnSlotOrder'"
+    }
+    $givenOrder = New-Object int[] $Shots
+    for ($s = 0; $s -lt $Shots; $s++) { $givenOrder[$s] = $n[$s] - 1 }
 }
 
 # ---------------------------------------------------------------- fill
@@ -291,23 +317,33 @@ function Write-Filled([string[]]$langs, [string]$suffix) {
 
     $enTitle = $byField['Title'][$index['en-us']]
 
-    # en-us first and unconditionally: it is both the one listing whose captions are trustworthy
-    # evidence and the source every other listing's images are copied from. Read off the captions
-    # still in the export, so it has to happen before those captions are overwritten below.
-    $enOrder = Get-SlotOrderByCaption $byField $index 'en-us'
-    if (-not $enOrder) { throw "en-us : cannot work out which screenshot is in which slot, so the other listings cannot be pointed at them" }
+    # en-us first and unconditionally: it is the source every other listing's images are copied from.
+    # -EnSlotOrder wins over the captions rather than backing them up. A caption that has gone stale
+    # still matches store-listing.md and still returns an order, just the order from before the
+    # re-upload -- so a stale caption route is worse than none, and being told the answer has to
+    # override being able to guess one. Either way it has to happen before the captions below
+    # overwrite the evidence.
+    $enOrder = if ($givenOrder) { $givenOrder } else { Get-SlotOrderByCaption $byField $index 'en-us' }
+    if (-not $enOrder) {
+        throw ("en-us : cannot work out which screenshot is in which slot. Its captions do not match " +
+               "store-listing.md -- which is what happens once the PNGs are re-uploaded, since the " +
+               "captions stay in their old slots and the export names no files. Read the slot order " +
+               "off the dashboard and pass it as -EnSlotOrder, e.g. -EnSlotOrder '1,2,3,4,5,6,7'.")
+    }
+    if ($givenOrder) { "  en-us : slot order taken from -EnSlotOrder" }
 
     # Reordered into a local array whether or not en-us is itself being filled: without this, a
-    # re-run would push en-us's own hand-made slot order onto thirty listings as if it were shot
-    # order. $shotOfAsset is the same mapping keyed the other way, for the thirty.
-    $enShots = New-Object string[] 5
+    # re-run would push en-us's own slot order onto the other listings as if it were shot order.
+    # $shotOfAsset is the same mapping keyed the other way, for the listings that copy from it.
+    $enShots = New-Object string[] $Shots
     $shotOfAsset = @{}
-    for ($s = 0; $s -lt 5; $s++) {
+    for ($s = 0; $s -lt $Shots; $s++) {
         $cell = $byField["DesktopScreenshot$($s + 1)"][$index['en-us']]
         $enShots[$enOrder[$s]] = $cell
         $shotOfAsset[(Get-AssetId $cell)] = $enOrder[$s]
     }
 
+    $unplaced = New-Object Collections.Generic.List[string]
     $slotOrder = @{ 'en-us' = $enOrder }
     foreach ($lang in $langs) {
         if ($lang -eq 'en-us') { continue }
@@ -316,19 +352,28 @@ function Write-Filled([string[]]$langs, [string]$suffix) {
         # pt, es and ro uploaded their own copies, so the asset ids are no help; their captions were
         # typed in by hand next to them, which puts them in the same position as the three above.
         if (-not $order -and $lang -notin $Authored) { $order = Get-SlotOrderByCaption $byField $index $lang }
-        if ($order) { $slotOrder[$lang] = $order }
-        else { $warnings.Add("$lang : screenshot slots left as they are, neither its asset ids nor its captions place them") }
+        if ($order) { $slotOrder[$lang] = $order } else { $unplaced.Add($lang) }
+    }
+
+    # One line, not one per listing. After en-us re-uploads, every listing that was filled from it
+    # fails both routes at once -- its asset ids are en-us's old ones and its captions are a run of
+    # this script's own output -- so a per-listing warning is thirty-two lines saying one thing. It
+    # costs nothing: the full file replaces their image cells with en-us's below, and the text-only
+    # file's captions come out in file order, which is the order a hand upload goes in.
+    if ($unplaced.Count) {
+        $warnings.Add("$($unplaced.Count) listings' screenshot cells left as they are -- nothing in the " +
+                      "export places them: $($unplaced -join ' ')")
     }
 
     foreach ($lang in $langs) {
         if (-not $slotOrder.ContainsKey($lang)) { continue }
-        $old = @(1..5 | ForEach-Object { $byField["DesktopScreenshot$_"][$index[$lang]] })
-        if (@($old | Where-Object { $_ }).Count -ne 5) { continue }   # nothing uploaded yet
-        for ($s = 0; $s -lt 5; $s++) {
+        $old = @(1..$Shots | ForEach-Object { $byField["DesktopScreenshot$_"][$index[$lang]] })
+        if (@($old | Where-Object { $_ }).Count -ne $Shots) { continue }   # not all of them uploaded yet
+        for ($s = 0; $s -lt $Shots; $s++) {
             $byField["DesktopScreenshot$($slotOrder[$lang][$s] + 1)"][$index[$lang]] = $old[$s]
         }
-        $moved = ($slotOrder[$lang] -join '') -ne '01234'
-        if ($moved) { "  $lang : screenshots reordered to 01..05" }
+        $moved = ($slotOrder[$lang] -join '') -ne ((0..($Shots - 1)) -join '')
+        if ($moved) { "  $lang : screenshots reordered to 01..$('{0:00}' -f $Shots)" }
     }
 
     foreach ($lang in $langs) {
@@ -339,11 +384,18 @@ function Write-Filled([string[]]$langs, [string]$suffix) {
         & $set 'Description'      $lang $c.Description      $Limit.Description
 
         for ($i = 0; $i -lt 10; $i++) { & $set "Feature$($i + 1)"                  $lang $c.Features[$i]    $Limit.Feature }
-        for ($i = 0; $i -lt 5;  $i++) { & $set "DesktopScreenshotCaption$($i + 1)" $lang $c.Captions[$i]    $Limit.Caption }
+        # A caption belongs to a slot, and a slot with no image in it is no place to put text. Only
+        # en-us carries all $Shots right now; the rest are at whatever they were last uploaded with,
+        # and it is not worth finding out the hard way whether Partner Center rejects a caption
+        # pointing at nothing — this file's whole history is imports failing late and silently. The
+        # full file below raises every listing to $Shots images and writes the rest of the captions
+        # there; the text-only file leaves them blank, so that path is import, upload the PNGs by
+        # hand, re-export, run again.
+        $have = [Math]::Min($Shots, @(1..$Shots | Where-Object { $byField["DesktopScreenshot$_"][$index[$lang]] }).Count)
+        for ($i = 0; $i -lt $have;   $i++) { & $set "DesktopScreenshotCaption$($i + 1)" $lang $c.Captions[$i] $Limit.Caption }
+        for ($i = $have; $i -lt $Shots; $i++) { & $set "DesktopScreenshotCaption$($i + 1)" $lang '' 0 }
         for ($i = 0; $i -lt 7;  $i++) { & $set "SearchTerm$($i + 1)"               $lang $c.SearchTerms[$i] $Limit.SearchTerm }
     }
-
-    foreach ($w in $warnings) { Write-Warning $w }
 
     $textOnly = Join-Path $OutDir "$base-filled$suffix-textonly.csv"
     Write-ListingCsv $textOnly $rows
@@ -352,14 +404,20 @@ function Write-Filled([string[]]$langs, [string]$suffix) {
     # And again, with the images pointed at the assets en-us already uses — in shot order, not in
     # the order en-us happens to show them.
     #
-    # The three hand-made listings are skipped here even when they are being filled: they already
-    # own five uploaded PNGs and three logos apiece, and swapping those for en-us's assets would
-    # trade something Partner Center is certain to accept for something it may not.
+    # This used to skip the three hand-made listings, on the grounds that their own uploads were
+    # certain to be accepted and en-us's assets were only probably accepted. That reasoning expired
+    # in both directions: an import has since put en-us's assets into fourteen listings without
+    # complaint, and those three are still carrying five PNGs while store-listing.md now writes
+    # seven captions — a caption on a slot with no image in it. So they are filled like the rest.
+    # en-us is skipped because it is the source.
     foreach ($lang in $langs) {
-        if ($lang -in $Authored) { continue }
-        for ($s = 0; $s -lt 5; $s++) {
+        if ($lang -eq 'en-us') { continue }
+        for ($s = 0; $s -lt $Shots; $s++) {
             $byField["DesktopScreenshot$($s + 1)"][$index[$lang]] = $enShots[$s]
         }
+        # Now that every slot holds an image, the captions held back above can go in.
+        $c = if ($copy.ContainsKey($lang)) { $copy[$lang] } else { $copy['en-us'] }
+        for ($i = 0; $i -lt $Shots; $i++) { & $set "DesktopScreenshotCaption$($i + 1)" $lang $c.Captions[$i] $Limit.Caption }
         foreach ($field in $imageFields | Where-Object { $_ -notlike 'DesktopScreenshot*' }) {
             $byField[$field][$index[$lang]] = $byField[$field][$index['en-us']]
         }
@@ -370,6 +428,10 @@ function Write-Filled([string[]]$langs, [string]$suffix) {
     $full = Join-Path $OutDir "$base-filled$suffix.csv"
     Write-ListingCsv $full $rows
     "wrote $full"
+
+    # Last, so that the over-limit checks on the captions only the full file writes are included.
+    # Deduplicated because that pass rewrites captions the first pass already checked.
+    foreach ($w in ($warnings | Select-Object -Unique)) { Write-Warning $w }
 }
 
 if ($BatchSize -gt 0) {
