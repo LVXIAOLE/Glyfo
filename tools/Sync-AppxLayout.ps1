@@ -72,8 +72,34 @@ Copy-Item -LiteralPath $manifest -Destination (Join-Path $layout 'AppxManifest.x
 Write-Output "layout: $layout  ($copied payload files)"
 
 if ($Register) {
-    # -ForceUpdateFromAnyVersion because the version in the manifest does not move between debug
-    # builds, so without it a same-version re-register is a no-op and you are back where you started.
-    Add-AppxPackage -Register (Join-Path $layout 'AppxManifest.xml') -ForceUpdateFromAnyVersion
-    Write-Output ("registered: " + (Get-AppxPackage LVLE.Glyfo).InstallLocation)
+    # A development-mode package is served live out of its install location, so once one is
+    # registered against this exact folder the copying above is the whole deployment and registering
+    # again has nothing left to do. Windows says so with 0x80073CFB ("already installed"), which is
+    # the normal outcome of the second and every later run, not a failure.
+    #
+    # It is only safe to swallow while the manifest is unchanged, though: a version bump or a new
+    # capability lives in registration state rather than on disk, and silently skipping that would
+    # put back exactly the class of bug this script was written to kill. So the identity in the
+    # layout is compared against the identity Windows has, and anything else is rethrown.
+    $manifestPath = Join-Path $layout 'AppxManifest.xml'
+    $identity = ([xml](Get-Content $manifestPath)).Package.Identity
+
+    try {
+        # -ForceUpdateFromAnyVersion because the version in the manifest does not move between debug
+        # builds, so a same-version re-register would otherwise be refused outright.
+        Add-AppxPackage -Register $manifestPath -ForceUpdateFromAnyVersion -ErrorAction Stop
+        Write-Output ("registered: " + (Get-AppxPackage $identity.Name).InstallLocation)
+    }
+    catch {
+        $installed = Get-AppxPackage $identity.Name
+        $sameLayout = $installed -and
+            ($installed.InstallLocation.TrimEnd('\') -eq (Resolve-Path $layout).Path.TrimEnd('\'))
+
+        if (-not ($sameLayout -and $installed.Version -eq $identity.Version)) {
+            throw
+        }
+
+        Write-Output ("already registered at this layout (v$($identity.Version)); " +
+            "the refreshed files are what it runs")
+    }
 }
