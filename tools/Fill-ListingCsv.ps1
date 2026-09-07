@@ -1,7 +1,11 @@
 ﻿# Fills the language columns of a Partner Center "Store listings" export from docs\store-listing.md.
 #
 # The three listings written by hand in Partner Center (en-us, zh-hant, zh-hans) are left untouched —
-# whatever is in the export for them wins, because that is what the dashboard actually shows.
+# whatever is in the export for them wins, because that is what the dashboard actually shows. That
+# held while store-listing.md was a transcription of the dashboard. It stopped holding at 1.3.0,
+# when the copy here was rewritten for a release the dashboard has never seen: leaving those three
+# out now would ship thirty listings describing PDFs, batches and a searchable history alongside
+# three that still describe 1.1.0. -IncludeAuthored fills them too, from this same file.
 #
 # The thirty remaining columns all have translated copy in store-listing.md and get it. The fallback
 # to English further down is therefore dead code now; it stays because it is what should happen if a
@@ -14,7 +18,8 @@
 #                         uses. The column type is "relative path (or URL to a Partner Center file)",
 #                         so a URL is a legal value, but the URL carries the en-us listing's own id
 #                         and Partner Center may refuse to hand that asset to a different listing.
-#   *-filled-textonly.csv text only. Every image cell is left exactly as the export had it.
+#   *-filled-textonly.csv text only. Every image cell keeps the asset it already had, though not
+#                         necessarily in the slot it had it in — see the screenshot-slot section.
 #
 # Import the first. If it is rejected over the screenshots or logos, import the second and upload the
 # five PNGs and three logos per language in the dashboard.
@@ -30,6 +35,8 @@ param(
     [string[]]$Only,
     # Same thing, cut automatically: -BatchSize 8 writes ceil(30/8) pairs of files instead of one.
     [int]$BatchSize,
+    # Also fill en-us, zh-hant and zh-hans, the three that were typed into the dashboard by hand.
+    [switch]$IncludeAuthored,
     # Added to the output file names, so two runs over the same export do not overwrite each other.
     [string]$Suffix
 )
@@ -84,7 +91,8 @@ $Column = @{
 }
 
 # Already written by hand in the dashboard.
-$Keep = 'en-us', 'zh-hant', 'zh-hans'
+$Keep = if ($IncludeAuthored) { @() } else { 'en-us', 'zh-hant', 'zh-hans' }
+$Authored = 'en-us', 'zh-hant', 'zh-hans'
 
 # Partner Center's own limits, checked below rather than trusted.
 $Limit = @{ ShortDescription = 1000; Description = 10000; Feature = 200; Caption = 200; SearchTerm = 30 }
@@ -173,7 +181,7 @@ if ($Only) {
     $unknown = @($Only | Where-Object { $_ -notin $header })
     if ($unknown) { throw "-Only names columns that are not in the export: $($unknown -join ' ')" }
     $targets = @($targets | Where-Object { $_ -in $Only })
-    if (-not $targets) { throw "-Only selected no fillable column (en-us, zh-hant and zh-hans are never touched)" }
+    if (-not $targets) { throw "-Only selected no fillable column (en-us, zh-hant and zh-hans need -IncludeAuthored)" }
 }
 
 "columns to fill: $($targets.Count)"
@@ -185,6 +193,67 @@ $imageFields = @('DesktopScreenshot1', 'DesktopScreenshot2', 'DesktopScreenshot3
                  'DesktopScreenshot5', 'StoreLogo300x300', 'StoreLogoOverride150x150', 'StoreLogoOverride71x71')
 
 $base = [IO.Path]::GetFileNameWithoutExtension($Path)
+
+# ---------------------------------------------------------------- screenshot slots
+
+# The five PNGs are the same five in every listing, but the slot each one sits in is not, and writing
+# captions from store-listing.md into a listing whose images are in a different order puts the
+# QR-code caption under the settings dialog. So the slot order is worked out first and the image
+# cells are moved to match, rather than the captions being bent to fit.
+#
+# Which slot holds which shot has to be answered two different ways, because the three hand-made
+# listings and the thirty machine-filled ones carry different evidence.
+#
+# en-us, zh-hant and zh-hans each own five uploaded PNGs and had their captions typed next to them in
+# the dashboard, so their captions are the record of the pairing: matching each live caption against
+# store-listing.md gives slot -> shot outright. Today that reads en-us as 02, 05, 03, 04, 01;
+# zh-hant as 01, 04, 02, 03, 05; zh-hans as 02, 03, 01, 04, 05.
+#
+# For the other thirty the captions prove nothing at all, and believing them is how this went wrong.
+# Earlier runs wrote captions in file order 01..05 while copying en-us's image cells slot for slot —
+# so a listing's captions say "01..05" whatever its images actually are, and en-us's own order
+# drifted between runs. The export bears this out: reading the asset ids rather than the captions,
+# de/ru/fr/ja/ar/bn/cs/da/el/fa/fi/fil/he/hi/hu are 1 2 3 4 5, id is 1 3 4 5 2, it/ko/ms are
+# 2 5 3 4 1, and nb/pl/sv/th/tr/uk/vi are 5 1 3 4 2. Twelve of those are mispaired in the dashboard
+# right now — caption 1 sitting under shot 5 for seven of them — and no caption comparison can see
+# it, because every one of those captions is exactly where the file said to put it.
+#
+# What those thirty do carry is en-us's own asset ids, so the asset id says which shot a cell holds
+# with no inference at all. That is the derivation used for them. It degrades to the caption route
+# when a listing has assets en-us does not (pt, es and ro were typed in by hand after the imports
+# kept failing, and uploaded their own copies), and anything neither route can settle is left alone
+# and reported.
+function Get-SlotOrderByCaption($byField, $index, [string]$lang) {
+    if (-not $copy.ContainsKey($lang)) { return $null }
+    $wanted = $copy[$lang].Captions
+    $order = New-Object int[] 5
+    for ($s = 0; $s -lt 5; $s++) {
+        $live = $byField["DesktopScreenshotCaption$($s + 1)"][$index[$lang]]
+        $k = [Array]::IndexOf($wanted, $live)
+        if ($k -lt 0) { return $null }
+        $order[$s] = $k
+    }
+    if ((@($order | Sort-Object) -join ',') -ne '0,1,2,3,4') { return $null }
+    , $order
+}
+
+# The cell is a full dashboard URL and it embeds the listing's own id, so two listings showing the
+# same PNG do not have the same string here. Only the last segment, the asset id, is shared.
+function Get-AssetId([string]$url) {
+    if (-not $url) { return '' }
+    $url.Substring($url.LastIndexOf('/') + 1)
+}
+
+function Get-SlotOrderByAsset($byField, $index, [string]$lang, $shotOfAsset) {
+    $order = New-Object int[] 5
+    for ($s = 0; $s -lt 5; $s++) {
+        $id = Get-AssetId $byField["DesktopScreenshot$($s + 1)"][$index[$lang]]
+        if (-not $shotOfAsset.ContainsKey($id)) { return $null }
+        $order[$s] = $shotOfAsset[$id]
+    }
+    if ((@($order | Sort-Object) -join ',') -ne '0,1,2,3,4') { return $null }
+    , $order
+}
 
 # ---------------------------------------------------------------- fill
 
@@ -222,6 +291,46 @@ function Write-Filled([string[]]$langs, [string]$suffix) {
 
     $enTitle = $byField['Title'][$index['en-us']]
 
+    # en-us first and unconditionally: it is both the one listing whose captions are trustworthy
+    # evidence and the source every other listing's images are copied from. Read off the captions
+    # still in the export, so it has to happen before those captions are overwritten below.
+    $enOrder = Get-SlotOrderByCaption $byField $index 'en-us'
+    if (-not $enOrder) { throw "en-us : cannot work out which screenshot is in which slot, so the other listings cannot be pointed at them" }
+
+    # Reordered into a local array whether or not en-us is itself being filled: without this, a
+    # re-run would push en-us's own hand-made slot order onto thirty listings as if it were shot
+    # order. $shotOfAsset is the same mapping keyed the other way, for the thirty.
+    $enShots = New-Object string[] 5
+    $shotOfAsset = @{}
+    for ($s = 0; $s -lt 5; $s++) {
+        $cell = $byField["DesktopScreenshot$($s + 1)"][$index['en-us']]
+        $enShots[$enOrder[$s]] = $cell
+        $shotOfAsset[(Get-AssetId $cell)] = $enOrder[$s]
+    }
+
+    $slotOrder = @{ 'en-us' = $enOrder }
+    foreach ($lang in $langs) {
+        if ($lang -eq 'en-us') { continue }
+        $order = if ($lang -in $Authored) { Get-SlotOrderByCaption $byField $index $lang }
+                 else { Get-SlotOrderByAsset $byField $index $lang $shotOfAsset }
+        # pt, es and ro uploaded their own copies, so the asset ids are no help; their captions were
+        # typed in by hand next to them, which puts them in the same position as the three above.
+        if (-not $order -and $lang -notin $Authored) { $order = Get-SlotOrderByCaption $byField $index $lang }
+        if ($order) { $slotOrder[$lang] = $order }
+        else { $warnings.Add("$lang : screenshot slots left as they are, neither its asset ids nor its captions place them") }
+    }
+
+    foreach ($lang in $langs) {
+        if (-not $slotOrder.ContainsKey($lang)) { continue }
+        $old = @(1..5 | ForEach-Object { $byField["DesktopScreenshot$_"][$index[$lang]] })
+        if (@($old | Where-Object { $_ }).Count -ne 5) { continue }   # nothing uploaded yet
+        for ($s = 0; $s -lt 5; $s++) {
+            $byField["DesktopScreenshot$($slotOrder[$lang][$s] + 1)"][$index[$lang]] = $old[$s]
+        }
+        $moved = ($slotOrder[$lang] -join '') -ne '01234'
+        if ($moved) { "  $lang : screenshots reordered to 01..05" }
+    }
+
     foreach ($lang in $langs) {
         $c = if ($copy.ContainsKey($lang)) { $copy[$lang] } else { $copy['en-us'] }
 
@@ -240,9 +349,18 @@ function Write-Filled([string[]]$langs, [string]$suffix) {
     Write-ListingCsv $textOnly $rows
     "wrote $textOnly"
 
-    # And again, with the images pointed at the assets en-us already uses.
+    # And again, with the images pointed at the assets en-us already uses — in shot order, not in
+    # the order en-us happens to show them.
+    #
+    # The three hand-made listings are skipped here even when they are being filled: they already
+    # own five uploaded PNGs and three logos apiece, and swapping those for en-us's assets would
+    # trade something Partner Center is certain to accept for something it may not.
     foreach ($lang in $langs) {
-        foreach ($field in $imageFields) {
+        if ($lang -in $Authored) { continue }
+        for ($s = 0; $s -lt 5; $s++) {
+            $byField["DesktopScreenshot$($s + 1)"][$index[$lang]] = $enShots[$s]
+        }
+        foreach ($field in $imageFields | Where-Object { $_ -notlike 'DesktopScreenshot*' }) {
             $byField[$field][$index[$lang]] = $byField[$field][$index['en-us']]
         }
         # The three logo overrides only take effect when this is on, and en-us has it on.

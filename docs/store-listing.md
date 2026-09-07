@@ -55,6 +55,12 @@ none of the five has any text burned into it. Captions are per language; they ar
 upload order. The images are in `docs/store-screenshots/`; `tools/store-shots/` is what produced
 them, off the real packaged app.
 
+The numbering below is the **shot** order, which is not the slot order any listing happens to be in.
+A listing's slots can be dragged around in the dashboard, and one has been: en-us shows the five as
+02, 05, 03, 04, 01. `Fill-ListingCsv.ps1` moves the image cells into shot order before it writes
+these captions, so the numbering here is what the CSV means and the dashboard's current arrangement
+is not something this file has to track.
+
 Two things to keep true if this text is edited: the app makes no network connections, and
 translation exists only on Copilot+ PCs. Both are claims a certification reviewer can check, and
 the privacy policy at <https://lvxiaole.github.io/glyfo-site/privacy.html> repeats the first one.
@@ -66,11 +72,12 @@ both are user-configurable, so the copy names Alt+Z as a starting point rather t
 The **What's new in this version** field is not part of the listing export and has no section here.
 Its copy, covering 1.2.0 and 1.3.0 together, is in `docs/store-release-notes.md`.
 
-Adding a sixth or seventh screenshot has an ordering constraint: the export only carries
-`DesktopScreenshot1..5` and `DesktopScreenshotCaption1..5` because that is how many en-us has. Upload
-the new PNGs to en-us in the dashboard first, re-export, and only then raise the caption count here
-and the two `5` literals in `Fill-ListingCsv.ps1`. Doing it the other way round produces a CSV with
-columns Partner Center will not accept.
+Adding a sixth or seventh screenshot still has an ordering constraint, though not the one recorded
+here before: the export does carry `DesktopScreenshot1..30` and `DesktopScreenshotCaption1..30`, but
+slots 6 and up are empty in every language, and the image cells hold dashboard URLs rather than file
+names — there is nothing to write into slot 6 until the asset exists. So upload the new PNGs to
+en-us in the dashboard first, re-export, and only then raise the caption count here and the `5`
+literals in `Fill-ListingCsv.ps1`.
 
 ---
 
