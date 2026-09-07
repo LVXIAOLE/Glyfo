@@ -232,6 +232,9 @@ public sealed partial class MainWindow : Window
         KeepHistoryToggle.IsOn = AppSettings.Current.KeepHistory;
         _suppressKeepHistoryToggle = false;
 
+        // Not in the markup, where it would fire before the pages it switches between are parsed.
+        SettingsNavList.SelectedIndex = 0;
+
         HistoryListView.ItemsSource = _historyView;
 
         // Read straight through rather than in the background: it is one small file, it has to be
@@ -387,27 +390,23 @@ public sealed partial class MainWindow : Window
         // menu accelerators, the tray and the two settings rows all depend on the language and on
         // what actually registered at once, and either can change without the other.
         RefreshHotkeyLabels();
-        StartupToggle.Header = Loc.Get("Setting_Startup");
-        StartupToggle.OnContent = Loc.Get("Common_On");
-        StartupToggle.OffContent = Loc.Get("Common_Off");
+
+        // The name goes on twice for each of these. In a settings card the title is a TextBlock
+        // beside the switch rather than the switch's own Header, and Header was also what a screen
+        // reader read out — without the second line the switch would announce itself as nothing but
+        // "On". Not SetTip, which would additionally hang a tooltip repeating the title an inch away
+        // from it. OnContent and OffContent stay: a Windows 11 card does label the knob.
+        SetSwitch(StartupToggle, StartupTitle, "Setting_Startup");
         StartupDescription.Text = Loc.Get("Setting_Startup_Desc");
-        CloseToTrayToggle.Header = Loc.Get("Setting_CloseToTray");
-        CloseToTrayToggle.OnContent = Loc.Get("Common_On");
-        CloseToTrayToggle.OffContent = Loc.Get("Common_Off");
+        SetSwitch(CloseToTrayToggle, CloseToTrayTitle, "Setting_CloseToTray");
         CloseToTrayDescription.Text = Loc.Get("Setting_CloseToTray_Desc");
-        RepairVersionsToggle.Header = Loc.Get("Setting_RepairNumbers");
-        RepairVersionsToggle.OnContent = Loc.Get("Common_On");
-        RepairVersionsToggle.OffContent = Loc.Get("Common_Off");
+        SetSwitch(RepairVersionsToggle, RepairVersionsTitle, "Setting_RepairNumbers");
         RepairVersionsDescription.Text = Loc.Get("Setting_RepairNumbers_Desc");
 
-        WatchClipboardToggle.Header = Loc.Get("Setting_WatchClipboard");
-        WatchClipboardToggle.OnContent = Loc.Get("Common_On");
-        WatchClipboardToggle.OffContent = Loc.Get("Common_Off");
+        SetSwitch(WatchClipboardToggle, WatchClipboardTitle, "Setting_WatchClipboard");
         WatchClipboardDescription.Text = Loc.Get("Setting_WatchClipboard_Desc");
 
-        KeepHistoryToggle.Header = Loc.Get("Setting_KeepHistory");
-        KeepHistoryToggle.OnContent = Loc.Get("Common_On");
-        KeepHistoryToggle.OffContent = Loc.Get("Common_Off");
+        SetSwitch(KeepHistoryToggle, KeepHistoryTitle, "Setting_KeepHistory");
         KeepHistoryDescription.Text = Loc.Get("Setting_KeepHistory_Desc");
 
         AboutButton.Content = Loc.Get("Btn_About");
@@ -546,8 +545,29 @@ public sealed partial class MainWindow : Window
             _suppressThemeChange = false;
         }
 
-        ThemeComboBox.Header = Loc.Get("Setting_Theme");
+        ThemeTitle.Text = Loc.Get("Setting_Theme");
         SetTip(ThemeComboBox, Loc.Get("Setting_Theme"));
+    }
+
+    /// <summary>
+    /// Switches the settings dialog between its four pages.
+    /// </summary>
+    /// <remarks>
+    /// Visibility rather than a Frame with page classes. Everything on these pages is written by
+    /// name from <see cref="ApplyLanguage"/>, which runs at startup and again on every language
+    /// change — long before the dialog is first opened — so the controls have to exist from
+    /// InitializeComponent onwards whether their page is showing or not.
+    ///
+    /// Nothing resets the selection when the dialog closes: a ListView keeps it between shows, which
+    /// is what Windows Settings does and what someone toggling one switch twice would expect.
+    /// </remarks>
+    private void SettingsNavSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var page = SettingsNavList.SelectedIndex;
+        SettingsPageGeneral.Visibility = page == 0 ? Visibility.Visible : Visibility.Collapsed;
+        SettingsPageHotkeys.Visibility = page == 1 ? Visibility.Visible : Visibility.Collapsed;
+        SettingsPageRecognition.Visibility = page == 2 ? Visibility.Visible : Visibility.Collapsed;
+        SettingsPagePrivacy.Visibility = page == 3 ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void ThemeSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -571,6 +591,26 @@ public sealed partial class MainWindow : Window
         AutomationProperties.SetName(element, text);
     }
 
+    /// <summary>
+    /// Labels one settings card: the title beside the switch, the switch's own On/Off text, and the
+    /// name a screen reader announces for it.
+    /// </summary>
+    /// <remarks>
+    /// The last of the three is the one worth spelling out. The title used to be the switch's
+    /// <c>Header</c>, which doubled as its accessible name; moving it into the card as a separate
+    /// TextBlock takes that name away and leaves the switch announcing itself as "On". Not
+    /// <see cref="SetTip"/>, which would also hang a tooltip repeating a title that is already
+    /// visible right next to it.
+    /// </remarks>
+    private static void SetSwitch(ToggleSwitch toggle, TextBlock title, string key)
+    {
+        var text = Loc.Get(key);
+        title.Text = text;
+        AutomationProperties.SetName(toggle, text);
+        toggle.OnContent = Loc.Get("Common_On");
+        toggle.OffContent = Loc.Get("Common_Off");
+    }
+
     private void BuildUiLanguagePicker()
     {
         // "System default" is itself a translated string, so the list is rebuilt rather than
@@ -592,11 +632,10 @@ public sealed partial class MainWindow : Window
             _suppressUiLanguageChange = false;
         }
 
-        // Every other control in the flyout carries its own label; without this one the picker was
-        // a bare box reading "English" under a heading that says only "Options", which tells nobody
-        // what it selects. Set here rather than in the markup because it has to change with the
-        // language it is choosing.
-        UiLanguageComboBox.Header = Loc.Get("Setting_UiLanguage");
+        // Set here rather than in the markup because it has to change with the language it is
+        // choosing; without it the picker is a bare box reading "English" on a page headed only
+        // "General", which tells nobody what it selects.
+        UiLanguageTitle.Text = Loc.Get("Setting_UiLanguage");
         SetTip(UiLanguageComboBox, Loc.Get("Setting_UiLanguage"));
     }
 

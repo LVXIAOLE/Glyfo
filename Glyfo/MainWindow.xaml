@@ -543,140 +543,304 @@
                      CloseButtonClick="RatingTipClose" />
 
         <!-- Declared in the tree rather than built in code, unlike the dialogs in AppDialogs: these
-             controls are the ones ApplyLanguage already writes to by name, and the whole point of
-             moving them out of the flyout was to change nothing but the container. A ContentDialog's
-             template is collapsed until ShowAsync, so sitting in the grid's first cell costs
-             nothing; its children are real from InitializeComponent onwards, which is what lets
-             ApplyLanguage reach them long before the dialog is first opened. -->
+             controls are the ones ApplyLanguage writes to by name. A ContentDialog's template is
+             collapsed until ShowAsync, so sitting in the grid's first cell costs nothing; its
+             children are real from InitializeComponent onwards, which is what lets ApplyLanguage
+             reach them long before the dialog is first opened. -->
         <ContentDialog x:Name="SettingsDialog" DefaultButton="Close">
-            <ScrollViewer MaxHeight="560"
-                          VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollMode="Disabled">
-                <StackPanel x:Name="SettingsDialogRoot" Width="400" Spacing="4">
-                    <TextBlock x:Name="SettingsGroupGeneral"
-                               Style="{StaticResource BodyStrongTextBlockStyle}"
-                               Margin="0,0,0,6" />
-                    <ComboBox x:Name="UiLanguageComboBox"
-                              HorizontalAlignment="Stretch"
-                              DisplayMemberPath="DisplayName"
-                              SelectionChanged="UiLanguageSelectionChanged" />
-                    <ComboBox x:Name="ThemeComboBox"
-                              Margin="0,10,0,0"
-                              HorizontalAlignment="Stretch"
-                              SelectionChanged="ThemeSelectionChanged" />
-                    <ToggleSwitch x:Name="StartupToggle"
-                                  Margin="0,10,0,0"
-                                  Toggled="StartupToggled" />
-                    <TextBlock x:Name="StartupDescription"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" />
-                    <ToggleSwitch x:Name="CloseToTrayToggle"
-                                  Margin="0,10,0,0"
-                                  Toggled="CloseToTrayToggled" />
-                    <TextBlock x:Name="CloseToTrayDescription"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" />
+            <ContentDialog.Resources>
+                <!-- Setting MaxWidth on the dialog does nothing: the default template's
+                     BackgroundElement reads ContentDialogMaxWidth as a resource rather than
+                     template-binding the property, so the 548 wins and the content is clipped
+                     rather than the dialog widened. Redefining the key here puts it in the lookup
+                     chain the template walks. 180 + 16 + 400 of columns plus the dialog's own
+                     padding needs about 650. -->
+                <x:Double x:Key="ContentDialogMaxWidth">680</x:Double>
+                <!-- The Windows 11 settings row: a bordered card holding a title, the control that
+                     changes it, and — where there is one — the sentence explaining what it does. -->
+                <Style x:Key="SettingsCardStyle" TargetType="Border">
+                    <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                    <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+                    <Setter Property="Padding" Value="16,12" />
+                </Style>
+            </ContentDialog.Resources>
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="400" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                    <Border Height="1" Margin="0,18,0,0"
-                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                    <TextBlock x:Name="SettingsGroupHotkeys"
-                               Style="{StaticResource BodyStrongTextBlockStyle}"
-                               Margin="0,14,0,6" />
-                    <!-- The button is the value: it shows the combination registered right now, and
-                         pressing it records over that one in place. A label reading "Alt+Z" with an
-                         "Edit" button beside it would say the same thing in twice the width, and
-                         recording in a second dialog is not open to us — WinUI will not stack one
-                         ContentDialog on another, and this panel is now itself a dialog. -->
-                    <Grid ColumnSpacing="12" Margin="0,2,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="HotkeyRegionLabel"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap" />
-                        <Button x:Name="HotkeyRegionButton"
-                                Grid.Column="1"
-                                MinWidth="150"
-                                Click="HotkeyRegionClick"
-                                PreviewKeyDown="HotkeyRecordKeyDown"
-                                LostFocus="HotkeyRecordLostFocus" />
+                <!-- A plain ListView rather than NavigationView: inside a fixed-size dialog the
+                     latter's hamburger, pane header and automatic display-mode collapse are all
+                     liability. Down the side rather than across the top because the four group
+                     names run to sixty-odd characters in Ukrainian and Russian — a horizontal
+                     strip neither wraps nor scrolls, so those languages would simply clip. The
+                     headings themselves are the same TextBlocks as before, only rehoused, so
+                     ApplyLanguage still writes them by name. -->
+                <!-- No SelectedIndex here: setting it in the markup raises SelectionChanged while
+                     the parser is still on this element, and the four pages it wants to show and
+                     hide are further down the file and do not exist yet. The constructor selects
+                     the first item once the tree is built. -->
+                <ListView x:Name="SettingsNavList"
+                          VerticalAlignment="Top"
+                          SelectionMode="Single"
+                          SelectionChanged="SettingsNavSelectionChanged">
+                    <ListViewItem x:Name="SettingsNavGeneral" HorizontalContentAlignment="Stretch">
+                        <TextBlock x:Name="SettingsGroupGeneral" TextWrapping="Wrap" />
+                    </ListViewItem>
+                    <ListViewItem x:Name="SettingsNavHotkeys" HorizontalContentAlignment="Stretch">
+                        <TextBlock x:Name="SettingsGroupHotkeys" TextWrapping="Wrap" />
+                    </ListViewItem>
+                    <ListViewItem x:Name="SettingsNavRecognition" HorizontalContentAlignment="Stretch">
+                        <TextBlock x:Name="SettingsGroupRecognition" TextWrapping="Wrap" />
+                    </ListViewItem>
+                    <ListViewItem x:Name="SettingsNavPrivacy" HorizontalContentAlignment="Stretch">
+                        <TextBlock x:Name="SettingsGroupPrivacy" TextWrapping="Wrap" />
+                    </ListViewItem>
+                </ListView>
+
+                <!-- Measured: General runs 447, Privacy 298, Hotkeys 247, Recognition 140. The
+                     MinHeight settles the bottom three at one height so only General changes the
+                     dialog's size, and the MaxHeight sits above General so nothing scrolls at the
+                     default text size. It stays well under what fits in a 640-tall window, which is
+                     the smallest this one can be made — a MinHeight tall enough to also cover
+                     General would not fit there. -->
+                <ScrollViewer Grid.Column="1"
+                              MinHeight="320"
+                              MaxHeight="460"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollMode="Disabled">
+                    <!-- The four pages share one cell and take turns being visible. Not a Frame
+                         with page classes: every one of these controls is written by name from
+                         ApplyLanguage, which runs long before the dialog is first shown, so they
+                         all have to exist from InitializeComponent onwards. -->
+                    <Grid>
+                        <StackPanel x:Name="SettingsPageGeneral" Spacing="8">
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <Grid ColumnSpacing="16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="UiLanguageTitle"
+                                               VerticalAlignment="Center"
+                                               TextWrapping="Wrap" />
+                                    <ComboBox x:Name="UiLanguageComboBox"
+                                              Grid.Column="1"
+                                              MinWidth="200"
+                                              DisplayMemberPath="DisplayName"
+                                              SelectionChanged="UiLanguageSelectionChanged" />
+                                </Grid>
+                            </Border>
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <Grid ColumnSpacing="16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="ThemeTitle"
+                                               VerticalAlignment="Center"
+                                               TextWrapping="Wrap" />
+                                    <ComboBox x:Name="ThemeComboBox"
+                                              Grid.Column="1"
+                                              MinWidth="200"
+                                              SelectionChanged="ThemeSelectionChanged" />
+                                </Grid>
+                            </Border>
+                            <!-- The description runs the full width of the card rather than sharing
+                                 the title's column: a ToggleSwitch with its On/Off text is 154 wide,
+                                 which would leave the sentence under 200 and send the German ones to
+                                 five lines. Underneath, it gets the whole card and the card is
+                                 shorter for it. -->
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="StartupTitle"
+                                                   VerticalAlignment="Center"
+                                                   TextWrapping="Wrap" />
+                                        <ToggleSwitch x:Name="StartupToggle"
+                                                      Grid.Column="1"
+                                                      Toggled="StartupToggled" />
+                                    </Grid>
+                                    <TextBlock x:Name="StartupDescription"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="CloseToTrayTitle"
+                                                   VerticalAlignment="Center"
+                                                   TextWrapping="Wrap" />
+                                        <ToggleSwitch x:Name="CloseToTrayToggle"
+                                                      Grid.Column="1"
+                                                      Toggled="CloseToTrayToggled" />
+                                    </Grid>
+                                    <TextBlock x:Name="CloseToTrayDescription"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel x:Name="SettingsPageHotkeys" Spacing="8" Visibility="Collapsed">
+                            <!-- The button is the value: it shows the combination registered right
+                                 now, and pressing it records over that one in place. A label reading
+                                 "Alt+Z" with an "Edit" button beside it would say the same thing in
+                                 twice the width, and recording in a second dialog is not open to us
+                                 — WinUI will not stack one ContentDialog on another, and this panel
+                                 is itself inside a dialog. -->
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <Grid ColumnSpacing="16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="HotkeyRegionLabel"
+                                               VerticalAlignment="Center"
+                                               TextWrapping="Wrap" />
+                                    <Button x:Name="HotkeyRegionButton"
+                                            Grid.Column="1"
+                                            MinWidth="150"
+                                            Click="HotkeyRegionClick"
+                                            PreviewKeyDown="HotkeyRecordKeyDown"
+                                            LostFocus="HotkeyRecordLostFocus" />
+                                </Grid>
+                            </Border>
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <Grid ColumnSpacing="16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="HotkeyFullLabel"
+                                               VerticalAlignment="Center"
+                                               TextWrapping="Wrap" />
+                                    <Button x:Name="HotkeyFullButton"
+                                            Grid.Column="1"
+                                            MinWidth="150"
+                                            Click="HotkeyFullClick"
+                                            PreviewKeyDown="HotkeyRecordKeyDown"
+                                            LostFocus="HotkeyRecordLostFocus" />
+                                </Grid>
+                            </Border>
+                            <!-- Outside the cards, because both speak to the page rather than to
+                                 either row: the hint explains recording, the link resets both. -->
+                            <TextBlock x:Name="HotkeyHint"
+                                       Margin="4,4,4,0"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       TextWrapping="Wrap" />
+                            <HyperlinkButton x:Name="ResetHotkeysButton"
+                                             Margin="-7,0,0,0"
+                                             Click="ResetHotkeysClick" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="SettingsPageRecognition" Spacing="8" Visibility="Collapsed">
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="RepairVersionsTitle"
+                                                   VerticalAlignment="Center"
+                                                   TextWrapping="Wrap" />
+                                        <ToggleSwitch x:Name="RepairVersionsToggle"
+                                                      Grid.Column="1"
+                                                      Toggled="RepairVersionsToggled" />
+                                    </Grid>
+                                    <TextBlock x:Name="RepairVersionsDescription"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel x:Name="SettingsPagePrivacy" Spacing="8" Visibility="Collapsed">
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="WatchClipboardTitle"
+                                                   VerticalAlignment="Center"
+                                                   TextWrapping="Wrap" />
+                                        <ToggleSwitch x:Name="WatchClipboardToggle"
+                                                      Grid.Column="1"
+                                                      Toggled="WatchClipboardToggled" />
+                                    </Grid>
+                                    <!-- Two sentences, and both have to stay. The first says the
+                                         copied picture is replaced by its text, which is the one
+                                         surprising thing this does; the second says the picture
+                                         never leaves the machine, which is what anyone reading
+                                         "watches your clipboard" wants to know next. -->
+                                    <TextBlock x:Name="WatchClipboardDescription"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource SettingsCardStyle}">
+                                <StackPanel Spacing="4">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="KeepHistoryTitle"
+                                                   VerticalAlignment="Center"
+                                                   TextWrapping="Wrap" />
+                                        <ToggleSwitch x:Name="KeepHistoryToggle"
+                                                      Grid.Column="1"
+                                                      Toggled="KeepHistoryToggled" />
+                                    </Grid>
+                                    <!-- Says what is stored, what is not, and what turning it off
+                                         does. The third part matters as much as the first: a switch
+                                         that only stopped future writes would leave what is already
+                                         on disk behind, which is not what anyone reaching for it
+                                         means. -->
+                                    <TextBlock x:Name="KeepHistoryDescription"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
                     </Grid>
-                    <Grid ColumnSpacing="12" Margin="0,8,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="HotkeyFullLabel"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap" />
-                        <Button x:Name="HotkeyFullButton"
-                                Grid.Column="1"
-                                MinWidth="150"
-                                Click="HotkeyFullClick"
-                                PreviewKeyDown="HotkeyRecordKeyDown"
-                                LostFocus="HotkeyRecordLostFocus" />
-                    </Grid>
-                    <TextBlock x:Name="HotkeyHint"
-                               Margin="0,8,0,0"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" />
-                    <HyperlinkButton x:Name="ResetHotkeysButton"
-                                     Margin="0,4,0,0"
-                                     Padding="0,4,0,4"
-                                     Click="ResetHotkeysClick" />
+                </ScrollViewer>
 
-                    <Border Height="1" Margin="0,18,0,0"
-                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                    <TextBlock x:Name="SettingsGroupRecognition"
-                               Style="{StaticResource BodyStrongTextBlockStyle}"
-                               Margin="0,14,0,6" />
-                    <ToggleSwitch x:Name="RepairVersionsToggle"
-                                  Toggled="RepairVersionsToggled" />
-                    <TextBlock x:Name="RepairVersionsDescription"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" />
-
-                    <Border Height="1" Margin="0,18,0,0"
-                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                    <TextBlock x:Name="SettingsGroupPrivacy"
-                               Style="{StaticResource BodyStrongTextBlockStyle}"
-                               Margin="0,14,0,6" />
-                    <ToggleSwitch x:Name="WatchClipboardToggle"
-                                  Toggled="WatchClipboardToggled" />
-                    <!-- Two sentences, and both have to stay. The first says the copied picture is
-                         replaced by its text, which is the one surprising thing this does; the
-                         second says the picture never leaves the machine, which is what anyone
-                         reading "watches your clipboard" wants to know next. -->
-                    <TextBlock x:Name="WatchClipboardDescription"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" />
-                    <ToggleSwitch x:Name="KeepHistoryToggle"
-                                  Margin="0,10,0,0"
-                                  Toggled="KeepHistoryToggled" />
-                    <!-- Says what is stored, what is not, and what turning it off does. The third
-                         part matters as much as the first: a switch that only stopped future writes
-                         would leave what is already on disk behind, which is not what anyone
-                         reaching for it means. -->
-                    <TextBlock x:Name="KeepHistoryDescription"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" />
-
-                    <Border Height="1" Margin="0,18,0,0"
-                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                    <!-- Only an entry point, not the content: version, links and rating are their
-                         own dialog, and this one cannot open a second on top of itself. -->
-                    <HyperlinkButton x:Name="AboutButton"
-                                     Margin="-12,8,-12,0"
-                                     Click="AboutClick" />
-                </StackPanel>
-            </ScrollViewer>
+                <!-- Across the foot rather than a fifth navigation item: it is an entry point, not
+                     a page. Version, links and rating are their own dialog, and this one cannot
+                     open a second on top of itself — it closes first. -->
+                <HyperlinkButton x:Name="AboutButton"
+                                 Grid.Row="1"
+                                 Grid.ColumnSpan="2"
+                                 HorizontalAlignment="Left"
+                                 Margin="-7,12,0,0"
+                                 Click="AboutClick" />
+            </Grid>
         </ContentDialog>
     </Grid>
 </Window>
