@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Otevřete nebo přetáhněte několik souborů najednou, případně načtěte celé PDF, a uložte vše do jednoho souboru nebo po jednom na položku.",
         ["News_130_4"] = "Zkratky pro zachytávání si nastavíte podle sebe a okno se otevře tam a tak, jak jste ho nechali.",
         ["News_130_5"] = "Narovnejte pokřivenou fotku, hledejte v textu pomocí Ctrl+F a vyberte si světlý nebo tmavý vzhled.",
+        ["News_130_6"] = "Rozpoznávání je vyladěné pro každý systém písma, automatický režim uvede zvolený jazyk a čísla verzí jako v1.6.5 zůstanou celá.",
         ["News_120_1"] = "Pořiďte snímek klávesami Win+Shift+S a Glyfo jej za vás přečte a text nechá ve schránce. Dokud to nezapnete v nastavení, je funkce vypnutá.",
         ["News_120_2"] = "PDF se teď otevírají jako obrázky, po jedné stránce.",
         ["News_120_3"] = "Odkazy, e-mailové adresy a telefonní čísla nalezené v textu dostanou pod ním tlačítko.",

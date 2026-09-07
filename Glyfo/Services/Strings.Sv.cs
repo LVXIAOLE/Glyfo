@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Öppna eller släpp flera filer på en gång, eller läs en hel PDF, och spara alltihop som en fil eller en per objekt.",
         ["News_130_4"] = "Välj dina egna kortkommandon för skärmklipp, och fönstret öppnas där och som du lämnade det.",
         ["News_130_5"] = "Räta upp ett snett foto, sök i texten med Ctrl+F och välj ett ljust eller mörkt utseende.",
+        ["News_130_6"] = "Igenkänningen är anpassad till varje skriftsystem, automatläget anger vilket språk det valde och versionsnummer som v1.6.5 förblir hela.",
         ["News_120_1"] = "Ta en skärmbild med Win+Shift+S så läser Glyfo den åt dig och lämnar kvar texten i urklipp. Avstängt tills du slår på det i alternativen.",
         ["News_120_2"] = "PDF-filer öppnas nu som bilder, en sida i taget.",
         ["News_120_3"] = "Länkar, e-postadresser och telefonnummer i texten får en knapp under den.",

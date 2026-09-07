@@ -33,26 +33,20 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-if (-not $Payload) { $Payload = "$PSScriptRoot\strings-130b.txt" }
+if (-not $Payload) { $Payload = "$PSScriptRoot\strings-130c.txt" }
 if (-not $Services) { $Services = "$PSScriptRoot\..\Glyfo\Services" }
 
 # Anchor -> the keys that follow it. Insertion is after the anchor line, except for $BeforeAnchor
 # below: the release notes are listed newest first, so a new version's notes go above the old ones.
 #
 # Rewritten per batch, and it has to be: every anchor must be a key the tables already have, so the
-# table that was right last time is wrong the moment its own keys ship. This batch has no before-
-# anchor, because News_130_4 and _5 join a version whose first three notes are already there and
-# belong after them; $BeforeAnchor is left empty rather than deleted, since the next release will
-# want it again.
+# table that was right last time is wrong the moment its own keys ship. This batch is a single key,
+# the note about the recognition work, and it goes after the last note 1.3.0 already had; the
+# release is still unshipped, so this is one more line in a list nobody has read yet rather than a
+# late amendment to one they have. $BeforeAnchor is left empty rather than deleted, since the next
+# release -- whose notes do go above 1.3.0's -- will want it again.
 $After = [ordered]@{
-    'Tip_SaveImage'          = @('Rotate_Right', 'Rotate_Left', 'Rotate_180', 'Rotate_Deskew', 'Rotate_Reset')
-    'Result_Placeholder'     = @('Text_Stats', 'Text_Chars', 'Find_Placeholder', 'Tip_Find', 'Find_Count', 'Find_NoMatch', 'Tip_FindPrev', 'Tip_FindNext', 'Tip_FindClose')
-    'Btn_Capture'            = @('Tip_CaptureKeys', 'Tip_CaptureRegionOnly')
-    'Settings_Header'        = @('Setting_Group_General', 'Setting_Group_Hotkeys', 'Setting_Group_Recognition', 'Setting_Group_Privacy', 'Setting_Hotkey_Region', 'Setting_Hotkey_Full', 'Btn_ChangeHotkey', 'Btn_RecordingHotkey', 'Btn_ResetHotkeys', 'Hotkey_RecordHint', 'Hotkey_NeedModifier', 'Hotkey_Taken')
-    'Lang_SystemDefault'     = @('Setting_Theme', 'Theme_System', 'Theme_Light', 'Theme_Dark')
-    'Status_ImageSaveFailed' = @('Status_Deskewed', 'Status_DeskewNone', 'Status_RotateFailed')
-    'Common_Cancel'          = @('Welcome_Title', 'Welcome_1', 'Welcome_2', 'Welcome_3', 'Welcome_Start')
-    'News_130_3'             = @('News_130_4', 'News_130_5')
+    'News_130_5' = @('News_130_6')
 }
 $BeforeAnchor = ''
 $BeforeKeys = @()

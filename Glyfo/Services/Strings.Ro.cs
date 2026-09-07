@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Deschide sau trage mai multe fișiere odată ori citește un PDF întreg și salvează tot într-un singur fișier sau câte unul pentru fiecare element.",
         ["News_130_4"] = "Îți alegi singur scurtăturile de captură, iar fereastra se deschide unde și cum ai lăsat-o.",
         ["News_130_5"] = "Îndreaptă o fotografie strâmbă, caută în text cu Ctrl+F și alege un aspect luminos sau întunecat.",
+        ["News_130_6"] = "Recunoașterea este reglată pentru fiecare sistem de scriere, modul automat indică limba aleasă, iar numerele de versiune precum v1.6.5 rămân intacte.",
         ["News_120_1"] = "Fă o captură cu Win+Shift+S, iar Glyfo o citește în locul tău și lasă textul în clipboard. Este dezactivat până îl activezi din opțiuni.",
         ["News_120_2"] = "Fișierele PDF se deschid acum ca imaginile, pagină cu pagină.",
         ["News_120_3"] = "Linkurile, adresele de e-mail și numerele de telefon găsite în text primesc un buton dedesubt.",

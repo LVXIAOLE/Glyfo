@@ -1,0 +1,98 @@
+## English (default)
+- Recognition is tuned to each writing system, automatic mode picks the right language in fewer passes and tells you which one it used, and version numbers like v1.6.5 no longer come back mangled.
+
+## 中文（简体）
+- 识别针对每种文字分别调校，自动模式用更少的遍数找出正确的语言并说明它选中了哪一种，v1.6.5 这样的版本号也不会再被认错。
+
+## 中文（繁體）
+- 辨識針對每種文字分別調校，自動模式用更少的遍數找出正確的語言並說明它選中了哪一種，v1.6.5 這樣的版本號也不會再被認錯。
+
+## العربية — Arabic
+- تم ضبط التعرف لكل نظام كتابة على حدة، والوضع التلقائي يجد اللغة الصحيحة بعدد أقل من المحاولات ويذكر أيها اختار، وأرقام الإصدارات مثل v1.6.5 لم تعد تُقرأ خطأ.
+
+## বাংলা — Bengali
+- শনাক্তকরণ এখন প্রতিটি লিপির জন্য আলাদাভাবে সাজানো, স্বয়ংক্রিয় মোড কম চেষ্টায় সঠিক ভাষা খুঁজে নেয় ও কোনটি বেছে নিল তা জানায়, আর v1.6.5-এর মতো সংস্করণ নম্বর আর ভুল পড়া হয় না।
+
+## Čeština — Czech
+- Rozpoznávání je vyladěné pro každý systém písma, automatický režim najde správný jazyk na méně pokusů a uvede, který zvolil, a čísla verzí jako v1.6.5 už se nečtou špatně.
+
+## Dansk — Danish
+- Genkendelsen er tilpasset hvert skriftsystem, automatisk tilstand finder det rigtige sprog på færre forsøg og oplyser hvilket, og versionsnumre som v1.6.5 læses ikke længere forkert.
+
+## Deutsch — German
+- Die Erkennung ist auf jedes Schriftsystem abgestimmt, der Automatikmodus findet die richtige Sprache in weniger Durchläufen und nennt sie, und Versionsnummern wie v1.6.5 werden nicht mehr verfälscht.
+
+## Ελληνικά — Greek
+- Η αναγνώριση είναι ρυθμισμένη για κάθε σύστημα γραφής, η αυτόματη λειτουργία βρίσκει τη σωστή γλώσσα με λιγότερα περάσματα και αναφέρει ποια επέλεξε, και αριθμοί έκδοσης όπως το v1.6.5 δεν διαβάζονται πια λάθος.
+
+## Español — Spanish
+- El reconocimiento se ajusta a cada sistema de escritura, el modo automático encuentra el idioma correcto en menos pasadas e indica cuál eligió, y números de versión como v1.6.5 ya no salen mal leídos.
+
+## فارسی — Persian
+- تشخیص برای هر نظام نوشتاری جداگانه تنظیم شده است، حالت خودکار زبان درست را با تلاش کمتری پیدا می‌کند و اعلام می‌کند کدام را برگزید، و شماره نسخه‌هایی مانند v1.6.5 دیگر اشتباه خوانده نمی‌شوند.
+
+## Suomi — Finnish
+- Tunnistus on säädetty jokaiselle kirjoitusjärjestelmälle, automaattitila löytää oikean kielen harvemmilla yrityksillä ja kertoo minkä valitsi, eivätkä versionumerot kuten v1.6.5 enää mene sekaisin.
+
+## Filipino
+- Nakaayon na ang pagkilala sa bawat sistema ng pagsulat, mas kaunting pasada na lang bago mahanap ng awtomatikong mode ang tamang wika at sabihin kung alin ang pinili, at hindi na nasisira ang mga bersyon na tulad ng v1.6.5.
+
+## Français — French
+- La reconnaissance est réglée pour chaque écriture, le mode automatique trouve la bonne langue en moins de passes et indique laquelle, et les numéros de version comme v1.6.5 ne sont plus mal lus.
+
+## עברית — Hebrew
+- הזיהוי מכוונן לכל מערכת כתב בנפרד, המצב האוטומטי מוצא את השפה הנכונה בפחות מעברים ומציין באיזו בחר, ומספרי גרסה כמו v1.6.5 כבר לא נקראים שגוי.
+
+## हिन्दी — Hindi
+- पहचान अब हर लिपि के अनुसार समायोजित है, स्वचालित मोड कम प्रयासों में सही भाषा ढूँढ़ता है और बताता है कि उसने कौन सी चुनी, और v1.6.5 जैसे संस्करण नंबर अब गलत नहीं पढ़े जाते।
+
+## Magyar — Hungarian
+- A felismerés minden írásrendszerhez külön van hangolva, az automatikus mód kevesebb menetből találja meg a helyes nyelvet és megnevezi, az olyan verziószámokat pedig, mint a v1.6.5, már nem olvassa félre.
+
+## Bahasa Indonesia — Indonesian
+- Pengenalan disetel untuk tiap sistem tulisan, mode otomatis menemukan bahasa yang tepat dengan lebih sedikit percobaan dan menyebutkan mana yang dipilihnya, dan nomor versi seperti v1.6.5 tidak lagi salah dibaca.
+
+## Italiano — Italian
+- Il riconoscimento è tarato su ogni sistema di scrittura, la modalità automatica trova la lingua giusta in meno passaggi e indica quale ha scelto, e numeri di versione come v1.6.5 non vengono più letti male.
+
+## 日本語 — Japanese
+- 文字体系ごとに認識を調整しました。自動モードはより少ない試行で正しい言語を見つけ、選んだ言語を表示します。v1.6.5 のようなバージョン番号も誤読されなくなりました。
+
+## 한국어 — Korean
+- 문자 체계별로 인식을 조정했습니다. 자동 모드는 더 적은 시도로 알맞은 언어를 찾아내고 어떤 언어를 골랐는지 알려주며, v1.6.5 같은 버전 번호도 더 이상 잘못 읽지 않습니다.
+
+## Bahasa Melayu — Malay
+- Pengecaman ditala untuk setiap sistem tulisan, mod automatik menemui bahasa yang betul dengan lebih sedikit cubaan dan menyatakan yang mana dipilihnya, dan nombor versi seperti v1.6.5 tidak lagi tersalah baca.
+
+## Norsk bokmål — Norwegian
+- Gjenkjenningen er tilpasset hvert skriftsystem, automatisk modus finner riktig språk på færre forsøk og oppgir hvilket, og versjonsnumre som v1.6.5 leses ikke lenger feil.
+
+## Nederlands — Dutch
+- De herkenning is afgestemd op elk schriftsysteem, de automatische modus vindt de juiste taal in minder doorgangen en noemt welke, en versienummers zoals v1.6.5 worden niet meer verkeerd gelezen.
+
+## Polski — Polish
+- Rozpoznawanie jest dostrojone do każdego systemu pisma, tryb automatyczny znajduje właściwy język w mniejszej liczbie przebiegów i podaje który, a numery wersji takie jak v1.6.5 nie są już źle odczytywane.
+
+## Português — Portuguese
+- O reconhecimento é ajustado a cada sistema de escrita, o modo automático encontra o idioma certo em menos passagens e informa qual escolheu, e números de versão como v1.6.5 já não saem errados.
+
+## Română — Romanian
+- Recunoașterea este reglată pentru fiecare sistem de scriere, modul automat găsește limba potrivită din mai puține treceri și spune pe care a ales-o, iar numerele de versiune precum v1.6.5 nu mai sunt citite greșit.
+
+## Русский — Russian
+- Распознавание настроено под каждую систему письма, автоматический режим находит нужный язык за меньшее число проходов и сообщает, какой выбрал, а номера версий вроде v1.6.5 больше не читаются с ошибками.
+
+## Svenska — Swedish
+- Igenkänningen är anpassad till varje skriftsystem, automatläget hittar rätt språk på färre försök och anger vilket, och versionsnummer som v1.6.5 läses inte längre fel.
+
+## ไทย — Thai
+- การรู้จำถูกปรับให้เหมาะกับแต่ละระบบการเขียน โหมดอัตโนมัติหาภาษาที่ถูกต้องได้ในจำนวนรอบที่น้อยลงและบอกว่าเลือกภาษาใด และเลขเวอร์ชันอย่าง v1.6.5 จะไม่ถูกอ่านผิดอีกต่อไป
+
+## Türkçe — Turkish
+- Tanıma her yazı sistemine göre ayarlandı, otomatik mod doğru dili daha az denemede buluyor ve hangisini seçtiğini bildiriyor, v1.6.5 gibi sürüm numaraları da artık yanlış okunmuyor.
+
+## Українська — Ukrainian
+- Розпізнавання налаштоване під кожну систему письма, автоматичний режим знаходить потрібну мову за меншу кількість проходів і повідомляє, яку обрав, а номери версій на кшталт v1.6.5 більше не читаються з помилками.
+
+## Tiếng Việt — Vietnamese
+- Nhận dạng được tinh chỉnh cho từng hệ chữ viết, chế độ tự động tìm ra đúng ngôn ngữ sau ít lượt hơn và cho biết nó đã chọn ngôn ngữ nào, và số phiên bản như v1.6.5 không còn bị đọc sai.

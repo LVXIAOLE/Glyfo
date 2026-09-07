@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Magbukas o mag-drop ng ilang file nang sabay, o basahin ang buong PDF, at i-save ang lahat bilang isang file o isa bawat item.",
         ["News_130_4"] = "Pumili ng sarili mong shortcut sa pagkuha, at bubukas ang window kung saan at kung paano mo ito iniwan.",
         ["News_130_5"] = "Ituwid ang baluktot na litrato, maghanap sa teksto gamit ang Ctrl+F, at pumili ng maliwanag o madilim na hitsura.",
+        ["News_130_6"] = "Nakaayon na ang pagkilala sa bawat sistema ng pagsulat, sinasabi ng awtomatikong mode kung anong wika ang pinili nito, at buo pa rin ang mga bersyon na tulad ng v1.6.5.",
         ["News_120_1"] = "Kumuha ng screenshot gamit ang Win+Shift+S at babasahin ito ng Glyfo para sa iyo, saka iiwan ang teksto sa clipboard. Naka-off hanggang buksan mo ito sa Mga Opsyon.",
         ["News_120_2"] = "Nabubuksan na ang PDF gaya ng larawan, isang pahina sa bawat pagkakataon.",
         ["News_120_3"] = "Ang mga link, email address at numero ng telepono sa teksto ay binibigyan ng button sa ilalim nito.",

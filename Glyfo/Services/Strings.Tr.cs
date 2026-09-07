@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Birden çok dosyayı bir kerede açın veya sürükleyin ya da bir PDF belgesinin tamamını okuyun; tümünü tek bir dosya veya öğe başına bir dosya olarak kaydedin.",
         ["News_130_4"] = "Yakalama kısayollarını kendiniz seçin; pencere de bıraktığınız yerde ve boyutta açılsın.",
         ["News_130_5"] = "Eğri bir fotoğrafı düzeltin, metinde Ctrl+F ile arama yapın ve açık ya da koyu bir görünüm seçin.",
+        ["News_130_6"] = "Tanıma her yazı sistemine göre ayarlandı, otomatik mod seçtiği dili bildiriyor ve v1.6.5 gibi sürüm numaraları bozulmuyor.",
         ["News_120_1"] = "Win+Shift+S ile ekran görüntüsü alın; Glyfo onu sizin için okur ve metni panoda bırakır. Seçeneklerden açana kadar kapalıdır.",
         ["News_120_2"] = "PDF dosyaları artık resimler gibi, sayfa sayfa açılıyor.",
         ["News_120_3"] = "Metinde bulunan bağlantılar, e-posta adresleri ve telefon numaraları altında bir düğme kazanır.",

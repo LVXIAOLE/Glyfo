@@ -19,7 +19,7 @@ internal static class Changelog
     /// <summary>Newest first. Add a release at the top; nothing else needs touching.</summary>
     public static readonly IReadOnlyList<Release> Releases = new[]
     {
-        new Release(new Version(1, 3, 0), new[] { "News_130_1", "News_130_2", "News_130_3", "News_130_4", "News_130_5" }),
+        new Release(new Version(1, 3, 0), new[] { "News_130_1", "News_130_2", "News_130_3", "News_130_4", "News_130_5", "News_130_6" }),
         new Release(new Version(1, 2, 0), new[] { "News_120_1", "News_120_2", "News_120_3" }),
         new Release(new Version(1, 1, 0), new[] { "News_110_1", "News_110_2", "News_110_3", "News_110_4" }),
     };

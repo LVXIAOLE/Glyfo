@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Ouvrez ou déposez plusieurs fichiers à la fois, ou lisez un PDF entier, puis enregistrez le tout en un seul fichier ou un fichier par élément.",
         ["News_130_4"] = "Choisissez vos propres raccourcis de capture, et la fenêtre se rouvre là où et comme vous l’avez laissée.",
         ["News_130_5"] = "Redressez une photo de travers, recherchez dans le texte avec Ctrl+F et choisissez une apparence claire ou sombre.",
+        ["News_130_6"] = "La reconnaissance est réglée pour chaque écriture, le mode automatique indique la langue choisie, et les numéros de version comme v1.6.5 restent intacts.",
         ["News_120_1"] = "Faites une capture avec Win+Shift+S et Glyfo la lit pour vous, puis laisse le texte dans le presse-papiers. Désactivé tant que vous ne l activez pas dans les options.",
         ["News_120_2"] = "Les PDF s ouvrent désormais comme des images, page par page.",
         ["News_120_3"] = "Les liens, adresses e-mail et numéros de téléphone repérés dans le texte reçoivent un bouton en dessous.",

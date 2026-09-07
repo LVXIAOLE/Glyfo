@@ -7,7 +7,11 @@ This covers **two** releases, not one. 1.2.0 was built and committed but never s
 Store, so a customer updating from 1.1.0 receives both at once and has to be told about both. The
 in-app release notes handle this by themselves — `Changelog.Since` returns every release newer than
 the one the user last saw — but the Store field is a single free-text box with no such logic, so the
-eleven features are simply listed together, 1.3.0 first.
+twelve features are simply listed together, 1.3.0 first.
+
+The first bullet is the one about recognition itself. It is last in the in-app notes, where it is
+`News_130_6` appended to a list nobody has read yet, but this field is skimmed top-down by someone
+deciding whether the update is worth caring about, and accuracy is the reason the app exists.
 
 This is deliberately **not** part of `store-listing.md`. That file's sections are keyed by position
 by `tools/Fill-ListingCsv.ps1`, which throws if the count is wrong, and the release-notes field is
@@ -22,6 +26,7 @@ invisible U+200F may not.
 
 ## English (default)
 
+- Recognition is tuned to each writing system, automatic mode picks the right language in fewer passes and tells you which one it used, and version numbers like v1.6.5 no longer come back mangled.
 - History that survives a restart: everything Glyfo reads is kept and can be searched. Text only, and you can clear it or switch it off.
 - Save the recognized text straight to a .txt or .md file with Ctrl+S.
 - Batch recognition: open or drop a stack of files, or read a whole PDF, and save the results merged or one file per item.
@@ -36,6 +41,7 @@ invisible U+200F may not.
 
 ## 中文（简体）
 
+- 识别针对每种文字分别调校，自动模式用更少的遍数找出正确的语言并说明它选中了哪一种，v1.6.5 这样的版本号也不会再被认错。
 - 历史记录能活过重启，并且可以搜索。只保存文字，随时可以清空或关闭。
 - Ctrl+S 把识别出的文字直接存成 .txt 或 .md 文件。
 - 批量识别：一次打开或拖入多个文件，或者识别整本 PDF，结果可以合并成一个文件，也可以每项一个。
@@ -50,6 +56,7 @@ invisible U+200F may not.
 
 ## 中文（繁體）
 
+- 辨識針對每種文字分別調校，自動模式用更少的遍數找出正確的語言並說明它選中了哪一種，v1.6.5 這樣的版本號也不會再被認錯。
 - 歷程記錄能活過重新啟動，而且可以搜尋。只保存文字，隨時可以清空或關閉。
 - Ctrl+S 把辨識出的文字直接存成 .txt 或 .md 檔案。
 - 批次辨識：一次開啟或拖入多個檔案，或者辨識整本 PDF，結果可以合併成一個檔案，也可以每項一個。
@@ -64,6 +71,7 @@ invisible U+200F may not.
 
 ## العربية — Arabic
 
+- تم ضبط التعرف لكل نظام كتابة على حدة، والوضع التلقائي يجد اللغة الصحيحة بعدد أقل من المحاولات ويذكر أيها اختار، وأرقام الإصدارات مثل v1.6.5 لم تعد تُقرأ خطأ.
 - السجل يبقى بعد إعادة التشغيل ويمكن البحث فيه. النصوص فقط، ويمكنك مسحه أو إيقافه متى شئت.
 - الاختصار Ctrl+S يحفظ النص المتعرَّف عليه مباشرة في ملف بصيغة txt أو md.
 - التعرف الجماعي: افتح أو أفلت عدة ملفات، أو اقرأ ملف PDF كاملًا، واحفظ النتائج مدمجة أو ملفًا لكل عنصر.
@@ -78,6 +86,7 @@ invisible U+200F may not.
 
 ## বাংলা — Bengali
 
+- শনাক্তকরণ এখন প্রতিটি লিপির জন্য আলাদাভাবে সাজানো, স্বয়ংক্রিয় মোড কম চেষ্টায় সঠিক ভাষা খুঁজে নেয় ও কোনটি বেছে নিল তা জানায়, আর v1.6.5-এর মতো সংস্করণ নম্বর আর ভুল পড়া হয় না।
 - ইতিহাস এখন পুনরায় চালুর পরেও থাকে এবং তাতে খোঁজা যায়। কেবল লেখা রাখে, আর যখন খুশি মোছা বা বন্ধ করা যায়।
 - Ctrl+S দিয়ে শনাক্ত করা লেখা সরাসরি .txt বা .md ফাইলে সংরক্ষণ করুন।
 - ব্যাচ শনাক্তকরণ: একসঙ্গে অনেক ফাইল খুলুন বা টেনে আনুন, কিংবা গোটা PDF পড়ুন, ফল একটি ফাইলে মিলিয়ে বা প্রতিটির আলাদা ফাইলে রাখুন।
@@ -92,6 +101,7 @@ invisible U+200F may not.
 
 ## Čeština — Czech
 
+- Rozpoznávání je vyladěné pro každý systém písma, automatický režim najde správný jazyk na méně pokusů a uvede, který zvolil, a čísla verzí jako v1.6.5 už se nečtou špatně.
 - Historie přežije restart a dá se v ní hledat. Ukládá jen text a kdykoli ji lze vymazat nebo vypnout.
 - Ctrl+S uloží rozpoznaný text rovnou do souboru .txt nebo .md.
 - Dávkové rozpoznávání: otevřete nebo přetáhněte více souborů, nebo přečtěte celé PDF, a výsledky uložte spojené nebo po jednom souboru.
@@ -106,6 +116,7 @@ invisible U+200F may not.
 
 ## Dansk — Danish
 
+- Genkendelsen er tilpasset hvert skriftsystem, automatisk tilstand finder det rigtige sprog på færre forsøg og oplyser hvilket, og versionsnumre som v1.6.5 læses ikke længere forkert.
 - Historikken overlever en genstart, og der kan søges i den. Kun tekst, og den kan ryddes eller slås fra.
 - Ctrl+S gemmer den aflæste tekst direkte i en .txt- eller .md-fil.
 - Batchaflæsning: åbn eller slip en stak filer, eller læs en hel PDF, og gem resultaterne samlet eller som én fil pr. element.
@@ -120,6 +131,7 @@ invisible U+200F may not.
 
 ## Deutsch — German
 
+- Die Erkennung ist auf jedes Schriftsystem abgestimmt, der Automatikmodus findet die richtige Sprache in weniger Durchläufen und nennt sie, und Versionsnummern wie v1.6.5 werden nicht mehr verfälscht.
 - Der Verlauf übersteht einen Neustart und lässt sich durchsuchen. Nur Text, und jederzeit löschbar oder abschaltbar.
 - Mit Strg+S wird der erkannte Text direkt als .txt- oder .md-Datei gespeichert.
 - Stapelerkennung: mehrere Dateien öffnen oder hineinziehen, oder ein ganzes PDF lesen, und die Ergebnisse zusammengefasst oder als je eine Datei speichern.
@@ -134,6 +146,7 @@ invisible U+200F may not.
 
 ## Ελληνικά — Greek
 
+- Η αναγνώριση είναι ρυθμισμένη για κάθε σύστημα γραφής, η αυτόματη λειτουργία βρίσκει τη σωστή γλώσσα με λιγότερα περάσματα και αναφέρει ποια επέλεξε, και αριθμοί έκδοσης όπως το v1.6.5 δεν διαβάζονται πια λάθος.
 - Το ιστορικό επιβιώνει μιας επανεκκίνησης και μπορείτε να το αναζητήσετε. Μόνο κείμενο, και σβήνεται ή απενεργοποιείται όποτε θέλετε.
 - Το Ctrl+S αποθηκεύει το αναγνωρισμένο κείμενο κατευθείαν σε αρχείο .txt ή .md.
 - Μαζική αναγνώριση: ανοίξτε ή αφήστε πολλά αρχεία, ή διαβάστε ολόκληρο PDF, και αποθηκεύστε τα αποτελέσματα ενωμένα ή ένα αρχείο ανά στοιχείο.
@@ -148,6 +161,7 @@ invisible U+200F may not.
 
 ## Español — Spanish
 
+- El reconocimiento se ajusta a cada sistema de escritura, el modo automático encuentra el idioma correcto en menos pasadas e indica cuál eligió, y números de versión como v1.6.5 ya no salen mal leídos.
 - El historial sobrevive a un reinicio y se puede buscar. Solo texto, y puedes vaciarlo o desactivarlo cuando quieras.
 - Ctrl+S guarda el texto reconocido directamente en un archivo .txt o .md.
 - Reconocimiento por lotes: abre o arrastra varios archivos, o lee un PDF entero, y guarda los resultados juntos o uno por elemento.
@@ -162,6 +176,7 @@ invisible U+200F may not.
 
 ## فارسی — Persian
 
+- تشخیص برای هر نظام نوشتاری جداگانه تنظیم شده است، حالت خودکار زبان درست را با تلاش کمتری پیدا می‌کند و اعلام می‌کند کدام را برگزید، و شماره نسخه‌هایی مانند v1.6.5 دیگر اشتباه خوانده نمی‌شوند.
 - تاریخچه پس از راه‌اندازی دوباره هم می‌ماند و می‌توان در آن جست‌وجو کرد. فقط متن، و هر وقت بخواهید پاک یا خاموشش می‌کنید.
 - کلید Ctrl+S متن تشخیص‌داده‌شده را مستقیم در فایلی با پسوند txt یا md ذخیره می‌کند.
 - تشخیص دسته‌ای: چند فایل را با هم باز کنید یا رها کنید، یا یک PDF کامل را بخوانید، و نتیجه را یکجا یا هر مورد در یک فایل ذخیره کنید.
@@ -176,6 +191,7 @@ invisible U+200F may not.
 
 ## Suomi — Finnish
 
+- Tunnistus on säädetty jokaiselle kirjoitusjärjestelmälle, automaattitila löytää oikean kielen harvemmilla yrityksillä ja kertoo minkä valitsi, eivätkä versionumerot kuten v1.6.5 enää mene sekaisin.
 - Historia säilyy uudelleenkäynnistyksen yli, ja siitä voi hakea. Vain teksti, ja sen voi tyhjentää tai kytkeä pois.
 - Ctrl+S tallentaa tunnistetun tekstin suoraan .txt- tai .md-tiedostoon.
 - Erätunnistus: avaa tai pudota useita tiedostoja tai lue koko PDF, ja tallenna tulokset yhtenä tiedostona tai kohde kerrallaan.
@@ -190,6 +206,7 @@ invisible U+200F may not.
 
 ## Filipino
 
+- Nakaayon na ang pagkilala sa bawat sistema ng pagsulat, mas kaunting pasada na lang bago mahanap ng awtomatikong mode ang tamang wika at sabihin kung alin ang pinili, at hindi na nasisira ang mga bersyon na tulad ng v1.6.5.
 - Nananatili ang kasaysayan kahit ma-restart, at puwede itong hanapan. Teksto lamang, at maaari itong burahin o patayin.
 - Sine-save ng Ctrl+S ang nakilalang teksto nang diretso sa .txt o .md na file.
 - Batch na pagkilala: magbukas o mag-drop ng maraming file, o basahin ang buong PDF, at i-save ang resulta nang pinagsama o isang file bawat item.
@@ -204,6 +221,7 @@ invisible U+200F may not.
 
 ## Français — French
 
+- La reconnaissance est réglée pour chaque écriture, le mode automatique trouve la bonne langue en moins de passes et indique laquelle, et les numéros de version comme v1.6.5 ne sont plus mal lus.
 - L’historique survit à un redémarrage et peut être fouillé. Du texte seulement, et il se vide ou se désactive quand vous voulez.
 - Ctrl+S enregistre le texte reconnu directement dans un fichier .txt ou .md.
 - Reconnaissance par lots : ouvrez ou déposez plusieurs fichiers, ou lisez un PDF entier, et enregistrez les résultats regroupés ou un fichier par élément.
@@ -218,6 +236,7 @@ invisible U+200F may not.
 
 ## עברית — Hebrew
 
+- הזיהוי מכוונן לכל מערכת כתב בנפרד, המצב האוטומטי מוצא את השפה הנכונה בפחות מעברים ומציין באיזו בחר, ומספרי גרסה כמו v1.6.5 כבר לא נקראים שגוי.
 - ההיסטוריה שורדת הפעלה מחדש וניתן לחפש בה. טקסט בלבד, ואפשר לנקות אותה או לכבות אותה בכל רגע.
 - הצירוף Ctrl+S שומר את הטקסט שזוהה ישירות לקובץ מסוג txt או md.
 - זיהוי מרובה: פתחו או גררו כמה קבצים, או קראו קובץ PDF שלם, ושמרו את התוצאות מאוחדות או קובץ לכל פריט.
@@ -232,6 +251,7 @@ invisible U+200F may not.
 
 ## हिन्दी — Hindi
 
+- पहचान अब हर लिपि के अनुसार समायोजित है, स्वचालित मोड कम प्रयासों में सही भाषा ढूँढ़ता है और बताता है कि उसने कौन सी चुनी, और v1.6.5 जैसे संस्करण नंबर अब गलत नहीं पढ़े जाते।
 - इतिहास अब पुनरारंभ के बाद भी बना रहता है और उसमें खोजा जा सकता है। सिर्फ़ पाठ, और जब चाहें मिटा या बंद कर दें।
 - Ctrl+S पहचाने गए पाठ को सीधे .txt या .md फ़ाइल में सहेजता है।
 - बैच पहचान: एक साथ कई फ़ाइलें खोलें या छोड़ें, या पूरी PDF पढ़ें, और परिणाम एक साथ या हर वस्तु की अलग फ़ाइल में सहेजें।
@@ -246,6 +266,7 @@ invisible U+200F may not.
 
 ## Magyar — Hungarian
 
+- A felismerés minden írásrendszerhez külön van hangolva, az automatikus mód kevesebb menetből találja meg a helyes nyelvet és megnevezi, az olyan verziószámokat pedig, mint a v1.6.5, már nem olvassa félre.
 - Az előzmények túlélik az újraindítást, és kereshetők. Csak szöveg, és bármikor törölhető vagy kikapcsolható.
 - A Ctrl+S a felismert szöveget egyenesen .txt vagy .md fájlba menti.
 - Kötegelt felismerés: nyisson meg vagy húzzon be több fájlt, vagy olvasson be egy teljes PDF-et, és mentse az eredményt egybefűzve vagy elemenként külön fájlba.
@@ -260,6 +281,7 @@ invisible U+200F may not.
 
 ## Bahasa Indonesia — Indonesian
 
+- Pengenalan disetel untuk tiap sistem tulisan, mode otomatis menemukan bahasa yang tepat dengan lebih sedikit percobaan dan menyebutkan mana yang dipilihnya, dan nomor versi seperti v1.6.5 tidak lagi salah dibaca.
 - Riwayat bertahan setelah dimulai ulang dan bisa dicari. Hanya teks, dan dapat dikosongkan atau dimatikan kapan saja.
 - Ctrl+S menyimpan teks hasil pengenalan langsung ke berkas .txt atau .md.
 - Pengenalan massal: buka atau jatuhkan banyak berkas, atau baca satu PDF utuh, lalu simpan hasilnya digabung atau satu berkas per butir.
@@ -274,6 +296,7 @@ invisible U+200F may not.
 
 ## Italiano — Italian
 
+- Il riconoscimento è tarato su ogni sistema di scrittura, la modalità automatica trova la lingua giusta in meno passaggi e indica quale ha scelto, e numeri di versione come v1.6.5 non vengono più letti male.
 - La cronologia sopravvive al riavvio e si può cercare. Solo testo, e si svuota o si disattiva quando vuoi.
 - Ctrl+S salva il testo riconosciuto direttamente in un file .txt o .md.
 - Riconoscimento in blocco: apri o trascina più file, oppure leggi un intero PDF, e salva i risultati uniti o un file per elemento.
@@ -288,6 +311,7 @@ invisible U+200F may not.
 
 ## 日本語 — Japanese
 
+- 文字体系ごとに認識を調整しました。自動モードはより少ない試行で正しい言語を見つけ、選んだ言語を表示します。v1.6.5 のようなバージョン番号も誤読されなくなりました。
 - 履歴は再起動後も残り、検索できます。保存するのは文字だけで、いつでも消去も無効化もできます。
 - Ctrl+S で認識した文字をそのまま .txt や .md ファイルに保存できます。
 - 一括認識：複数のファイルをまとめて開くかドロップする、または PDF 全体を読み取り、結果は 1 つにまとめても項目ごとに分けても保存できます。
@@ -302,6 +326,7 @@ invisible U+200F may not.
 
 ## 한국어 — Korean
 
+- 문자 체계별로 인식을 조정했습니다. 자동 모드는 더 적은 시도로 알맞은 언어를 찾아내고 어떤 언어를 골랐는지 알려주며, v1.6.5 같은 버전 번호도 더 이상 잘못 읽지 않습니다.
 - 기록이 다시 시작한 뒤에도 남고 검색할 수 있습니다. 글자만 저장하며, 언제든 지우거나 끌 수 있습니다.
 - Ctrl+S로 인식한 글을 바로 .txt나 .md 파일로 저장합니다.
 - 일괄 인식: 여러 파일을 한꺼번에 열거나 끌어다 놓고, 또는 PDF 한 권을 통째로 읽어, 결과를 하나로 합치거나 항목마다 따로 저장합니다.
@@ -316,6 +341,7 @@ invisible U+200F may not.
 
 ## Bahasa Melayu — Malay
 
+- Pengecaman ditala untuk setiap sistem tulisan, mod automatik menemui bahasa yang betul dengan lebih sedikit cubaan dan menyatakan yang mana dipilihnya, dan nombor versi seperti v1.6.5 tidak lagi tersalah baca.
 - Sejarah kekal selepas dimulakan semula dan boleh dicari. Teks sahaja, dan boleh dikosongkan atau dimatikan bila-bila masa.
 - Ctrl+S menyimpan teks yang dikenali terus ke dalam fail .txt atau .md.
 - Pengecaman pukal: buka atau lepaskan beberapa fail, atau baca satu PDF penuh, dan simpan hasilnya bercantum atau satu fail bagi setiap butiran.
@@ -330,6 +356,7 @@ invisible U+200F may not.
 
 ## Norsk bokmål — Norwegian
 
+- Gjenkjenningen er tilpasset hvert skriftsystem, automatisk modus finner riktig språk på færre forsøk og oppgir hvilket, og versjonsnumre som v1.6.5 leses ikke lenger feil.
 - Loggen overlever en omstart, og det går an å søke i den. Bare tekst, og den kan tømmes eller slås av.
 - Ctrl+S lagrer den gjenkjente teksten rett i en .txt- eller .md-fil.
 - Gjenkjenning i bulk: åpne eller slipp flere filer, eller les en hel PDF, og lagre resultatet samlet eller som én fil per element.
@@ -344,6 +371,7 @@ invisible U+200F may not.
 
 ## Nederlands — Dutch
 
+- De herkenning is afgestemd op elk schriftsysteem, de automatische modus vindt de juiste taal in minder doorgangen en noemt welke, en versienummers zoals v1.6.5 worden niet meer verkeerd gelezen.
 - De geschiedenis overleeft een herstart en is doorzoekbaar. Alleen tekst, en je kunt hem wissen of uitschakelen.
 - Ctrl+S bewaart de herkende tekst rechtstreeks in een .txt- of .md-bestand.
 - Herkennen in batch: open of sleep meerdere bestanden, of lees een hele PDF, en bewaar het resultaat samengevoegd of één bestand per onderdeel.
@@ -358,6 +386,7 @@ invisible U+200F may not.
 
 ## Polski — Polish
 
+- Rozpoznawanie jest dostrojone do każdego systemu pisma, tryb automatyczny znajduje właściwy język w mniejszej liczbie przebiegów i podaje który, a numery wersji takie jak v1.6.5 nie są już źle odczytywane.
 - Historia przetrwa ponowne uruchomienie i można ją przeszukiwać. Wyłącznie tekst, w każdej chwili do wyczyszczenia lub wyłączenia.
 - Ctrl+S zapisuje rozpoznany tekst wprost do pliku .txt lub .md.
 - Rozpoznawanie wsadowe: otwórz lub upuść wiele plików albo odczytaj cały PDF, a wyniki zapisz scalone lub po jednym pliku na pozycję.
@@ -372,6 +401,7 @@ invisible U+200F may not.
 
 ## Português — Portuguese
 
+- O reconhecimento é ajustado a cada sistema de escrita, o modo automático encontra o idioma certo em menos passagens e informa qual escolheu, e números de versão como v1.6.5 já não saem errados.
 - O histórico sobrevive a um reinício e pode ser pesquisado. Apenas texto, e pode ser limpo ou desligado quando quiser.
 - Ctrl+S guarda o texto reconhecido diretamente num ficheiro .txt ou .md.
 - Reconhecimento em lote: abra ou largue vários ficheiros, ou leia um PDF inteiro, e guarde os resultados juntos ou um ficheiro por item.
@@ -386,6 +416,7 @@ invisible U+200F may not.
 
 ## Română — Romanian
 
+- Recunoașterea este reglată pentru fiecare sistem de scriere, modul automat găsește limba potrivită din mai puține treceri și spune pe care a ales-o, iar numerele de versiune precum v1.6.5 nu mai sunt citite greșit.
 - Istoricul supraviețuiește unei reporniri și poate fi căutat. Doar text, iar el poate fi golit sau oprit oricând.
 - Ctrl+S salvează textul recunoscut direct într-un fișier .txt sau .md.
 - Recunoaștere în lot: deschideți sau trageți mai multe fișiere ori citiți un PDF întreg, iar rezultatele se salvează unite sau câte un fișier de element.
@@ -400,6 +431,7 @@ invisible U+200F may not.
 
 ## Русский — Russian
 
+- Распознавание настроено под каждую систему письма, автоматический режим находит нужный язык за меньшее число проходов и сообщает, какой выбрал, а номера версий вроде v1.6.5 больше не читаются с ошибками.
 - История переживает перезапуск, и по ней можно искать. Только текст, и её можно очистить или отключить.
 - Ctrl+S сохраняет распознанный текст прямо в файл .txt или .md.
 - Пакетное распознавание: откройте или перетащите сразу несколько файлов либо прочитайте целый PDF, а результаты сохраните вместе или по файлу на каждый.
@@ -414,6 +446,7 @@ invisible U+200F may not.
 
 ## Svenska — Swedish
 
+- Igenkänningen är anpassad till varje skriftsystem, automatläget hittar rätt språk på färre försök och anger vilket, och versionsnummer som v1.6.5 läses inte längre fel.
 - Historiken överlever en omstart och går att söka i. Bara text, och den kan tömmas eller stängas av.
 - Ctrl+S sparar den avlästa texten direkt till en .txt- eller .md-fil.
 - Avläsning i grupp: öppna eller släpp flera filer, eller läs av en hel PDF, och spara resultatet sammanslaget eller som en fil per post.
@@ -428,6 +461,7 @@ invisible U+200F may not.
 
 ## ไทย — Thai
 
+- การรู้จำถูกปรับให้เหมาะกับแต่ละระบบการเขียน โหมดอัตโนมัติหาภาษาที่ถูกต้องได้ในจำนวนรอบที่น้อยลงและบอกว่าเลือกภาษาใด และเลขเวอร์ชันอย่าง v1.6.5 จะไม่ถูกอ่านผิดอีกต่อไป
 - ประวัติอยู่รอดข้ามการเริ่มระบบใหม่และค้นหาได้ เก็บเฉพาะข้อความ ล้างหรือปิดเมื่อใดก็ได้
 - Ctrl+S บันทึกข้อความที่อ่านได้ลงไฟล์ .txt หรือ .md โดยตรง
 - อ่านทีละหลายไฟล์ เปิดหรือลากไฟล์เข้ามาพร้อมกัน หรืออ่าน PDF ทั้งเล่ม แล้วบันทึกผลรวมเป็นไฟล์เดียวหรือแยกไฟล์ต่อรายการ
@@ -442,6 +476,7 @@ invisible U+200F may not.
 
 ## Türkçe — Turkish
 
+- Tanıma her yazı sistemine göre ayarlandı, otomatik mod doğru dili daha az denemede buluyor ve hangisini seçtiğini bildiriyor, v1.6.5 gibi sürüm numaraları da artık yanlış okunmuyor.
 - Geçmiş yeniden başlatmadan sonra da duruyor ve içinde arama yapılabiliyor. Yalnızca metin tutar, istediğinizde temizlenir veya kapatılır.
 - Ctrl+S tanınan metni doğrudan bir .txt veya .md dosyasına kaydeder.
 - Toplu tanıma: birden çok dosyayı açın ya da sürükleyin, veya bir PDF’in tamamını okuyun; sonuçları birleştirerek ya da her öğe için ayrı dosya olarak kaydedin.
@@ -456,6 +491,7 @@ invisible U+200F may not.
 
 ## Українська — Ukrainian
 
+- Розпізнавання налаштоване під кожну систему письма, автоматичний режим знаходить потрібну мову за меншу кількість проходів і повідомляє, яку обрав, а номери версій на кшталт v1.6.5 більше не читаються з помилками.
 - Історія переживає перезапуск, і в ній можна шукати. Лише текст, і її будь-коли можна очистити чи вимкнути.
 - Ctrl+S зберігає розпізнаний текст просто у файл .txt або .md.
 - Пакетне розпізнавання: відкрийте чи перетягніть кілька файлів або прочитайте цілий PDF, а результати збережіть разом чи по файлу на кожен.
@@ -470,6 +506,7 @@ invisible U+200F may not.
 
 ## Tiếng Việt — Vietnamese
 
+- Nhận dạng được tinh chỉnh cho từng hệ chữ viết, chế độ tự động tìm ra đúng ngôn ngữ sau ít lượt hơn và cho biết nó đã chọn ngôn ngữ nào, và số phiên bản như v1.6.5 không còn bị đọc sai.
 - Lịch sử vẫn còn sau khi khởi động lại và có thể tìm kiếm. Chỉ lưu chữ, và có thể xóa hoặc tắt bất cứ lúc nào.
 - Ctrl+S lưu phần chữ đã nhận dạng thẳng vào tệp .txt hoặc .md.
 - Nhận dạng hàng loạt: mở hoặc thả nhiều tệp cùng lúc, hoặc đọc trọn một tệp PDF, rồi lưu kết quả gộp chung hay mỗi mục một tệp.

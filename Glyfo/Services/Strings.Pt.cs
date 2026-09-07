@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Abra ou arraste vários arquivos de uma vez, ou leia um PDF inteiro, e salve tudo em um único arquivo ou um por item.",
         ["News_130_4"] = "Escolha seus próprios atalhos de captura, e a janela abre onde e como você a deixou.",
         ["News_130_5"] = "Endireite uma foto torta, pesquise no texto com Ctrl+F e escolha uma aparência clara ou escura.",
+        ["News_130_6"] = "O reconhecimento é ajustado a cada sistema de escrita, o modo automático informa o idioma escolhido e números de versão como v1.6.5 continuam intactos.",
         ["News_120_1"] = "Faça uma captura com Win+Shift+S e o Glyfo a lê para você, deixando o texto na área de transferência. Fica desligado até você ativá-lo nas opções.",
         ["News_120_2"] = "Os PDFs agora abrem como imagens, uma página por vez.",
         ["News_120_3"] = "Links, endereços de e-mail e telefones encontrados no texto ganham um botão abaixo dele.",

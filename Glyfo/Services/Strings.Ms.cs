@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Buka atau seret beberapa fail sekaligus, atau baca satu PDF penuh, kemudian simpan semuanya sebagai satu fail atau satu fail bagi setiap item.",
         ["News_130_4"] = "Pilih pintasan tangkapan anda sendiri, dan tetingkap akan dibuka di tempat dan saiz seperti anda tinggalkan.",
         ["News_130_5"] = "Luruskan foto yang senget, cari dalam teks dengan Ctrl+F, dan pilih rupa cerah atau gelap.",
+        ["News_130_6"] = "Pengecaman ditala untuk setiap sistem tulisan, mod automatik menyatakan bahasa yang dipilihnya, dan nombor versi seperti v1.6.5 kekal utuh.",
         ["News_120_1"] = "Ambil tangkapan skrin dengan Win+Shift+S dan Glyfo membacanya untuk anda, lalu meninggalkan teks pada papan keratan. Dimatikan sehingga anda menghidupkannya dalam Pilihan.",
         ["News_120_2"] = "PDF kini dibuka seperti gambar, sehalaman pada satu masa.",
         ["News_120_3"] = "Pautan, alamat e-mel dan nombor telefon yang ditemui dalam teks mendapat butang di bawahnya.",

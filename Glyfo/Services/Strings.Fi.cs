@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Avaa tai pudota useita tiedostoja kerralla tai lue koko PDF, ja tallenna kaikki yhteen tiedostoon tai yksi kohde per tiedosto.",
         ["News_130_4"] = "Valitse omat pikanäppäimesi kaappaukselle, ja ikkuna avautuu siihen paikkaan ja kokoon, mihin sen jätit.",
         ["News_130_5"] = "Suorista vino valokuva, etsi tekstistä Ctrl+F:llä ja valitse vaalea tai tumma ulkoasu.",
+        ["News_130_6"] = "Tunnistus on säädetty jokaiselle kirjoitusjärjestelmälle, automaattitila kertoo valitsemansa kielen, ja versionumerot kuten v1.6.5 säilyvät ehjinä.",
         ["News_120_1"] = "Ota kuvakaappaus näppäimillä Win+Shift+S, niin Glyfo lukee sen puolestasi ja jättää tekstin leikepöydälle. Pois päältä, kunnes otat sen käyttöön asetuksista.",
         ["News_120_2"] = "PDF-tiedostot avautuvat nyt kuvien tavoin, sivu kerrallaan.",
         ["News_120_3"] = "Tekstistä löytyvät linkit, sähköpostiosoitteet ja puhelinnumerot saavat painikkeen sen alle.",

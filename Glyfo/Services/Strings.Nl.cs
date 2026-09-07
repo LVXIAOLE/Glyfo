@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Open of sleep meerdere bestanden tegelijk, of lees een hele pdf, en sla alles op als één bestand of één per item.",
         ["News_130_4"] = "Kies je eigen sneltoetsen voor het vastleggen, en het venster opent waar en zoals je het achterliet.",
         ["News_130_5"] = "Zet een scheve foto recht, zoek in de tekst met Ctrl+F en kies een lichte of donkere weergave.",
+        ["News_130_6"] = "De herkenning is afgestemd op elk schriftsysteem, de automatische modus noemt de gekozen taal en versienummers zoals v1.6.5 blijven intact.",
         ["News_120_1"] = "Maak een schermafbeelding met Win+Shift+S en Glyfo leest die voor je en laat de tekst op het klembord staan. Uit totdat je het bij de opties inschakelt.",
         ["News_120_2"] = "Pdf-bestanden openen nu net als afbeeldingen, pagina voor pagina.",
         ["News_120_3"] = "Koppelingen, e-mailadressen en telefoonnummers in de tekst krijgen er een knop onder.",

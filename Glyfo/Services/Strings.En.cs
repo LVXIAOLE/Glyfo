@@ -260,6 +260,7 @@ internal static partial class Strings
         ["News_130_3"] = "Open or drop several files at once, or read a whole PDF, and save the lot as one file or one per item.",
         ["News_130_4"] = "Choose your own capture shortcuts, and the window opens where and how you left it.",
         ["News_130_5"] = "Straighten a crooked photo, search the text with Ctrl+F, and pick a light or dark appearance.",
+        ["News_130_6"] = "Recognition is tuned to each writing system, automatic mode names the language it chose, and version numbers like v1.6.5 stay intact.",
         ["News_120_1"] ="Take a screenshot with Win+Shift+S and Glyfo reads it for you, then leaves the text on the clipboard. Off until you turn it on, in Settings.",
         ["News_120_2"] = "PDFs open like images now, a page at a time.",
         ["News_120_3"] = "Links, email addresses and phone numbers found in the text get a button under it.",

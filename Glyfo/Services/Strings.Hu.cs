@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Nyisson meg vagy húzzon be több fájlt egyszerre, vagy olvasson be egy teljes PDF-et, majd mentse az egészet egy fájlba vagy elemenként egybe.",
         ["News_130_4"] = "Saját billentyűparancsokat választhat a rögzítéshez, az ablak pedig ott és úgy nyílik meg, ahogyan hagyta.",
         ["News_130_5"] = "Egyenesítsen ki egy ferde fényképet, keressen a szövegben a Ctrl+F billentyűkkel, és válasszon világos vagy sötét megjelenést.",
+        ["News_130_6"] = "A felismerés minden írásrendszerhez külön hangolva van, az automatikus mód megnevezi a választott nyelvet, és az olyan verziószámok, mint a v1.6.5, épen maradnak.",
         ["News_120_1"] = "Készítsen képernyőképet a Win+Shift+S kombinációval, és a Glyfo beolvassa Ön helyett, a szöveget pedig a vágólapon hagyja. Kikapcsolva, amíg a beállításokban be nem kapcsolja.",
         ["News_120_2"] = "A PDF-ek mostantól a képekhez hasonlóan nyílnak meg, oldalanként.",
         ["News_120_3"] = "A szövegben talált hivatkozások, e-mail-címek és telefonszámok alatta gombot kapnak.",

@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Otwórz albo przeciągnij kilka plików naraz lub odczytaj cały PDF i zapisz całość w jednym pliku albo po jednym na pozycję.",
         ["News_130_4"] = "Skróty do przechwytywania wybierasz samodzielnie, a okno otwiera się w tym samym miejscu i rozmiarze co poprzednio.",
         ["News_130_5"] = "Wyprostuj przekrzywione zdjęcie, przeszukaj tekst skrótem Ctrl+F i wybierz jasny albo ciemny wygląd.",
+        ["News_130_6"] = "Rozpoznawanie jest dostrojone do każdego systemu pisma, tryb automatyczny podaje wybrany język, a numery wersji takie jak v1.6.5 pozostają nienaruszone.",
         ["News_120_1"] = "Zrób zrzut ekranu klawiszami Win+Shift+S, a Glyfo odczyta go za Ciebie i zostawi tekst w schowku. Funkcja jest wyłączona, dopóki nie włączysz jej w opcjach.",
         ["News_120_2"] = "Pliki PDF otwierają się teraz jak obrazy, strona po stronie.",
         ["News_120_3"] = "Znalezione w tekście łącza, adresy e-mail i numery telefonów dostają pod nim przycisk.",

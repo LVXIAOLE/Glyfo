@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Öffnen Sie mehrere Dateien auf einmal oder ziehen Sie sie hinein, oder lesen Sie ein ganzes PDF, und speichern Sie alles als eine Datei oder als eine Datei pro Element.",
         ["News_130_4"] = "Legen Sie Ihre eigenen Tastenkürzel für Aufnahmen fest, und das Fenster öffnet sich wieder so und dort, wie Sie es verlassen haben.",
         ["News_130_5"] = "Richten Sie ein schiefes Foto gerade, suchen Sie mit Strg+F im Text, und wählen Sie zwischen hellem und dunklem Aussehen.",
+        ["News_130_6"] = "Die Erkennung ist auf jedes Schriftsystem abgestimmt, der Automatikmodus nennt die gewählte Sprache, und Versionsnummern wie v1.6.5 bleiben heil.",
         ["News_120_1"] = "Machen Sie mit Win+Shift+S einen Screenshot, und Glyfo liest ihn für Sie und lässt den Text in der Zwischenablage. Aus, bis Sie es in den Einstellungen einschalten.",
         ["News_120_2"] = "PDFs lassen sich jetzt wie Bilder öffnen, Seite für Seite.",
         ["News_120_3"] = "Links, E-Mail-Adressen und Telefonnummern im Text bekommen darunter eine Schaltfläche.",

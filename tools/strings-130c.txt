@@ -1,0 +1,32 @@
+ZhHans|News_130_6|识别针对每种文字分别调校，自动模式会说明它选中了哪种语言，v1.6.5 这样的版本号也不会再被认错。
+ZhHant|News_130_6|辨識針對每種文字分別調校，自動模式會說明它選中了哪種語言，v1.6.5 這樣的版本號也不會再被認錯。
+Ja|News_130_6|文字体系ごとに認識を調整しました。自動モードは選んだ言語を表示し、v1.6.5 のようなバージョン番号も崩れません。
+Ko|News_130_6|문자 체계별로 인식을 조정했습니다. 자동 모드는 선택한 언어를 알려주고 v1.6.5 같은 버전 번호도 그대로 유지됩니다.
+De|News_130_6|Die Erkennung ist auf jedes Schriftsystem abgestimmt, der Automatikmodus nennt die gewählte Sprache, und Versionsnummern wie v1.6.5 bleiben heil.
+Fr|News_130_6|La reconnaissance est réglée pour chaque écriture, le mode automatique indique la langue choisie, et les numéros de version comme v1.6.5 restent intacts.
+Es|News_130_6|El reconocimiento se ajusta a cada sistema de escritura, el modo automático indica el idioma elegido y números de versión como v1.6.5 se mantienen intactos.
+Pt|News_130_6|O reconhecimento é ajustado a cada sistema de escrita, o modo automático informa o idioma escolhido e números de versão como v1.6.5 continuam intactos.
+Ru|News_130_6|Распознавание настроено под каждую систему письма, автоматический режим сообщает выбранный язык, а номера версий вроде v1.6.5 остаются целыми.
+It|News_130_6|Il riconoscimento è tarato su ogni sistema di scrittura, la modalità automatica indica la lingua scelta e numeri di versione come v1.6.5 restano intatti.
+Pl|News_130_6|Rozpoznawanie jest dostrojone do każdego systemu pisma, tryb automatyczny podaje wybrany język, a numery wersji takie jak v1.6.5 pozostają nienaruszone.
+Nl|News_130_6|De herkenning is afgestemd op elk schriftsysteem, de automatische modus noemt de gekozen taal en versienummers zoals v1.6.5 blijven intact.
+Cs|News_130_6|Rozpoznávání je vyladěné pro každý systém písma, automatický režim uvede zvolený jazyk a čísla verzí jako v1.6.5 zůstanou celá.
+Tr|News_130_6|Tanıma her yazı sistemine göre ayarlandı, otomatik mod seçtiği dili bildiriyor ve v1.6.5 gibi sürüm numaraları bozulmuyor.
+Sv|News_130_6|Igenkänningen är anpassad till varje skriftsystem, automatläget anger vilket språk det valde och versionsnummer som v1.6.5 förblir hela.
+Da|News_130_6|Genkendelsen er tilpasset hvert skriftsystem, automatisk tilstand oplyser det valgte sprog, og versionsnumre som v1.6.5 forbliver hele.
+Nb|News_130_6|Gjenkjenningen er tilpasset hvert skriftsystem, automatisk modus oppgir språket den valgte, og versjonsnumre som v1.6.5 forblir hele.
+Fi|News_130_6|Tunnistus on säädetty jokaiselle kirjoitusjärjestelmälle, automaattitila kertoo valitsemansa kielen, ja versionumerot kuten v1.6.5 säilyvät ehjinä.
+El|News_130_6|Η αναγνώριση είναι ρυθμισμένη για κάθε σύστημα γραφής, η αυτόματη λειτουργία αναφέρει τη γλώσσα που επέλεξε και αριθμοί έκδοσης όπως το v1.6.5 μένουν ανέπαφοι.
+Hu|News_130_6|A felismerés minden írásrendszerhez külön hangolva van, az automatikus mód megnevezi a választott nyelvet, és az olyan verziószámok, mint a v1.6.5, épen maradnak.
+Ro|News_130_6|Recunoașterea este reglată pentru fiecare sistem de scriere, modul automat indică limba aleasă, iar numerele de versiune precum v1.6.5 rămân intacte.
+Uk|News_130_6|Розпізнавання налаштоване під кожну систему письма, автоматичний режим повідомляє обрану мову, а номери версій на кшталт v1.6.5 лишаються цілими.
+Vi|News_130_6|Nhận dạng được tinh chỉnh cho từng hệ chữ viết, chế độ tự động cho biết ngôn ngữ đã chọn và số phiên bản như v1.6.5 không còn bị đọc sai.
+Th|News_130_6|การรู้จำถูกปรับให้เหมาะกับแต่ละระบบการเขียน โหมดอัตโนมัติจะบอกภาษาที่เลือก และเลขเวอร์ชันอย่าง v1.6.5 จะไม่ผิดเพี้ยน
+Id|News_130_6|Pengenalan disetel untuk tiap sistem tulisan, mode otomatis menyebutkan bahasa yang dipilihnya, dan nomor versi seperti v1.6.5 tetap utuh.
+Ms|News_130_6|Pengecaman ditala untuk setiap sistem tulisan, mod automatik menyatakan bahasa yang dipilihnya, dan nombor versi seperti v1.6.5 kekal utuh.
+Fil|News_130_6|Nakaayon na ang pagkilala sa bawat sistema ng pagsulat, sinasabi ng awtomatikong mode kung anong wika ang pinili nito, at buo pa rin ang mga bersyon na tulad ng v1.6.5.
+Hi|News_130_6|पहचान अब हर लिपि के अनुसार समायोजित है, स्वचालित मोड बताता है कि उसने कौन सी भाषा चुनी, और v1.6.5 जैसे संस्करण नंबर सही बने रहते हैं।
+Bn|News_130_6|শনাক্তকরণ এখন প্রতিটি লিপির জন্য সুরভাবে সাজানো, স্বয়ংক্রিয় মোড কোন ভাষা বেছে নিল তা জানায়, আর v1.6.5-এর মতো সংস্করণ নম্বর অটুট থাকে।
+Ar|News_130_6|تم ضبط التعرف لكل نظام كتابة على حدة، والوضع التلقائي يذكر اللغة التي اختارها، وأرقام الإصدارات مثل v1.6.5 تبقى سليمة.
+He|News_130_6|הזיהוי מכוונן לכל מערכת כתב בנפרד, המצב האוטומטי מציין את השפה שבחר, ומספרי גרסה כמו v1.6.5 נשארים שלמים.
+Fa|News_130_6|تشخیص برای هر نظام نوشتاری جداگانه تنظیم شده است، حالت خودکار زبان انتخابی را اعلام می‌کند و شماره نسخه‌هایی مانند v1.6.5 دست‌نخورده می‌مانند.

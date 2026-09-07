@@ -233,6 +233,7 @@ internal static partial class Strings
         ["News_130_3"] = "Mở hoặc kéo thả nhiều tệp cùng lúc, hoặc đọc trọn một tệp PDF, rồi lưu tất cả thành một tệp hoặc mỗi mục một tệp.",
         ["News_130_4"] = "Tự chọn phím tắt chụp màn hình, và cửa sổ mở lại đúng chỗ và đúng kích thước bạn đã để.",
         ["News_130_5"] = "Chỉnh thẳng tấm ảnh chụp nghiêng, tìm trong văn bản bằng Ctrl+F, và chọn giao diện sáng hoặc tối.",
+        ["News_130_6"] = "Nhận dạng được tinh chỉnh cho từng hệ chữ viết, chế độ tự động cho biết ngôn ngữ đã chọn và số phiên bản như v1.6.5 không còn bị đọc sai.",
         ["News_120_1"] = "Chụp màn hình bằng Win+Shift+S và Glyfo đọc giúp bạn, để lại văn bản trong clipboard. Tính năng tắt cho tới khi bạn bật trong tùy chọn.",
         ["News_120_2"] = "Giờ đây có thể mở PDF như ảnh, từng trang một.",
         ["News_120_3"] = "Liên kết, địa chỉ e-mail và số điện thoại tìm thấy trong văn bản sẽ có nút ở bên dưới.",
