@@ -73,32 +73,70 @@ internal sealed record ScriptProfile(
 /// </remarks>
 internal static class ScriptProfiles
 {
-    // Every profile below carries the same four numbers, which are the ones the pipeline used
-    // globally before there were profiles at all. They are placeholders with a provenance: 20 and 28
-    // were measured on English and Chinese screenshots, 0.30 on rendered CJK at 30px, and 0.80 was
-    // never measured on anything (no NPU here). tools/Measure-Ocr.ps1 exists to replace them
-    // per script; until it has run, "per script" is a shape and not yet a claim.
+    // The values the pipeline used globally, before there were profiles to vary them. They are still
+    // the right answer for a script nobody has measured: 20 and 28 came from English and Chinese
+    // screenshots, so they are at worst a wasted second pass on a script that did not need one, where
+    // guessing lower risks skipping a pass that was needed.
     private const double DefaultRescaleThreshold = 20;
     private const double DefaultTargetWordHeight = 28;
+
+    // Corroborated rather than replaced. tools/ocr-measurements.tsv separates Han cleanly into
+    // within-word gaps of 0.03-0.17 line heights and real spaces of 0.30-0.53, so 0.30 sits in the
+    // valley between them — the same conclusion the original CJK-at-30px measurement reached. Every
+    // other measured script trusts its word boundaries and never consults this at all.
     private const double DefaultSpaceGapRatio = 0.30;
+
+    // Never measured on anything: there is no NPU on the machine this was developed on, so the AI
+    // engine's confidence distribution is unknown for every script including this one.
     private const float DefaultRetryConfidence = 0.80f;
 
     private static readonly ScriptProfile[] Table =
     {
-        Make(WritingScript.Latin, spaceless: false, fullwidth: false, rtl: false),
+        // Latin stops improving early. Across three recognizers, CER runs 0.073-0.101 at 11px and
+        // 0.044-0.058 at 13px, then flat: 17px and 27px are no better than 13px. The global
+        // threshold of 20 therefore bought a second recognition pass on English that had already
+        // reached its ceiling, which is what ImageLoader's own comment found from the other side.
+        // The target clears the plateau with margin rather than sitting on its edge.
+        Make(WritingScript.Latin, spaceless: false, fullwidth: false, rtl: false,
+            rescaleThreshold: 13, targetWordHeight: 20),
+
+        // Unmeasured — no recognizer installed here, so these keep the conservative global values.
+        // Both are alphabetic scripts set with spaces and would very likely behave like Latin, but
+        // "very likely" is not what the rest of this file is built on.
         Make(WritingScript.Cyrillic, spaceless: false, fullwidth: false, rtl: false),
         Make(WritingScript.Greek, spaceless: false, fullwidth: false, rtl: false),
-        Make(WritingScript.Arabic, spaceless: false, fullwidth: false, rtl: true),
+
+        // Arabic fails differently from the others: it does not degrade towards small type, it stops
+        // dead. At 10pt the recognizer returns no words at all, and from 13px upward CER is flat.
+        // So the threshold is about clearing that cliff, and the target is set generously because
+        // the cost of landing just above it is another empty result.
+        Make(WritingScript.Arabic, spaceless: false, fullwidth: false, rtl: true,
+            rescaleThreshold: 14, targetWordHeight: 24),
+
+        // Unmeasured, and unmeasurable here — Windows has no Hebrew OCR capability to install.
         Make(WritingScript.Hebrew, spaceless: false, fullwidth: false, rtl: true),
-        Make(WritingScript.Han, spaceless: true, fullwidth: true, rtl: false),
+
+        // Han keeps improving where Latin has plateaued, which is why the two cannot share a
+        // threshold: Traditional runs 0.426 at 11px, 0.148 at 15px, 0.093 at 19px, and Simplified
+        // 0.407 at 12px through 0.167 at 30px. So the threshold stays where it was. The target is
+        // pulled back from 28 to 24 because past 19px the two disagree — Simplified is still
+        // gaining at 30px while Traditional is slightly worse at 29px than at 19px.
+        Make(WritingScript.Han, spaceless: true, fullwidth: true, rtl: false,
+            rescaleThreshold: 20, targetWordHeight: 24),
+
+        // Unmeasured (no ja-JP recognizer installed). Kana are simpler shapes than Han and may well
+        // tolerate smaller type, but the global values are the safe direction to be wrong in.
         Make(WritingScript.Japanese, spaceless: true, fullwidth: true, rtl: false),
 
-        // Korean is written with spaces, so its boundaries are trustworthy — but its recognizer
-        // still returns fullwidth punctuation, which until these two flags were separated it had no
-        // way of saying. Left as it was for now so that introducing profiles changes no output;
-        // turning fullwidth on here is a behaviour change and lands with the measured numbers.
-        Make(WritingScript.Korean, spaceless: false, fullwidth: false, rtl: false),
+        // Korean is written with spaces, so its boundaries are trustworthy — and it still returns
+        // fullwidth punctuation, which before these two flags were separated it had no way to say.
+        // It was the case that motivated splitting them, and this is the line that acts on it: a
+        // Korean page's "v1．6．5" now gets repaired the way a Chinese one already did, without its
+        // word spacing being second-guessed. The numbers are unmeasured (no ko-KR recognizer here).
+        Make(WritingScript.Korean, spaceless: false, fullwidth: true, rtl: false),
 
+        // Unmeasured, and unreachable through the built-in engine — Windows ships no Thai OCR
+        // capability. Only the AI engine, which detects the script itself, can arrive here.
         Make(WritingScript.Thai, spaceless: true, fullwidth: false, rtl: false),
 
         // A script nobody anticipated keeps the gap measuring and the normalizer, which is correct
@@ -107,9 +145,15 @@ internal static class ScriptProfiles
         Make(WritingScript.Unknown, spaceless: true, fullwidth: true, rtl: false)
     };
 
-    private static ScriptProfile Make(WritingScript script, bool spaceless, bool fullwidth, bool rtl) =>
+    private static ScriptProfile Make(
+        WritingScript script,
+        bool spaceless,
+        bool fullwidth,
+        bool rtl,
+        double rescaleThreshold = DefaultRescaleThreshold,
+        double targetWordHeight = DefaultTargetWordHeight) =>
         new(script, spaceless, fullwidth, rtl,
-            DefaultRescaleThreshold, DefaultTargetWordHeight, DefaultSpaceGapRatio, DefaultRetryConfidence);
+            rescaleThreshold, targetWordHeight, DefaultSpaceGapRatio, DefaultRetryConfidence);
 
     public static ScriptProfile ForScript(WritingScript script) => Table[(int)script];
 
