@@ -103,7 +103,8 @@ $Keep = if ($IncludeAuthored) { @() } else { 'en-us', 'zh-hant', 'zh-hans' }
 $Authored = 'en-us', 'zh-hant', 'zh-hans'
 
 # Partner Center's own limits, checked below rather than trusted.
-$Limit = @{ ShortDescription = 1000; Description = 10000; Feature = 200; Caption = 200; SearchTerm = 30 }
+$Limit = @{ ShortDescription = 1000; Description = 10000; Feature = 200; Caption = 200; SearchTerm = 30
+            SearchTermWords = 21 }   # across all seven, not per term — see the check in the parser
 
 # How many PNGs the listing has. Raising this means uploading the new one to en-us first: the export
 # does carry thirty screenshot slots, but a cell holds a dashboard URL, so an empty slot has nothing
@@ -165,6 +166,18 @@ foreach ($key in @($copy.Keys)) {
     if ($features.Count -ne 10)      { throw "$key : expected 10 features, found $($features.Count)" }
     if ($captions.Count -ne $Shots)  { throw "$key : expected $Shots captions, found $($captions.Count)" }
     if ($terms.Count -ne 7)          { throw "$key : expected 7 search terms, found $($terms.Count)" }
+
+    # "Maximum of 21 words across all seven search terms" is the one Partner Center rule that is not
+    # a per-cell length, so the $Limit table below cannot express it and the importer will not point
+    # at the offending language -- it stops, and the languages after it are silently not written.
+    # Checked here rather than at write time so that a file that would be rejected is never produced.
+    # Languages that count a word per syllable eat the budget fast: Vietnamese ran to 26 on seven
+    # perfectly ordinary phrases.
+    $words = 0
+    foreach ($t in $terms) { $words += @($t -split '\s+' | Where-Object { $_ }).Count }
+    if ($words -gt $Limit.SearchTermWords) {
+        throw "$key : search terms come to $words words, Partner Center allows $($Limit.SearchTermWords) across all seven"
+    }
 
     $copy[$key] = @{
         ShortDescription = $b[0]

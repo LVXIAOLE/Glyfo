@@ -2369,7 +2369,7 @@ niciodată calculatorul. Fără cont, fără telemetrie, fără reclame.
 
 ### Termeni de căutare
 
-`text din imagine`, `captură de ecran în text`, `PDF în text`, `recunoaștere text`, `citire cod QR`, `scaner coduri de bare`, `OCR`
+`text din imagine`, `captură de ecran`, `PDF în text`, `recunoaștere text`, `citire cod QR`, `coduri de bare`, `OCR`
 
 ---
 
@@ -2576,7 +2576,7 @@ Không tài khoản, không thu thập dữ liệu, không quảng cáo.
 
 ### Từ khoá tìm kiếm
 
-`văn bản từ hình ảnh`, `ảnh chụp màn hình sang chữ`, `PDF sang văn bản`, `nhận dạng văn bản`, `đọc mã QR`, `quét mã vạch`, `OCR`
+`ảnh sang chữ`, `chụp màn hình`, `PDF sang văn bản`, `nhận dạng văn bản`, `mã QR`, `mã vạch`, `OCR`
 
 ---
 
