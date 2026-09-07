@@ -1,0 +1,98 @@
+## English (default)
+`image to text`, `screenshot to text`, `pdf to text`, `extract text from picture`, `qr code reader`, `barcode scanner`, `OCR`
+
+## 中文(简体) — Chinese (Simplified)
+`图片转文字`, `截图取字`, `PDF转文字`, `文字识别`, `二维码识别`, `条形码扫描`, `OCR`
+
+## 中文(繁體) — Chinese (Traditional)
+`圖片轉文字`, `螢幕擷取文字`, `PDF 轉文字`, `文字辨識`, `QR Code 掃描`, `條碼掃描`, `OCR`
+
+## 日本語 — Japanese
+`画像から文字`, `スクショ 文字起こし`, `PDF 文字起こし`, `文字認識`, `QRコード 読み取り`, `バーコード読み取り`, `OCR`
+
+## 한국어 — Korean
+`이미지 텍스트 추출`, `화면 캡처 문자인식`, `PDF 텍스트 추출`, `문자 인식`, `QR 코드 스캔`, `바코드 스캔`, `OCR`
+
+## Deutsch — German
+`Text aus Bild`, `Screenshot zu Text`, `PDF in Text umwandeln`, `Texterkennung`, `QR-Code lesen`, `Barcode scannen`, `OCR`
+
+## Français — French
+`texte depuis image`, `capture écran texte`, `PDF en texte`, `reconnaissance texte`, `lire QR code`, `scanner code-barres`, `OCR`
+
+## Español — Spanish
+`texto desde imagen`, `captura a texto`, `PDF a texto`, `reconocimiento de texto`, `leer código QR`, `escanear código de barras`, `OCR`
+
+## Português (Brasil) — Portuguese (Brazil)
+`texto de imagem`, `captura para texto`, `PDF para texto`, `reconhecimento de texto`, `ler QR code`, `escanear código de barras`, `OCR`
+
+## Русский — Russian
+`текст с картинки`, `скриншот в текст`, `PDF в текст`, `распознавание текста`, `сканер QR-кода`, `сканер штрихкодов`, `OCR`
+
+## Italiano — Italian
+`testo da immagine`, `screenshot in testo`, `PDF in testo`, `riconoscimento testo`, `leggere codice QR`, `scanner codice a barre`, `OCR`
+
+## Polski — Polish
+`tekst ze zdjęcia`, `zrzut ekranu na tekst`, `PDF na tekst`, `rozpoznawanie tekstu`, `czytnik kodów QR`, `skaner kodów kreskowych`, `OCR`
+
+## Nederlands — Dutch
+`tekst uit afbeelding`, `schermafbeelding naar tekst`, `PDF naar tekst`, `tekstherkenning`, `QR-code lezen`, `streepjescode scannen`, `OCR`
+
+## Čeština — Czech
+`text z obrázku`, `snímek obrazovky na text`, `PDF do textu`, `rozpoznávání textu`, `čtečka QR kódů`, `skener čárových kódů`, `OCR`
+
+## Türkçe — Turkish
+`görselden metin`, `ekran görüntüsü metne`, `PDF metne çevirme`, `metin tanıma`, `QR kod okuyucu`, `barkod tarayıcı`, `OCR`
+
+## Svenska — Swedish
+`text från bild`, `skärmbild till text`, `PDF till text`, `textigenkänning`, `läsa QR-kod`, `streckkodsläsare`, `OCR`
+
+## Dansk — Danish
+`tekst fra billede`, `skærmbillede til tekst`, `PDF til tekst`, `tekstgenkendelse`, `læs QR-kode`, `stregkodescanner`, `OCR`
+
+## Norsk bokmål — Norwegian
+`tekst fra bilde`, `skjermbilde til tekst`, `PDF til tekst`, `tekstgjenkjenning`, `lese QR-kode`, `strekkodeleser`, `OCR`
+
+## Suomi — Finnish
+`teksti kuvasta`, `kuvakaappaus tekstiksi`, `PDF tekstiksi`, `tekstintunnistus`, `QR-koodin lukija`, `viivakoodinlukija`, `OCR`
+
+## Ελληνικά — Greek
+`κείμενο από εικόνα`, `στιγμιότυπο σε κείμενο`, `PDF σε κείμενο`, `αναγνώριση κειμένου`, `ανάγνωση QR κωδικού`, `σαρωτής barcode`, `OCR`
+
+## Magyar — Hungarian
+`szöveg képből`, `képernyőkép szöveggé`, `PDF szöveggé`, `szövegfelismerés`, `QR-kód olvasó`, `vonalkód olvasó`, `OCR`
+
+## Română — Romanian
+`text din imagine`, `captură de ecran în text`, `PDF în text`, `recunoaștere text`, `citire cod QR`, `scaner coduri de bare`, `OCR`
+
+## Українська — Ukrainian
+`текст із зображення`, `скриншот у текст`, `PDF у текст`, `розпізнавання тексту`, `сканер QR-коду`, `сканер штрихкодів`, `OCR`
+
+## Tiếng Việt — Vietnamese
+`văn bản từ hình ảnh`, `ảnh chụp màn hình sang chữ`, `PDF sang văn bản`, `nhận dạng văn bản`, `đọc mã QR`, `quét mã vạch`, `OCR`
+
+## ไทย — Thai
+`ข้อความจากรูปภาพ`, `ภาพหน้าจอเป็นข้อความ`, `PDF เป็นข้อความ`, `รู้จำข้อความ`, `อ่านคิวอาร์โค้ด`, `สแกนบาร์โค้ด`, `OCR`
+
+## Bahasa Indonesia — Indonesian
+`teks dari gambar`, `tangkapan layar ke teks`, `PDF ke teks`, `pengenalan teks`, `baca kode QR`, `pemindai barcode`, `OCR`
+
+## Bahasa Melayu — Malay
+`teks daripada imej`, `tangkapan skrin ke teks`, `PDF ke teks`, `pengecaman teks`, `baca kod QR`, `pengimbas kod bar`, `OCR`
+
+## Filipino
+`teksto mula sa larawan`, `screenshot sa teksto`, `PDF sa teksto`, `pagkilala ng teksto`, `basahin ang QR code`, `barcode scanner`, `OCR`
+
+## हिन्दी — Hindi
+`छवि से टेक्स्ट`, `स्क्रीनशॉट से टेक्स्ट`, `PDF से टेक्स्ट`, `टेक्स्ट पहचान`, `QR कोड रीडर`, `बारकोड स्कैनर`, `OCR`
+
+## বাংলা — Bengali
+`ছবি থেকে টেক্সট`, `স্ক্রিনশট থেকে টেক্সট`, `PDF থেকে টেক্সট`, `টেক্সট শনাক্তকরণ`, `QR কোড রিডার`, `বারকোড স্ক্যানার`, `OCR`
+
+## العربية — Arabic
+`نص من صورة`, `لقطة شاشة إلى نص`, `تحويل PDF إلى نص`, `التعرف على النص`, `قارئ رمز QR`, `ماسح الباركود`, `OCR`
+
+## עברית — Hebrew
+`טקסט מתמונה`, `צילום מסך לטקסט`, `המרת PDF לטקסט`, `זיהוי טקסט`, `קורא קוד QR`, `סורק ברקוד`, `OCR`
+
+## فارسی — Persian
+`متن از تصویر`, `اسکرین‌شات به متن`, `تبدیل PDF به متن`, `تشخیص متن`, `خواننده کد QR`, `اسکنر بارکد`, `OCR`

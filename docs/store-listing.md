@@ -31,6 +31,25 @@ and cannot be proofread by eye.
 | 屏幕截图 / Screenshots | up to 10 images, caption 200 characters each | **屏幕截图标题** |
 | 搜索词 / Search terms | 7 terms, 30 characters each | **搜索词** |
 
+The seven search terms are one intent each, in the same order in every language, so a missing or
+duplicated intent is visible by reading down the column rather than by knowing the language:
+
+1. picture → text, 2. screenshot → text, 3. **PDF → text**, 4. text recognition,
+5. QR code, 6. barcode, 7. `OCR`.
+
+Each is written in the phrasing that language's own users would type, not translated from the
+English row — `文字识别` and `Texterkennung` are the same slot but neither is a rendering of the
+other. Two rules follow from there being only seven slots. A term that repeats an intent another
+term already covers is waste, which is why "copy text from image" is gone from English and
+`免费OCR` / `無料OCR` / `무료 OCR` from the CJK rows: the price is already on the listing. And a
+term has to be a query someone actually types with the intent of finding *this* app, which is why
+"read aloud" is gone from all thirty-three — it is a real feature, but people searching it want a
+screen reader, and the slot buys far more as PDF. `OCR` is kept in all thirty-three even though it
+is also in the product name; whether Partner Center indexes title words is not documented either
+way, and it is the single highest-volume query in the category, so dropping it is a gamble with no
+upside. Every term must describe something the app really does — Store Policy 10.1 is checked at
+certification.
+
 The same five PNGs go into every language listing — the Store does not share images between them, and
 none of the five has any text burned into it. Captions are per language; they are numbered below in
 upload order. The images are in `docs/store-screenshots/`; `tools/store-shots/` is what produced
@@ -150,8 +169,7 @@ No account, no telemetry, no advertising.
 
 ### 搜索词 — Search terms
 
-`screenshot to text`, `image to text`, `OCR`, `copy text from image`, `qr code reader`,
-`barcode scanner`, `read aloud`
+`image to text`, `screenshot to text`, `pdf to text`, `extract text from picture`, `qr code reader`, `barcode scanner`, `OCR`
 
 ---
 
@@ -242,7 +260,7 @@ Glyfo 不进行任何网络连接。图片、识别出的文字、翻译结果�
 
 ### 搜索词
 
-`截图取字`, `图片转文字`, `文字识别`, `二维码识别`, `条形码扫描`, `OCR`, `免费OCR`
+`图片转文字`, `截图取字`, `PDF转文字`, `文字识别`, `二维码识别`, `条形码扫描`, `OCR`
 
 ---
 
@@ -333,7 +351,7 @@ Glyfo 不進行任何網路連線。圖片、辨識出的文字、翻譯結果�
 
 ### 搜尋詞
 
-`螢幕擷取文字`, `圖片轉文字`, `文字辨識`, `QR Code 掃描`, `條碼掃描`, `OCR`, `免費OCR`
+`圖片轉文字`, `螢幕擷取文字`, `PDF 轉文字`, `文字辨識`, `QR Code 掃描`, `條碼掃描`, `OCR`
 
 ---
 
@@ -430,8 +448,7 @@ Glyfo はネットワークに接続しません。画像、認識したテキ�
 
 ### 検索キーワード
 
-`画像から文字`, `スクショ 文字起こし`, `文字認識`, `QRコード 読み取り`, `バーコード読み取り`,
-`OCR`, `無料OCR`
+`画像から文字`, `スクショ 文字起こし`, `PDF 文字起こし`, `文字認識`, `QRコード 読み取り`, `バーコード読み取り`, `OCR`
 
 ---
 
@@ -530,8 +547,7 @@ Glyfo는 네트워크에 연결하지 않습니다. 이미지, 인식된 텍스�
 
 ### 검색어
 
-`이미지 텍스트 추출`, `화면 캡처 문자인식`, `문자 인식`, `QR 코드 스캔`, `바코드 스캔`,
-`OCR`, `무료 OCR`
+`이미지 텍스트 추출`, `화면 캡처 문자인식`, `PDF 텍스트 추출`, `문자 인식`, `QR 코드 스캔`, `바코드 스캔`, `OCR`
 
 ---
 
@@ -636,8 +652,7 @@ Ihren PC nicht. Kein Konto, keine Telemetrie, keine Werbung.
 
 ### Suchbegriffe
 
-`Text aus Bild`, `Screenshot zu Text`, `Texterkennung`, `QR-Code lesen`, `Barcode scannen`,
-`OCR`, `Vorlesen`
+`Text aus Bild`, `Screenshot zu Text`, `PDF in Text umwandeln`, `Texterkennung`, `QR-Code lesen`, `Barcode scannen`, `OCR`
 
 ---
 
@@ -745,8 +760,7 @@ jamais votre PC. Pas de compte, pas de télémétrie, pas de publicité.
 
 ### Termes de recherche
 
-`texte depuis image`, `capture écran texte`, `reconnaissance texte`, `lire QR code`,
-`scanner code-barres`, `OCR`, `lecture à voix haute`
+`texte depuis image`, `capture écran texte`, `PDF en texte`, `reconnaissance texte`, `lire QR code`, `scanner code-barres`, `OCR`
 
 ---
 
@@ -847,8 +861,7 @@ salen de tu PC. Sin cuenta, sin telemetría y sin publicidad.
 
 ### Términos de búsqueda
 
-`texto desde imagen`, `captura a texto`, `reconocimiento de texto`, `leer código QR`,
-`escanear código de barras`, `OCR`, `leer en voz alta`
+`texto desde imagen`, `captura a texto`, `PDF a texto`, `reconocimiento de texto`, `leer código QR`, `escanear código de barras`, `OCR`
 
 ---
 
@@ -949,8 +962,7 @@ conta, sem telemetria e sem publicidade.
 
 ### Termos de pesquisa
 
-`texto de imagem`, `captura para texto`, `reconhecimento de texto`, `ler QR code`,
-`escanear código de barras`, `OCR`, `ler em voz alta`
+`texto de imagem`, `captura para texto`, `PDF para texto`, `reconhecimento de texto`, `ler QR code`, `escanear código de barras`, `OCR`
 
 ---
 
@@ -1055,8 +1067,7 @@ Glyfo не устанавливает сетевых соединений. Из�
 
 ### Поисковые запросы
 
-`текст с картинки`, `скриншот в текст`, `распознавание текста`, `сканер QR-кода`,
-`сканер штрихкодов`, `OCR`, `читать вслух`
+`текст с картинки`, `скриншот в текст`, `PDF в текст`, `распознавание текста`, `сканер QR-кода`, `сканер штрихкодов`, `OCR`
 
 ---
 
@@ -1161,8 +1172,7 @@ il tuo PC. Nessun account, nessuna telemetria, nessuna pubblicità.
 
 ### Termini di ricerca
 
-`testo da immagine`, `screenshot in testo`, `riconoscimento testo`, `leggere codice QR`,
-`scanner codice a barre`, `OCR`, `lettura ad alta voce`
+`testo da immagine`, `screenshot in testo`, `PDF in testo`, `riconoscimento testo`, `leggere codice QR`, `scanner codice a barre`, `OCR`
 
 ---
 
@@ -1266,8 +1276,7 @@ Twojego komputera. Bez konta, bez telemetrii, bez reklam.
 
 ### Wyszukiwane hasła
 
-`tekst ze zdjęcia`, `zrzut ekranu na tekst`, `rozpoznawanie tekstu`, `czytnik kodów QR`,
-`skaner kodów kreskowych`, `OCR`, `czytanie na głos`
+`tekst ze zdjęcia`, `zrzut ekranu na tekst`, `PDF na tekst`, `rozpoznawanie tekstu`, `czytnik kodów QR`, `skaner kodów kreskowych`, `OCR`
 
 ---
 
@@ -1372,8 +1381,7 @@ nooit. Geen account, geen telemetrie, geen advertenties.
 
 ### Zoektermen
 
-`tekst uit afbeelding`, `schermafbeelding naar tekst`, `tekstherkenning`, `QR-code lezen`,
-`streepjescode scannen`, `OCR`, `voorlezen`
+`tekst uit afbeelding`, `schermafbeelding naar tekst`, `PDF naar tekst`, `tekstherkenning`, `QR-code lezen`, `streepjescode scannen`, `OCR`
 
 ---
 
@@ -1472,8 +1480,7 @@ počítač. Žádný účet, žádná telemetrie, žádná reklama.
 
 ### Hledané výrazy
 
-`text z obrázku`, `snímek obrazovky na text`, `rozpoznávání textu`, `čtečka QR kódů`,
-`skener čárových kódů`, `OCR`, `čtení nahlas`
+`text z obrázku`, `snímek obrazovky na text`, `PDF do textu`, `rozpoznávání textu`, `čtečka QR kódů`, `skener čárových kódů`, `OCR`
 
 ---
 
@@ -1575,8 +1582,7 @@ Hesap yok, telemetri yok, reklam yok.
 
 ### Arama terimleri
 
-`görselden metin`, `ekran görüntüsü metne`, `metin tanıma`, `QR kod okuyucu`,
-`barkod tarayıcı`, `OCR`, `sesli okuma`
+`görselden metin`, `ekran görüntüsü metne`, `PDF metne çevirme`, `metin tanıma`, `QR kod okuyucu`, `barkod tarayıcı`, `OCR`
 
 ---
 
@@ -1677,8 +1683,7 @@ dator. Inget konto, ingen telemetri, inga annonser.
 
 ### Söktermer
 
-`text från bild`, `skärmbild till text`, `textigenkänning`, `läsa QR-kod`,
-`streckkodsläsare`, `OCR`, `läs upp text`
+`text från bild`, `skärmbild till text`, `PDF till text`, `textigenkänning`, `läsa QR-kod`, `streckkodsläsare`, `OCR`
 
 ---
 
@@ -1778,8 +1783,7 @@ din pc. Ingen konto, ingen telemetri, ingen reklamer.
 
 ### Søgetermer
 
-`tekst fra billede`, `skærmbillede til tekst`, `tekstgenkendelse`, `læs QR-kode`,
-`stregkodescanner`, `OCR`, `læs op`
+`tekst fra billede`, `skærmbillede til tekst`, `PDF til tekst`, `tekstgenkendelse`, `læs QR-kode`, `stregkodescanner`, `OCR`
 
 ---
 
@@ -1878,8 +1882,7 @@ PC-en din. Ingen konto, ingen telemetri, ingen annonser.
 
 ### Søkeord
 
-`tekst fra bilde`, `skjermbilde til tekst`, `tekstgjenkjenning`, `lese QR-kode`,
-`strekkodeleser`, `OCR`, `les opp`
+`tekst fra bilde`, `skjermbilde til tekst`, `PDF til tekst`, `tekstgjenkjenning`, `lese QR-kode`, `strekkodeleser`, `OCR`
 
 ---
 
@@ -1981,8 +1984,7 @@ koskaan. Ei tiliä, ei telemetriaa, ei mainoksia.
 
 ### Hakutermit
 
-`teksti kuvasta`, `kuvakaappaus tekstiksi`, `tekstintunnistus`, `QR-koodin lukija`,
-`viivakoodinlukija`, `OCR`, `lue ääneen`
+`teksti kuvasta`, `kuvakaappaus tekstiksi`, `PDF tekstiksi`, `tekstintunnistus`, `QR-koodin lukija`, `viivakoodinlukija`, `OCR`
 
 ---
 
@@ -2095,8 +2097,7 @@ koskaan. Ei tiliä, ei telemetriaa, ei mainoksia.
 
 ### Όροι αναζήτησης
 
-`κείμενο από εικόνα`, `στιγμιότυπο σε κείμενο`, `αναγνώριση κειμένου`, `ανάγνωση QR κωδικού`,
-`σαρωτής barcode`, `OCR`, `ανάγνωση φωναχτά`
+`κείμενο από εικόνα`, `στιγμιότυπο σε κείμενο`, `PDF σε κείμενο`, `αναγνώριση κειμένου`, `ανάγνωση QR κωδικού`, `σαρωτής barcode`, `OCR`
 
 ---
 
@@ -2202,8 +2203,7 @@ hagyják el a gépedet. Nincs fiók, nincs telemetria, nincs hirdetés.
 
 ### Keresési kifejezések
 
-`szöveg képből`, `képernyőkép szöveggé`, `szövegfelismerés`, `QR-kód olvasó`,
-`vonalkód olvasó`, `OCR`, `felolvasás`
+`szöveg képből`, `képernyőkép szöveggé`, `PDF szöveggé`, `szövegfelismerés`, `QR-kód olvasó`, `vonalkód olvasó`, `OCR`
 
 ---
 
@@ -2308,8 +2308,7 @@ niciodată calculatorul. Fără cont, fără telemetrie, fără reclame.
 
 ### Termeni de căutare
 
-`text din imagine`, `captură de ecran în text`, `recunoaștere text`, `citire cod QR`,
-`scaner coduri de bare`, `OCR`, `citire cu voce tare`
+`text din imagine`, `captură de ecran în text`, `PDF în text`, `recunoaștere text`, `citire cod QR`, `scaner coduri de bare`, `OCR`
 
 ---
 
@@ -2412,8 +2411,7 @@ Glyfo не встановлює мережевих з'єднань. Зображ
 
 ### Пошукові терміни
 
-`текст із зображення`, `скриншот у текст`, `розпізнавання тексту`, `сканер QR-коду`,
-`сканер штрихкодів`, `OCR`, `читати вголос`
+`текст із зображення`, `скриншот у текст`, `PDF у текст`, `розпізнавання тексту`, `сканер QR-коду`, `сканер штрихкодів`, `OCR`
 
 ---
 
@@ -2513,8 +2511,7 @@ Không tài khoản, không thu thập dữ liệu, không quảng cáo.
 
 ### Từ khoá tìm kiếm
 
-`văn bản từ hình ảnh`, `ảnh chụp màn hình sang chữ`, `nhận dạng văn bản`, `đọc mã QR`,
-`quét mã vạch`, `OCR`, `đọc to văn bản`
+`văn bản từ hình ảnh`, `ảnh chụp màn hình sang chữ`, `PDF sang văn bản`, `nhận dạng văn bản`, `đọc mã QR`, `quét mã vạch`, `OCR`
 
 ---
 
@@ -2611,8 +2608,7 @@ Glyfo ไม่เปิดการเชื่อมต่อเครือ�
 
 ### คำค้นหา
 
-`ข้อความจากรูปภาพ`, `ภาพหน้าจอเป็นข้อความ`, `รู้จำข้อความ`, `อ่านคิวอาร์โค้ด`,
-`สแกนบาร์โค้ด`, `OCR`, `อ่านออกเสียง`
+`ข้อความจากรูปภาพ`, `ภาพหน้าจอเป็นข้อความ`, `PDF เป็นข้อความ`, `รู้จำข้อความ`, `อ่านคิวอาร์โค้ด`, `สแกนบาร์โค้ด`, `OCR`
 
 ---
 
@@ -2719,8 +2715,7 @@ dari PC Anda. Tanpa akun, tanpa telemetri, tanpa iklan.
 
 ### Istilah pencarian
 
-`teks dari gambar`, `tangkapan layar ke teks`, `pengenalan teks`, `baca kode QR`,
-`pemindai barcode`, `OCR`, `baca dengan suara`
+`teks dari gambar`, `tangkapan layar ke teks`, `PDF ke teks`, `pengenalan teks`, `baca kode QR`, `pemindai barcode`, `OCR`
 
 ---
 
@@ -2828,8 +2823,7 @@ daripada PC anda. Tiada akaun, tiada telemetri, tiada iklan.
 
 ### Istilah carian
 
-`teks daripada imej`, `tangkapan skrin ke teks`, `pengecaman teks`, `baca kod QR`,
-`pengimbas kod bar`, `OCR`, `baca dengan suara`
+`teks daripada imej`, `tangkapan skrin ke teks`, `PDF ke teks`, `pengecaman teks`, `baca kod QR`, `pengimbas kod bar`, `OCR`
 
 ---
 
@@ -2938,8 +2932,7 @@ ang nabasang teksto at ang mga salin. Walang account, walang telemetry, walang a
 
 ### Mga termino sa paghahanap
 
-`teksto mula sa larawan`, `screenshot sa teksto`, `pagkilala ng teksto`, `basahin ang QR code`,
-`barcode scanner`, `OCR`, `basahin nang malakas`
+`teksto mula sa larawan`, `screenshot sa teksto`, `PDF sa teksto`, `pagkilala ng teksto`, `basahin ang QR code`, `barcode scanner`, `OCR`
 
 ---
 
@@ -3040,8 +3033,7 @@ Glyfo कोई नेटवर्क कनेक्शन नहीं बन�
 
 ### खोज शब्द
 
-`छवि से टेक्स्ट`, `स्क्रीनशॉट से टेक्स्ट`, `टेक्स्ट पहचान`, `QR कोड रीडर`,
-`बारकोड स्कैनर`, `OCR`, `ज़ोर से पढ़ें`
+`छवि से टेक्स्ट`, `स्क्रीनशॉट से टेक्स्ट`, `PDF से टेक्स्ट`, `टेक्स्ट पहचान`, `QR कोड रीडर`, `बारकोड स्कैनर`, `OCR`
 
 ---
 
@@ -3143,8 +3135,7 @@ Glyfo কোনো নেটওয়ার্ক সংযোগ তৈরি �
 
 ### অনুসন্ধানের শব্দ
 
-`ছবি থেকে টেক্সট`, `স্ক্রিনশট থেকে টেক্সট`, `টেক্সট শনাক্তকরণ`, `QR কোড রিডার`,
-`বারকোড স্ক্যানার`, `OCR`, `জোরে পড়ুন`
+`ছবি থেকে টেক্সট`, `স্ক্রিনশট থেকে টেক্সট`, `PDF থেকে টেক্সট`, `টেক্সট শনাক্তকরণ`, `QR কোড রিডার`, `বারকোড স্ক্যানার`, `OCR`
 
 ---
 
@@ -3242,8 +3233,7 @@ Glyfo কোনো নেটওয়ার্ক সংযোগ তৈরি �
 
 ### مصطلحات البحث
 
-`نص من صورة`, `لقطة شاشة إلى نص`, `التعرف على النص`, `قارئ رمز QR`,
-`ماسح الباركود`, `OCR`, `قراءة بصوت عال`
+`نص من صورة`, `لقطة شاشة إلى نص`, `تحويل PDF إلى نص`, `التعرف على النص`, `قارئ رمز QR`, `ماسح الباركود`, `OCR`
 
 ---
 
@@ -3340,8 +3330,7 @@ Glyfo אינו יוצר חיבורי רשת. תמונות, טקסט שזוהה �
 
 ### מונחי חיפוש
 
-`טקסט מתמונה`, `צילום מסך לטקסט`, `זיהוי טקסט`, `קורא קוד QR`,
-`סורק ברקוד`, `OCR`, `הקראה בקול`
+`טקסט מתמונה`, `צילום מסך לטקסט`, `המרת PDF לטקסט`, `זיהוי טקסט`, `קורא קוד QR`, `סורק ברקוד`, `OCR`
 
 ---
 
@@ -3447,5 +3436,4 @@ Glyfo هیچ اتصال شبکه‌ای برقرار نمی‌کند. تصویر
 
 ### عبارت‌های جست‌وجو
 
-`متن از تصویر`, `اسکرین‌شات به متن`, `تشخیص متن`, `خواننده کد QR`,
-`اسکنر بارکد`, `OCR`, `خواندن با صدای بلند`
+`متن از تصویر`, `اسکرین‌شات به متن`, `تبدیل PDF به متن`, `تشخیص متن`, `خواننده کد QR`, `اسکنر بارکد`, `OCR`
