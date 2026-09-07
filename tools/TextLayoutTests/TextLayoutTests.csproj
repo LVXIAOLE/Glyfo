@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Run it from the repository root with "dotnet run" pointed at this folder. Exits non-zero when
+    anything disagrees, so it can be wired into a check later.
+
+    Not part of the solution and not referenced by the app: it exists to exercise the one piece of
+    the recognition pipeline that is pure text and therefore checkable without a recognizer, a
+    package deployment or a desktop. Everything else in Glyfo needs all three.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <!-- The shipping file itself, compiled as-is. A copy would only prove the copy works. -->
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="..\..\Glyfo\Services\TextLayout.cs" />
+  </ItemGroup>
+
+</Project>

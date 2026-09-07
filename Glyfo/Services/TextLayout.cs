@@ -219,6 +219,12 @@ internal static class TextLayout
     /// sides — "2O26" becomes "2026". A run of them ("1OO" for "100") is left alone: resolving it
     /// means deciding how far the number extends, and getting that wrong silently corrupts data.
     /// The narrow rule leaves "O2", "H2O" and "3D" untouched, which a greedier one would not.
+    ///
+    /// Both rules used to be blind outside ASCII, which is where the Greek and Cyrillic recognizers
+    /// live: reading the same "2O26" they return Greek omicron (U+039F) or Cyrillic О (U+041E), and
+    /// reading "v1.6.5" they return Greek iota for the 1. The characters are drawn identically, so
+    /// nothing looks wrong until the text is searched or parsed. <see cref="FoldConfusable"/> maps
+    /// them back to their ASCII twin first, and the two rules above then apply unchanged.
     /// </remarks>
     private static void RepairDigitRuns(char[] chars)
     {
@@ -243,10 +249,26 @@ internal static class TextLayout
             {
                 for (var i = start; i < end; i++)
                 {
+                    var betweenDigits = i - 1 >= start && char.IsAsciiDigit(chars[i - 1]) &&
+                                        i + 1 < end && char.IsAsciiDigit(chars[i + 1]);
+                    var beforeIsNumeric = i - 2 >= start && IsSeparator(chars[i - 1]) && char.IsAsciiDigit(chars[i - 2]);
+                    var afterIsNumeric = i + 2 < end && IsSeparator(chars[i + 1]) && char.IsAsciiDigit(chars[i + 2]);
+
+                    // Fold a look-alike letter to ASCII only in the two positions the rules below
+                    // already treat as arithmetic rather than prose. Anywhere else the letter is
+                    // more likely to be the real thing: "ТУ-154" and "АН-24" are how Russian writes
+                    // those model numbers, and rewriting them to Latin would be invisible on screen
+                    // and wrong everywhere else. The separator position is reserved for the
+                    // I-shaped ones, which is the only fold that can reach the "vl.6.5" rule.
+                    var folded = FoldConfusable(chars[i]);
+                    if (folded != '\0' &&
+                        (betweenDigits || (folded is 'I' && (beforeIsNumeric || afterIsNumeric))))
+                    {
+                        chars[i] = folded;
+                    }
+
                     // Between two digits, any of these is a misread digit.
-                    if (chars[i] is 'l' or 'I' or 'O' or 'o' &&
-                        i - 1 >= start && char.IsAsciiDigit(chars[i - 1]) &&
-                        i + 1 < end && char.IsAsciiDigit(chars[i + 1]))
+                    if (chars[i] is 'l' or 'I' or 'O' or 'o' && betweenDigits)
                     {
                         chars[i] = chars[i] is 'O' or 'o' ? '0' : '1';
                         continue;
@@ -256,9 +278,6 @@ internal static class TextLayout
                     {
                         continue;
                     }
-
-                    var beforeIsNumeric = i - 2 >= start && IsSeparator(chars[i - 1]) && char.IsAsciiDigit(chars[i - 2]);
-                    var afterIsNumeric = i + 2 < end && IsSeparator(chars[i + 1]) && char.IsAsciiDigit(chars[i + 2]);
 
                     if (beforeIsNumeric || afterIsNumeric)
                     {
@@ -271,7 +290,57 @@ internal static class TextLayout
         }
     }
 
-    private static bool IsRunCharacter(char c) => char.IsAsciiLetterOrDigit(c) || IsSeparator(c);
+    // The look-alikes count as run characters so that "2" + Greek omicron + "26" is one alphanumeric
+    // run at all. Without them the run ends at the omicron and neither half has a digit on both
+    // sides of anything, so RepairDigitRuns never looks inside.
+    private static bool IsRunCharacter(char c) =>
+        char.IsAsciiLetterOrDigit(c) || IsSeparator(c) || FoldConfusable(c) != '\0';
+
+    /// <summary>
+    /// The Greek and Cyrillic letters drawn identically to an ASCII one, mapped to that one.
+    /// Returns <c>'\0'</c> for everything else.
+    /// </summary>
+    /// <remarks>
+    /// Written as code points on purpose: the whole point of these characters is that spelled out as
+    /// literals the source would look like it maps 'O' to 'O' three times over, and no reviewer —
+    /// and no future edit — could tell the members of a pair apart.
+    ///
+    /// Only the unambiguous shapes are here. Greek Σ, Ω, Λ and Cyrillic Ж, Д, Ь have no ASCII twin,
+    /// so a run containing one is genuinely that script and ends there — which is the behaviour we
+    /// want from <see cref="IsRunCharacter"/>.
+    /// </remarks>
+    private static char FoldConfusable(char c) => c switch
+    {
+        (char)0x0391 => 'A',   // Greek capital alpha
+        (char)0x0392 => 'B',   // beta
+        (char)0x0395 => 'E',   // epsilon
+        (char)0x0396 => 'Z',   // zeta
+        (char)0x0397 => 'H',   // eta
+        (char)0x0399 => 'I',   // iota
+        (char)0x039A => 'K',   // kappa
+        (char)0x039C => 'M',   // mu
+        (char)0x039D => 'N',   // nu
+        (char)0x039F => 'O',   // omicron
+        (char)0x03A1 => 'P',   // rho
+        (char)0x03A4 => 'T',   // tau
+        (char)0x03A5 => 'Y',   // upsilon
+        (char)0x03A7 => 'X',   // chi
+        (char)0x03BF => 'o',   // small omicron
+        (char)0x0410 => 'A',   // Cyrillic capital A
+        (char)0x0412 => 'B',   // Ve
+        (char)0x0415 => 'E',   // Ie
+        (char)0x041A => 'K',   // Ka
+        (char)0x041C => 'M',   // Em
+        (char)0x041D => 'H',   // En
+        (char)0x041E => 'O',   // O
+        (char)0x0420 => 'P',   // Er
+        (char)0x0421 => 'C',   // Es
+        (char)0x0422 => 'T',   // Te
+        (char)0x0423 => 'Y',   // U
+        (char)0x0425 => 'X',   // Ha
+        (char)0x043E => 'o',   // small o
+        _ => '\0'
+    };
 
     private static bool IsSeparator(char c) => c is '.' or '-' or '_';
 
