@@ -1,0 +1,31 @@
+[Latin] Latn | Segoe UI
+The quick brown fox jumps over the lazy dog.
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
+
+[Cyrillic] Cyrl | Segoe UI
+Съешь же ещё этих мягких французских булок.
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
+
+[Greek] Grek | Segoe UI
+Ξεσκεπάζω την ψυχοφθόρα βδελυγμία.
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
+
+[Arabic] Arab | Arial
+مرحبا بالعالم من هذا التطبيق الجديد
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
+
+[Hans] Hans | Microsoft YaHei
+这是一段中文测试文字，用来检查断词与标点。
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
+
+[Hant] Hant | Microsoft JhengHei
+這是一段中文測試文字，用來檢查斷詞與標點。
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
+
+[Japanese] Jpan | Yu Gothic
+これは日本語のテスト文です。分かち書きと句読点を確認します。
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
+
+[Korean] Kore | Malgun Gothic
+이것은 한국어 테스트 문장입니다. 띄어쓰기를 확인합니다.
+v1.6.5 / 2026-09-08 / IPv6 / html5 / 2O26
