@@ -254,6 +254,94 @@ internal static class ScriptProfiles
     }
 
     /// <summary>
+    /// How much of the recognized text is in the script the recognizer was built for, from 0 to 1.
+    /// Characters that carry no script — digits, spaces, ASCII punctuation — are not counted, and
+    /// text made of nothing else scores 1.
+    /// </summary>
+    /// <remarks>
+    /// The signal the auto mode needs, and it is deliberately an asymmetric one. A Latin recognizer
+    /// returns Latin whatever you show it, so its own agreement is always 1 and says nothing. But a
+    /// Chinese or Arabic recognizer can read Latin perfectly well, so when one of those hands back a
+    /// page of ASCII it is reporting something real: that the text it found is not in its script.
+    /// That is the case coverage alone cannot see, because a Chinese recognizer misreading English
+    /// still draws boxes over all of it — measured on an English page at 16pt, en-US covers 0.1803
+    /// of the image and zh-Hant-TW covers 0.1768, which is a difference of nothing.
+    ///
+    /// A page with no script-bearing characters scores 1 rather than 0. Nothing about a page of bare
+    /// numbers argues against any recognizer, and scoring it 0 would let the margin rule decide by
+    /// arrival order alone.
+    /// </remarks>
+    public static double Agreement(string? text, ScriptProfile profile)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return 1;
+        }
+
+        var total = 0;
+        var belonging = 0;
+
+        foreach (var c in text)
+        {
+            var script = ScriptOf(c);
+            if (script is null)
+            {
+                continue;
+            }
+
+            total++;
+            if (Belongs(script.Value, profile.Script))
+            {
+                belonging++;
+            }
+        }
+
+        return total == 0 ? 1 : belonging / (double)total;
+    }
+
+    /// <summary>
+    /// How many characters of the recognizer's own script came back — the absolute count behind
+    /// <see cref="Agreement"/>'s ratio.
+    /// </summary>
+    /// <remarks>
+    /// Needed because a ratio cannot distinguish "read a page of my own script" from "read nothing
+    /// I recognize". Agreement scores both at 1.0: the first because everything belonged, the second
+    /// because nothing was there to belong. That is the right answer for weighting a score, where a
+    /// page of bare digits should count against nobody, and the wrong one for deciding whether a
+    /// result is convincing enough to stop looking at the alternatives.
+    /// </remarks>
+    public static int ScriptEvidence(string? text, ScriptProfile profile)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return 0;
+        }
+
+        var belonging = 0;
+
+        foreach (var c in text)
+        {
+            var script = ScriptOf(c);
+            if (script is not null && Belongs(script.Value, profile.Script))
+            {
+                belonging++;
+            }
+        }
+
+        return belonging;
+    }
+
+    /// <summary>
+    /// Whether a character's script counts as belonging to a recognizer's. Mostly an equality test,
+    /// except where one recognizer legitimately covers several scripts: Japanese is set in kana and
+    /// Han together, and Korean prose carries hanja among the hangul.
+    /// </summary>
+    private static bool Belongs(WritingScript character, WritingScript recognizer) =>
+        character == recognizer ||
+        (recognizer == WritingScript.Japanese && character == WritingScript.Han) ||
+        (recognizer == WritingScript.Korean && character == WritingScript.Han);
+
+    /// <summary>
     /// Which script a character belongs to, or null when it carries none — digits, spaces, ASCII
     /// punctuation and anything else that would appear on a page in any language.
     /// </summary>

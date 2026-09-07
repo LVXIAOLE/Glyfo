@@ -24,7 +24,70 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
     public const string AutoLanguageTag = "*";
 
     /// <summary>Recognizers the auto mode is willing to try, before it gets too slow to be useful.</summary>
-    private const int MaxAutoCandidates = 3;
+    /// <remarks>
+    /// Raised from three once the candidates were deduplicated by script rather than by tag. On a
+    /// machine with Traditional Chinese and Simplified Chinese listed as user languages, three slots
+    /// went to Hant, Hans and Latin — two of which are the same writing system — and the installed
+    /// Arabic recognizer could never be reached. Four distinct scripts costs one more pass in the
+    /// worst case and, with the early exit below, usually fewer than three.
+    /// </remarks>
+    private const int MaxAutoCandidates = 4;
+
+    /// <summary>
+    /// How much of a candidate's score comes from coverage regardless of what script it found.
+    /// </summary>
+    /// <remarks>
+    /// Chosen by replaying tools/ocr-measurements.tsv through the scoring below, for this machine's
+    /// candidate set, rather than picked to taste. Scoring on coverage alone — which is what a floor
+    /// of 1 means, and what this did before — reaches the right recognizer in 16 of 28 measured
+    /// pages, failing every Latin, Cyrillic and Greek one. A floor of 0.5 reaches 27, and is the
+    /// lowest value that still rescues Traditional Chinese at 10pt while leaving en-US a 1.68x margin
+    /// over zh-Hant-HK on the hardest Latin page. Below 0.25 the agreement term starts overpowering
+    /// coverage on pages where coverage was the signal that mattered.
+    /// </remarks>
+    private const double AgreementFloor = 0.5;
+
+    /// <summary>
+    /// Agreement above which the auto mode stops trying further recognizers.
+    /// </summary>
+    private const double EarlyExitAgreement = 0.90;
+
+    /// <summary>
+    /// Mean word length above which a high-agreement result is believed rather than merely noted.
+    /// </summary>
+    /// <remarks>
+    /// The second half of the early exit, and it is not optional. Agreement alone would let a Latin
+    /// recognizer exit early on a Chinese page: it returns Latin whatever it is shown, so it scores
+    /// 1.0 there too. What gives it away is the shape of what it returns — reading ideographs it
+    /// produces a drift of one- and two-character fragments. Measured at 1.31-2.0 characters on Han,
+    /// Japanese and Korean pages against 3.47-3.94 on real Latin ones.
+    ///
+    /// Which is also why Latin is excluded from the early exit entirely (see
+    /// <see cref="CanExitEarly"/>): those two ranges do not separate. A Latin recognizer on a Latin
+    /// page and a Latin recognizer on a Han page both fall inside 3.0-4.12, so no threshold can
+    /// distinguish them and Latin has to earn its win by running the other candidates.
+    /// </remarks>
+    private const double MinTokenLength = 2.5;
+
+    /// <summary>
+    /// Characters of the recognizer's own script that have to come back before a high agreement is
+    /// treated as evidence of anything.
+    /// </summary>
+    /// <remarks>
+    /// The third half of the early exit, added because the first two let the search end on the wrong
+    /// recognizer. <see cref="ScriptProfiles.Agreement"/> scores text with no script-bearing
+    /// characters at 1.0 — deliberately, because bare numbers give nobody grounds to disagree — but
+    /// that is exactly the answer a recognizer gives when it cannot read the page at all. On an
+    /// Arabic page zh-Hant-TW returns "08-09-2026 1.6.5": agreement 1.0 by vacuity, mean token
+    /// length 3.4, and with only those two tests it ended the search as the first candidate, before
+    /// ar-SA was ever tried.
+    ///
+    /// Counting the recognizer's own script instead separates the two cases cleanly. Measured over
+    /// the four probe pages against all seven installed recognizers: a recognizer reading its own
+    /// script returns 25-94 such characters, while every vacuous or mistaken result returns 0-6.
+    /// Twelve is twice the largest wrong answer and a third of the smallest right one.
+    /// </remarks>
+    private const int MinScriptEvidence = 12;
 
     /// <summary>
     /// How much better a lower-priority recognizer has to be before it displaces a higher-priority
@@ -90,18 +153,26 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
 
     /// <summary>
     /// The recognizers the auto mode will try, in the order it will try them: the user's own
-    /// languages first, then English as a Latin fallback. Deduplicated, because "zh-CN" and
-    /// "zh-Hans" both resolve to the same recognizer and running it twice buys nothing.
+    /// languages first, then English as a Latin fallback, then whatever other writing systems are
+    /// installed. One recognizer per writing system.
     /// </summary>
+    /// <remarks>
+    /// Deduplicating by script rather than by language tag is the point. Tag deduplication only
+    /// catches the case where two tags name the same recognizer ("zh-CN" and "zh-Hans"); it does not
+    /// catch two different recognizers for one writing system, and those are exactly what a user's
+    /// language list tends to be full of. Someone listing Traditional and Simplified Chinese spent
+    /// two of three slots on Han, so a page in any third script had no candidate that could read it
+    /// — including, on this machine, an Arabic recognizer that was installed and never once tried.
+    ///
+    /// The third pass is new as well. Running out of user languages used to end the search, which
+    /// left installed recognizers unused on exactly the pages they exist for.
+    /// </remarks>
     public static IReadOnlyList<OcrLanguage> GetAutoCandidates()
     {
-        var installed = new Dictionary<string, OcrLanguage>(StringComparer.OrdinalIgnoreCase);
+        List<Language> installed;
         try
         {
-            foreach (var language in WinOcrEngine.AvailableRecognizerLanguages)
-            {
-                installed[language.LanguageTag] = new OcrLanguage(language.LanguageTag, language.NativeName);
-            }
+            installed = WinOcrEngine.AvailableRecognizerLanguages.ToList();
         }
         catch (Exception)
         {
@@ -109,6 +180,7 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
         }
 
         var candidates = new List<OcrLanguage>();
+        var claimed = new HashSet<WritingScript>();
 
         void TryAdd(string? tag)
         {
@@ -117,10 +189,15 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
                 return;
             }
 
-            if (installed.TryGetValue(tag, out var language) &&
-                !candidates.Any(c => string.Equals(c.Tag, tag, StringComparison.OrdinalIgnoreCase)))
+            var language = installed.FirstOrDefault(
+                l => string.Equals(l.LanguageTag, tag, StringComparison.OrdinalIgnoreCase));
+
+            // A script already spoken for is not worth a second pass: two recognizers for one
+            // writing system disagree about characters, not about whether they can read the page,
+            // and the auto mode is only choosing between pages it can and cannot read.
+            if (language is not null && claimed.Add(ScriptOf(language)))
             {
-                candidates.Add(language);
+                candidates.Add(new OcrLanguage(language.LanguageTag, language.NativeName));
             }
         }
 
@@ -148,8 +225,19 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
         // the user never listed English as one of their languages.
         TryAdd("en-US");
 
+        // Whatever writing systems are left. These rank below the user's own languages because a
+        // recognizer they never asked for is a worse first guess than one they did — but an
+        // installed recognizer is still evidence that its script turns up on this machine.
+        foreach (var language in installed)
+        {
+            TryAdd(language.LanguageTag);
+        }
+
         return candidates;
     }
+
+    private static WritingScript ScriptOf(Language language) =>
+        ScriptProfiles.ForScriptCode(language.Script, rightToLeft: false).Script;
 
     public IReadOnlyList<OcrLanguage> GetAvailableLanguages()
     {
@@ -211,17 +299,24 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
     }
 
     /// <summary>
-    /// Runs each candidate recognizer and keeps the one that claimed the most of the image.
+    /// Runs the candidate recognizers and keeps the one whose answer looks most like the page.
     /// </summary>
     /// <remarks>
-    /// Windows.Media.Ocr reports no confidence, so the pick has to come from the geometry. Covered
-    /// word area is the strongest signal available: a recognizer pointed at the wrong script does
-    /// not merely misread the text, it fails to find whole regions of it. Character count is a
-    /// much weaker discriminator — a Chinese recognizer reading English still emits roughly the
-    /// right number of characters.
+    /// Windows.Media.Ocr reports no confidence, so the pick has to be inferred. Covered word area is
+    /// the obvious signal — a recognizer pointed at the wrong script does not merely misread the
+    /// text, it fails to find whole regions of it — but on its own it is not enough, and it fails in
+    /// a specific direction. Han glyphs fill a square em box while Latin boxes cling to the ink, so
+    /// area systematically favours the Chinese recognizers whatever is on the page. Measured on an
+    /// English page at 16pt: en-US covers 0.1803 of the image, zh-Hant-TW covers 0.1768. At 12pt
+    /// zh-Hant-HK covers <em>more</em> than en-US does. That is the bug this addresses, and it was
+    /// visible as auto mode handing back the Chinese recognizer's reading of an English page.
     ///
-    /// Costs one full pass per candidate, which is why this only runs when the user picks the
-    /// auto entry rather than a specific language.
+    /// So coverage is weighted by how much of what came back is in the recognizer's own script (see
+    /// <see cref="ScriptProfiles.Agreement"/>), which is a signal precisely where coverage is blind.
+    /// Replayed over tools/ocr-measurements.tsv the pick goes from 16 of 28 pages right to 27.
+    ///
+    /// Costs one pass per candidate, which is why it only runs for the auto entry — and why it stops
+    /// as soon as a candidate is convincing enough that the rest cannot matter.
     /// </remarks>
     private async Task<(WinOcrEngine Engine, WinOcrResult Result)> RecognizeWithBestEngineAsync(SoftwareBitmap bitmap)
     {
@@ -242,13 +337,29 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
             }
 
             var result = await engine.RecognizeAsync(bitmap);
-            var score = ScoreCoverage(result);
+            var profile = ProfileFor(engine);
+            var text = RawText(result);
+            var agreement = ScriptProfiles.Agreement(text, profile);
+            var score = ScoreCoverage(result, bitmap) *
+                        (AgreementFloor + ((1 - AgreementFloor) * agreement));
 
             if (bestEngine is null || score > bestScore * AutoWinMargin)
             {
                 bestEngine = engine;
                 bestResult = result;
                 bestScore = score;
+
+                // A recognizer that found enough of its own script, and nearly nothing else, in
+                // words of a plausible length, has already answered the only question the remaining
+                // passes could. Stopping here is what turns the usual Chinese or Arabic page from
+                // three recognitions into one.
+                if (CanExitEarly(profile) &&
+                    agreement >= EarlyExitAgreement &&
+                    ScriptProfiles.ScriptEvidence(text, profile) >= MinScriptEvidence &&
+                    MeanTokenLength(result) >= MinTokenLength)
+                {
+                    break;
+                }
             }
         }
 
@@ -263,10 +374,53 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
         return (bestEngine, bestResult);
     }
 
-    private static double ScoreCoverage(WinOcrResult result) =>
-        result.Lines
+    /// <summary>
+    /// Whether a convincing-looking result from this script can be trusted without running the rest.
+    /// </summary>
+    /// <remarks>
+    /// Everything but Latin. A Latin recognizer reports Latin no matter what it is shown, so its
+    /// agreement is always 1 and cannot vouch for anything; the token-length test is what normally
+    /// catches that, and for Latin it does not separate — 3.47-3.94 characters on real Latin pages
+    /// against 3.0-4.12 on Han, Japanese and Korean ones. With neither test able to speak, Latin
+    /// runs the other candidates and wins on the comparison instead.
+    /// </remarks>
+    private static bool CanExitEarly(ScriptProfile profile) =>
+        profile.Script != WritingScript.Latin && profile.Script != WritingScript.Unknown;
+
+    /// <summary>Covered word area as a fraction of the image, so the figure compares across images.</summary>
+    private static double ScoreCoverage(WinOcrResult result, SoftwareBitmap bitmap)
+    {
+        var area = (double)bitmap.PixelWidth * bitmap.PixelHeight;
+        if (area <= 0)
+        {
+            return 0;
+        }
+
+        return result.Lines
             .SelectMany(line => line.Words)
-            .Sum(word => word.BoundingRect.Width * word.BoundingRect.Height);
+            .Sum(word => word.BoundingRect.Width * word.BoundingRect.Height) / area;
+    }
+
+    /// <summary>The recognized words run together, for judging the text rather than laying it out.</summary>
+    private static string RawText(WinOcrResult result)
+    {
+        var builder = new StringBuilder();
+        foreach (var line in result.Lines)
+        {
+            foreach (var word in line.Words)
+            {
+                builder.Append(word.Text);
+            }
+        }
+
+        return builder.ToString();
+    }
+
+    private static double MeanTokenLength(WinOcrResult result)
+    {
+        var words = result.Lines.SelectMany(line => line.Words).ToList();
+        return words.Count == 0 ? 0 : words.Average(word => (double)word.Text.Length);
+    }
 
     /// <summary>
     /// Runs the recognizer a second time on an enlarged copy when the first pass found only small
@@ -282,7 +436,8 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
     private static async Task<WinOcrResult> TryRescaledPassAsync(
         WinOcrEngine engine, SoftwareBitmap bitmap, WinOcrResult first)
     {
-        var scale = SuggestRescale(bitmap, first, ProfileFor(engine));
+        var profile = ProfileFor(engine);
+        var scale = SuggestRescale(bitmap, first, profile);
         if (scale <= 1)
         {
             return first;
@@ -293,10 +448,21 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
             using var enlarged = await ImageLoader.ScaleAsync(bitmap, scale);
             var second = await engine.RecognizeAsync(enlarged);
 
-            // Windows OCR exposes no confidence, so "found more words" is the only signal
-            // available. Ties go to the enlarged pass, which is the one with more detail to work
-            // from and in practice gets the characters within a word right more often.
-            return WordCount(second) >= WordCount(first) ? second : first;
+            // Windows OCR exposes no confidence, so "found more" is the only signal available —
+            // but what "more" means depends on the writing system. Where words are separated by
+            // spaces, the recognizer is reporting boundaries that are really there and counting
+            // them is meaningful. Where they are not, the split points are the recognizer's own
+            // invention: an enlarged pass can carve one run of Chinese into more pieces without
+            // having read a single extra character, and counting words would call that an
+            // improvement. Characters are what actually got read.
+            //
+            // Ties still go to the enlarged pass, which has more detail to work from and in
+            // practice gets the characters within a word right more often.
+            var better = profile.SpacelessWords
+                ? CharCount(second) >= CharCount(first)
+                : WordCount(second) >= WordCount(first);
+
+            return better ? second : first;
         }
         catch (Exception)
         {
@@ -313,6 +479,9 @@ public sealed class WindowsMediaOcrEngine : IOcrEngine
             profile.TargetWordHeight);
 
     private static int WordCount(WinOcrResult result) => result.Lines.Sum(line => line.Words.Count);
+
+    private static int CharCount(WinOcrResult result) =>
+        result.Lines.Sum(line => line.Words.Sum(word => word.Text.Length));
 
     private WinOcrEngine GetOrCreateEngine(string? languageTag)
     {
