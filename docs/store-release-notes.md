@@ -14,8 +14,16 @@ The first bullet is the one about recognition itself. It is last in the in-app n
 deciding whether the update is worth caring about, and accuracy is the reason the app exists.
 
 This is deliberately **not** part of `store-listing.md`. That file's sections are keyed by position
-by `tools/Fill-ListingCsv.ps1`, which throws if the count is wrong, and the release-notes field is
-not in the listing CSV export at all. Keeping it here leaves that contract untouched.
+by `tools/Fill-ListingCsv.ps1`, which throws if the count is wrong; the bullets below are a flat
+list whose length is free to change from one release to the next. Keeping it here leaves that
+contract untouched.
+
+The field does not have to be pasted by hand. `ReleaseNotes` is a row in the Partner Center
+listing CSV export — empty on a fresh export — so `tools/Fill-ReleaseNotesCsv.ps1` writes all 33
+sections into a copy of that export and the whole thing goes in as one import. Note the headings
+here do **not** match `store-listing.md`'s: the two Chinese sections carry no English name at all,
+and the tail is `Portuguese` and `Norwegian` rather than `Portuguese (Brazil)` and `Norwegian`.
+That is why the two scripts keep separate tables instead of sharing one.
 
 Arabic, Hebrew and Persian carry no directional control characters, for the same reason as in
 `store-listing.md`: every line begins with a word in its own script, so first-strong bidi detection
