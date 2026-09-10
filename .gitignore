@@ -60,3 +60,8 @@ $RECYCLE.BIN/
 # docs/store-screenshots/ and are copied there by hand, so a half-finished run cannot overwrite
 # what was uploaded to the Store.
 tools/store-shots/out/
+
+# The promotion playbook. Deliberately not published: it contains modmail drafts,
+# per-channel risk notes and correspondence with subreddit moderators. All of it is
+# honest, and all of it reads badly out of context. Kept locally, not in a public repo.
+docs/launch/
